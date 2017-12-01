@@ -9,6 +9,13 @@ import (
 	"strings"
 )
 
+func InputCharacters() (all []string) {
+	for _, c := range InputString() {
+		all = append(all, string(c))
+	}
+	return all
+}
+
 func InputBytes() []byte {
 	content, err := ioutil.ReadFile("input.txt")
 	if err != nil {
