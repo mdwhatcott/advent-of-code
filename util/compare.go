@@ -1,22 +1,24 @@
 package util
 
-func Min(a, b int) int {
-	if a < b {
-		return a
+func Min(all ...int) int {
+	min := 0xffffffff
+	for _, a := range all {
+		if a < min {
+			min = a
+		}
 	}
-	return b
+	return min
 }
 
-func Max(a, b int) int {
-	if a > b {
-		return a
+func Max(all ...int) (max int) {
+	for _, a := range all {
+		if a > max {
+			max = a
+		}
 	}
-	return b
+	return max
 }
 
-func MinMax(a, b int) (int, int) {
-	if a < b {
-		return a, b
-	}
-	return b, a
+func MinMax(all ...int) (int, int) {
+	return Min(all...), Max(all...)
 }
