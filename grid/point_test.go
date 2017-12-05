@@ -41,7 +41,7 @@ func (this *PointFixture) TestNeighbors4() {
 	this.So(eight[3], should.Resemble, Point{x: 0 + 0, y: 0 - 1}) // bottom
 
 	this.So(eight[4], should.Resemble, Point{x: 0 + 1, y: 0 + 1}) // top-right
-	this.So(eight[5], should.Resemble, Point{x: 0 - 1, y: 0 - 1}) // bottom-left
+	this.So(eight[5], should.Resemble, Point{x: 0 - 1, y: 0 + 1}) // top-left
 	this.So(eight[6], should.Resemble, Point{x: 0 + 1, y: 0 - 1}) // bottom-right
-	this.So(eight[7], should.Resemble, Point{x: 0 - 1, y: 0 + 1}) // top-left
+	this.So(eight[7], should.Resemble, Point{x: 0 - 1, y: 0 - 1}) // bottom-left
 }
