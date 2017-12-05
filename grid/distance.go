@@ -2,6 +2,10 @@ package grid
 
 import "math"
 
+func ManhattanDistance(p, q Point) float64 {
+	return CityBlockDistance(p, q)
+}
+
 func CityBlockDistance(p, q Point) float64 {
 	x, y := diff(p, q)
 	return math.Abs(x) + math.Abs(y)
