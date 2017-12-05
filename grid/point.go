@@ -16,6 +16,10 @@ func NewPoint(x, y float64) Point {
 func (this Point) Y() float64 { return this.y }
 func (this Point) X() float64 { return this.x }
 
+func (this Point) Move(d Direction) Point {
+	return NewPoint(this.x+d.dx, this.y+d.dy)
+}
+
 func (this Point) Offset(x, y float64) Point {
 	return NewPoint(this.x+x, this.y+y)
 }
