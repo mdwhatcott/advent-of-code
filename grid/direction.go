@@ -24,4 +24,17 @@ var (
 
 	Neighbors4 = []Direction{Right, Left, Up, Down}
 	Neighbors8 = append(Neighbors4, []Direction{TopRight, TopLeft, BottomRight, BottomLeft}...)
+
+	Clockwise = map[Direction]Direction{
+		Down:  Left,
+		Left:  Up,
+		Up:    Right,
+		Right: Down,
+	}
+	CounterClockwise = map[Direction]Direction{
+		Down:  Right,
+		Right: Up,
+		Up:    Left,
+		Left:  Down,
+	}
 )
