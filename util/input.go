@@ -1,7 +1,6 @@
 package util
 
 import (
-	"bufio"
 	"bytes"
 	"io/ioutil"
 	"log"
@@ -37,6 +36,6 @@ func InputLines() []string {
 	return strings.Split(InputString(), "\n")
 }
 
-func InputScanner() *bufio.Scanner {
-	return bufio.NewScanner(bytes.NewReader(InputBytes()))
+func InputScanner() *Scanner {
+	return NewScanner(bytes.NewReader(InputBytes()))
 }
