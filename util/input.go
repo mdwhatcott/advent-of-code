@@ -28,6 +28,10 @@ func InputInt() int {
 	return i
 }
 
+func InputInts(sep string) []int {
+	return ParseInts(strings.Split(InputString(), sep))
+}
+
 func InputString() string {
 	return strings.TrimSpace(string(InputBytes()))
 }
