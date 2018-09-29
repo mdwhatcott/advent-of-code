@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"io/ioutil"
 	"log"
+	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -16,7 +18,14 @@ func InputCharacters() (all []string) {
 }
 
 func InputBytes() []byte {
-	content, err := ioutil.ReadFile("input.txt")
+	_, file, _, _ := runtime.Caller(0)
+	this := file
+	for caller := 1; file == this; caller++ {
+		_, file, _, _ = runtime.Caller(caller)
+	}
+	dir := filepath.Dir(file)
+	input := filepath.Join(dir, "input.txt")
+	content, err := ioutil.ReadFile(input)
 	if err != nil {
 		log.Panic(err)
 	}
