@@ -1,0 +1,7 @@
+cd day01; rm -f ./day01; go build && ./day01
+
+Ending position: -126,165
+Distance to ending position: 291
+
+Position first visited twice: 16,143
+Distance to position first visited twice: 159
