@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"bytes"
 
-	"github.com/mdwhatcott/advent-of-code-2016/util/assembunny"
-	"github.com/mdwhatcott/advent-of-code-2016/util/lcd"
+	"advent/2016/util/assembunny"
+	"advent/2016/util/lcd"
 	"advent/lib/util"
 )
 
