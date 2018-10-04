@@ -2,8 +2,6 @@ package day17
 
 import (
 	"container/ring"
-	"fmt"
-	"time"
 
 	"advent/lib/util"
 )
@@ -24,29 +22,16 @@ func Part1() interface{} {
 	return circle.Next().Value
 }
 
-func Part2() interface{} {
-	now := time.Now()
-	length := 50000000
-	circle := make([]int, 1, length)
+// https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd5yek/
+func Part2() (out int) {
 	steps := util.InputInt()
-	current := 0
-	for x := 1; x < length+1; x++ {
-		if x%100000 == 0 {
-			fmt.Println(x, time.Since(now))
-			now = time.Now()
+
+	for current, i := 0, 1; i <= 50000000+1; i++ {
+		next := (current+steps)%i + 1
+		if next == 1 {
+			out = i
 		}
-		insert := advance(current, len(circle), steps) + 1
-		current = insert
-
-		circle = append(circle, 0)
-		copy(circle[insert+1:], circle[insert:])
-		circle[insert] = x
-
+		current = next
 	}
-	fmt.Println(circle)
-	return circle[current+1]
-}
-
-func advance(current, length, steps int) int {
-	return (current + steps) % length
+	return out
 }
