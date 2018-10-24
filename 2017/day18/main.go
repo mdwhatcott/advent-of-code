@@ -1,7 +1,11 @@
 package day18
 
+import "advent/lib/util"
+
 func Part1() int {
-	return 0
+	interpreter := NewInterpreter(util.InputLines())
+	interpreter.Run()
+	return interpreter.recovered
 }
 
 func Part2() int {
