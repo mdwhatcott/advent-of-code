@@ -6,7 +6,7 @@ import (
 	"advent/lib/util"
 )
 
-type Interpreter struct {
+type SoundBlaster struct {
 	registers map[string]int
 	program   []string
 	cursor    int
@@ -14,35 +14,35 @@ type Interpreter struct {
 	recovered int
 }
 
-func NewInterpreter(program []string) *Interpreter {
-	return &Interpreter{
+func NewSoundBlaster(program []string) *SoundBlaster {
+	return &SoundBlaster{
 		program:   program,
 		registers: make(map[string]int),
 	}
 }
 
-func (this *Interpreter) Sound() int {
+func (this *SoundBlaster) Sound() int {
 	return this.sound
 }
 
-func (this *Interpreter) Run() {
+func (this *SoundBlaster) Run() {
 	for this.cursorInProgram() && this.recovered == 0 {
 		this.cursor = this.execute(this.program[this.cursor])
 	}
 }
 
-func (this *Interpreter) cursorInProgram() bool {
+func (this *SoundBlaster) cursorInProgram() bool {
 	return this.cursor >= 0 && this.cursor < len(this.program)
 }
 
-func (this *Interpreter) resolve(label string) int {
+func (this *SoundBlaster) resolve(label string) int {
 	value, found := this.registers[label]
 	if found {
 		return value
 	}
 	return util.ParseInt(label)
 }
-func (this *Interpreter) execute(instruction string) int {
+func (this *SoundBlaster) execute(instruction string) int {
 	fields := strings.Fields(instruction)
 	switch fields[0] {
 	case "snd":
