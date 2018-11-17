@@ -1,9 +1,24 @@
 package day19
 
-func Part1() int {
-	return 0
+import (
+	"strings"
+
+	"advent/lib/util"
+)
+
+func Part1() string {
+	turtle := NewTurtle(strings.Split(string(util.InputBytes()), "\n"))
+	for turtle.Orient() {
+		turtle.Move()
+	}
+	return turtle.sequence
 }
 
-func Part2() int {
-	return 0
+func Part2() (steps int) {
+	turtle := NewTurtle(strings.Split(string(util.InputBytes()), "\n"))
+	for turtle.Orient() {
+		turtle.Move()
+		steps++
+	}
+	return steps
 }
