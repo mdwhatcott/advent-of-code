@@ -9,6 +9,9 @@ func NewDirection(dx, dy float64) Direction {
 func (this Direction) Dx() float64 { return this.dx }
 func (this Direction) Dy() float64 { return this.dy }
 
+func (this Direction) TurnRight() Direction { return Clockwise[this] }
+func (this Direction) TurnLeft() Direction  { return CounterClockwise[this] }
+
 var (
 	Static Direction
 
