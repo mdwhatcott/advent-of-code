@@ -154,11 +154,10 @@ func TestDay20(t *testing.T) {
 	AssertEqual(t, day20.Part2(), 448)
 }
 func TestDay21(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day21.Part1(), 0)
-	AssertEqual(t, day21.Part2(), 0)
+	AssertEqual(t, day21.Part1(), 110)
+	AssertEqual(t, day21.Part2(), 1277716)
 }
 func TestDay22(t *testing.T) {
 	t.Skip("Not implemented")
