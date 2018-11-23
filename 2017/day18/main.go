@@ -10,7 +10,7 @@ func Part1() int {
 
 func Part2() int {
 	var (
-		a, b = make(chan int, 100), make(chan int, 100)
+		a, b = make(chan int, 1000), make(chan int, 1000)
 		zero = NewAgent(0, a, b, util.InputLines())
 		one  = NewAgent(1, b, a, util.InputLines())
 	)
