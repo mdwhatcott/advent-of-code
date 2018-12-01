@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"advent/lib/util"
+
 	"github.com/smartystreets/assertions/assert"
 	"github.com/smartystreets/assertions/should"
 )
