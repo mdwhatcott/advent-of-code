@@ -33,8 +33,8 @@ import (
 func TestDay01(t *testing.T) {
 	t.Parallel()
 
-	AssertEqual(t, day01.Part1(), 0)
-	AssertEqual(t, day01.Part2(), 0)
+	AssertEqual(t, day01.Part1(), 406)
+	AssertEqual(t, day01.Part2(), 312)
 }
 func TestDay02(t *testing.T) {
 	t.Skip("Not implemented")
