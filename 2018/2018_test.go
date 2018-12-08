@@ -57,8 +57,8 @@ func TestDay04(t *testing.T) {
 func TestDay05(t *testing.T) {
 	t.Parallel()
 
-	AssertEqual(t, day05.Part1(), nil)
-	AssertEqual(t, day05.Part2(), nil)
+	AssertEqual(t, day05.Part1(), 11264)
+	AssertEqual(t, day05.Part2(), 4552)
 }
 func TestDay06(t *testing.T) {
 	t.Parallel()

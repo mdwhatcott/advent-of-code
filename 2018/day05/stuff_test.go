@@ -3,6 +3,7 @@ package day05
 import (
 	"testing"
 
+	"github.com/smartystreets/assertions/should"
 	"github.com/smartystreets/gunit"
 )
 
@@ -14,8 +15,13 @@ type StuffFixture struct {
     *gunit.Fixture
 }
 
-func (this *StuffFixture) Setup() {
+const toy = "dabAcCaCBAcCcaDA"
+const toy2 = "yZzY" + "dabAcCaCBAcCcaDA"
+
+func (this *StuffFixture) TestReaction() {
+	this.So(react(toy2), should.Equal, "dabCBAcaDA")
 }
 
-func (this *StuffFixture) Test() {
+func (this *StuffFixture) TestAggressiveReaction() {
+	this.So(reactAggressive(toy), should.Equal, "daDA")
 }
