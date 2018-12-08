@@ -43,163 +43,140 @@ func TestDay02(t *testing.T) {
 	AssertEqual(t, day02.Part2(), "xretqmmonskvzupalfiwhcfdb")
 }
 func TestDay03(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day03.Part1(), 0)
-	AssertEqual(t, day03.Part2(), 0)
+	AssertEqual(t, day03.Part1(), 111266)
+	AssertEqual(t, day03.Part2(), nil)
 }
 func TestDay04(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day04.Part1(), 0)
-	AssertEqual(t, day04.Part2(), 0)
+	AssertEqual(t, day04.Part1(), nil)
+	//AssertEqual(t, day04.Part2(), nil)
 }
 func TestDay05(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day05.Part1(), 0)
-	AssertEqual(t, day05.Part2(), 0)
+	AssertEqual(t, day05.Part1(), nil)
+	AssertEqual(t, day05.Part2(), nil)
 }
 func TestDay06(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day06.Part1(), 0)
-	AssertEqual(t, day06.Part2(), 0)
+	AssertEqual(t, day06.Part1(), nil)
+	AssertEqual(t, day06.Part2(), nil)
 }
 func TestDay07(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day07.Part1(), 0)
-	AssertEqual(t, day07.Part2(), 0)
+	AssertEqual(t, day07.Part1(), nil)
+	AssertEqual(t, day07.Part2(), nil)
 }
 func TestDay08(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day08.Part1(), 0)
-	AssertEqual(t, day08.Part2(), 0)
+	AssertEqual(t, day08.Part1(), nil)
+	AssertEqual(t, day08.Part2(), nil)
 }
 func TestDay09(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day09.Part1(), 0)
-	AssertEqual(t, day09.Part2(), 0)
+	AssertEqual(t, day09.Part1(), nil)
+	AssertEqual(t, day09.Part2(), nil)
 }
 func TestDay10(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day10.Part1(), 0)
-	AssertEqual(t, day10.Part2(), 0)
+	AssertEqual(t, day10.Part1(), nil)
+	AssertEqual(t, day10.Part2(), nil)
 }
 func TestDay11(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day11.Part1(), 0)
-	AssertEqual(t, day11.Part2(), 0)
+	AssertEqual(t, day11.Part1(), nil)
+	AssertEqual(t, day11.Part2(), nil)
 }
 func TestDay12(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day12.Part1(), 0)
-	AssertEqual(t, day12.Part2(), 0)
+	AssertEqual(t, day12.Part1(), nil)
+	AssertEqual(t, day12.Part2(), nil)
 }
 func TestDay13(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day13.Part1(), 0)
-	AssertEqual(t, day13.Part2(), 0)
+	AssertEqual(t, day13.Part1(), nil)
+	AssertEqual(t, day13.Part2(), nil)
 }
 func TestDay14(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day14.Part1(), 0)
-	AssertEqual(t, day14.Part2(), 0)
+	AssertEqual(t, day14.Part1(), nil)
+	AssertEqual(t, day14.Part2(), nil)
 }
 func TestDay15(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day15.Part1(), 0)
-	AssertEqual(t, day15.Part2(), 0)
+	AssertEqual(t, day15.Part1(), nil)
+	AssertEqual(t, day15.Part2(), nil)
 }
 func TestDay16(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day16.Part1(), 0)
-	AssertEqual(t, day16.Part2(), 0)
+	AssertEqual(t, day16.Part1(), nil)
+	AssertEqual(t, day16.Part2(), nil)
 }
 func TestDay17(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day17.Part1(), 0)
-	AssertEqual(t, day17.Part2(), 0)
+	AssertEqual(t, day17.Part1(), nil)
+	AssertEqual(t, day17.Part2(), nil)
 }
 func TestDay18(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day18.Part1(), 0)
-	AssertEqual(t, day18.Part2(), 0)
+	AssertEqual(t, day18.Part1(), nil)
+	AssertEqual(t, day18.Part2(), nil)
 }
 func TestDay19(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day19.Part1(), 0)
-	AssertEqual(t, day19.Part2(), 0)
+	AssertEqual(t, day19.Part1(), nil)
+	AssertEqual(t, day19.Part2(), nil)
 }
 func TestDay20(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day20.Part1(), 0)
-	AssertEqual(t, day20.Part2(), 0)
+	AssertEqual(t, day20.Part1(), nil)
+	AssertEqual(t, day20.Part2(), nil)
 }
 func TestDay21(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day21.Part1(), 0)
-	AssertEqual(t, day21.Part2(), 0)
+	AssertEqual(t, day21.Part1(), nil)
+	AssertEqual(t, day21.Part2(), nil)
 }
 func TestDay22(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day22.Part1(), 0)
-	AssertEqual(t, day22.Part2(), 0)
+	AssertEqual(t, day22.Part1(), nil)
+	AssertEqual(t, day22.Part2(), nil)
 }
 func TestDay23(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day23.Part1(), 0)
-	AssertEqual(t, day23.Part2(), 0)
+	AssertEqual(t, day23.Part1(), nil)
+	AssertEqual(t, day23.Part2(), nil)
 }
 func TestDay24(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day24.Part1(), 0)
-	AssertEqual(t, day24.Part2(), 0)
+	AssertEqual(t, day24.Part1(), nil)
+	AssertEqual(t, day24.Part2(), nil)
 }
 func TestDay25(t *testing.T) {
-	t.Skip("Not implemented")
 	t.Parallel()
 
-	AssertEqual(t, day25.Part1(), 0)
-	AssertEqual(t, day25.Part2(), 0)
+	AssertEqual(t, day25.Part1(), nil)
+	AssertEqual(t, day25.Part2(), nil)
 }
