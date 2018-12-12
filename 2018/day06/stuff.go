@@ -8,9 +8,7 @@ import (
 	"advent/lib/util"
 )
 
-func calculateAreaWithinRadius(points []grid.Point, radius float64) int {
-	var within int
-	var without int
+func calculateAreaWithinRadius(points []grid.Point, radius float64) (within int) {
 	box := NewBoundingBox(points)
 	for x := box.minX; x <= box.maxX; x++ {
 		for y := box.minY; y <= box.maxY; y++ {
@@ -21,8 +19,6 @@ func calculateAreaWithinRadius(points []grid.Point, radius float64) int {
 			}
 			if sum < radius {
 				within++
-			} else {
-				without++
 			}
 		}
 	}
