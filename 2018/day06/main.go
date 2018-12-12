@@ -1,9 +1,11 @@
 package day06
 
-func Part1() interface{} {
-	return nil
+import "advent/lib/util"
+
+func Part1() int {
+	return int(calculateLargestFiniteArea(parsePoints(util.InputString())))
 }
 
-func Part2() interface{} {
-	return nil
+func Part2() int {
+	return calculateAreaWithinRadius(parsePoints(util.InputString()), 10000)
 }
