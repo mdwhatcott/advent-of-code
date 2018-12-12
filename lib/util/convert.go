@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+func ParseFloat(value string) float64 {
+	parsed, _ := strconv.ParseFloat(value, 64)
+	return parsed
+}
+
 func ParseInt(value string) int {
 	parsed, _ := strconv.Atoi(value)
 	return parsed
