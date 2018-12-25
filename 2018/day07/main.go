@@ -9,5 +9,7 @@ func Part1() interface{} {
 }
 
 func Part2() interface{} {
-	return nil
+	sorter := NewConcurrentTopologicalSort(util.InputString(), 5, 60)
+	sorter.Sort()
+	return sorter.DurationSeconds()
 }

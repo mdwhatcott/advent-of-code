@@ -1,7 +1,6 @@
 package day07
 
 import (
-	"sort"
 	"strings"
 
 	"advent/lib/util"
@@ -10,35 +9,56 @@ import (
 type SortReference struct {
 	forward  map[string][]string
 	backward map[string][]string
-	last     string
+
+	workers      []*Worker
+	taskSeconds  int
+	totalSeconds int
 }
 
 type TopologicalSort struct {
 	SortReference
-	stack *Stack
+	stack *SortedStack
 	order string
 }
 
 func NewTopologicalSort(input string) *TopologicalSort {
 	this := new(TopologicalSort)
+	this.taskSeconds = 0
+	this.workers = append(this.workers, NewWorker(0))
 	this.forward, this.backward = parseRelations(input)
-	this.last = findLast(this.forward)
-	this.stack = NewStack()
+	this.stack = NewSortedStack()
+	return this
+}
+
+func NewConcurrentTopologicalSort(input string, workers int, taskSeconds int) *TopologicalSort {
+	this := NewTopologicalSort(input)
+	for ; workers > 1; workers-- {
+		this.workers = append(this.workers, NewWorker(taskSeconds))
+	}
 	return this
 }
 
 func (this *TopologicalSort) Sort() string {
-	this.stack.Push(reverse(findFirsts(this.forward))...)
+	this.stack.Push(findFirsts(this.forward)...)
 
-	for this.stack.Size() > 0 {
-		pop := this.stack.Pop()
-		this.order += pop
-		for _, next := range reverse(this.forward[pop]) {
-			if this.isReady(next) {
-				this.stack.Push(next)
+	for len(this.order) < len(this.forward)+1 {
+		for _, worker := range this.workers {
+			finished := worker.DoWork()
+			this.order += finished
+
+			for _, next := range this.forward[finished] {
+				if this.isReady(next) {
+					this.stack.Push(next)
+				}
+			}
+
+			if worker.IsIdle() && this.stack.Size() > 0 {
+				worker.Accept(this.stack.Pop())
 			}
 		}
+		this.totalSeconds++
 	}
+
 	return this.order
 }
 
@@ -49,6 +69,19 @@ func (this *TopologicalSort) isReady(next string) bool {
 func (this *TopologicalSort) hasUnsatisfiedPrerequisite(next string) bool {
 	for _, prerequisite := range this.backward[next] {
 		if !strings.Contains(this.order, prerequisite) {
+			return true
+		}
+	}
+	return false
+}
+
+func (this *TopologicalSort) DurationSeconds() int {
+	return this.totalSeconds
+}
+
+func (this *TopologicalSort) anyWorkersBusy() bool {
+	for _, worker := range this.workers {
+		if !worker.IsIdle() {
 			return true
 		}
 	}
@@ -70,18 +103,6 @@ func findFirsts(steps map[string][]string) (firsts []string) {
 	return firsts
 }
 
-func findLast(steps map[string][]string) (last string) {
-	for _, values := range steps {
-		for _, value := range values {
-			_, found := steps[value]
-			if !found {
-				return value
-			}
-		}
-	}
-	panic("Couldn't find ending node.")
-}
-
 func parseRelations(input string) (forward, backward map[string][]string) {
 	forward = make(map[string][]string)
 	backward = make(map[string][]string)
@@ -94,9 +115,4 @@ func parseRelations(input string) (forward, backward map[string][]string) {
 		backward[after] = append(backward[after], before)
 	}
 	return forward, backward
-}
-
-func reverse(s []string) []string {
-	sort.Sort(sort.Reverse(sort.StringSlice(s)))
-	return s
 }
