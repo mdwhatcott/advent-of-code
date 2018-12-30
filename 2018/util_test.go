@@ -14,7 +14,7 @@ func AssertEqual(t *testing.T, actual, expected interface{}) {
 
 const assertFormat = `
 At:   %s:%d
-Got:  [%v]f
+Got:  [%v]
 Want: [%v]
 `
 
