@@ -28,12 +28,35 @@ func (haystack Strings) Min() (min string) {
 	return min
 }
 
+func (this Strings) Unpack1() string {
+	return this.Get(0)
+}
+func (this Strings) Unpack2() (string, string) {
+	return this.Get(0), this.Get(1)
+}
+func (this Strings) Unpack3() (string, string, string) {
+	return this.Get(0), this.Get(1), this.Get(2)
+}
+func (this Strings) Unpack4() (string, string, string, string) {
+	return this.Get(0), this.Get(1), this.Get(2), this.Get(3)
+}
+func (this Strings) Unpack5() (string, string, string, string, string) {
+	return this.Get(0), this.Get(1), this.Get(2), this.Get(3), this.Get(4)
+}
+func (this Strings) Get(index int) string {
+	if len(this) > 0 && index < len(this) {
+		return this[index]
+	} else {
+		return ""
+	}
+}
+
 //////////////////////////////////////////////////////////
 
 type Ints []int
 
-func (haystack Ints) Index(needle int) int {
-	for i, straw := range haystack {
+func (this Ints) Index(needle int) int {
+	for i, straw := range this {
 		if straw == needle {
 			return i
 		}
@@ -41,8 +64,8 @@ func (haystack Ints) Index(needle int) int {
 	return -1
 }
 
-func (haystack Ints) Contains(needle int) bool {
-	return haystack.Index(needle) > -1
+func (this Ints) Contains(needle int) bool {
+	return this.Index(needle) > -1
 }
 
 
@@ -50,9 +73,32 @@ func (this Ints) Min() (min int) {
 	return Min(this...)
 }
 
-func (haystack Ints) Sum() (sum int) {
-	for _, value := range haystack {
+func (this Ints) Sum() (sum int) {
+	for _, value := range this {
 		sum += value
 	}
 	return sum
+}
+
+func (this Ints) Unpack1() int {
+	return this.Get(0)
+}
+func (this Ints) Unpack2() (int, int) {
+	return this.Get(0), this.Get(1)
+}
+func (this Ints) Unpack3() (int, int, int) {
+	return this.Get(0), this.Get(1), this.Get(2)
+}
+func (this Ints) Unpack4() (int, int, int, int) {
+	return this.Get(0), this.Get(1), this.Get(2), this.Get(3)
+}
+func (this Ints) Unpack5() (int, int, int, int, int) {
+	return this.Get(0), this.Get(1), this.Get(2), this.Get(3), this.Get(4)
+}
+func (this Ints) Get(index int) int {
+	if len(this) > 0 && index < len(this) {
+		return this[index]
+	} else {
+		return 0
+	}
 }
