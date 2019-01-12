@@ -1,5 +1,14 @@
 package util
 
+import "strings"
+
+func RemoveAll(source string, removes ...string) string {
+	for _, remove := range removes {
+		source = strings.Replace(source, remove, "", -1)
+	}
+	return source
+}
+
 func Anagram(a, b string) bool {
 	if len(a) != len(b) {
 		return false
