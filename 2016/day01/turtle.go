@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
+
+	"advent/lib/util"
 )
 
 type Turtle struct {
@@ -31,7 +32,7 @@ func (this *Turtle) FollowAll(instructions string) {
 
 func (this *Turtle) Follow(instruction string) {
 	this.turn(instruction[0])
-	this.walk(strconv.Atoi(instruction[1:]))
+	this.walk(util.ParseInt(instruction[1:]))
 }
 
 func (this *Turtle) turn(direction byte) {
@@ -59,11 +60,7 @@ func (this *Turtle) turnLeft() {
 	this.turnRight()
 }
 
-func (this *Turtle) walk(steps int, err error) {
-	if err != nil {
-		panic(err)
-	}
-
+func (this *Turtle) walk(steps int) {
 	for x := 0; x < steps; x++ {
 		this.x += this.dx
 		this.y += this.dy
