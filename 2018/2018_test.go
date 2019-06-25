@@ -93,7 +93,7 @@ func TestDay10(t *testing.T) {
 func TestDay11(t *testing.T) {
 	t.Parallel()
 
-	AssertEqual(t, day11.Part1(), nil)
+	AssertEqual(t, day11.Part1(), "235,18")
 	AssertEqual(t, day11.Part2(), nil)
 }
 func TestDay12(t *testing.T) {
