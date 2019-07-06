@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/util"
 	"github.com/smartystreets/assertions/assert"
 	"github.com/smartystreets/assertions/should"
+
+	"advent/lib/util"
 )
 
 func main() {
-	people := ParseRelations(util.InputScanner())
+	people := ParseRelations(util.InputScanner().Scanner)
 	fmt.Println(assert.So(ComputeHappiestArrangement(people...), should.Equal, 733))
 
 	people = append(people, NewPerson("Me"))

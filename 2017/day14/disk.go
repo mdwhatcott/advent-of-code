@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/mdwhatcott/advent-of-code-2017/day10/knot"
+	"advent/2017/day10/knot"
 	"advent/lib/grid"
 	"advent/lib/util"
 )

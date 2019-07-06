@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/mdwhatcott/advent-of-code-2016/util/assembunny"
-	"advent/lib/util"
 	"github.com/smartystreets/assertions/assert"
 	"github.com/smartystreets/assertions/should"
+
+	"advent/2016/util/assembunny"
+	"advent/lib/util"
 )
 
 func main() {
