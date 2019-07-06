@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/mdwhatcott/advent-of-code-2016/util/pair"
+	"advent/2016/util/pair"
 )
 
 type EncryptedRoom struct {

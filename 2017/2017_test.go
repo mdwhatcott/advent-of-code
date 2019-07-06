@@ -163,7 +163,7 @@ func TestDay22(t *testing.T) {
 	t.Parallel()
 
 	AssertEqual(t, day22.Part1(), 5460)
-	AssertEqual(t, day22.Part2(), 0) // above 2500000
+	AssertEqual(t, day22.Part2(), 2511702)
 }
 func TestDay23(t *testing.T) {
 	t.Parallel()

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/util"
-	"github.com/mdwhatcott/golife/life"
 	"github.com/smartystreets/assertions/assert"
 	"github.com/smartystreets/assertions/should"
+
+	"advent/lib/util"
 )
 
 func main() {
@@ -19,10 +19,10 @@ func part1() int {
 	input := util.InputString()
 	input = strings.Replace(input, ".", "-", -1)
 	input = strings.Replace(input, "#", "x", -1)
-	return runSimulation(life.New(input))
+	return runSimulation(NewGrid(input))
 }
 
-func runSimulation(grid *life.Grid) int {
+func runSimulation(grid *Grid) int {
 	for x := 0; x < 100; x++ {
 		grid.Scan()
 	}
@@ -34,7 +34,7 @@ func part2() int {
 	input := util.InputString()
 	input = strings.Replace(input, ".", "-", -1)
 	input = strings.Replace(input, "#", "x", -1)
-	grid := life.New(input)
+	grid := NewGrid(input)
 	grid.LockCornerLightsOn()
 	return runSimulation(grid)
 }
