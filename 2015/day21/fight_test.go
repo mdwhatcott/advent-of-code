@@ -7,15 +7,15 @@ import (
 	"github.com/smartystreets/gunit"
 )
 
-func TestStuff(t *testing.T) {
-	gunit.Run(new(Stuff), t)
+func TestRPGFixture(t *testing.T) {
+	gunit.Run(new(RPGFixture), t)
 }
 
-type Stuff struct {
+type RPGFixture struct {
 	*gunit.Fixture
 }
 
-func (this *Stuff) Test() {
+func (this *RPGFixture) TestFight() {
 	player := NewCharacter("player", 8, 5, 5)
 	enemy := NewCharacter("boss", 12, 7, 2)
 	winner := Fight(player, enemy)
