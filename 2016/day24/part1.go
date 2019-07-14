@@ -69,7 +69,7 @@ func (this Turtle) Hash() string {
 }
 
 func Sort(v string) string {
-	a := []string{}
+	var a []string
 	for _, x := range v {
 		a = append(a, string(x))
 	}
