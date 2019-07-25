@@ -10,5 +10,7 @@ github.com/smartystreets/assertions v1.0.0 h1:UVQPSSmc3qtTi+zPPkCXvZX9VvW/xT/NsR
 github.com/smartystreets/assertions v1.0.0/go.mod h1:kHHU4qYBaI3q23Pp3VPrmWhuIUrLW/7eUrw0BU5VaoM=
 github.com/smartystreets/gunit v1.0.1 h1:esMruGUHg849RBnE6pUIt7jDVAHo9Nzsvej7sk22yRc=
 github.com/smartystreets/gunit v1.0.1/go.mod h1:qwPWnhz6pn0NnRBP++URONOVyNkPyr4SauJk4cUOwJs=
+github.com/smartystreets/logging v1.0.1 h1:i5ubiFKAF9RFHlG/9k6Y+u2PVHc1lC/VNTXwri3Ks/E=
+github.com/smartystreets/logging v1.0.1/go.mod h1:Xbp3xEjGjcIU1oC100+eBIUiCxEh1VXTQ6ULao2bSJk=
 golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb h1:fgwFCsaw9buMuxNd6+DQfAuSFqbNiQZpcgJQAgJsK6k=
 golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
