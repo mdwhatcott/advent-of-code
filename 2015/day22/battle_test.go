@@ -141,6 +141,62 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForDraim() {
 	})
 }
 
+func (this *BattleFixture) TestShieldAlreadyInPlace_CannotRecastShield() {
+	game := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerMana:      1000,
+		BossHitPoints:   1,
+		ShieldCounter:   2,
+	}
+
+	this.So(game.NextMoves(), should.Resemble, []Turn{
+		new(Missile),
+		new(Drain),
+		//new(Shield),
+		new(Poison),
+		new(Recharge),
+	})
+}
+
+func (this *BattleFixture) TestPoisonAlreadyInPlace_CannotRecastPoison() {
+	game := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerMana:      1000,
+		BossHitPoints:   1,
+		PoisonCounter:   2,
+	}
+
+	this.So(game.NextMoves(), should.Resemble, []Turn{
+		new(Missile),
+		new(Drain),
+		new(Shield),
+		//new(Poison),
+		new(Recharge),
+	})
+}
+
+func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
+	game := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerMana:      1000,
+		BossHitPoints:   1,
+		RechargeCounter: 2,
+	}
+
+	this.So(game.NextMoves(), should.Resemble, []Turn{
+		new(Missile),
+		new(Drain),
+		new(Shield),
+		new(Poison),
+		//new(Recharge),
+	})
+}
+
+///////////////////////////////////////////////////////////////////
+
 func (this *BattleFixture) SkipTestExample1() {
 	game := Battle{
 		IsPlayerTurn:    true,
