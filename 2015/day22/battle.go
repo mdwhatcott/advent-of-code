@@ -6,6 +6,7 @@ type Battle struct {
 	PlayerHitPoints int
 	PlayerArmor     int
 	PlayerMana      int
+	//PlayerManaSpent int
 
 	BossHitPoints int
 	BossDamage    int
@@ -26,22 +27,38 @@ func (this Battle) NextMoves() (moves []Turn) {
 }
 
 func (this Battle) collectPlayerMoves() (moves []Turn) {
-	if this.PlayerMana >= 53 {
+	if this.canCastMissile() {
 		moves = append(moves, new(Missile))
 	}
-	if this.PlayerMana >= 73 {
+	if this.canCastDrain() {
 		moves = append(moves, new(Drain))
 	}
-	if this.PlayerMana >= 113 {
+	if this.canCastShield() {
 		moves = append(moves, new(Shield))
 	}
-	if this.PlayerMana >= 173 {
+	if this.canCastPoison() {
 		moves = append(moves, new(Poison))
 	}
-	if this.PlayerMana >= 229 {
+	if this.canCastRecharge() {
 		moves = append(moves, new(Recharge))
 	}
 	return moves
+}
+
+func (this Battle) canCastMissile() bool {
+	return this.PlayerMana >= 53
+}
+func (this Battle) canCastDrain() bool {
+	return this.PlayerMana >= 73
+}
+func (this Battle) canCastShield() bool {
+	return this.PlayerMana >= 113 && this.ShieldCounter < 2
+}
+func (this Battle) canCastPoison() bool {
+	return this.PlayerMana >= 173 && this.PoisonCounter < 2
+}
+func (this Battle) canCastRecharge() bool {
+	return this.PlayerMana >= 229 && this.RechargeCounter < 2
 }
 
 func (this Battle) gameOver() bool {
