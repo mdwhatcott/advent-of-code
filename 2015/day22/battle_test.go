@@ -203,9 +203,9 @@ func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
 		PlayerMana:      1,
 		BossHitPoints:   2,
 		BossDamage:      30,
-		ShieldCounter:   4,
-		PoisonCounter:   5,
-		RechargeCounter: 6,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	}
 	after := before.Handle(new(BossAttack))
 
@@ -217,9 +217,9 @@ func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
 		PlayerMana:      1,
 		BossHitPoints:   2,
 		BossDamage:      30,
-		ShieldCounter:   4,
-		PoisonCounter:   5,
-		RechargeCounter: 6,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	})
 
 }
@@ -232,9 +232,9 @@ func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 		PlayerMana:      3+53,
 		BossHitPoints:   8,
 		BossDamage:      5,
-		ShieldCounter:   6,
-		PoisonCounter:   7,
-		RechargeCounter: 8,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	}
 	after := before.Handle(new(Missile))
 
@@ -246,9 +246,9 @@ func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 		PlayerMana:      3, // was 3+53
 		BossHitPoints:   4, // was 8
 		BossDamage:      5,
-		ShieldCounter:   6,
-		PoisonCounter:   7,
-		RechargeCounter: 8,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	})
 }
 
@@ -260,9 +260,9 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 		PlayerMana:      3+73,
 		BossHitPoints:   6,
 		BossDamage:      5,
-		ShieldCounter:   6,
-		PoisonCounter:   7,
-		RechargeCounter: 8,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	}
 	after := before.Handle(new(Drain))
 
@@ -274,15 +274,52 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 		PlayerMana:      3,
 		BossHitPoints:   4, // was 6
 		BossDamage:      5,
-		ShieldCounter:   6,
-		PoisonCounter:   7,
-		RechargeCounter: 8,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
 	})
 }
 
+func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer73Mana() {
+	before := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerArmor:     1,
+		PlayerMana:      3+173,
+		BossHitPoints:   100,
+		BossDamage:      1,
+		ShieldCounter:   1,
+		PoisonCounter:   0,
+		RechargeCounter: 1,
+	}
+	after := before.Handle(new(Poison))
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 1,
+		PlayerArmor:     1,
+		PlayerMana:      3,
+		BossHitPoints:   97, // was 100
+		BossDamage:      1,
+		ShieldCounter:   1,
+		PoisonCounter:   5,
+		RechargeCounter: 1,
+	})
+
+	for x := 0; x < 50; x++ {
+		after = after.Handle(nil)
+	}
+
+	this.So(after.BossHitPoints, should.Equal, 100 - (3 * 6))
+}
+
+// TODO: armor may reduce damage to 1, but no lower
+// TODO:
+
 ///////////////////////////////////////////////////////////////////
 
-func (this *BattleFixture) SkipTestExample1() {
+func (this *BattleFixture) TestExample1() {
 	game := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 10,
@@ -301,10 +338,11 @@ func (this *BattleFixture) SkipTestExample1() {
 	}
 
 	this.So(game, should.Resemble, Battle{
-		IsPlayerTurn:    true,
+		IsPlayerTurn:    false,
 		PlayerHitPoints: 2,
-		PlayerMana:      77,
-		PoisonCounter:   4,
+		PlayerMana:      24,
+		PoisonCounter:   3,
 		BossDamage:      8,
+		BossHitPoints:   0,
 	})
 }
