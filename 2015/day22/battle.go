@@ -16,7 +16,7 @@ type Battle struct {
 	RechargeCounter int
 }
 
-func (this Battle) NextMoves() (moves []interface{}) {
+func (this Battle) Attack() (moves []interface{}) {
 	if this.gameOver() {
 		return nil
 	} else if this.IsPlayerTurn {
