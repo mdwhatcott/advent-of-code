@@ -27,7 +27,7 @@ func (this *MissileFixture) TestMissileDoes4DamageToBoss() {
 		PoisonCounter:   7,
 		RechargeCounter: 8,
 	}
-	after := new(Missile).Perform(before)
+	after := before.Handle(new(Missile))
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{

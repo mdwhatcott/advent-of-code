@@ -27,7 +27,7 @@ func (this *DrainFixture) TestDrainDeals2DamageToBossAndHealsPlayerBy2() {
 		PoisonCounter:   7,
 		RechargeCounter: 8,
 	}
-	after := new(Drain).Perform(before)
+	after := before.Handle(new(Drain))
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{

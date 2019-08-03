@@ -66,3 +66,14 @@ func (this Battle) gameOver() bool {
 }
 func (this Battle) bossDead() bool   { return this.BossHitPoints < 1 }
 func (this Battle) playerDead() bool { return this.PlayerHitPoints < 1 }
+
+func (this Battle) Handle(e interface{}) Battle {
+	switch e.(type) {
+	case *Drain:
+		this.BossHitPoints -= 2
+		this.PlayerHitPoints += 2
+	case *Missile:
+		this.BossHitPoints -= 4
+	}
+	return this
+}
