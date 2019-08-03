@@ -34,7 +34,7 @@ type Battle struct {
 }
 
 func (this Battle) Attack() (moves []int) {
-	if this.gameOver() {
+	if this.GameOver() {
 		return nil
 	} else if this.IsPlayerTurn {
 		return this.collectPlayerMoves()
@@ -78,7 +78,7 @@ func (this Battle) canCastRecharge() bool {
 	return this.PlayerMana >= SpellCost[Recharge] && this.RechargeCounter < 2
 }
 
-func (this Battle) gameOver() bool {
+func (this Battle) GameOver() bool {
 	return this.PlayerHitPoints < 1 || this.BossHitPoints < 1
 }
 
@@ -87,7 +87,7 @@ func (this Battle) Handle(attack int) Battle {
 
 	if this.PoisonCounter > 0 {
 		this.BossHitPoints -= 3
-		if this.gameOver() {
+		if this.GameOver() {
 			return this
 		}
 		this.PoisonCounter--
