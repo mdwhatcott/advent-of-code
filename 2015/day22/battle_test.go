@@ -45,7 +45,7 @@ func (this *BattleFixture) Test_BossTurn_ButIsDead_NoMoves() {
 	this.So(game.Attack(), should.BeEmpty)
 }
 
-func (this *BattleFixture) Test_PlayerTurn_BothStillAlive_NoEffectsInPlay_PlentyOfMana__AllSpellsAvailable() {
+func (this *BattleFixture) Test_PlayerTurn_BothAlive_NoEffectsInPlay_PlentyOfMana__AllSpellsAvailable() {
 	game := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
