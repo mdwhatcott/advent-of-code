@@ -110,7 +110,11 @@ func (this Battle) Handle(attack int) Battle {
 
 	switch attack {
 	case BossAttack:
-		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
+		damage := this.BossDamage - this.PlayerArmor
+		if damage < 1 {
+			damage = 1
+		}
+		this.PlayerHitPoints -= damage
 	case Missile:
 		this.BossHitPoints -= 4
 	case Drain:
