@@ -348,6 +348,40 @@ func (this *BattleFixture) Test_Shield_IncreasesArmorBy7_For6Turns_CostsPlayer11
 	this.So(after.PlayerArmor, should.Equal, 0)
 }
 
+func (this *BattleFixture) Test_Recharge_IncreasesManaBy101_For5Turns_CostsPlayer229Mana() {
+	before := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerArmor:     -1,
+		PlayerMana:      3 + SpellCost[Recharge],
+		BossHitPoints:   1,
+		BossDamage:      1,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
+	}
+	after := before.Handle(Recharge)
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 1,
+		PlayerArmor:     -1,
+		PlayerMana:      3,
+		BossHitPoints:   1,
+		BossDamage:      1,
+		ShieldCounter:   -1,
+		PoisonCounter:   -1,
+		RechargeCounter: 5,
+	})
+
+	for x := 0; x < 50; x++ {
+		after = after.Handle(-1)
+	}
+
+	this.So(after.PlayerMana, should.Equal, 3+(101*5))
+}
+
 // TODO: armor may reduce damage to 1, but no lower
 
 ///////////////////////////////////////////////////////////////////

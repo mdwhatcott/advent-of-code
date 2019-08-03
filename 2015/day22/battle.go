@@ -96,7 +96,10 @@ func (this Battle) Handle(attack int) Battle {
 			this.PlayerArmor = 0
 		}
 	}
-
+	if this.RechargeCounter > 0 {
+		this.RechargeCounter--
+		this.PlayerMana += 101
+	}
 	switch attack {
 	case BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
@@ -111,6 +114,8 @@ func (this Battle) Handle(attack int) Battle {
 	case Poison:
 		this.BossHitPoints -= 3
 		this.PoisonCounter = 5
+	case Recharge:
+		this.RechargeCounter = 5
 	}
 	return this
 }
