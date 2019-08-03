@@ -83,37 +83,47 @@ func (this Battle) gameOver() bool {
 }
 
 func (this Battle) Handle(attack int) Battle {
-	this.IsPlayerTurn = !this.IsPlayerTurn
 	this.PlayerMana -= SpellCost[attack]
 
 	if this.PoisonCounter > 0 {
-		this.PoisonCounter--
 		this.BossHitPoints -= 3
+		if this.gameOver() {
+			return this
+		}
+		this.PoisonCounter--
 	}
+
 	if this.ShieldCounter > 0 {
+		this.PlayerArmor = 7
 		this.ShieldCounter--
 		if this.ShieldCounter == 0 {
 			this.PlayerArmor = 0
 		}
 	}
+
 	if this.RechargeCounter > 0 {
 		this.RechargeCounter--
 		this.PlayerMana += 101
 	}
+
+	this.IsPlayerTurn = !this.IsPlayerTurn
+
 	switch attack {
 	case BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
+		// TODO: gameOver?
 	case Missile:
 		this.BossHitPoints -= 4
+		// TODO: gameOver?
 	case Drain:
 		this.BossHitPoints -= 2
+		// TODO: gameOver?
 		this.PlayerHitPoints += 2
+		// TODO: gameOver?
 	case Shield:
-		this.PlayerArmor = 7
-		this.ShieldCounter = 5
+		this.ShieldCounter = 6
 	case Poison:
-		this.BossHitPoints -= 3
-		this.PoisonCounter = 5
+		this.PoisonCounter = 6
 	case Recharge:
 		this.RechargeCounter = 5
 	}

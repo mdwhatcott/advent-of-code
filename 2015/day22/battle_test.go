@@ -280,7 +280,7 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 	})
 }
 
-func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer73Mana() {
+func (this *BattleFixture) Test_Poison_SetsPoisonTimerFor6Turns_CostsPlayer73Mana() {
 	before := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
@@ -300,10 +300,10 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 		PlayerHitPoints: 1,
 		PlayerArmor:     0,
 		PlayerMana:      3,
-		BossHitPoints:   97, // was 100
+		BossHitPoints:   100,
 		BossDamage:      1,
 		ShieldCounter:   -1,
-		PoisonCounter:   5,
+		PoisonCounter:   6,
 		RechargeCounter: -1,
 	})
 
@@ -314,7 +314,7 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 	this.So(after.BossHitPoints, should.Equal, 100-(3*6))
 }
 
-func (this *BattleFixture) Test_Shield_IncreasesArmorBy7_For6Turns_CostsPlayer113Mana() {
+func (this *BattleFixture) Test_Shield_StartsShieldTimerFor6Turns_CostsPlayer113Mana() {
 	before := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
@@ -332,11 +332,11 @@ func (this *BattleFixture) Test_Shield_IncreasesArmorBy7_For6Turns_CostsPlayer11
 	this.So(after, should.Resemble, Battle{
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 1,
-		PlayerArmor:     7,
+		PlayerArmor:     0,
 		PlayerMana:      3,
 		BossHitPoints:   1,
 		BossDamage:      1,
-		ShieldCounter:   5,
+		ShieldCounter:   6,
 		PoisonCounter:   -1,
 		RechargeCounter: -1,
 	})
@@ -399,6 +399,7 @@ func (this *BattleFixture) TestExample1() {
 		Poison,
 		BossAttack,
 		Missile,
+		BossAttack,
 	}
 	for _, turn := range moves {
 		game = game.Handle(turn)
@@ -408,7 +409,7 @@ func (this *BattleFixture) TestExample1() {
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 2,
 		PlayerMana:      24,
-		PoisonCounter:   3,
+		PoisonCounter:   4,
 		BossDamage:      8,
 		BossHitPoints:   0,
 	})
