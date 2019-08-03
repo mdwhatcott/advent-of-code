@@ -284,13 +284,13 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 	before := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
-		PlayerArmor:     1,
+		PlayerArmor:     0,
 		PlayerMana:      3 + SpellCost[Poison],
 		BossHitPoints:   100,
 		BossDamage:      1,
-		ShieldCounter:   1,
+		ShieldCounter:   -1,
 		PoisonCounter:   0,
-		RechargeCounter: 1,
+		RechargeCounter: -1,
 	}
 	after := before.Handle(Poison)
 
@@ -298,13 +298,13 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 	this.So(after, should.Resemble, Battle{
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 1,
-		PlayerArmor:     1,
+		PlayerArmor:     0,
 		PlayerMana:      3,
 		BossHitPoints:   97, // was 100
 		BossDamage:      1,
-		ShieldCounter:   1,
+		ShieldCounter:   -1,
 		PoisonCounter:   5,
-		RechargeCounter: 1,
+		RechargeCounter: -1,
 	})
 
 	for x := 0; x < 50; x++ {
@@ -312,6 +312,40 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 	}
 
 	this.So(after.BossHitPoints, should.Equal, 100-(3*6))
+}
+
+func (this *BattleFixture) Test_Shield_IncreasesArmorBy7_For6Turns_CostsPlayer113Mana() {
+	before := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerArmor:     0,
+		PlayerMana:      3 + SpellCost[Shield],
+		BossHitPoints:   1,
+		BossDamage:      1,
+		ShieldCounter:   0,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
+	}
+	after := before.Handle(Shield)
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 1,
+		PlayerArmor:     7,
+		PlayerMana:      3,
+		BossHitPoints:   1,
+		BossDamage:      1,
+		ShieldCounter:   5,
+		PoisonCounter:   -1,
+		RechargeCounter: -1,
+	})
+
+	for x := 0; x < 50; x++ {
+		after = after.Handle(-1)
+	}
+
+	this.So(after.PlayerArmor, should.Equal, 0)
 }
 
 // TODO: armor may reduce damage to 1, but no lower

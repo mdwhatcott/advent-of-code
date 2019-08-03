@@ -90,6 +90,12 @@ func (this Battle) Handle(attack int) Battle {
 		this.PoisonCounter--
 		this.BossHitPoints -= 3
 	}
+	if this.ShieldCounter > 0 {
+		this.ShieldCounter--
+		if this.ShieldCounter == 0 {
+			this.PlayerArmor = 0
+		}
+	}
 
 	switch attack {
 	case BossAttack:
@@ -99,6 +105,9 @@ func (this Battle) Handle(attack int) Battle {
 	case Drain:
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
+	case Shield:
+		this.PlayerArmor = 7
+		this.ShieldCounter = 5
 	case Poison:
 		this.BossHitPoints -= 3
 		this.PoisonCounter = 5
