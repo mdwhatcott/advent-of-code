@@ -23,7 +23,7 @@ type Battle struct {
 	PlayerHitPoints int
 	PlayerArmor     int
 	PlayerMana      int
-	//PlayerManaSpent int // TODO
+	PlayerManaSpent int
 
 	BossHitPoints int
 	BossDamage    int
@@ -83,7 +83,9 @@ func (this Battle) GameOver() bool {
 }
 
 func (this Battle) Handle(attack int) Battle {
-	this.PlayerMana -= SpellCost[attack]
+	mana := SpellCost[attack]
+	this.PlayerMana -= mana
+	this.PlayerManaSpent += mana
 
 	if this.PoisonCounter > 0 {
 		this.BossHitPoints -= 3

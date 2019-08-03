@@ -244,6 +244,7 @@ func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
 		PlayerMana:      3, // was 3+53
+		PlayerManaSpent: SpellCost[Missile],
 		BossHitPoints:   4, // was 8
 		BossDamage:      5,
 		ShieldCounter:   -1,
@@ -272,6 +273,7 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 		PlayerHitPoints: 3, // was 1
 		PlayerArmor:     2,
 		PlayerMana:      3,
+		PlayerManaSpent: SpellCost[Drain],
 		BossHitPoints:   4, // was 6
 		BossDamage:      5,
 		ShieldCounter:   -1,
@@ -300,6 +302,7 @@ func (this *BattleFixture) Test_Poison_SetsPoisonTimerFor6Turns_CostsPlayer73Man
 		PlayerHitPoints: 1,
 		PlayerArmor:     0,
 		PlayerMana:      3,
+		PlayerManaSpent: SpellCost[Poison],
 		BossHitPoints:   100,
 		BossDamage:      1,
 		ShieldCounter:   -1,
@@ -334,6 +337,7 @@ func (this *BattleFixture) Test_Shield_StartsShieldTimerFor6Turns_CostsPlayer113
 		PlayerHitPoints: 1,
 		PlayerArmor:     0,
 		PlayerMana:      3,
+		PlayerManaSpent: SpellCost[Shield],
 		BossHitPoints:   1,
 		BossDamage:      1,
 		ShieldCounter:   6,
@@ -368,6 +372,7 @@ func (this *BattleFixture) Test_Recharge_IncreasesManaBy101_For5Turns_CostsPlaye
 		PlayerHitPoints: 1,
 		PlayerArmor:     -1,
 		PlayerMana:      3,
+		PlayerManaSpent: SpellCost[Recharge],
 		BossHitPoints:   1,
 		BossDamage:      1,
 		ShieldCounter:   -1,
@@ -458,6 +463,7 @@ func (this *BattleFixture) TestExample1() {
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 2,
 		PlayerMana:      24,
+		PlayerManaSpent: 226,
 		PoisonCounter:   4,
 		BossDamage:      8,
 		BossHitPoints:   0,
@@ -493,6 +499,7 @@ func (this *BattleFixture) TestExample2() {
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 1,
 		PlayerMana:      114,
+		PlayerManaSpent: 641,
 		PoisonCounter:   4,
 		BossDamage:      8,
 		BossHitPoints:   -1,
