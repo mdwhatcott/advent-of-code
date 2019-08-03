@@ -6,7 +6,7 @@ type Battle struct {
 	PlayerHitPoints int
 	PlayerArmor     int
 	PlayerMana      int
-	//PlayerManaSpent int
+	//PlayerManaSpent int // TODO
 
 	BossHitPoints int
 	BossDamage    int
