@@ -382,7 +382,56 @@ func (this *BattleFixture) Test_Recharge_IncreasesManaBy101_For5Turns_CostsPlaye
 	this.So(after.PlayerMana, should.Equal, 3+(101*5))
 }
 
-// TODO: armor may reduce damage to 1, but no lower
+type ArmorTest struct {
+	PlayerHitPoints   int
+	PlayerArmor       int
+	BossDamage        int
+	ExpectedHitPoints int
+}
+
+func (this *BattleFixture) Test_ArmorCanAbsorbsAlmostAllBossDamage() {
+	this.assertDamageDealt(ArmorTest{
+		PlayerHitPoints:   10,
+		PlayerArmor:       0,
+		BossDamage:        4,
+		ExpectedHitPoints: 6,
+	})
+	this.assertDamageDealt(ArmorTest{
+		PlayerHitPoints:   10,
+		PlayerArmor:       1,
+		BossDamage:        4,
+		ExpectedHitPoints: 7,
+	})
+	this.assertDamageDealt(ArmorTest{
+		PlayerHitPoints:   10,
+		PlayerArmor:       2,
+		BossDamage:        4,
+		ExpectedHitPoints: 8,
+	})
+	this.assertDamageDealt(ArmorTest{
+		PlayerHitPoints:   10,
+		PlayerArmor:       3,
+		BossDamage:        4,
+		ExpectedHitPoints: 9,
+	})
+	this.assertDamageDealt(ArmorTest{
+		PlayerHitPoints:   10,
+		PlayerArmor:       4,
+		BossDamage:        4,
+		ExpectedHitPoints: 9,
+	})
+}
+func (this *BattleFixture) assertDamageDealt(test ArmorTest) {
+	before := Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: test.PlayerHitPoints,
+		PlayerArmor:     test.PlayerArmor,
+		BossHitPoints:   10,
+		BossDamage:      test.BossDamage,
+	}
+	after := before.Handle(BossAttack)
+	this.So(after.PlayerHitPoints, should.Equal,test.ExpectedHitPoints)
+}
 
 ///////////////////////////////////////////////////////////////////
 
