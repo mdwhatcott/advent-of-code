@@ -68,6 +68,11 @@ func (this Battle) gameOver() bool {
 func (this Battle) Handle(e interface{}) Battle {
 	this.IsPlayerTurn = !this.IsPlayerTurn
 
+	if this.PoisonCounter > 0 {
+		this.PoisonCounter--
+		this.BossHitPoints -= 3
+	}
+
 	switch e.(type) {
 	case *BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
@@ -78,6 +83,10 @@ func (this Battle) Handle(e interface{}) Battle {
 		this.PlayerMana -= 73
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
+	case *Poison:
+		this.PlayerMana -= 173
+		this.BossHitPoints -= 3
+		this.PoisonCounter = 5
 	}
 	return this
 }
