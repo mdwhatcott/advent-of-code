@@ -52,13 +52,13 @@ func (this Battle) canCastDrain() bool {
 	return this.PlayerMana >= 73
 }
 func (this Battle) canCastShield() bool {
-	return this.PlayerMana >= 113 && this.ShieldCounter < 2
+	return this.PlayerMana >= 113 && this.ShieldCounter < 2 // TODO: off by one?
 }
 func (this Battle) canCastPoison() bool {
-	return this.PlayerMana >= 173 && this.PoisonCounter < 2
+	return this.PlayerMana >= 173 && this.PoisonCounter < 2 // TODO: off by one?
 }
 func (this Battle) canCastRecharge() bool {
-	return this.PlayerMana >= 229 && this.RechargeCounter < 2
+	return this.PlayerMana >= 229 && this.RechargeCounter < 2 // TODO: off by one?
 }
 
 func (this Battle) gameOver() bool {
