@@ -68,7 +68,8 @@ Player casts Magic Missile, dealing 4 damage.
 Poison deals 3 damage. This kills the boss, and the player wins.
 ```
 
-Now, suppose the same initial conditions, except that the boss has 14 hit points instead:
+Now, suppose the same initial conditions, except that the boss 
+has 14 hit points instead:
 
 ```
 -- Player turn --
