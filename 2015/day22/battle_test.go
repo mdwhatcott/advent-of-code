@@ -141,7 +141,7 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForDraim() {
 	})
 }
 
-func (this *BattleFixture) TestShieldAlreadyInPlace_CannotRecastShield() {
+func (this *BattleFixture) Test_ShieldAlreadyInPlace_CannotRecastShield() {
 	game := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
@@ -159,7 +159,7 @@ func (this *BattleFixture) TestShieldAlreadyInPlace_CannotRecastShield() {
 	})
 }
 
-func (this *BattleFixture) TestPoisonAlreadyInPlace_CannotRecastPoison() {
+func (this *BattleFixture) Test_PoisonAlreadyInPlace_CannotRecastPoison() {
 	game := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
@@ -177,7 +177,7 @@ func (this *BattleFixture) TestPoisonAlreadyInPlace_CannotRecastPoison() {
 	})
 }
 
-func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
+func (this *BattleFixture) Test_RechargeAlreadyInPlace_CannotRecastRecharge() {
 	game := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
@@ -195,7 +195,7 @@ func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
 	})
 }
 
-func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
+func (this *BattleFixture) Test_BossAttackDoesSpecifiedDamageToPlayer() {
 	before := Battle{
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 100,

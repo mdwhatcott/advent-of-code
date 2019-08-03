@@ -111,15 +111,11 @@ func (this Battle) Handle(attack int) Battle {
 	switch attack {
 	case BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
-		// TODO: gameOver?
 	case Missile:
 		this.BossHitPoints -= 4
-		// TODO: gameOver?
 	case Drain:
 		this.BossHitPoints -= 2
-		// TODO: gameOver?
 		this.PlayerHitPoints += 2
-		// TODO: gameOver?
 	case Shield:
 		this.ShieldCounter = 6
 	case Poison:
