@@ -463,3 +463,38 @@ func (this *BattleFixture) TestExample1() {
 		BossHitPoints:   0,
 	})
 }
+
+func (this *BattleFixture) TestExample2() {
+	game := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 10,
+		PlayerMana:      250,
+		BossHitPoints:   14,
+		BossDamage:      8,
+	}
+
+	moves := []int{
+		Recharge,
+		BossAttack,
+		Shield,
+		BossAttack,
+		Drain,
+		BossAttack,
+		Poison,
+		BossAttack,
+		Missile,
+		BossAttack,
+	}
+	for _, turn := range moves {
+		game = game.Handle(turn)
+	}
+
+	this.So(game, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 1,
+		PlayerMana:      114,
+		PoisonCounter:   4,
+		BossDamage:      8,
+		BossHitPoints:   -1,
+	})
+}
