@@ -112,22 +112,31 @@ func (this Battle) Handle(attack int) Battle {
 
 	switch attack {
 	case BossAttack:
-		damage := this.BossDamage - this.PlayerArmor
-		if damage < 1 {
-			damage = 1
-		}
-		this.PlayerHitPoints -= damage
+		this.PlayerHitPoints -= this.calculateDamage()
+
 	case Missile:
 		this.BossHitPoints -= 4
+
 	case Drain:
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
+
 	case Shield:
 		this.ShieldCounter = 6
+
 	case Poison:
 		this.PoisonCounter = 6
+
 	case Recharge:
 		this.RechargeCounter = 5
 	}
 	return this
+}
+
+func (this Battle) calculateDamage() int {
+	damage := this.BossDamage - this.PlayerArmor
+	if damage < 1 {
+		damage = 1
+	}
+	return damage
 }
