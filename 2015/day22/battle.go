@@ -9,6 +9,14 @@ const (
 	Recharge
 )
 
+var SpellCost = map[int]int{
+	Missile:  53,
+	Drain:    73,
+	Shield:   113,
+	Poison:   173,
+	Recharge: 229,
+}
+
 type Battle struct {
 	IsPlayerTurn bool
 
@@ -55,19 +63,19 @@ func (this Battle) collectPlayerMoves() (moves []int) {
 }
 
 func (this Battle) canCastMissile() bool {
-	return this.PlayerMana >= 53
+	return this.PlayerMana >= SpellCost[Missile]
 }
 func (this Battle) canCastDrain() bool {
-	return this.PlayerMana >= 73
+	return this.PlayerMana >= SpellCost[Drain]
 }
 func (this Battle) canCastShield() bool {
-	return this.PlayerMana >= 113 && this.ShieldCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Shield] && this.ShieldCounter < 2 // TODO: off by one?
 }
 func (this Battle) canCastPoison() bool {
-	return this.PlayerMana >= 173 && this.PoisonCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Poison] && this.PoisonCounter < 2 // TODO: off by one?
 }
 func (this Battle) canCastRecharge() bool {
-	return this.PlayerMana >= 229 && this.RechargeCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Recharge] && this.RechargeCounter < 2 // TODO: off by one?
 }
 
 func (this Battle) gameOver() bool {
@@ -76,6 +84,7 @@ func (this Battle) gameOver() bool {
 
 func (this Battle) Handle(attack int) Battle {
 	this.IsPlayerTurn = !this.IsPlayerTurn
+	this.PlayerMana -= SpellCost[attack]
 
 	if this.PoisonCounter > 0 {
 		this.PoisonCounter--
@@ -86,14 +95,11 @@ func (this Battle) Handle(attack int) Battle {
 	case BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
 	case Missile:
-		this.PlayerMana -= 53
 		this.BossHitPoints -= 4
 	case Drain:
-		this.PlayerMana -= 73
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
 	case Poison:
-		this.PlayerMana -= 173
 		this.BossHitPoints -= 3
 		this.PoisonCounter = 5
 	}
