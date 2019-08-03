@@ -229,7 +229,7 @@ func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
-		PlayerMana:      3+SpellCost[Missile],
+		PlayerMana:      3 + SpellCost[Missile],
 		BossHitPoints:   8,
 		BossDamage:      5,
 		ShieldCounter:   -1,
@@ -257,7 +257,7 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
-		PlayerMana:      3+SpellCost[Drain],
+		PlayerMana:      3 + SpellCost[Drain],
 		BossHitPoints:   6,
 		BossDamage:      5,
 		ShieldCounter:   -1,
@@ -285,7 +285,7 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
 		PlayerArmor:     1,
-		PlayerMana:      3+SpellCost[Poison],
+		PlayerMana:      3 + SpellCost[Poison],
 		BossHitPoints:   100,
 		BossDamage:      1,
 		ShieldCounter:   1,
@@ -311,7 +311,7 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 		after = after.Handle(-1)
 	}
 
-	this.So(after.BossHitPoints, should.Equal, 100 - (3 * 6))
+	this.So(after.BossHitPoints, should.Equal, 100-(3*6))
 }
 
 // TODO: armor may reduce damage to 1, but no lower
