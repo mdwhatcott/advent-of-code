@@ -71,11 +71,13 @@ func (this Battle) Handle(e interface{}) Battle {
 	switch e.(type) {
 	case *BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
+	case *Missile:
+		this.PlayerMana -= 53
+		this.BossHitPoints -= 4
 	case *Drain:
+		this.PlayerMana -= 73
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
-	case *Missile:
-		this.BossHitPoints -= 4
 	}
 	return this
 }

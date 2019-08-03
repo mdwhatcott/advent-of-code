@@ -224,12 +224,12 @@ func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
 
 }
 
-func (this *BattleFixture) TestMissileDoes4DamageToBoss() {
+func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 	before := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
-		PlayerMana:      3,
+		PlayerMana:      3+53,
 		BossHitPoints:   8,
 		BossDamage:      5,
 		ShieldCounter:   6,
@@ -243,7 +243,7 @@ func (this *BattleFixture) TestMissileDoes4DamageToBoss() {
 		IsPlayerTurn:    false,
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
-		PlayerMana:      3,
+		PlayerMana:      3, // was 3+53
 		BossHitPoints:   4, // was 8
 		BossDamage:      5,
 		ShieldCounter:   6,
@@ -252,12 +252,12 @@ func (this *BattleFixture) TestMissileDoes4DamageToBoss() {
 	})
 }
 
-func (this *BattleFixture) TestDrainDeals2DamageToBossAndHealsPlayerBy2() {
+func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPlayer73Mana() {
 	before := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 1,
 		PlayerArmor:     2,
-		PlayerMana:      3,
+		PlayerMana:      3+73,
 		BossHitPoints:   6,
 		BossDamage:      5,
 		ShieldCounter:   6,
