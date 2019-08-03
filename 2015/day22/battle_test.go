@@ -195,6 +195,62 @@ func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
 	})
 }
 
+func (this *BattleFixture) TestMissileDoes4DamageToBoss() {
+	before := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerArmor:     2,
+		PlayerMana:      3,
+		BossHitPoints:   8,
+		BossDamage:      5,
+		ShieldCounter:   6,
+		PoisonCounter:   7,
+		RechargeCounter: 8,
+	}
+	after := before.Handle(new(Missile))
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 1,
+		PlayerArmor:     2,
+		PlayerMana:      3,
+		BossHitPoints:   4, // was 8
+		BossDamage:      5,
+		ShieldCounter:   6,
+		PoisonCounter:   7,
+		RechargeCounter: 8,
+	})
+}
+
+func (this *BattleFixture) TestDrainDeals2DamageToBossAndHealsPlayerBy2() {
+	before := Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 1,
+		PlayerArmor:     2,
+		PlayerMana:      3,
+		BossHitPoints:   6,
+		BossDamage:      5,
+		ShieldCounter:   6,
+		PoisonCounter:   7,
+		RechargeCounter: 8,
+	}
+	after := before.Handle(new(Drain))
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 3, // was 1
+		PlayerArmor:     2,
+		PlayerMana:      3,
+		BossHitPoints:   4, // was 6
+		BossDamage:      5,
+		ShieldCounter:   6,
+		PoisonCounter:   7,
+		RechargeCounter: 8,
+	})
+}
+
 ///////////////////////////////////////////////////////////////////
 
 func (this *BattleFixture) SkipTestExample1() {
