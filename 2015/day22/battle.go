@@ -69,13 +69,13 @@ func (this Battle) canCastDrain() bool {
 	return this.PlayerMana >= SpellCost[Drain]
 }
 func (this Battle) canCastShield() bool {
-	return this.PlayerMana >= SpellCost[Shield] && this.ShieldCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Shield] && this.ShieldCounter < 2
 }
 func (this Battle) canCastPoison() bool {
-	return this.PlayerMana >= SpellCost[Poison] && this.PoisonCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Poison] && this.PoisonCounter < 2
 }
 func (this Battle) canCastRecharge() bool {
-	return this.PlayerMana >= SpellCost[Recharge] && this.RechargeCounter < 2 // TODO: off by one?
+	return this.PlayerMana >= SpellCost[Recharge] && this.RechargeCounter < 2
 }
 
 func (this Battle) gameOver() bool {
