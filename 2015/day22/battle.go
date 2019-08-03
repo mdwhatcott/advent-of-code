@@ -1,5 +1,14 @@
 package main
 
+const (
+	BossAttack = iota
+	Missile
+	Drain
+	Poison
+	Shield
+	Recharge
+)
+
 type Battle struct {
 	IsPlayerTurn bool
 
@@ -16,31 +25,31 @@ type Battle struct {
 	RechargeCounter int
 }
 
-func (this Battle) Attack() (moves []interface{}) {
+func (this Battle) Attack() (moves []int) {
 	if this.gameOver() {
 		return nil
 	} else if this.IsPlayerTurn {
 		return this.collectPlayerMoves()
 	} else {
-		return append(moves, new(BossAttack))
+		return append(moves, BossAttack)
 	}
 }
 
-func (this Battle) collectPlayerMoves() (moves []interface{}) {
+func (this Battle) collectPlayerMoves() (moves []int) {
 	if this.canCastMissile() {
-		moves = append(moves, new(Missile))
+		moves = append(moves, Missile)
 	}
 	if this.canCastDrain() {
-		moves = append(moves, new(Drain))
+		moves = append(moves, Drain)
 	}
 	if this.canCastShield() {
-		moves = append(moves, new(Shield))
+		moves = append(moves, Shield)
 	}
 	if this.canCastPoison() {
-		moves = append(moves, new(Poison))
+		moves = append(moves, Poison)
 	}
 	if this.canCastRecharge() {
-		moves = append(moves, new(Recharge))
+		moves = append(moves, Recharge)
 	}
 	return moves
 }
@@ -65,7 +74,7 @@ func (this Battle) gameOver() bool {
 	return this.PlayerHitPoints < 1 || this.BossHitPoints < 1
 }
 
-func (this Battle) Handle(e interface{}) Battle {
+func (this Battle) Handle(attack int) Battle {
 	this.IsPlayerTurn = !this.IsPlayerTurn
 
 	if this.PoisonCounter > 0 {
@@ -73,17 +82,17 @@ func (this Battle) Handle(e interface{}) Battle {
 		this.BossHitPoints -= 3
 	}
 
-	switch e.(type) {
-	case *BossAttack:
+	switch attack {
+	case BossAttack:
 		this.PlayerHitPoints -= this.BossDamage // TODO: There is more to boss attacks than this (armor)
-	case *Missile:
+	case Missile:
 		this.PlayerMana -= 53
 		this.BossHitPoints -= 4
-	case *Drain:
+	case Drain:
 		this.PlayerMana -= 73
 		this.BossHitPoints -= 2
 		this.PlayerHitPoints += 2
-	case *Poison:
+	case Poison:
 		this.PlayerMana -= 173
 		this.BossHitPoints -= 3
 		this.PoisonCounter = 5

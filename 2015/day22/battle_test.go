@@ -53,12 +53,12 @@ func (this *BattleFixture) Test_PlayerTurn_BothStillAlive_NoEffectsInPlay_Plenty
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		new(Shield),
-		new(Poison),
-		new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		Shield,
+		Poison,
+		Recharge,
 	})
 }
 
@@ -70,7 +70,7 @@ func (this *BattleFixture) Test_BossTurn_BothStillAlive_Attack() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{new(BossAttack)})
+	this.So(game.Attack(), should.Resemble, []int{BossAttack})
 }
 
 func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForRecharge() {
@@ -81,12 +81,12 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForRecharge() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		new(Shield),
-		new(Poison),
-		//new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		Shield,
+		Poison,
+		//Recharge,
 	})
 }
 
@@ -98,12 +98,12 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForPoison() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		new(Shield),
-		//new(Poison),
-		//new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		Shield,
+		//Poison,
+		//Recharge,
 	})
 }
 
@@ -115,12 +115,12 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForShield() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		//new(Shield),
-		//new(Poison),
-		//new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		//Shield,
+		//Poison,
+		//Recharge,
 	})
 }
 
@@ -132,12 +132,12 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForDraim() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		//new(Drain),
-		//new(Shield),
-		//new(Poison),
-		//new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		//Drain,
+		//Shield,
+		//Poison,
+		//Recharge,
 	})
 }
 
@@ -150,12 +150,12 @@ func (this *BattleFixture) TestShieldAlreadyInPlace_CannotRecastShield() {
 		ShieldCounter:   2,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		//new(Shield),
-		new(Poison),
-		new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		//Shield,
+		Poison,
+		Recharge,
 	})
 }
 
@@ -168,12 +168,12 @@ func (this *BattleFixture) TestPoisonAlreadyInPlace_CannotRecastPoison() {
 		PoisonCounter:   2,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		new(Shield),
-		//new(Poison),
-		new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		Shield,
+		//Poison,
+		Recharge,
 	})
 }
 
@@ -186,12 +186,12 @@ func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
 		RechargeCounter: 2,
 	}
 
-	this.So(game.Attack(), should.Resemble, []interface{}{
-		new(Missile),
-		new(Drain),
-		new(Shield),
-		new(Poison),
-		//new(Recharge),
+	this.So(game.Attack(), should.Resemble, []int{
+		Missile,
+		Drain,
+		Shield,
+		Poison,
+		//Recharge,
 	})
 }
 
@@ -207,7 +207,7 @@ func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
 		PoisonCounter:   -1,
 		RechargeCounter: -1,
 	}
-	after := before.Handle(new(BossAttack))
+	after := before.Handle(BossAttack)
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{
@@ -236,7 +236,7 @@ func (this *BattleFixture) Test_Missile_Does4DamageToBoss_CostsPlayer53Mana() {
 		PoisonCounter:   -1,
 		RechargeCounter: -1,
 	}
-	after := before.Handle(new(Missile))
+	after := before.Handle(Missile)
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{
@@ -264,7 +264,7 @@ func (this *BattleFixture) Test_Drain_Deals2DamageToBoss_HealsPlayerBy2_CostsPla
 		PoisonCounter:   -1,
 		RechargeCounter: -1,
 	}
-	after := before.Handle(new(Drain))
+	after := before.Handle(Drain)
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{
@@ -292,7 +292,7 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 		PoisonCounter:   0,
 		RechargeCounter: 1,
 	}
-	after := before.Handle(new(Poison))
+	after := before.Handle(Poison)
 
 	this.So(&before, should.NotPointTo, &after)
 	this.So(after, should.Resemble, Battle{
@@ -308,14 +308,13 @@ func (this *BattleFixture) Test_Poison_Deals3DamageToBoss_For6Turns_CostsPlayer7
 	})
 
 	for x := 0; x < 50; x++ {
-		after = after.Handle(nil)
+		after = after.Handle(-1)
 	}
 
 	this.So(after.BossHitPoints, should.Equal, 100 - (3 * 6))
 }
 
 // TODO: armor may reduce damage to 1, but no lower
-// TODO:
 
 ///////////////////////////////////////////////////////////////////
 
@@ -328,10 +327,10 @@ func (this *BattleFixture) TestExample1() {
 		BossDamage:      8,
 	}
 
-	moves := []interface{}{
-		new(Poison),
-		new(BossAttack),
-		new(Missile),
+	moves := []int{
+		Poison,
+		BossAttack,
+		Missile,
 	}
 	for _, turn := range moves {
 		game = game.Handle(turn)
