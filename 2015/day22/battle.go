@@ -62,10 +62,8 @@ func (this Battle) canCastRecharge() bool {
 }
 
 func (this Battle) gameOver() bool {
-	return (this.IsPlayerTurn && this.playerDead()) || this.bossDead()
+	return this.PlayerHitPoints < 1 || this.BossHitPoints < 1
 }
-func (this Battle) bossDead() bool   { return this.BossHitPoints < 1 }
-func (this Battle) playerDead() bool { return this.PlayerHitPoints < 1 }
 
 func (this Battle) Handle(e interface{}) Battle {
 	switch e.(type) {
