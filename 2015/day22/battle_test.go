@@ -53,7 +53,7 @@ func (this *BattleFixture) Test_PlayerTurn_BothStillAlive_NoEffectsInPlay_Plenty
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		new(Shield),
@@ -70,7 +70,7 @@ func (this *BattleFixture) Test_BossTurn_BothStillAlive_Attack() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{new(BossAttack)})
+	this.So(game.NextMoves(), should.Resemble, []interface{}{new(BossAttack)})
 }
 
 func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForRecharge() {
@@ -81,7 +81,7 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForRecharge() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		new(Shield),
@@ -98,7 +98,7 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForPoison() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		new(Shield),
@@ -115,7 +115,7 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForShield() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		//new(Shield),
@@ -132,7 +132,7 @@ func (this *BattleFixture) Test_PlayerTurn_NotEnoughManaForDraim() {
 		BossHitPoints:   1,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		//new(Drain),
 		//new(Shield),
@@ -150,7 +150,7 @@ func (this *BattleFixture) TestShieldAlreadyInPlace_CannotRecastShield() {
 		ShieldCounter:   2,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		//new(Shield),
@@ -168,7 +168,7 @@ func (this *BattleFixture) TestPoisonAlreadyInPlace_CannotRecastPoison() {
 		PoisonCounter:   2,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		new(Shield),
@@ -186,7 +186,7 @@ func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
 		RechargeCounter: 2,
 	}
 
-	this.So(game.NextMoves(), should.Resemble, []Turn{
+	this.So(game.NextMoves(), should.Resemble, []interface{}{
 		new(Missile),
 		new(Drain),
 		new(Shield),
@@ -206,13 +206,13 @@ func (this *BattleFixture) SkipTestExample1() {
 		BossDamage:      8,
 	}
 
-	moves := []Turn{
+	moves := []interface{}{
 		new(Poison),
 		new(BossAttack),
 		new(Missile),
 	}
 	for _, turn := range moves {
-		game = turn.Perform(game)
+		game = game.Handle(turn)
 	}
 
 	this.So(game, should.Resemble, Battle{

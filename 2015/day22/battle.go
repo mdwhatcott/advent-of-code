@@ -16,7 +16,7 @@ type Battle struct {
 	RechargeCounter int
 }
 
-func (this Battle) NextMoves() (moves []Turn) {
+func (this Battle) NextMoves() (moves []interface{}) {
 	if this.gameOver() {
 		return nil
 	} else if this.IsPlayerTurn {
@@ -26,7 +26,7 @@ func (this Battle) NextMoves() (moves []Turn) {
 	}
 }
 
-func (this Battle) collectPlayerMoves() (moves []Turn) {
+func (this Battle) collectPlayerMoves() (moves []interface{}) {
 	if this.canCastMissile() {
 		moves = append(moves, new(Missile))
 	}
