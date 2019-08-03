@@ -195,6 +195,35 @@ func (this *BattleFixture) TestRechargeAlreadyInPlace_CannotRecastRecharge() {
 	})
 }
 
+func (this *BattleFixture) TestBossAttackDoesSpecifiedDamageToPlayer() {
+	before := Battle{
+		IsPlayerTurn:    false,
+		PlayerHitPoints: 100,
+		PlayerArmor:     0,
+		PlayerMana:      1,
+		BossHitPoints:   2,
+		BossDamage:      30,
+		ShieldCounter:   4,
+		PoisonCounter:   5,
+		RechargeCounter: 6,
+	}
+	after := before.Handle(new(BossAttack))
+
+	this.So(&before, should.NotPointTo, &after)
+	this.So(after, should.Resemble, Battle{
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 70,
+		PlayerArmor:     0,
+		PlayerMana:      1,
+		BossHitPoints:   2,
+		BossDamage:      30,
+		ShieldCounter:   4,
+		PoisonCounter:   5,
+		RechargeCounter: 6,
+	})
+
+}
+
 func (this *BattleFixture) TestMissileDoes4DamageToBoss() {
 	before := Battle{
 		IsPlayerTurn:    true,
