@@ -111,6 +111,7 @@ func (this Battle) Handle(attack int) Battle {
 	this.IsPlayerTurn = !this.IsPlayerTurn
 
 	switch attack {
+
 	case BossAttack:
 		this.PlayerHitPoints -= this.calculateDamage()
 
@@ -129,7 +130,9 @@ func (this Battle) Handle(attack int) Battle {
 
 	case Recharge:
 		this.RechargeCounter = 5
+
 	}
+
 	return this
 }
 
