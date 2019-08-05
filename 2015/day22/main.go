@@ -33,12 +33,20 @@ func part1() (min int) {
 		}
 
 		moves := before.Attack()
+		if len(moves) == 0 {
+			if before.BossHitPoints < 1 {
+				log.Printf("Player won: %+v", before)
+				min = before.PlayerManaSpent
+			} else {
+				log.Printf("Boss won: %+v", before)
+			}
+		}
 		for _, move := range moves {
 			after := before.Handle(move)
 
 			if !after.GameOver() {
 				queue = append(queue, after)
-			} else if after.PlayerHitPoints > 0 {
+			} else if after.BossHitPoints < 1 {
 				log.Printf("Player won: %+v", after)
 				min = after.PlayerManaSpent
 			} else {
