@@ -45,6 +45,7 @@ For example, suppose the player has 10 hit points and 250 mana, and that the
 boss has 13 hit points and 8 damage:
 
 ```
+
 -- Player turn --
 - Player has 10 hit points, 0 armor, 250 mana
 - Boss has 13 hit points
@@ -66,12 +67,14 @@ Player casts Magic Missile, dealing 4 damage.
 - Player has 2 hit points, 0 armor, 24 mana
 - Boss has 3 hit points
 Poison deals 3 damage. This kills the boss, and the player wins.
+
 ```
 
 Now, suppose the same initial conditions, except that the boss 
 has 14 hit points instead:
 
 ```
+
 -- Player turn --
 - Player has 10 hit points, 0 armor, 250 mana
 - Boss has 14 hit points
