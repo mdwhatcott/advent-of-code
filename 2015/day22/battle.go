@@ -4,8 +4,8 @@ const (
 	BossAttack = iota
 	Missile
 	Drain
-	Poison
 	Shield
+	Poison
 	Recharge
 )
 
