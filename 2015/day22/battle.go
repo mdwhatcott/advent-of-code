@@ -25,6 +25,7 @@ var Cost = map[int]int{
 }
 
 type Battle struct {
+	IsPart2      bool
 	IsPlayerTurn bool
 
 	PlayerHitPoints int
@@ -50,6 +51,14 @@ func (this Battle) TakeTurn(attack int) (Battle, string) {
 	}
 	fmt.Fprintf(log, "- Player has %d hit points, %d armor, %d mana\n", this.PlayerHitPoints, this.PlayerArmor, this.PlayerMana)
 	fmt.Fprintf(log, "- Boss has %d hit points\n", this.BossHitPoints)
+
+	if this.IsPart2 && this.IsPlayerTurn {
+		this.PlayerHitPoints--
+		if this.PlayerHitPoints < 1 {
+			log.WriteString("The player has died from exhaustion, and the boss wins.\n")
+			return this, strings.TrimSpace(log.String())
+		}
+	}
 
 	this.IsPlayerTurn = !this.IsPlayerTurn
 
