@@ -9,23 +9,34 @@ import (
 func main() {
 	log.SetFlags(0)
 	fmt.Println("Least mana spent (expected: 1824) was...", part1())
+	fmt.Println("Least mana spent on HARD (expected: 1937) was...", part2())
 }
 
 func part1() (min int) {
-	min = 999999999
-
-	battle := Battle{
+	return simulate(Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 50,
 		PlayerMana:      500,
 		BossHitPoints:   71,
 		BossDamage:      10,
-	}
+	})
+}
+func part2() (min int) {
+	return simulate(Battle{
+		IsPart2:         true,
+		IsPlayerTurn:    true,
+		PlayerHitPoints: 50,
+		PlayerMana:      500,
+		BossHitPoints:   71,
+		BossDamage:      10,
+	})
+}
 
+func simulate(battle Battle) (min int) {
+	min = 999999999
 	battles := 0
 	wins := 0
 	queue := []Battle{battle}
-
 	for len(queue) > 0 {
 		battle := queue[0]
 		queue = queue[1:]
@@ -55,7 +66,6 @@ func part1() (min int) {
 	}
 	fmt.Println("Battles:", battles)
 	fmt.Println("Player wins:", wins)
-
 	return min
 }
 
