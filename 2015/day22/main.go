@@ -17,7 +17,7 @@ func part1() (min int) {
 	battle := Battle{
 		IsPlayerTurn:    true,
 		PlayerHitPoints: 50,
-		PlayerMana:      250,
+		PlayerMana:      500,
 		BossHitPoints:   71,
 		BossDamage:      10,
 	}
