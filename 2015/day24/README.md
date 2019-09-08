@@ -63,3 +63,12 @@ group, the one with the smaller quantum entanglement would be chosen.
 
 What is the quantum entanglement of the first group of packages in 
 the ideal configuration?
+
+NOTE: in my puzzle input, all the weights divided by 3 is 508.
+NOTE: in my puzzle input, all the weights are odd, which means that 
+any combination of weights will have to have an even number of values 
+to equal 508, which is an even number.
+Note: current idea is simply to generate every permutation of a sleigh,
+then filter out those that don't balance, and store only those that
+balance, then soft by number of packages in the passenger compartment,
+then by quantum entanglement.
