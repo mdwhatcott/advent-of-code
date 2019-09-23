@@ -25,25 +25,34 @@ func (this *SleighFixture) TestEqualityOfIntSlices() {
 func (this *SleighFixture) TestGroupingUnbalanced() {
 	this.So(new(Sleigh).IsBalanced(), should.BeTrue)
 	this.So((&Sleigh{
-		Passenger: []int{1},
-		Left:      []int{1},
-		Right:     []int{2},
+		A: []int{1},
+		B: []int{1},
+		C: []int{2},
 	}).IsBalanced(), should.BeFalse)
 	this.So((&Sleigh{
-		Passenger: []int{1},
-		Left:      []int{1},
-		Right:     []int{1},
+		A: []int{1},
+		B: []int{1},
+		C: []int{1},
 	}).IsBalanced(), should.BeTrue)
 }
 
 func (this *SleighFixture) TestQuantumEntanglement() {
 	sleigh := new(Sleigh)
-	sleigh.Passenger = []int{3, 4, 5}
-	expected := QuantumEntanglement(sleigh.Passenger...)
+	sleigh.A = []int{3, 4, 5}
+	expected := QuantumEntanglement(sleigh.A...)
 	this.So(sleigh.QuantumEntanglement(), should.Equal, expected)
 }
 
 func (this *SleighFixture) TestComfort() {
-	this.So((&Sleigh{Passenger: []int{1}, Left: []int{1, 1}, Right: []int{1, 1}}).IsComfortable(), should.BeTrue)
-	this.So((&Sleigh{Passenger: []int{1}, Left: []int{1}, Right: []int{1}}).IsComfortable(), should.BeTrue)
+	this.So((&Sleigh{A: []int{1}, B: []int{1, 1}, C: []int{1, 1}}).IsComfortable(), should.BeTrue)
+	this.So((&Sleigh{A: []int{1}, B: []int{1}, C: []int{1}}).IsComfortable(), should.BeTrue)
+	this.So((&Sleigh{A: []int{1, 1}, B: []int{1}, C: []int{1}}).IsComfortable(), should.BeFalse)
+}
+
+func (this *SleighFixture) TestEnumerateSleighConfigurations() {
+}
+
+func (this *SleighFixture) TestSumsOfTwenty() {
+	sums := SumsOfTheThirdPart(1, 2, 3, 4, 5, 7, 8, 9, 10, 11)
+	this.So(sums, should.HaveLength, 1)
 }
