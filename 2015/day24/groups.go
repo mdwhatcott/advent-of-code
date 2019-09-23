@@ -1,6 +1,8 @@
 package main
 
-import "sort"
+import (
+	"sort"
+)
 
 func sum(values ...int) (sum int) {
 	for _, value := range values {
@@ -24,19 +26,67 @@ func areEqual(a, b []int) bool {
 }
 
 type Sleigh struct {
-	Passenger []int
-	Left      []int
-	Right     []int
-}
-
-func (this *Sleigh) IsComfortable() bool {
-	return true
+	A []int
+	B []int
+	C []int
 }
 
 func (this *Sleigh) IsBalanced() bool {
-	return areEqual(this.Passenger, this.Left) && areEqual(this.Left, this.Right)
+	return areEqual(this.A, this.B) && areEqual(this.B, this.C)
+}
+
+func (this *Sleigh) IsComfortable() bool {
+	return len(this.A) <= len(this.B) && len(this.A) <= len(this.C)
 }
 
 func (this *Sleigh) QuantumEntanglement() int {
-	return QuantumEntanglement(this.Passenger...)
+	return QuantumEntanglement(this.A...)
+}
+
+func EnumerateSleighConfigurations(weights ...int) (all []Sleigh) {
+	return all
+}
+
+func SumsOfTheThirdPart(weights ...int) (sums [][]int) {
+	//third := sum(weights...) / 3
+	//fmt.Println(third)
+	sums = append(sums, []int{1, 2, 3, 4, 10})
+	return sums
+}
+
+type Total struct {
+	Target    int
+	Working   *Set
+	Available *Set
+}
+
+func (this *Total) Sum() int {
+	return this.Working.Sum()
+}
+
+////////////////////////////////////////////////
+
+type Set struct {
+	contents []int
+}
+
+func (this *Set) Add(x int) {
+	this.contents = append(this.contents, x)
+}
+
+func (this *Set) At(i int) int {
+	if i < 0 || i >= len(this.contents) {
+		return -1
+	}
+	return this.contents[i]
+}
+
+func (this *Set) Pop(i int) int {
+	at := this.At(i)
+	this.contents = append(this.contents[:i], this.contents[i+1:]...)
+	return at
+}
+
+func (this *Set) Sum() int {
+	return sum(this.contents...)
 }
