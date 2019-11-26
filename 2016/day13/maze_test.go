@@ -9,5 +9,5 @@ import (
 
 func TestExample(t *testing.T) {
 	queue := NewLocationQueue()
-	assertions.New(t).So(DistanceToDestination(queue, 10, 7, 4), should.Equal, 11)
+	assertions.New(t).So(BreadthFirstSearch(queue, 10, 7, 4), should.Equal, 11)
 }

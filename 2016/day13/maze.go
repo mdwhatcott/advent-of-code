@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func DistanceToDestination(queue *LocationQueue, maze, x, y int) int {
+func BreadthFirstSearch(queue *LocationQueue, maze, x, y int) (distance int) {
 	origin := &Location{X: 1, Y: 1}
 	queue.Enqueue(origin)
 
@@ -58,12 +58,11 @@ func (this *LocationQueue) Dequeue() *Location {
 
 type Location struct {
 	X, Y     int
-	Previous *Location
 	Distance int
 }
 
-func NewLocation(x, y, distance int, previous *Location) *Location {
-	return &Location{X: x, Y: y, Distance: distance, Previous: previous}
+func NewLocation(x, y, distance int) *Location {
+	return &Location{X: x, Y: y, Distance: distance}
 }
 
 func (this *Location) String() string {
@@ -77,21 +76,14 @@ func (this *Location) IsDestination(x, y int) bool {
 	return this.X == x && this.Y == y
 }
 func (this *Location) Adjacent() (a []*Location) {
-	if this.Previous == nil {
-		return append(a,
-			NewLocation(this.X+1, this.Y, this.Distance+1, this),
-			NewLocation(this.X-1, this.Y, this.Distance+1, this),
-			NewLocation(this.X, this.Y+1, this.Distance+1, this),
-			NewLocation(this.X, this.Y-1, this.Distance+1, this))
-	}
 	if this.X > 0 {
-		a = append(a, NewLocation(this.X-1, this.Y, this.Distance+1, this))
+		a = append(a, NewLocation(this.X-1, this.Y, this.Distance+1))
 	}
 	if this.Y > 0 {
-		a = append(a, NewLocation(this.X, this.Y-1, this.Distance+1, this))
+		a = append(a, NewLocation(this.X, this.Y-1, this.Distance+1))
 	}
-	a = append(a, NewLocation(this.X+1, this.Y, this.Distance+1, this))
-	a = append(a, NewLocation(this.X, this.Y+1, this.Distance+1, this))
+	a = append(a, NewLocation(this.X+1, this.Y, this.Distance+1))
+	a = append(a, NewLocation(this.X, this.Y+1, this.Distance+1))
 	return a
 }
 
@@ -105,8 +97,7 @@ func sum(x, y int) int {
 }
 
 // See: https://en.wikipedia.org/wiki/Hamming_weight
-func bits(value int) int {
-	var count int
+func bits(value int) (count int) {
 	for count = 0; value > 0; count++ {
 		value &= value - 1
 	}
