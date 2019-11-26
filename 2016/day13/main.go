@@ -8,6 +8,6 @@ import (
 
 func main() {
 	queue := NewLocationQueue()
-	fmt.Println("Distance to (31,39):", DistanceToDestination(queue, util.ParseInt(util.InputString()), 31, 39))
+	fmt.Println("Distance to (31,39):", BreadthFirstSearch(queue, util.InputInt(), 31, 39))
 	fmt.Println("Locations within 50 moves:", queue.close)
 }
