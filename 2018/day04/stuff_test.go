@@ -9,7 +9,7 @@ import (
 )
 
 func TestStuffFixture(t *testing.T) {
-    gunit.Run(new(StuffFixture), t)
+	gunit.Run(new(StuffFixture), t)
 }
 
 const toy = `[1518-11-01 00:00] Guard #10 begins shift
@@ -31,7 +31,7 @@ const toy = `[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-05 00:55] wakes up`
 
 type StuffFixture struct {
-    *gunit.Fixture
+	*gunit.Fixture
 }
 
 func (this *StuffFixture) TestToy() {

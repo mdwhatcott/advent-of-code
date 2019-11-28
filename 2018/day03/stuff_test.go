@@ -42,4 +42,3 @@ func (this *StuffFixture) TestFindNoConflicts() {
 	}
 	this.So(undisputed, should.Resemble, []int{3})
 }
-

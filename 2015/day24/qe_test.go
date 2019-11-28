@@ -26,7 +26,7 @@ func (this *QuantumEntanglementFixture) TestQE() {
 	this.assertQE(1, []int{1, 1})
 	this.assertQE(2, []int{1, 2})
 
-	this.assertQE(99, []int{11, 9,})
+	this.assertQE(99, []int{11, 9})
 	this.assertQE(90, []int{10, 9, 1})
 	this.assertQE(160, []int{10, 8, 2})
 	this.assertQE(210, []int{10, 7, 3})

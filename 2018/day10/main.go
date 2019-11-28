@@ -44,9 +44,9 @@ func Render(points []grid.Point) {
 	}
 
 	fmt.Println(minX, maxX, minY, maxY)
-	screen := make([][]string, int(height) + 20)
+	screen := make([][]string, int(height)+20)
 	for y := 0; y < len(screen); y++ {
-		screen[y] = make([]string, int(width + 20))
+		screen[y] = make([]string, int(width+20))
 		for x := 0; x < len(screen[y]); x++ {
 			screen[y][x] = " "
 		}

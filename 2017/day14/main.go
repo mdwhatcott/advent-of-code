@@ -9,4 +9,3 @@ func Part1() int {
 func Part2() int {
 	return makeDisk(util.InputString()).CountUsedRegions()
 }
-

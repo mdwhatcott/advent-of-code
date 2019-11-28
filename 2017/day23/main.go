@@ -17,7 +17,7 @@ func Part2() (h int) {
 	c := 125100 // a const given my input
 	b := 108100 // a const given my input
 
-	for ; b < c + 1; b += 17 {
+	for ; b < c+1; b += 17 {
 		if !prime(b) {
 			h += 1
 		}
@@ -26,8 +26,8 @@ func Part2() (h int) {
 }
 
 func prime(i int) bool {
-	for j := 2; j < int(math.Sqrt(float64(i))) + 1; j++ {
-		if i % j == 0 {
+	for j := 2; j < int(math.Sqrt(float64(i)))+1; j++ {
+		if i%j == 0 {
 			return false
 		}
 	}

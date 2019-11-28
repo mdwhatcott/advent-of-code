@@ -26,4 +26,3 @@ func (this SummedAreaTable) SumQuadrant(upperLeft, lowerRight Point) int {
 	return this[upperLeft.Y()-1][upperLeft.X()-1] + this[lowerRight.X()][lowerRight.Y()] -
 		this[upperLeft.Y()-1][lowerRight.X()] - this[lowerRight.Y()][upperLeft.X()-1]
 }
-

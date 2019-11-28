@@ -24,8 +24,7 @@ type Store struct {
 }
 
 func newStore() *Store {
-	store := &Store{
-	}
+	store := &Store{}
 	return store
 }
 
@@ -51,7 +50,6 @@ func (this Purchase) Damage() (total int) {
 	}
 	return total
 }
-
 
 func (this *Store) LoadPurchaseCombinations() (all []Purchase) {
 	for _, weapon := range this.weapons {

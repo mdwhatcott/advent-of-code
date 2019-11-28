@@ -22,4 +22,3 @@ func (this *Stuff) Test() {
 	this.So(presents(4), should.Equal, 70)
 	this.So(presents(9), should.Equal, 130)
 }
-

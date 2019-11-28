@@ -58,4 +58,3 @@ func ReassembleGrid(patterns ...string) string {
 	}
 	return strings.Replace(grid.String(), "/", "\n", -1)
 }
-

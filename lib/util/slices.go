@@ -68,7 +68,6 @@ func (this Ints) Contains(needle int) bool {
 	return this.Index(needle) > -1
 }
 
-
 func (this Ints) Min() (min int) {
 	return Min(this...)
 }

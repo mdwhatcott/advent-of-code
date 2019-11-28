@@ -8,11 +8,11 @@ import (
 )
 
 func TestStuffFixture(t *testing.T) {
-    gunit.Run(new(StuffFixture), t)
+	gunit.Run(new(StuffFixture), t)
 }
 
 type StuffFixture struct {
-    *gunit.Fixture
+	*gunit.Fixture
 }
 
 const toy = "dabAcCaCBAcCcaDA"

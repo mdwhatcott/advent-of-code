@@ -12,5 +12,3 @@ require (
 	github.com/smartystreets/logging v1.0.1
 	golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb // indirect
 )
-
-replace github.com/smartystreets/gunit => /Users/mike/src/github.com/smartystreets/gunit

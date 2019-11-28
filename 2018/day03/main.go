@@ -19,7 +19,7 @@ func Part2() interface{} {
 	fabric := plotClaimsOnFabric(claims)
 	for id, claim := range claims {
 		if fabric.IsUndisputed(claim) {
-			return id+1
+			return id + 1
 		}
 	}
 	panic("Undisputed claim not found.")
