@@ -40,4 +40,3 @@ func parseEvent(line string) interface{} {
 		panic(fmt.Sprint("Parse failure:", line))
 	}
 }
-

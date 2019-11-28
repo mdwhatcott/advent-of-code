@@ -7,7 +7,7 @@ import (
 type Item int
 
 const (
-	OpenGroup    Item = iota
+	OpenGroup Item = iota
 	CloseGroup
 	OpenGarbage
 	Garbage

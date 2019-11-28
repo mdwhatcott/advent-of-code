@@ -39,4 +39,3 @@ func (this *Stuff) TestInterpreter() {
 	this.So(interpreter.Dance("pe/b"), should.Equal, "baedc")
 	this.So(interpreter.state, should.Equal, "baedc")
 }
-

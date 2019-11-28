@@ -65,7 +65,7 @@ func adjoining(x, y int) []point {
 	}
 }
 
-func (self *Grid)  LockCornerLightsOn() {
+func (self *Grid) LockCornerLightsOn() {
 	self.cells[0][0].Lock(true)
 	self.cells[len(self.cells)-1][0].Lock(true)
 	self.cells[0][len(self.cells[0])-1].Lock(true)
@@ -121,7 +121,6 @@ func (self point) isOnGrid(grid [][]*cell) bool {
 }
 
 ///////////////////////////////////////////////////////////////
-
 
 type cell struct {
 	updater func()

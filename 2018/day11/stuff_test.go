@@ -29,8 +29,8 @@ func (this *StuffFixture) TestHundredsDigit() {
 func (this *StuffFixture) TestPowerAt() {
 	this.So(NewGrid(8).PowerAt(3, 5), should.Equal, 4)
 	this.So(NewGrid(57).PowerAt(122, 79), should.Equal, -5)
-	this.So(NewGrid(39).PowerAt(217,196), should.Equal, 0)
-	this.So(NewGrid(71).PowerAt(101,153), should.Equal, 4)
+	this.So(NewGrid(39).PowerAt(217, 196), should.Equal, 0)
+	this.So(NewGrid(71).PowerAt(101, 153), should.Equal, 4)
 }
 
 func (this *StuffFixture) TestPowerSquare() {

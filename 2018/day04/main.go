@@ -21,4 +21,3 @@ func processGuardDutyLogs(log []string) *SleepyGuardProjection {
 	}
 	return projection
 }
-

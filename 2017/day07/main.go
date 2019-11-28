@@ -26,5 +26,5 @@ func Answers() (part1 string, part2 int) {
 	node := tower.listing[bottom]
 	diff, value := node.FindUnbalance()
 
-	return bottom, diff+value
+	return bottom, diff + value
 }

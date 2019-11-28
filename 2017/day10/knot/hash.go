@@ -78,4 +78,3 @@ func (this *Loop) Digest() []byte {
 	}
 	return digest
 }
-

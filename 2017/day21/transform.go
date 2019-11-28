@@ -15,7 +15,7 @@ func transformPattern(pattern string, transformations [][]int) (transformed []st
 	transformed = append(transformed, pattern)
 	for _, transformation := range transformations {
 		var altered string
-		for _, c := range transformation{
+		for _, c := range transformation {
 			altered += string(pattern[c])
 		}
 		if !contains(transformed, altered) {
@@ -116,7 +116,7 @@ flip vertical, rotate 270:
 	0483
 	1597
 	26x
- */
+*/
 
 /*
 2x2 Transformations:
@@ -168,4 +168,4 @@ flip vertical (180): (same as flip horizontal)
 flip vertical (270): (same as flip horizontal, rotate 90)
 	032
 	14
- */
+*/

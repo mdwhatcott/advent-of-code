@@ -30,7 +30,7 @@ func Part2() int {
 	for id, line := range util.InputLines() {
 		pixels = append(pixels, ParsePixel(id, line))
 	}
-	for x := 0; x < 100 ; x++ { // 100 ticks turns out to be enough to detect all collisions for my input.
+	for x := 0; x < 100; x++ { // 100 ticks turns out to be enough to detect all collisions for my input.
 		for _, pixel := range pixels {
 			pixel.Update()
 		}

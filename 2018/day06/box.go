@@ -42,4 +42,3 @@ func (this *BoundingBox) IsOnBoundary(point grid.Point) bool {
 	y := point.Y()
 	return x == this.maxX || x == this.maxY || y == this.minX || y == this.minY
 }
-

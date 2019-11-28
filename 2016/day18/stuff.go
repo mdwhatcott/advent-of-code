@@ -45,9 +45,9 @@ func (this *Row) Next() *Row {
 }
 
 func (this *Row) NextIsTrap(i int) bool {
-	left := this.at(i-1)
+	left := this.at(i - 1)
 	center := this.at(i)
-	right := this.at(i+1)
+	right := this.at(i + 1)
 
 	if left && center && !right {
 		return true

@@ -8,11 +8,11 @@ import (
 )
 
 func TestStuffFixture(t *testing.T) {
-    gunit.Run(new(StuffFixture), t)
+	gunit.Run(new(StuffFixture), t)
 }
 
 type StuffFixture struct {
-    *gunit.Fixture
+	*gunit.Fixture
 }
 
 func (this *StuffFixture) TestExamples() {
@@ -23,4 +23,3 @@ func (this *StuffFixture) TestExamples() {
 	this.So(MarbleHighScore(Parse("21 players; last marble is worth 6111 points")), should.Equal, 54718)
 	this.So(MarbleHighScore(Parse("30 players; last marble is worth 5807 points")), should.Equal, 37305)
 }
-
