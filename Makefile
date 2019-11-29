@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 testDay: fmt
-	go test -v -count=1 advent/2018/day11
+	go test -v -count=1 advent/2018/day12
 
 test2019: fmt
 	go test -count=1 advent/2019/...
