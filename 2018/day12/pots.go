@@ -1,6 +1,9 @@
 package day12
 
-import "strings"
+import (
+	"bytes"
+	"strings"
+)
 
 type Rule struct {
 	pots   string
@@ -24,24 +27,60 @@ func (this Rule) IsSatisfiedBy(pots string) bool {
 }
 
 type Row struct {
-	min   int
-	max   int
-	state string
-	rules []Rule
+	min    int
+	max    int
+	state  string
+	rules  []Rule
+	buffer *bytes.Buffer
 }
 
 func NewRowOfPots(initial string, rules ...Rule) *Row {
 	return &Row{
-		min:   0,
-		max:   len(initial),
-		state: initial,
-		rules: rules,
+		min:    0,
+		max:    len(initial),
+		state:  initial,
+		rules:  rules,
+		buffer: new(bytes.Buffer),
 	}
 }
 
 func (this *Row) Scan() {
+	this.buffer.WriteString(this.state)
+	for p, pot := range this.state {
+		var neighbors string
+
+		if p == 0 {
+			neighbors += ".."
+			this.min -= 2
+		} else if p == 1 {
+			neighbors += "."
+			this.min -= 1
+		}
+
+		neighbors += string(pot)
+
+		if p == len(this.state)-1 {
+			neighbors += "."
+			this.max += 1
+		} else if p == len(this.state)-2 {
+			neighbors += ".."
+			this.max += 2
+		}
+
+		before := this.buffer.Len()
+
+		for _, rule := range this.rules {
+			if rule.IsSatisfiedBy(neighbors) {
+				this.buffer.WriteString(rule.String())
+				break
+			}
+		}
+
+		if this.buffer.Len() == before {
+			this.buffer.WriteRune(pot)
+		}
+	}
 	/*
-		reset buffer
 		for pot in state:
 			if pot is near the edge:
 				fill in adjacent (empty) neighbor pots
@@ -56,7 +95,8 @@ func (this *Row) Scan() {
 }
 
 func (this *Row) Update() {
-
+	this.state = this.buffer.String()
+	this.buffer.Reset()
 }
 
 func (this *Row) Sum() (sum int) {
@@ -68,6 +108,6 @@ func (this *Row) Sum() (sum int) {
 	return sum
 }
 
-func (this *Row) String() string {
+func (this *Row) Render() string {
 	return ""
 }
