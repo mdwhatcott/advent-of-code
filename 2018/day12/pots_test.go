@@ -62,7 +62,7 @@ func (this *StuffFixture) TestRowTransformations() {
 		pots.Scan()
 		pots.Update()
 		continue
-		this.So(pots.String(), should.Equal, this.extractExpectedPotGrowth(scanner.Text()))
+		this.So(pots.Render(), should.Equal, this.extractExpectedPotGrowth(scanner.Text()))
 	}
 }
 
@@ -72,7 +72,7 @@ func (this *StuffFixture) extractExpectedPotGrowth(text string) string {
 	return strings.Trim(parts[1], ".")
 }
 
-const ExampleGenerations = ` 1: ...#...#....#.....#..#..#..#...........
+const ExampleGenerations = ` 1: ...#...#....#.....#..#..#..#...........` /*
  2: ...##..##...##....#..#..#..##..........
  3: ..#.#...#..#.#....#..#..#...#..........
  4: ...#.#..#...#.#...#..#..##..##.........
@@ -92,3 +92,4 @@ const ExampleGenerations = ` 1: ...#...#....#.....#..#..#..#...........
 18: ..##.#.#....#####.#.#.#...##...##..##..
 19: .#..###.#..#.#.#######.#.#.#..#.#...#..
 20: .#....##....#####...#######....#.#..##.`
+*/
