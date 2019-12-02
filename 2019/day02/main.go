@@ -1,11 +1,14 @@
 package advent
 
 import (
+	"advent/lib/util"
 	_ "advent/lib/util"
 )
 
 func Part1() interface{} {
-	return nil
+	program := util.InputInts(",")
+	RunProgram(program)
+	return program[0]
 }
 
 func Part2() interface{} {
