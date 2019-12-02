@@ -46,7 +46,7 @@ func (this *Fixture2019) TestDay01() {
 	this.So(day01.Part2(), should.Equal, 5342292)
 }
 func (this *Fixture2019) TestDay02() {
-	this.So(day02.Part1(), should.Equal, nil)
+	this.So(day02.Part1(), should.BeGreaterThan, 337076)
 	this.So(day02.Part2(), should.Equal, nil)
 }
 func (this *Fixture2019) TestDay03() {
