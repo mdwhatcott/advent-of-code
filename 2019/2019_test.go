@@ -42,8 +42,8 @@ type Fixture2019 struct {
 }
 
 func (this *Fixture2019) TestDay01() {
-	this.So(day01.Part1(), should.Equal, nil)
-	this.So(day01.Part2(), should.Equal, nil)
+	this.So(day01.Part1(), should.Equal, 3563458)
+	this.So(day01.Part2(), should.Equal, 5342292)
 }
 func (this *Fixture2019) TestDay02() {
 	this.So(day02.Part1(), should.Equal, nil)
