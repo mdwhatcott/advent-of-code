@@ -15,30 +15,6 @@ type OpCodeFixture struct {
 	*gunit.Fixture
 }
 
-func (this *OpCodeFixture) TestAdditionOpcode() {
-	program := []int{
-		1, 9, 10, 3,
-		2, 3, 11, 0,
-		99,
-		30, 40, 50,
-	}
-	position, answer := Compute(0, program)
-	this.So(answer, should.Equal, 70)
-	this.So(position, should.Equal, 3)
-}
-
-func (this *OpCodeFixture) TestMultiplicationOpcode() {
-	program := []int{
-		1, 9, 10, 70,
-		2, 3, 11, 0,
-		99,
-		30, 40, 50,
-	}
-	position, answer := Compute(4, program)
-	this.So(answer, should.Equal, 3500)
-	this.So(position, should.Equal, 0)
-}
-
 func (this *OpCodeFixture) TestRunProgramA() {
 	program := []int{
 		1, 9, 10, 3,
@@ -56,7 +32,6 @@ func (this *OpCodeFixture) TestRunProgramA() {
 		30, 40, 50,
 	})
 }
-
 func (this *OpCodeFixture) TestRunProgramB() {
 	program := []int{
 		1, 0, 0, 0, 99,
@@ -68,7 +43,6 @@ func (this *OpCodeFixture) TestRunProgramB() {
 		2, 0, 0, 0, 99,
 	})
 }
-
 func (this *OpCodeFixture) TestRunProgramC() {
 	program := []int{
 		2, 3, 0, 3, 99,
@@ -80,7 +54,6 @@ func (this *OpCodeFixture) TestRunProgramC() {
 		2, 3, 0, 6, 99,
 	})
 }
-
 func (this *OpCodeFixture) TestRunProgramD() {
 	program := []int{
 		2, 4, 4, 5, 99, 0,
@@ -92,7 +65,6 @@ func (this *OpCodeFixture) TestRunProgramD() {
 		2, 4, 4, 5, 99, 9801,
 	})
 }
-
 func (this *OpCodeFixture) TestRunProgramE() {
 	program := []int{
 		1, 1, 1, 4, 99, 5, 6, 0, 99,
