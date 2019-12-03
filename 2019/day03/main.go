@@ -9,12 +9,11 @@ import (
 
 func Part1() interface{} {
 	input := util.InputLines()
-	origin := grid.NewPoint(0, 0)
-	path1 := Follow(strings.Split(input[0], ","), origin)
-	path2 := Follow(strings.Split(input[1], ","), origin)
+	path1 := Follow(strings.Split(input[0], ","), grid.Origin)
+	path2 := Follow(strings.Split(input[1], ","), grid.Origin)
 	intersections := FindIntersections(path1, path2)
-	closest := FindClosest(intersections, origin)
-	return int(grid.ManhattanDistance(origin, closest))
+	closest := FindClosest(intersections, grid.Origin)
+	return int(grid.ManhattanDistance(grid.Origin, closest))
 }
 
 func Follow(instructions []string, current grid.Point) (path map[grid.Point]int) {
