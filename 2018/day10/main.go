@@ -69,9 +69,7 @@ func Part2() interface{} {
 	return ExpectedSecondsToReachMessage
 }
 
-func drawBoundingBox(points []grid.Point) (
-	minX float64, maxX float64, minY float64, maxY float64,
-) {
+func drawBoundingBox(points []grid.Point) (minX, maxX, minY, maxY float64) {
 	for _, point := range points {
 		x := point.X()
 		y := point.Y()
