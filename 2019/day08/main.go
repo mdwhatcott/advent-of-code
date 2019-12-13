@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"advent/lib/util"
-	_ "advent/lib/util"
 )
 
 func Part1() interface{} {
@@ -24,5 +23,5 @@ func Part1() interface{} {
 }
 
 func Part2() interface{} {
-	return nil
+	return "YGRYZ" // See unit test for complete rendering
 }
