@@ -2,8 +2,8 @@ package advent
 
 import "fmt"
 
-func RunProgram(program []int) {
-	NewIntCodeInterpreter(program, nil).RunProgram()
+func RunProgram(program []int, input func() int, output func(int)) {
+	NewIntCodeInterpreter(program, input, output).RunProgram()
 }
 
 const (
@@ -20,37 +20,20 @@ const (
 type IntCodeInterpreter struct {
 	program []int
 	pointer int
-	input   func() int
-	output  chan int
+	inputs  func() int
+	outputs func(int)
 }
 
-func NewIntCodeInterpreter(program []int, input func() int) *IntCodeInterpreter {
+func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *IntCodeInterpreter {
 	return &IntCodeInterpreter{
 		program: program,
 		pointer: 0,
-		input:   input,
-		output:  make(chan int),
+		inputs:  input,
+		outputs: output,
 	}
 }
 
-type OpCode struct {
-	OpCode     int
-	Parameters []Parameter
-}
-
-type Parameter struct {
-	Mode  int
-	Raw   int
-	Value int
-}
-
-func ParseOpCode(program []int, index int) OpCode {
-	return OpCode{}
-}
-
 func (this *IntCodeInterpreter) RunProgram() {
-	defer close(this.output)
-
 	for {
 		opCode := this.program[this.pointer]
 		switch opCode {
@@ -58,6 +41,10 @@ func (this *IntCodeInterpreter) RunProgram() {
 			this.pointer += this.add()
 		case MultiplyInstruction:
 			this.pointer += this.multiply()
+		case InputInstruction:
+			this.pointer += this.input()
+		case OutputInstruction:
+			this.pointer += this.output()
 		case ExitInstruction:
 			return
 		default:
@@ -90,4 +77,14 @@ func (this *IntCodeInterpreter) multiply() int {
 		this.reference(this.pointer+1)*
 			this.reference(this.pointer+2))
 	return 4
+}
+
+func (this *IntCodeInterpreter) input() int {
+	this.setReference(this.pointer+1, this.inputs())
+	return 2
+}
+
+func (this *IntCodeInterpreter) output() int {
+	this.outputs(this.reference(this.pointer+1))
+	return 2
 }
