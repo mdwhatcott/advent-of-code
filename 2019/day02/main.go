@@ -1,8 +1,8 @@
 package advent
 
 import (
+	"advent/2019/intcode"
 	"advent/lib/util"
-	_ "advent/lib/util"
 )
 
 func Part1() interface{} {
@@ -24,4 +24,13 @@ func Part2() interface{} {
 		}
 	}
 	panic("solution unknown")
+}
+
+func RunTweakedProgram(program []int, noun, verb int) {
+	program[1] = noun
+	program[2] = verb
+	RunProgram(program)
+}
+func RunProgram(program []int) {
+	intcode.RunProgram(program, nil, nil)
 }

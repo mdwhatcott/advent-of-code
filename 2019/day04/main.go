@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"advent/lib/util"
-	_ "advent/lib/util"
 )
 
 func Part1() (count int) {
