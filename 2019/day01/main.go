@@ -1,9 +1,6 @@
 package advent
 
-import (
-	"advent/lib/util"
-	_ "advent/lib/util"
-)
+import "advent/lib/util"
 
 func Part1() (sum int) {
 	for _, input := range util.InputInts("\n") {

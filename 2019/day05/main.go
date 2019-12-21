@@ -6,12 +6,13 @@ import (
 	"github.com/smartystreets/assertions/assert"
 	"github.com/smartystreets/assertions/should"
 
+	"advent/2019/intcode"
 	"advent/lib/util"
 )
 
 func Part1() interface{} {
 	var outputs []int
-	RunProgram(
+	intcode.RunProgram(
 		util.InputInts(","),
 		func() int { return 1 },
 		func(out int) { outputs = append(outputs, out) },
@@ -29,7 +30,7 @@ func Part1() interface{} {
 
 func Part2() interface{} {
 	var outputs []int
-	RunProgram(
+	intcode.RunProgram(
 		util.InputInts(","),
 		func() int { return 5 },
 		func(out int) { outputs = append(outputs, out) },

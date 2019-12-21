@@ -1,8 +1,4 @@
-package advent
-
-import (
-	"fmt"
-)
+package intcode
 
 func RunProgram(program []int, input func() int, output func(int)) {
 	NewIntCodeInterpreter(program, input, output).RunProgram()
@@ -33,16 +29,17 @@ var offsets = map[int]int{
 	Slot3: 3,
 }
 
-type IntCodeInterpreter struct {
-	pointer int
-	program []int
-	inputs  func() int
-	outputs func(int)
-	modes   []int
+type interpreter struct {
+	pointer  int
+	program  []int
+	inputs   func() int
+	outputs  func(int)
+	modes    []int
+	finished bool
 }
 
-func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *IntCodeInterpreter {
-	return &IntCodeInterpreter{
+func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *interpreter {
+	return &interpreter{
 		pointer: 0,
 		program: program,
 		inputs:  input,
@@ -50,47 +47,52 @@ func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *I
 	}
 }
 
-func (this *IntCodeInterpreter) RunProgram() {
-	for {
-		this.modes = splitDigits(this.value(this.pointer))
-		//log.Println(this.pointer, this.modes)
-
-		switch opCode(this.modes) {
-
-		case AddInstruction:
-			this.pointer += this.add()
-
-		case MultiplyInstruction:
-			this.pointer += this.multiply()
-
-		case InputInstruction:
-			this.pointer += this.input()
-
-		case OutputInstruction:
-			this.pointer += this.output()
-
-		case JumpIfTrueInstruction:
-			this.pointer = this.jumpIfTrue()
-
-		case JumpIfFalseInstruction:
-			this.pointer = this.jumpIfFalse()
-
-		case LessThanInstruction:
-			this.pointer += this.less()
-
-		case EqualsInstruction:
-			this.pointer += this.equals()
-
-		case ExitInstruction:
-			return
-
-		default:
-			panic(fmt.Sprintf("unknown instruction: %d", this.modes))
-		}
+func (this *interpreter) RunProgram() {
+	for !this.finished {
+		this.processInstruction()
 	}
 }
 
-func (this *IntCodeInterpreter) access(slot int) int {
+func (this *interpreter) processInstruction() {
+	this.modes = splitDigits(this.value(this.pointer))
+
+	println(this.pointer, this.modes)
+
+	switch opCode(this.modes) {
+
+	case AddInstruction:
+		this.add()
+
+	case MultiplyInstruction:
+		this.multiply()
+
+	case InputInstruction:
+		this.input()
+
+	case OutputInstruction:
+		this.output()
+
+	case JumpIfTrueInstruction:
+		this.jumpIfTrue()
+
+	case JumpIfFalseInstruction:
+		this.jumpIfFalse()
+
+	case LessThanInstruction:
+		this.less()
+
+	case EqualsInstruction:
+		this.equals()
+
+	case ExitInstruction:
+		this.finished = true
+
+	default:
+		panic("not possible")
+	}
+}
+
+func (this *interpreter) access(slot int) int {
 	address := this.pointer + offsets[slot]
 	switch this.modes[slot] {
 
@@ -105,62 +107,64 @@ func (this *IntCodeInterpreter) access(slot int) int {
 	}
 }
 
-func (this *IntCodeInterpreter) value(address int) int {
+func (this *interpreter) value(address int) int {
 	return this.program[address]
 }
-func (this *IntCodeInterpreter) setValue(address, value int) {
+func (this *interpreter) setValue(address, value int) {
 	this.program[address] = value
 }
-func (this *IntCodeInterpreter) setReference(address, value int) {
+func (this *interpreter) setReference(address, value int) {
 	this.setValue(this.value(address), value)
 }
-func (this *IntCodeInterpreter) reference(address int) int {
+func (this *interpreter) reference(address int) int {
 	return this.value(this.value(address))
 }
 
-func (this *IntCodeInterpreter) add() int {
+func (this *interpreter) add() {
 	this.setReference(this.pointer+3, this.access(Slot1)+this.access(Slot2))
-	return 4
+	this.pointer += 4
 }
-func (this *IntCodeInterpreter) multiply() int {
+func (this *interpreter) multiply() {
 	this.setReference(this.pointer+3, this.access(Slot1)*this.access(Slot2))
-	return 4
+	this.pointer += 4
 }
-func (this *IntCodeInterpreter) input() int {
+func (this *interpreter) input() {
 	this.setReference(this.pointer+1, this.inputs())
-	return 2
+	this.pointer += 2
 }
-func (this *IntCodeInterpreter) output() int {
+func (this *interpreter) output() {
 	this.outputs(this.access(Slot1))
-	return 2
+	this.pointer += 2
 }
-func (this *IntCodeInterpreter) jumpIfTrue() int {
+func (this *interpreter) jumpIfTrue() {
 	if this.access(Slot1) != 0 {
-		return this.access(Slot2)
+		this.pointer = this.access(Slot2)
+	} else {
+		this.pointer += 3
 	}
-	return this.pointer + 3
 }
-func (this *IntCodeInterpreter) jumpIfFalse() int {
+func (this *interpreter) jumpIfFalse() {
 	if this.access(Slot1) == 0 {
-		return this.access(Slot2)
+		this.pointer = this.access(Slot2)
+	} else {
+		this.pointer += 3
 	}
-	return this.pointer + 3
 }
-func (this *IntCodeInterpreter) less() int {
+func (this *interpreter) less() {
 	if this.access(Slot1) < this.access(Slot2) {
 		this.setReference(this.pointer+3, 1)
 	} else {
 		this.setReference(this.pointer+3, 0)
 	}
-	return 4
+	this.pointer += 4
 }
-func (this *IntCodeInterpreter) equals() int {
+func (this *interpreter) equals() {
 	if this.access(Slot1) == this.access(Slot2) {
 		this.setReference(this.pointer+3, 1)
 	} else {
 		this.setReference(this.pointer+3, 0)
 	}
-	return 4
+	this.pointer += 4
 }
 
 func opCode(digits []int) int {
