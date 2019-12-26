@@ -1,11 +1,12 @@
 #!/usr/bin/make
 
-day := '05'
+day  := 06
+year := 19
 
 testDay: fmt
-	go test -count=1 advent/2019/day${day} && \
-	go test -count=1 advent/2019/intcode && \
-	go test -count=1 -run 'TestFixture2019/TestDay${day}' advent/2019
+	go test -count=1 advent/20${year}/day${day} && \
+	go test -count=1 advent/20${year}/intcode && \
+	go test -count=1 -run 'TestFixture20${year}/TestDay${day}' advent/20${year}
 
 test2019: fmt
 	go test -count=1 advent/2019/...
