@@ -44,6 +44,11 @@ func (this *Sleigh) QuantumEntanglement() int {
 }
 
 func EnumerateSleighConfigurations(weights ...int) (all []Sleigh) {
+	working := new(Set)
+	for _, weight := range weights {
+		working.Add(weight)
+	}
+
 	return all
 }
 
