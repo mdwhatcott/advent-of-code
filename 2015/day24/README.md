@@ -72,3 +72,7 @@ Note: current idea is simply to generate every permutation of a sleigh,
 then filter out those that don't balance, and store only those that
 balance, then soft by number of packages in the passenger compartment,
 then by quantum entanglement.
+
+NOTE: https://stackoverflow.com/questions/30226438/generate-all-permutations-in-go
+NOTE: https://github.com/fighterlyt/permutation
+NOTE: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/
