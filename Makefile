@@ -4,7 +4,7 @@ day  := 06
 year := 19
 
 testDay: fmt
-	go test -count=1 advent/20${year}/day${day} && \
+	go test -v -count=1 advent/20${year}/day${day} && \
 	go test -count=1 advent/20${year}/intcode && \
 	go test -count=1 -run 'TestFixture20${year}/TestDay${day}' advent/20${year}
 
