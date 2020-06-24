@@ -9,11 +9,11 @@ import (
 )
 
 func TestSetFixture(t *testing.T) {
-    gunit.Run(new(SetFixture), t)
+	gunit.Run(new(SetFixture), t)
 }
 
 type SetFixture struct {
-    *gunit.Fixture
+	*gunit.Fixture
 }
 
 func (this *SetFixture) Setup() {
