@@ -7,5 +7,5 @@ func Part1() interface{} {
 }
 
 func Part2() interface{} {
-	return nil
+	return assembleOrbitalSystem(util.InputLines()).OrbitalDistance("YOU", "SAN")
 }
