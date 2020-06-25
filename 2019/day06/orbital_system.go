@@ -1,6 +1,8 @@
 package advent
 
-import "strings"
+import (
+	"strings"
+)
 
 type System struct {
 	Satellites []*System
@@ -50,7 +52,21 @@ func (this *System) tracePath(search, working string) string {
 }
 
 func (this *System) OrbitalDistance(from, to string) int {
-	return 4 // TODO: implement
+	p1 := strings.Split(strings.Trim(this.TracePath(from), "/"), "/")
+	p2 := strings.Split(strings.Trim(this.TracePath(to), "/"), "/")
+
+	prefix := 0
+	for x, element := range p1 {
+		if element == p2[x] {
+			prefix = x
+		} else {
+			break
+		}
+	}
+
+	first := len(p1) - 2 - prefix
+	second := len(p2) - 2 - prefix
+	return first + second
 }
 
 func assembleOrbitalSystem(lines []string) *System {
