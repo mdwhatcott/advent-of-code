@@ -32,6 +32,27 @@ func (this *System) OrbitalChecksum() (sum int) {
 	return sum + this.Magnitude
 }
 
+func (this *System) TracePath(search string) string {
+	return this.tracePath(search, "")
+}
+func (this *System) tracePath(search, working string) string {
+	working += "/" + this.Label
+	if strings.HasSuffix(working, search) {
+		return working
+	}
+	for _, system := range this.Satellites {
+		path := system.tracePath(search, working)
+		if len(path) > 0 {
+			return path
+		}
+	}
+	return ""
+}
+
+func (this *System) OrbitalDistance(from, to string) int {
+	return 4 // TODO: implement
+}
+
 func assembleOrbitalSystem(lines []string) *System {
 	system := &System{Label: "COM", Magnitude: 0}
 
