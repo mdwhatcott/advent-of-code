@@ -56,7 +56,7 @@ func (this *interpreter) RunProgram() {
 func (this *interpreter) processInstruction() {
 	this.modes = splitDigits(this.value(this.pointer))
 
-	println(this.pointer, this.modes)
+	//println(this.pointer, this.modes)
 
 	switch opCode(this.modes) {
 
