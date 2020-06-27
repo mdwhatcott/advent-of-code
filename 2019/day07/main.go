@@ -15,5 +15,13 @@ func Part1() interface{} {
 }
 
 func Part2() interface{} {
-	return nil
+	program := util.InputInts(",")
+	max := 0
+	for _, combo := range phaseCombinations {
+		answer := part2(program, combo...)
+		if answer > max {
+			max = answer
+		}
+	}
+	return max
 }
