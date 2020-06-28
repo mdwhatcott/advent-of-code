@@ -29,7 +29,7 @@ var offsets = map[int]int{
 	Slot3: 3,
 }
 
-type interpreter struct {
+type Interpreter struct {
 	pointer  int
 	program  []int
 	inputs   func() int
@@ -38,8 +38,8 @@ type interpreter struct {
 	finished bool
 }
 
-func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *interpreter {
-	return &interpreter{
+func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *Interpreter {
+	return &Interpreter{
 		pointer: 0,
 		program: program,
 		inputs:  input,
@@ -47,13 +47,13 @@ func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *i
 	}
 }
 
-func (this *interpreter) RunProgram() {
+func (this *Interpreter) RunProgram() {
 	for !this.finished {
 		this.processInstruction()
 	}
 }
 
-func (this *interpreter) processInstruction() {
+func (this *Interpreter) processInstruction() {
 	this.modes = splitDigits(this.value(this.pointer))
 
 	//println(this.pointer, this.modes)
@@ -92,7 +92,7 @@ func (this *interpreter) processInstruction() {
 	}
 }
 
-func (this *interpreter) access(slot int) int {
+func (this *Interpreter) access(slot int) int {
 	address := this.pointer + offsets[slot]
 	switch this.modes[slot] {
 
@@ -107,50 +107,50 @@ func (this *interpreter) access(slot int) int {
 	}
 }
 
-func (this *interpreter) value(address int) int {
+func (this *Interpreter) value(address int) int {
 	return this.program[address]
 }
-func (this *interpreter) setValue(address, value int) {
+func (this *Interpreter) setValue(address, value int) {
 	this.program[address] = value
 }
-func (this *interpreter) setReference(address, value int) {
+func (this *Interpreter) setReference(address, value int) {
 	this.setValue(this.value(address), value)
 }
-func (this *interpreter) reference(address int) int {
+func (this *Interpreter) reference(address int) int {
 	return this.value(this.value(address))
 }
 
-func (this *interpreter) add() {
+func (this *Interpreter) add() {
 	this.setReference(this.pointer+3, this.access(Slot1)+this.access(Slot2))
 	this.pointer += 4
 }
-func (this *interpreter) multiply() {
+func (this *Interpreter) multiply() {
 	this.setReference(this.pointer+3, this.access(Slot1)*this.access(Slot2))
 	this.pointer += 4
 }
-func (this *interpreter) input() {
+func (this *Interpreter) input() {
 	this.setReference(this.pointer+1, this.inputs())
 	this.pointer += 2
 }
-func (this *interpreter) output() {
+func (this *Interpreter) output() {
 	this.outputs(this.access(Slot1))
 	this.pointer += 2
 }
-func (this *interpreter) jumpIfTrue() {
+func (this *Interpreter) jumpIfTrue() {
 	if this.access(Slot1) != 0 {
 		this.pointer = this.access(Slot2)
 	} else {
 		this.pointer += 3
 	}
 }
-func (this *interpreter) jumpIfFalse() {
+func (this *Interpreter) jumpIfFalse() {
 	if this.access(Slot1) == 0 {
 		this.pointer = this.access(Slot2)
 	} else {
 		this.pointer += 3
 	}
 }
-func (this *interpreter) less() {
+func (this *Interpreter) less() {
 	if this.access(Slot1) < this.access(Slot2) {
 		this.setReference(this.pointer+3, 1)
 	} else {
@@ -158,7 +158,7 @@ func (this *interpreter) less() {
 	}
 	this.pointer += 4
 }
-func (this *interpreter) equals() {
+func (this *Interpreter) equals() {
 	if this.access(Slot1) == this.access(Slot2) {
 		this.setReference(this.pointer+3, 1)
 	} else {
