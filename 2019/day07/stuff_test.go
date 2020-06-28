@@ -35,13 +35,16 @@ func (this *StuffFixture) TestPart1_Example3() {
 
 func (this *StuffFixture) TestPart2_Example1() {
 	answer := part2(
-		[]int{3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0},
+		[]int{
+			3, 26, 1001, 26, -4, 26, 3, 27, 1002, 27, 2, 27, 1, 27, 26,
+			27, 4, 27, 1001, 28, -1, 28, 1005, 28, 6, 99, 0, 0, 5,
+		},
 		9, 8, 7, 6, 5,
 	)
 	this.So(answer, should.Equal, 139629729)
 }
 
-func (this *StuffFixture) SkipTestPart2_Example2() { // TODO: this deadlocks
+func (this *StuffFixture) FocusTestPart2_Example2() { // TODO: this deadlocks
 	answer := part2(
 		[]int{
 			3, 52, 1001, 52, -5, 52, 3, 53, 1, 52, 56, 54, 1007, 54, 5, 55, 1005, 55, 26, 1001, 54,
