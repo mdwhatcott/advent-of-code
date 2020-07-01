@@ -25,8 +25,8 @@ func (this *OpCodeFixture) input() int {
 func (this *OpCodeFixture) output(value int) {
 	this.outputs = append(this.outputs, value)
 }
-func (this *OpCodeFixture) run(program []int) {
-	RunProgram(program, this.input, this.output)
+func (this *OpCodeFixture) run(program []int) []int {
+	return RunProgram(program, this.input, this.output)
 }
 
 func (this *OpCodeFixture) TestRunProgramA() {
@@ -36,7 +36,7 @@ func (this *OpCodeFixture) TestRunProgramA() {
 		99,
 		30, 40, 50,
 	}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{
 		3500, 9, 10, 70,
 		2, 3, 11, 0,
@@ -46,78 +46,78 @@ func (this *OpCodeFixture) TestRunProgramA() {
 }
 func (this *OpCodeFixture) TestRunProgramB() {
 	program := []int{1, 0, 0, 0, 99}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{2, 0, 0, 0, 99})
 }
 func (this *OpCodeFixture) TestRunProgramC() {
 	program := []int{2, 3, 0, 3, 99}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{2, 3, 0, 6, 99})
 }
 func (this *OpCodeFixture) TestRunProgramD() {
 	program := []int{2, 4, 4, 5, 99, 0}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{2, 4, 4, 5, 99, 9801})
 }
 func (this *OpCodeFixture) TestRunProgramE() {
 	program := []int{1, 1, 1, 4, 99, 5, 6, 0, 99}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{30, 1, 1, 4, 2, 5, 6, 0, 99})
 }
 
 func (this *OpCodeFixture) TestRunProgramInputOutput() {
 	this.inputs = append(this.inputs, 42)
 	program := []int{3, 0, 4, 0, 99}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{42, 0, 4, 0, 99})
 	this.So(this.outputs, should.Resemble, []int{42})
 }
 
 func (this *OpCodeFixture) TestRunProgramF() {
 	program := []int{1002, 4, 3, 4, 33}
-	this.run(program)
+	program = this.run(program)
 	this.So(program, should.Resemble, []int{1002, 4, 3, 4, 99})
 }
 
 func (this *OpCodeFixture) TestRunProgramG() {
 	program := []int{3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8}
 	this.inputs = append(this.inputs, 8)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1})
 }
 
 func (this *OpCodeFixture) TestRunProgramG2() {
 	program := []int{3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8}
 	this.inputs = append(this.inputs, 8+1)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{0})
 }
 
 func (this *OpCodeFixture) TestRunProgramH() {
 	program := []int{3, 3, 1108, -1, 8, 3, 4, 3, 99}
 	this.inputs = append(this.inputs, 8)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1})
 }
 
 func (this *OpCodeFixture) TestRunProgramH2() {
 	program := []int{3, 3, 1108, -1, 8, 3, 4, 3, 99}
 	this.inputs = append(this.inputs, 8+1)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{0})
 }
 
 func (this *OpCodeFixture) TestRunProgramI() {
 	program := []int{3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9}
 	this.inputs = append(this.inputs, 0)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{0})
 }
 
 func (this *OpCodeFixture) TestRunProgramI1() {
 	program := []int{3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9}
 	this.inputs = append(this.inputs, 1)
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1})
 }
 
@@ -128,7 +128,7 @@ func (this *OpCodeFixture) TestFinalProgramA() {
 		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
 	}
 	this.inputs = []int{8 - 1}
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{999})
 }
 
@@ -139,7 +139,7 @@ func (this *OpCodeFixture) TestFinalProgramB() {
 		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
 	}
 	this.inputs = []int{8 - 0}
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1000})
 }
 
@@ -150,7 +150,7 @@ func (this *OpCodeFixture) SkipTestFinalProgramC() {
 		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
 	}
 	this.inputs = []int{8 - 1}
-	this.run(program)
+	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1001})
 }
 
