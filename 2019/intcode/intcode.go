@@ -178,7 +178,7 @@ func (this *Interpreter) equals() {
 }
 
 func (this *Interpreter) adjustRelativeBase() {
-
+	// TODO
 }
 
 func opCode(digits []int) int {
