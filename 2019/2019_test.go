@@ -67,7 +67,7 @@ func (this *Fixture2019) LongTestDay06() {
 }
 func (this *Fixture2019) LongTestDay07() {
 	this.So(day07.Part1(), should.Equal, 75228)
-	this.So(day07.Part2(), should.Equal, nil)
+	this.So(day07.Part2(), should.Equal, 79846026)
 }
 func (this *Fixture2019) LongTestDay08() {
 	this.So(day08.Part1(), should.Equal, 2684)

@@ -17,7 +17,7 @@ func Part1() interface{} {
 func Part2() interface{} {
 	program := util.InputInts(",")
 	max := 0
-	for _, combo := range phaseCombinations {
+	for _, combo := range phaseCombinations2 {
 		answer := part2(program, combo...)
 		if answer > max {
 			max = answer

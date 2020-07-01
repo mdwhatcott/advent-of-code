@@ -5,15 +5,15 @@ func RunProgram(program []int, input func() int, output func(int)) []int {
 }
 
 const (
-	AddInstruction         = 1
-	MultiplyInstruction    = 2
-	InputInstruction       = 3
-	OutputInstruction      = 4
-	JumpIfTrueInstruction  = 5
-	JumpIfFalseInstruction = 6
-	LessThanInstruction    = 7
-	EqualsInstruction      = 8
-	ExitInstruction        = 99
+	_01_AddInstruction         = 1
+	_02_MultiplyInstruction    = 2
+	_03_InputInstruction       = 3
+	_04_OutputInstruction      = 4
+	_05_JumpIfTrueInstruction  = 5
+	_06_JumpIfFalseInstruction = 6
+	_07_LessThanInstruction    = 7
+	_08_EqualsInstruction      = 8
+	_99_ExitInstruction        = 99
 
 	PositionMode  = 0
 	ImmediateMode = 1
@@ -61,31 +61,31 @@ func (this *Interpreter) processInstruction() {
 
 	switch opCode(this.modes) {
 
-	case AddInstruction:
+	case _01_AddInstruction:
 		this.add()
 
-	case MultiplyInstruction:
+	case _02_MultiplyInstruction:
 		this.multiply()
 
-	case InputInstruction:
+	case _03_InputInstruction:
 		this.input()
 
-	case OutputInstruction:
+	case _04_OutputInstruction:
 		this.output()
 
-	case JumpIfTrueInstruction:
+	case _05_JumpIfTrueInstruction:
 		this.jumpIfTrue()
 
-	case JumpIfFalseInstruction:
+	case _06_JumpIfFalseInstruction:
 		this.jumpIfFalse()
 
-	case LessThanInstruction:
+	case _07_LessThanInstruction:
 		this.less()
 
-	case EqualsInstruction:
+	case _08_EqualsInstruction:
 		this.equals()
 
-	case ExitInstruction:
+	case _99_ExitInstruction:
 		this.finished = true
 
 	default:
