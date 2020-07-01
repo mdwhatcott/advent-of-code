@@ -5,18 +5,20 @@ func RunProgram(program []int, input func() int, output func(int)) []int {
 }
 
 const (
-	_01_AddInstruction         = 1
-	_02_MultiplyInstruction    = 2
-	_03_InputInstruction       = 3
-	_04_OutputInstruction      = 4
-	_05_JumpIfTrueInstruction  = 5
-	_06_JumpIfFalseInstruction = 6
-	_07_LessThanInstruction    = 7
-	_08_EqualsInstruction      = 8
-	_99_ExitInstruction        = 99
+	_01_AddInstruction          = 1
+	_02_MultiplyInstruction     = 2
+	_03_InputInstruction        = 3
+	_04_OutputInstruction       = 4
+	_05_JumpIfTrueInstruction   = 5
+	_06_JumpIfFalseInstruction  = 6
+	_07_LessThanInstruction     = 7
+	_08_EqualsInstruction       = 8
+	_09_RelativeBaseInstruction = 9
+	_99_ExitInstruction         = 99
 
 	PositionMode  = 0
 	ImmediateMode = 1
+	RelativeMode  = 2
 
 	Slot1 = 2
 	Slot2 = 1
@@ -35,6 +37,7 @@ type Interpreter struct {
 	inputs   func() int
 	outputs  func(int)
 	modes    []int
+	base     int
 	finished bool
 }
 
@@ -85,6 +88,9 @@ func (this *Interpreter) processInstruction() {
 	case _08_EqualsInstruction:
 		this.equals()
 
+	case _09_RelativeBaseInstruction:
+		this.adjustRelativeBase()
+
 	case _99_ExitInstruction:
 		this.finished = true
 
@@ -102,6 +108,9 @@ func (this *Interpreter) access(slot int) int {
 
 	case ImmediateMode:
 		return this.value(address)
+
+	case RelativeMode:
+		return this.reference(address+this.base)
 
 	default:
 		panic("not possible")
@@ -166,6 +175,10 @@ func (this *Interpreter) equals() {
 		this.setReference(this.pointer+3, 0)
 	}
 	this.pointer += 4
+}
+
+func (this *Interpreter) adjustRelativeBase() {
+
 }
 
 func opCode(digits []int) int {
