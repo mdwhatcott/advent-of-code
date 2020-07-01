@@ -44,7 +44,7 @@ func (this *StuffFixture) TestPart2_Example1() {
 	this.So(answer, should.Equal, 139629729)
 }
 
-func (this *StuffFixture) FocusTestPart2_Example2() { // TODO: this deadlocks
+func (this *StuffFixture) TestPart2_Example2() {
 	answer := part2(
 		[]int{
 			3, 52, 1001, 52, -5, 52, 3, 53, 1, 52, 56, 54, 1007, 54, 5, 55, 1005, 55, 26, 1001, 54,
