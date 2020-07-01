@@ -2,7 +2,7 @@ package advent
 
 import "sync"
 
-func part2(program []int, phases ...int) (result int) {
+func amplify(program []int, phases ...int) (result int) {
 	waiter := new(sync.WaitGroup)
 
 	ea := make(chan int, 2)

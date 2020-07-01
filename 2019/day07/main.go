@@ -3,22 +3,16 @@ package advent
 import "advent/lib/util"
 
 func Part1() interface{} {
-	program := util.InputInts(",")
-	max := 0
-	for _, combo := range phaseCombinations {
-		answer := NewIO(combo...).Run(program...)
-		if answer > max {
-			max = answer
-		}
-	}
-	return max
+	return findMaximumAmplification(phaseCombinations, util.InputInts(","))
 }
 
 func Part2() interface{} {
-	program := util.InputInts(",")
-	max := 0
-	for _, combo := range phaseCombinations2 {
-		answer := part2(program, combo...)
+	return findMaximumAmplification(phaseCombinations2, util.InputInts(","))
+}
+
+func findMaximumAmplification(combos [][]int, program []int) (max int) {
+	for _, combo := range combos {
+		answer := amplify(program, combo...)
 		if answer > max {
 			max = answer
 		}
