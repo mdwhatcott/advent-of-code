@@ -143,13 +143,33 @@ func (this *OpCodeFixture) TestFinalProgramB() {
 	this.So(this.outputs, should.Resemble, []int{1000})
 }
 
-func (this *OpCodeFixture) SkipTestFinalProgramC() {
+func (this *OpCodeFixture) TestFinalProgramC_Below() {
 	program := []int{
 		3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31,
 		1106, 0, 36, 98, 0, 0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104,
 		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
 	}
 	this.inputs = []int{8 - 1}
+	program = this.run(program)
+	this.So(this.outputs, should.Resemble, []int{999})
+}
+func (this *OpCodeFixture) TestFinalProgramC_At() {
+	program := []int{
+		3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31,
+		1106, 0, 36, 98, 0, 0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104,
+		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
+	}
+	this.inputs = []int{8 - 0}
+	program = this.run(program)
+	this.So(this.outputs, should.Resemble, []int{1000})
+}
+func (this *OpCodeFixture) TestFinalProgramC_Above() {
+	program := []int{
+		3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31,
+		1106, 0, 36, 98, 0, 0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104,
+		999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99,
+	}
+	this.inputs = []int{8 + 1}
 	program = this.run(program)
 	this.So(this.outputs, should.Resemble, []int{1001})
 }
