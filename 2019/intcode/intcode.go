@@ -1,7 +1,7 @@
 package intcode
 
-func RunProgram(program []int, input func() int, output func(int)) {
-	NewIntCodeInterpreter(program, input, output).RunProgram()
+func RunProgram(program []int, input func() int, output func(int)) []int {
+	return NewIntCodeInterpreter(program, input, output).RunProgram()
 }
 
 const (
@@ -39,18 +39,19 @@ type Interpreter struct {
 }
 
 func NewIntCodeInterpreter(program []int, input func() int, output func(int)) *Interpreter {
-	return &Interpreter{
-		pointer: 0,
-		program: program,
-		inputs:  input,
-		outputs: output,
-	}
+	this := new(Interpreter)
+	this.inputs = input
+	this.outputs = output
+	this.program = make([]int, len(program))
+	copy(this.program, program)
+	return this
 }
 
-func (this *Interpreter) RunProgram() {
+func (this *Interpreter) RunProgram() []int {
 	for !this.finished {
 		this.processInstruction()
 	}
+	return this.program
 }
 
 func (this *Interpreter) processInstruction() {
