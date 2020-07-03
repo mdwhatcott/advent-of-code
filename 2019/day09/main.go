@@ -1,7 +1,14 @@
 package advent
 
+import (
+	"advent/2019/intcode"
+	"advent/lib/util"
+)
+
 func Part1() interface{} {
-	return nil
+	harness := intcode.NewHarness(util.InputInts(","), 1)
+	harness.Run()
+	return harness.Outputs()
 }
 
 func Part2() interface{} {
