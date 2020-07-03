@@ -58,11 +58,13 @@ func (this *Interpreter) RunProgram() []int {
 }
 
 func (this *Interpreter) processInstruction() {
-	this.modes = splitDigits(this.value(this.pointer))
+	value := this.value(this.pointer)
+	this.modes = splitDigits(value)
+	code := opCode(this.modes)
 
-	//println(this.pointer, this.modes)
+	//fmt.Println(this.pointer, this.modes, code)
 
-	switch opCode(this.modes) {
+	switch code {
 
 	case _01_AddInstruction:
 		this.add()
@@ -101,33 +103,43 @@ func (this *Interpreter) processInstruction() {
 
 func (this *Interpreter) access(slot int) int {
 	address := this.pointer + offsets[slot]
+
 	switch this.modes[slot] {
 
 	case PositionMode:
-		return this.reference(address)
+		return this.reference(address, 0)
 
 	case ImmediateMode:
 		return this.value(address)
 
 	case RelativeMode:
-		return this.reference(address+this.base)
+		return this.reference(address, this.base)
 
 	default:
 		panic("not possible")
 	}
 }
-
 func (this *Interpreter) value(address int) int {
+	this.growMemory(address)
 	return this.program[address]
 }
 func (this *Interpreter) setValue(address, value int) {
+	this.growMemory(address)
 	this.program[address] = value
+}
+func (this *Interpreter) growMemory(address int) {
+	if address < len(this.program) {
+		return
+	}
+	grown := make([]int, address+1)
+	copy(grown, this.program)
+	this.program = grown
 }
 func (this *Interpreter) setReference(address, value int) {
 	this.setValue(this.value(address), value)
 }
-func (this *Interpreter) reference(address int) int {
-	return this.value(this.value(address))
+func (this *Interpreter) reference(address, offset int) int {
+	return this.value(this.value(address) + offset)
 }
 
 func (this *Interpreter) add() {
@@ -176,9 +188,9 @@ func (this *Interpreter) equals() {
 	}
 	this.pointer += 4
 }
-
 func (this *Interpreter) adjustRelativeBase() {
-	// TODO
+	this.base += this.access(Slot1)
+	this.pointer += 2
 }
 
 func opCode(digits []int) int {
