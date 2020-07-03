@@ -5,12 +5,19 @@ import (
 	"advent/lib/util"
 )
 
+const (
+	TestMode  = 1
+	BoostMode = 2
+)
+
 func Part1() interface{} {
-	harness := intcode.NewHarness(util.InputInts(","), 1)
+	harness := intcode.NewHarness(util.InputInts(","), TestMode)
 	harness.Run()
 	return harness.Outputs()
 }
 
 func Part2() interface{} {
-	return nil
+	harness := intcode.NewHarness(util.InputInts(","), BoostMode)
+	harness.Run()
+	return harness.Outputs()
 }
