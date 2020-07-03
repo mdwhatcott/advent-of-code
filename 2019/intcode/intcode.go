@@ -135,23 +135,28 @@ func (this *Interpreter) growMemory(address int) {
 	copy(grown, this.program)
 	this.program = grown
 }
-func (this *Interpreter) setReference(address, value int) {
-	this.setValue(this.value(address), value)
-}
 func (this *Interpreter) reference(address, offset int) int {
 	return this.value(this.value(address) + offset)
 }
+func (this *Interpreter) setReference(slot, value int) {
+	address := this.pointer + offsets[slot]
+	intermediate := this.value(address)
+	if this.modes[slot] == RelativeMode {
+		intermediate += this.base
+	}
+	this.setValue(intermediate, value)
+}
 
 func (this *Interpreter) add() {
-	this.setReference(this.pointer+3, this.access(Slot1)+this.access(Slot2))
+	this.setReference(Slot3, this.access(Slot1)+this.access(Slot2))
 	this.pointer += 4
 }
 func (this *Interpreter) multiply() {
-	this.setReference(this.pointer+3, this.access(Slot1)*this.access(Slot2))
+	this.setReference(Slot3, this.access(Slot1)*this.access(Slot2))
 	this.pointer += 4
 }
 func (this *Interpreter) input() {
-	this.setReference(this.pointer+1, this.inputs())
+	this.setReference(Slot1, this.inputs())
 	this.pointer += 2
 }
 func (this *Interpreter) output() {
@@ -174,17 +179,17 @@ func (this *Interpreter) jumpIfFalse() {
 }
 func (this *Interpreter) less() {
 	if this.access(Slot1) < this.access(Slot2) {
-		this.setReference(this.pointer+3, 1)
+		this.setReference(Slot3, 1)
 	} else {
-		this.setReference(this.pointer+3, 0)
+		this.setReference(Slot3, 0)
 	}
 	this.pointer += 4
 }
 func (this *Interpreter) equals() {
 	if this.access(Slot1) == this.access(Slot2) {
-		this.setReference(this.pointer+3, 1)
+		this.setReference(Slot3, 1)
 	} else {
-		this.setReference(this.pointer+3, 0)
+		this.setReference(Slot3, 0)
 	}
 	this.pointer += 4
 }
