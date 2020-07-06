@@ -1,7 +1,11 @@
 package advent
 
+import "advent/lib/util"
+
 func Part1() interface{} {
-	return nil
+	field := scanField(util.InputLines())
+	best := BestPlace(field)
+	return CountVisible(field, best)
 }
 
 func Part2() interface{} {
