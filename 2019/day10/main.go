@@ -4,8 +4,8 @@ import "advent/lib/util"
 
 func Part1() interface{} {
 	field := scanField(util.InputLines())
-	best := BestPlace(field)
-	return CountVisible(field, best)
+	best := BestPlaceWithCount(field)
+	return best.Count
 }
 
 func Part2() interface{} {

@@ -1,5 +1,7 @@
 package advent
 
+import "fmt"
+
 func scanField(rawField []string) (field AsteroidField) {
 	for y, line := range rawField {
 		for x, char := range line {
@@ -35,23 +37,55 @@ func CountVisible(field AsteroidField, asteroid Asteroid) (count int) {
 		if candidate == asteroid {
 			continue
 		}
+		if candidate.Y > asteroid.Y {
+			break
+		}
 		slope := Slope(asteroid, candidate)
+		fmt.Println(asteroid, candidate, slope)
 		if !seen[slope] {
 			count++
 		}
 		seen[slope] = true
 	}
+
+	for key := range seen {
+		delete(seen, key)
+	}
+
+	for _, candidate := range field {
+		if candidate == asteroid {
+			continue
+		}
+		if candidate.Y <= asteroid.Y {
+			continue
+		}
+		slope := Slope(asteroid, candidate)
+		fmt.Println(asteroid, candidate, slope)
+		if !seen[slope] {
+			count++
+		}
+		seen[slope] = true
+	}
+	fmt.Println(seen)
 	return count
 }
 
 func BestPlace(field AsteroidField) (MAX Asteroid) {
-	var max int
+	return BestPlaceWithCount(field).Place
+}
+
+func BestPlaceWithCount(field AsteroidField) (result PlaceCount) {
 	for _, asteroid := range field {
 		visible := CountVisible(field, asteroid)
-		if visible > max {
-			max = visible
-			MAX = asteroid
+		if visible > result.Count {
+			result.Count = visible
+			result.Place = asteroid
 		}
 	}
-	return MAX
+	return result
+}
+
+type PlaceCount struct {
+	Place Asteroid
+	Count int
 }

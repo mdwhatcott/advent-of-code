@@ -51,20 +51,91 @@ func (this *StuffFixture) TestCountVisible() {
 	field := scanField(exampleMap1)
 
 	this.So(CountVisible(field, field[0]), should.Equal, 7)
+	this.So(CountVisible(field, field[1]), should.Equal, 7)
+	this.So(CountVisible(field, field[2]), should.Equal, 6)
+	this.So(CountVisible(field, field[3]), should.Equal, 7)
+	this.So(CountVisible(field, field[4]), should.Equal, 7)
+	this.So(CountVisible(field, field[5]), should.Equal, 7)
+	this.So(CountVisible(field, field[6]), should.Equal, 5)
+	this.So(CountVisible(field, field[7]), should.Equal, 7)
+	this.So(CountVisible(field, field[8]), should.Equal, 8)
+	this.So(CountVisible(field, field[9]), should.Equal, 7)
 }
 
 func (this *StuffFixture) TestBestPlace() {
-	field := scanField(exampleMap1)
-
-	this.So(BestPlace(field), should.Resemble, NewAsteroid(3, 4))
+	this.So(BestPlaceWithCount(scanField(exampleMap1)), should.Resemble, PlaceCount{Place: NewAsteroid(3, 4), Count: 8})
+	this.So(BestPlaceWithCount(scanField(exampleMap2)), should.Resemble, PlaceCount{Place: NewAsteroid(5, 8), Count: 33})
+	this.So(BestPlaceWithCount(scanField(exampleMap3)), should.Resemble, PlaceCount{Place: NewAsteroid(1, 2), Count: 35})
+	this.So(BestPlaceWithCount(scanField(exampleMap4)), should.Resemble, PlaceCount{Place: NewAsteroid(6, 3), Count: 41})
+	this.So(BestPlaceWithCount(scanField(exampleMap5)), should.Resemble, PlaceCount{Place: NewAsteroid(11, 13), Count: 210})
 }
 
-var (
-	exampleMap1 = strings.Split(strings.TrimSpace(""+
-		".#..#\n"+
-		".....\n"+
-		"#####\n"+
-		"....#\n"+
-		"...##\n",
-	), "\n")
-)
+var exampleMap1 = strings.Split(strings.TrimSpace(""+
+	".#..#\n"+
+	".....\n"+
+	"#####\n"+
+	"....#\n"+
+	"...##\n",
+), "\n")
+
+var exampleMap2 = strings.Split(strings.TrimSpace(""+
+	"......#.#.\n"+
+	"#..#.#....\n"+
+	"..#######.\n"+
+	".#.#.###..\n"+
+	".#..#.....\n"+
+	"..#....#.#\n"+
+	"#..#....#.\n"+
+	".##.#..###\n"+
+	"##...#..#.\n"+
+	".#....####\n",
+), "\n")
+
+var exampleMap3 = strings.Split(strings.TrimSpace(""+
+	"#.#...#.#.\n"+
+	".###....#.\n"+
+	".#....#...\n"+
+	"##.#.#.#.#\n"+
+	"....#.#.#.\n"+
+	".##..###.#\n"+
+	"..#...##..\n"+
+	"..##....##\n"+
+	"......#...\n"+
+	".####.###.\n",
+), "\n")
+
+var exampleMap4 = strings.Split(strings.TrimSpace(""+
+	".#..#..###\n"+
+	"####.###.#\n"+
+	"....###.#.\n"+
+	"..###.##.#\n"+
+	"##.##.#.#.\n"+
+	"....###..#\n"+
+	"..#.#..#.#\n"+
+	"#..#.#.###\n"+
+	".##...##.#\n"+
+	".....#.#..\n",
+), "\n")
+
+var exampleMap5 = strings.Split(strings.TrimSpace(""+
+	".#..##.###...#######\n"+
+	"##.############..##.\n"+
+	".#.######.########.#\n"+
+	".###.#######.####.#.\n"+
+	"#####.##.#.##.###.##\n"+
+	"..#####..#.#########\n"+
+	"####################\n"+
+	"#.####....###.#.#.##\n"+
+	"##.#################\n"+
+	"#####.##.###..####..\n"+
+	"..######..##.#######\n"+
+	"####.##.####...##..#\n"+
+	".#####..#.######.###\n"+
+	"##...#.##########...\n"+
+	"#.##########.#######\n"+
+	".####.#.###.###.#.##\n"+
+	"....##.##.###..#####\n"+
+	".#.#.###########.###\n"+
+	"#.#.#.#####.####.###\n"+
+	"###.##.####.##.#..##\n",
+), "\n")
