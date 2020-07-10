@@ -70,10 +70,6 @@ func CountVisible(field AsteroidField, asteroid Asteroid) (count int) {
 	return count
 }
 
-func BestPlace(field AsteroidField) (MAX Asteroid) {
-	return BestPlaceWithCount(field).Place
-}
-
 func BestPlaceWithCount(field AsteroidField) (result PlaceCount) {
 	for _, asteroid := range field {
 		visible := CountVisible(field, asteroid)
@@ -89,3 +85,4 @@ type PlaceCount struct {
 	Place Asteroid
 	Count int
 }
+
