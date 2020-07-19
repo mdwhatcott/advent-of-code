@@ -2,6 +2,26 @@ package advent
 
 import "fmt"
 
+func offsetField(original AsteroidField, x, y float64) (offset AsteroidField) {
+	for _, asteroid := range original {
+		offset = append(offset, Asteroid{
+			X: asteroid.X + x,
+			Y: asteroid.Y + y,
+		})
+	}
+	return offset
+}
+
+func removeOrigin(original AsteroidField) (filtered AsteroidField) {
+	for _, asteroid := range original {
+		if asteroid.X != 0 || asteroid.Y != 0 {
+			filtered = append(filtered, asteroid)
+		}
+	}
+	return filtered
+
+}
+
 func scanField(rawField []string) (field AsteroidField) {
 	for y, line := range rawField {
 		for x, char := range line {
@@ -16,6 +36,10 @@ func scanField(rawField []string) (field AsteroidField) {
 
 type Asteroid struct {
 	X, Y float64
+}
+
+func (this Asteroid) String() string {
+	return fmt.Sprintf("(%d,%d)", int(this.X), int(this.Y))
 }
 
 func NewAsteroid(x, y int) Asteroid {
@@ -85,4 +109,3 @@ type PlaceCount struct {
 	Place Asteroid
 	Count int
 }
-
