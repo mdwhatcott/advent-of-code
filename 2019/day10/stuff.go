@@ -65,7 +65,6 @@ func CountVisible(field AsteroidField, asteroid Asteroid) (count int) {
 			break
 		}
 		slope := Slope(asteroid, candidate)
-		fmt.Println(asteroid, candidate, slope)
 		if !seen[slope] {
 			count++
 		}
@@ -84,13 +83,11 @@ func CountVisible(field AsteroidField, asteroid Asteroid) (count int) {
 			continue
 		}
 		slope := Slope(asteroid, candidate)
-		fmt.Println(asteroid, candidate, slope)
 		if !seen[slope] {
 			count++
 		}
 		seen[slope] = true
 	}
-	fmt.Println(seen)
 	return count
 }
 

@@ -36,5 +36,3 @@ func (this *Blaster) Fire(i int) {
 func (this *Blaster) Field() AsteroidField {
 	return this.field
 }
-
-
