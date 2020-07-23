@@ -78,7 +78,7 @@ func (this *Fixture2019) LongTestDay09() {
 	this.So(day09.Part2(), should.Resemble, []int{73439})
 }
 func (this *Fixture2019) LongTestDay10() {
-	this.So(day10.Part1(), should.Equal, nil) // NOT: 247
+	this.So(day10.Part1(), should.Equal, 253)
 	this.So(day10.Part2(), should.Equal, nil)
 }
 func (this *Fixture2019) LongTestDay11() {
