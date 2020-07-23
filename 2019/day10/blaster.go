@@ -1,36 +1,68 @@
 package advent
 
-import "sort"
-
 type Blaster struct {
 	field AsteroidField
 	angle float64
 }
 
 func NewBlaster(field AsteroidField) *Blaster {
-	return &Blaster{field: field}
+	return &Blaster{
+		field: field,
+		angle: -1,
+	}
+}
+
+func (this *Blaster) Angle() float64 {
+	angle := this.angle
+	for angle > 360 {
+		angle -= 360
+	}
+	return angle
+}
+
+func (this *Blaster) SetAngle(update float64) {
+	for update < this.angle {
+		update += 360
+	}
+	this.angle = update
 }
 
 func (this *Blaster) Aim() (index int) {
-	sort.Slice(this.field, func(i, j int) bool {
-		angleI := this.field[i].AngleFromOrigin()
-		angleJ := this.field[j].AngleFromOrigin()
-		return angleI < angleJ
-	})
-
 	if len(this.field) == 0 {
 		return -1
 	}
-	if len(this.field) == 1 {
-		return 0
+
+	minAngle := 361.0
+	minAsteroid := -1
+	minDistance := 1000.0
+
+	for i, a := range this.field {
+		angleA := a.AngleFromOrigin()
+		if angleA <= this.Angle() {
+			continue
+		}
+		if angleA < minAngle {
+			minAngle = angleA
+			minAsteroid = i
+		}
+		distanceA := a.DistanceFromOrigin()
+		if angleA == minAngle && distanceA < minDistance {
+			minAsteroid = i
+			minDistance = distanceA
+		}
 	}
 
-	// TODO: select the closest of asteroids at the front of the list that have the same angle
-	return -1
+	if minAsteroid == -1 && len(this.field) > 0 {
+		this.angle -= 360
+		return this.Aim()
+	}
+
+	this.SetAngle(minAngle)
+	return minAsteroid
 }
 
 func (this *Blaster) Fire(i int) {
-	this.field = append(this.field[:i], this.field[i:]...)
+	this.field = append(this.field[:i], this.field[i+1:]...)
 }
 
 func (this *Blaster) Field() AsteroidField {
