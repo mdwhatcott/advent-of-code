@@ -1,7 +1,6 @@
 package advent
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/smartystreets/assertions/should"
@@ -43,21 +42,4 @@ func (this *TrigFixture) TestDistanceFromOrigin() {
 	this.So(NewAsteroid(-3, 4).DistanceFromOrigin(), should.Equal, 5)
 	this.So(NewAsteroid(-3, -4).DistanceFromOrigin(), should.Equal, 5)
 	this.So(NewAsteroid(3, -4).DistanceFromOrigin(), should.Equal, 5)
-}
-
-var part2Example1 = strings.Split(strings.TrimSpace(""+
-	`
-.#....#####...#..
-##...##.#####..##
-##...#...#.#####.
-..#.....X...###..
-..#.#.....#....##
-
-`), "\n")
-
-func (this *TrigFixture) SkipTestBlastCircle() {
-	field := removeOrigin(offsetField(scanField(part2Example1), 8, 3))
-	blaster := NewBlaster(field)
-
-	this.So(field[blaster.Aim()].String(), should.Equal, "(0,-2)")
 }
