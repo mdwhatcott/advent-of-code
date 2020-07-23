@@ -61,4 +61,3 @@ func (this *TrigFixture) SkipTestBlastCircle() {
 
 	this.So(field[blaster.Aim()].String(), should.Equal, "(0,-2)")
 }
-
