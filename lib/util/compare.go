@@ -22,3 +22,10 @@ func Max(all ...int) (max int) {
 func MinMax(all ...int) (int, int) {
 	return Min(all...), Max(all...)
 }
+
+func Abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
