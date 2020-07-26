@@ -11,37 +11,36 @@ import (
 )
 
 type GameConsole struct {
-	program  []int
-	render   bool
-	clear    string
-	x, y     int
-	screen   map[grid.Point]int
-	ball     grid.Point
-	paddle   grid.Point
-	joystick int
-	score    int
+	cartridgeROM []int
+	renderMode   bool
+	clearScreen  string
+	x, y         int
+	screen       map[grid.Point]int
+	ball         grid.Point
+	paddle       grid.Point
+	joystick     int
+	score        int
 }
 
-func NewGameConsole(program []int) *GameConsole {
-	this := &GameConsole{
-		program: program,
-		screen:  make(map[grid.Point]int),
-		x:       -2,
-		y:       -2,
+func NewGameConsole(rom []int) *GameConsole {
+	return &GameConsole{
+		cartridgeROM: rom,
+		screen:       make(map[grid.Point]int),
+		x:            -2,
+		y:            -2,
 	}
-	return this
 }
 
 func (this *GameConsole) InsertQuarters(quarters int) {
-	this.program[0] = quarters
+	this.cartridgeROM[0] = quarters
 }
 
 func (this *GameConsole) EnableRendering() {
-	this.clear = "clear"
+	this.clearScreen = "clear"
 	if runtime.GOOS == "windows" {
-		this.clear = "cls"
+		this.clearScreen = "cls"
 	}
-	this.render = true
+	this.renderMode = true
 }
 
 func (this *GameConsole) in() int {
@@ -57,19 +56,20 @@ func (this *GameConsole) out(i int) {
 		this.trackScore(i)
 	} else {
 		this.updatePixel(i)
+		this.renderScreen()
 	}
-
-	if !this.render {
-		return
-	}
-	this.clearScreen()
-	fmt.Println(Render(this.screen))
-	fmt.Println("Score:", this.score)
-	fmt.Print(strings.Repeat("\n", 15))
 }
 
-func (this *GameConsole) clearScreen() {
-	_ = exec.Command(this.clear).Run()
+func (this *GameConsole) renderScreen() {
+	if !this.renderMode {
+		return
+	}
+	_ = exec.Command(this.clearScreen).Run()
+	fmt.Println(
+		Render(this.screen),
+		"Score:", this.score,
+		strings.Repeat("\n", 15),
+	)
 }
 
 func (this *GameConsole) updatePixel(i int) {
@@ -111,6 +111,6 @@ func (this *GameConsole) resetPixelBuffer() {
 }
 
 func (this *GameConsole) Play() (score int) {
-	intcode.NewIntCodeInterpreter(this.program, this.in, this.out).RunProgram()
+	intcode.NewIntCodeInterpreter(this.cartridgeROM, this.in, this.out).RunProgram()
 	return this.score
 }
