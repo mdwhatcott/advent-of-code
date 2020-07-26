@@ -2,6 +2,7 @@ package advent
 
 import (
 	"fmt"
+	"io"
 	"os/exec"
 	"runtime"
 	"strings"
@@ -12,7 +13,7 @@ import (
 
 type GameConsole struct {
 	cartridgeROM []int
-	renderMode   bool
+	renderer     io.Writer
 	clearScreen  string
 	x, y         int
 	screen       map[grid.Point]int
@@ -35,12 +36,12 @@ func (this *GameConsole) InsertQuarters(quarters int) {
 	this.cartridgeROM[0] = quarters
 }
 
-func (this *GameConsole) EnableRendering() {
+func (this *GameConsole) EnableRendering(writer io.Writer) {
 	this.clearScreen = "clear"
 	if runtime.GOOS == "windows" {
 		this.clearScreen = "cls"
 	}
-	this.renderMode = true
+	this.renderer = writer
 }
 
 func (this *GameConsole) in() int {
@@ -61,11 +62,11 @@ func (this *GameConsole) out(i int) {
 }
 
 func (this *GameConsole) renderScreen() {
-	if !this.renderMode {
+	if this.renderer == nil {
 		return
 	}
 	_ = exec.Command(this.clearScreen).Run()
-	fmt.Println(
+	fmt.Fprintln(this.renderer,
 		Render(this.screen),
 		"Score:", this.score,
 		strings.Repeat("\n", 15),
