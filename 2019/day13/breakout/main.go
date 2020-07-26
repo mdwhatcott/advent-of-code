@@ -1,10 +1,14 @@
 package main
 
-import day13 "advent/2019/day13"
+import (
+	"os"
+
+	day13 "advent/2019/day13"
+)
 
 func main() {
 	console := day13.NewGameConsole(cartridgeROM)
-	console.EnableRendering()
+	console.EnableRendering(os.Stdout)
 	console.InsertQuarters(2)
 	score := console.Play()
 	println("Final Score: ", score)
