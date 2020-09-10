@@ -13,7 +13,32 @@ func Part1() interface{} {
 }
 
 func Part2() interface{} {
-	return nil
+	return deriveMaxFuelPossibleFromStoredOre(Parse(util.InputScanner()))
+}
+
+func deriveMaxFuelPossibleFromStoredOre(reactions map[string]Reaction) int {
+	const availableOre = 1_000_000_000_000
+	lo := 1
+	hi := 1_000_000_000
+
+	for {
+		fuel := (hi + lo) / 2
+		if fuel == lo || fuel == hi {
+			break
+		}
+
+		reactor := NewReactor(reactions)
+		reactor.TargetFuel(fuel)
+		cost := reactor.ResolveOreCost()
+
+		if cost <= availableOre {
+			lo = fuel
+		} else {
+			hi = fuel
+		}
+	}
+
+	return lo
 }
 
 func Parse(scanner *util.Scanner) map[string]Reaction {
@@ -121,4 +146,8 @@ func (this *Reactor) takeInventoryOfResolvedBatches() {
 
 func (this *Reactor) ore() int {
 	return this.reactants["ORE"]
+}
+
+func (this *Reactor) TargetFuel(fuel int) {
+	this.batchCounts["FUEL"] = fuel
 }
