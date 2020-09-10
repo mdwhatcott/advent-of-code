@@ -22,8 +22,33 @@ func scanner(raw string) *util.Scanner {
 	return util.NewScanner(strings.NewReader(strings.TrimSpace(raw)))
 }
 
-func (this *Fixture) TestA() {
-	raw := `
+func (this *Fixture) TestPart1A() {
+	this.So(NewReactor(Parse(scanner(reactionsA))).ResolveOreCost(), should.Equal, 31)
+}
+func (this *Fixture) TestPart1B() {
+	this.So(NewReactor(Parse(scanner(reactionsB))).ResolveOreCost(), should.Equal, 165)
+}
+func (this *Fixture) TestPart1C() {
+	this.So(NewReactor(Parse(scanner(reactionsC))).ResolveOreCost(), should.Equal, 13_312)
+}
+func (this *Fixture) TestPart1D() {
+	this.So(NewReactor(Parse(scanner(reactionsD))).ResolveOreCost(), should.Equal, 180_697)
+}
+func (this *Fixture) TestPart1E() {
+	this.So(NewReactor(Parse(scanner(reactionsE))).ResolveOreCost(), should.Equal, 2_210_736)
+}
+
+func (this *Fixture) TestPart2C() {
+	this.So(deriveMaxFuelPossibleFromStoredOre(Parse(scanner(reactionsC))), should.Equal, 82_892_753)
+}
+func (this *Fixture) TestPart2D() {
+	this.So(deriveMaxFuelPossibleFromStoredOre(Parse(scanner(reactionsD))), should.Equal, 5_586_022)
+}
+func (this *Fixture) TestPart2E() {
+	this.So(deriveMaxFuelPossibleFromStoredOre(Parse(scanner(reactionsE))), should.Equal, 460_664)
+}
+
+const reactionsA = `
 10 ORE => 10 A
 1 ORE => 1 B
 7 A, 1 B => 1 C
@@ -31,10 +56,7 @@ func (this *Fixture) TestA() {
 7 A, 1 D => 1 E
 7 A, 1 E => 1 FUEL
 `
-	this.So(NewReactor(Parse(scanner(raw))).ResolveOreCost(), should.Equal, 31)
-}
-func (this *Fixture) TestB() {
-	raw := `
+const reactionsB = `
 9 ORE => 2 A
 8 ORE => 3 B
 7 ORE => 5 C
@@ -43,10 +65,7 @@ func (this *Fixture) TestB() {
 4 C, 1 A => 1 CA
 2 AB, 3 BC, 4 CA => 1 FUEL
 `
-	this.So(NewReactor(Parse(scanner(raw))).ResolveOreCost(), should.Equal, 165)
-}
-func (this *Fixture) TestC() {
-	raw := `
+const reactionsC = `
 157 ORE => 5 NZVS
 165 ORE => 6 DCFZ
 44 XJWVT, 5 KHKGT, 1 QDVJ, 29 NZVS, 9 GPVTF, 48 HKGWZ => 1 FUEL
@@ -57,10 +76,7 @@ func (this *Fixture) TestC() {
 165 ORE => 2 GPVTF
 3 DCFZ, 7 NZVS, 5 HKGWZ, 10 PSHF => 8 KHKGT
 `
-	this.So(NewReactor(Parse(scanner(raw))).ResolveOreCost(), should.Equal, 13312)
-}
-func (this *Fixture) TestD() {
-	raw := `
+const reactionsD = `
 2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
 17 NVRVD, 3 JNWZP => 8 VPVL
 53 STKFG, 6 MNCFX, 46 VJHF, 81 HVMC, 68 CXFTF, 25 GNMV => 1 FUEL
@@ -74,10 +90,7 @@ func (this *Fixture) TestD() {
 1 VJHF, 6 MNCFX => 4 RFSQX
 176 ORE => 6 VJHF
 `
-	this.So(NewReactor(Parse(scanner(raw))).ResolveOreCost(), should.Equal, 180697)
-}
-func (this *Fixture) TestE() {
-	raw := `
+const reactionsE = `
 171 ORE => 8 CNZTR
 7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP => 4 PLWSL
 114 ORE => 4 BHXH
@@ -96,5 +109,3 @@ func (this *Fixture) TestE() {
 7 XCVML => 6 RJRHP
 5 BHXH, 4 VRPVC => 5 LTCX
 `
-	this.So(NewReactor(Parse(scanner(raw))).ResolveOreCost(), should.Equal, 2210736)
-}
