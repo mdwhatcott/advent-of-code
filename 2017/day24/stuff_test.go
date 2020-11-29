@@ -25,7 +25,5 @@ func (this *Stuff) Test() {
 0/1
 10/1
 9/10`, "\n")
-	_ = lines
-	strongest := 0
-	this.So(strongest, should.Equal, 31)
+	this.So(FindStrongestBridge(lines), should.Equal, 31)
 }
