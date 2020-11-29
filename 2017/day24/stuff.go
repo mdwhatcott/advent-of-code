@@ -1,50 +1,105 @@
 package day24
 
 import (
+	"fmt"
 	"strings"
 
 	"advent/lib/util"
 )
 
-// TODO: implement a BFS or a* search over the graph
+func MaxBridgeStrength(paths chan string) int {
+	var strengths []int
+	for path := range paths {
+		fmt.Println(calculateStrength(path), path)
+		strengths = append(strengths, calculateStrength(path))
+	}
+	fmt.Println("Total Paths:", len(strengths))
+	return util.Max(strengths...)
+}
 
 func buildGraph(lines []string) *Node {
-	var all []*Node
-	all = append(all, &Node{A: -1, B: 0})
+	lookup := make(map[int][]*Node)
 	for _, line := range lines {
-		fields := strings.Split(line, "/")
-		all = append(all, &Node{A: util.ParseInt(fields[0]), B: util.ParseInt(fields[1])})
-	}
-	for _, a := range all {
-		for _, b := range all {
-			if a != b {
-				if a.Matches(b) {
-					a.Attach(b)
-					b.Attach(a)
-				}
-			}
+		node := NewNode(line)
+		lookup[node.a] = append(lookup[node.a], node)
+		if node.a == node.b {
+			continue
 		}
+		lookup[node.b] = append(lookup[node.b], node)
 	}
-	return all[0]
+	root := NewNode("-1/0")
+	root.Orient(0, lookup)
+	return root
 }
 
 type Node struct {
-	A, B int
-	a, b []*Node
+	a, b     int
+	original string
+	children map[*Node]bool
+	parents  map[*Node]bool
 }
 
-func (this *Node) Attach(that *Node) {
-	if that.A == this.A || that.B == this.A {
-		this.a = append(this.a, that)
+func NewNode(original string) *Node {
+	fields := strings.Split(original, "/")
+	a, b := fields[0], fields[1]
+	A, B := util.ParseInt(a), util.ParseInt(b)
+	if original == "-1/0" {
+		original = "0"
 	}
-	if that.A == this.B || that.B == this.B {
-		this.b = append(this.b, that)
+	return &Node{
+		a: A,
+		b: B,
+
+		original: original,
+		children: make(map[*Node]bool),
+		parents:  make(map[*Node]bool),
 	}
 }
 
-func (this *Node) Matches(that *Node) bool {
-	return (this.a == nil && that.a == nil && this.A == that.A) ||
-		(this.b == nil && that.b == nil && this.B == that.B) ||
-		(this.a == nil && that.a == nil && this.B == that.B) ||
-		(this.b == nil && that.b == nil && this.A == that.A)
+func (this *Node) Orient(to int, lookup map[int][]*Node) {
+	for _, node := range lookup[to] {
+		if node == this || this.parents[node] {
+			continue
+		}
+		node.parents[this] = true
+		for parent := range this.parents {
+			node.parents[parent] = true
+		}
+		if this.children[node] {
+			continue
+		}
+		this.children[node] = true
+		node.Orient(node.other(to), lookup)
+	}
+}
+
+func (this *Node) other(to int) int {
+	if this.a == to {
+		return this.b
+	}
+	return this.a
+}
+
+func (this *Node) Traverse() (out chan string) {
+	out = make(chan string)
+	go this.traverse(out, "")
+	return out
+}
+
+func (this *Node) traverse(out chan string, path string) {
+	newPath := strings.TrimLeft(fmt.Sprintf("%s--%s", path, this.original), "--")
+	out <- newPath
+	for child := range this.children {
+		child.traverse(out, newPath)
+	}
+	if len(path) == 0 {
+		close(out)
+	}
+}
+
+func calculateStrength(path string) (result int) {
+	for _, value := range strings.Split(strings.ReplaceAll(path, "--", "/"), "/") {
+		result += util.ParseInt(value)
+	}
+	return result
 }
