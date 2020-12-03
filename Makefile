@@ -1,6 +1,6 @@
 #!/usr/bin/make
 
-day  := 03
+day  := 04
 year := 20
 
 test.day: fmt
