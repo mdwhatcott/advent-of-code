@@ -105,8 +105,8 @@ func TestDay12(t *testing.T) {
 func TestDay13(t *testing.T) {
 	t.Parallel()
 
-	AssertEqual(t, day13.Part1(), nil)
-	AssertEqual(t, day13.Part2(), nil)
+	AssertEqual(t, day13.Part1(), "(14, 42)")
+	AssertEqual(t, day13.Part2(), nil) // NOT: [(70, 114)] or [(72, 114)]
 }
 func TestDay14(t *testing.T) {
 	t.Parallel()
