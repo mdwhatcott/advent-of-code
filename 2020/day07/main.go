@@ -73,7 +73,7 @@ func Part2() interface{} {
 		for _, inner := range inners {
 			words := strings.Fields(inner)
 			bags[outer] = append(bags[outer], Bag{
-				Color: strings.Join(words[1:], " "),
+				Color:    strings.Join(words[1:], " "),
 				Quantity: util.ParseInt(words[0]),
 			})
 		}
