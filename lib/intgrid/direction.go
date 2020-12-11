@@ -26,7 +26,8 @@ var (
 	BottomLeft  = NewDirection(-1, -1)
 
 	Neighbors4 = []Direction{Right, Left, Up, Down}
-	Neighbors8 = append(Neighbors4, []Direction{TopRight, TopLeft, BottomRight, BottomLeft}...)
+	Diagonals4 = []Direction{TopRight, TopLeft, BottomRight, BottomLeft}
+	Neighbors8 = append(Neighbors4, Diagonals4...)
 
 	Clockwise = map[Direction]Direction{
 		Down:  Left,
