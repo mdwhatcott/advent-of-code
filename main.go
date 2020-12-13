@@ -1,7 +1,11 @@
 package main
 
-import "advent/2018/day10"
+import (
+	"fmt"
+
+	"advent/2020/day13"
+)
 
 func main() {
-	day10.Part1()
+	fmt.Println(advent.Part1())
 }
