@@ -1,8 +1,6 @@
 package advent
 
 import (
-	"fmt"
-	"log"
 	"strings"
 
 	"advent/lib/util"
@@ -32,63 +30,54 @@ func Part1() interface{} {
 	return minBus * min
 }
 
+// See https://github.com/fogleman/AdventOfCode2020/blob/main/13.py
+// Ugh.
 func Part2() interface{} {
-	busses := loadBusses()
-	timestamp := 100_000_000_000_000
-	maxBus := util.Max(busses...)
-	maxBusIndex := MaxIndex(busses...)
-	for ; timestamp%maxBus != 0; timestamp++ {
-		// Find first timestamp after 100_000_000_000_000 (the clue from instructions) that is divisible by the largest bus number (823 for my input).
-	}
-	for x := 0 ; ; x++ {
-		if x % 1_000_000_000 == 0 {
-			log.Println("PROGRESS:", x)
-		}
-		// Increment by max bus number (823) until we find a timestamp that matches.
-		// Hopefully, starting above the provided clue and going 823 times faster than a totally naive brute force method will find the answer?
-		count := checkCount(busses, maxBusIndex, timestamp)
-		if count == len(busses) {
-			return timestamp - maxBusIndex
-		}
-		if count >= len(busses)-5 {
-			fmt.Println("Close, but not quite:", timestamp-maxBus)
-		}
-		timestamp += maxBus
-	}
-}
+	rules := loadRules(util.InputLines()[1])
+	timestamp := 0
+	increment := 1
 
-func loadBusses() []int {
-	return util.ParseInts(strings.Split(util.InputLines()[1], ","))
-}
+	for i := 1; i < len(rules)+1; i++ {
+		marker := 0
 
-func MaxIndex(busses ...int) int {
-	max := 0
-	maxIndex := 0
-	for b, bus := range busses {
-		if bus > max {
-			max = bus
-			maxIndex = b
+		for {
+			if checkRules(timestamp, rules[:i]) {
+
+				if marker > 0 {
+					increment = timestamp - marker
+					timestamp = marker
+					break
+				}
+
+				marker = timestamp
+			}
+
+			timestamp += increment
 		}
 	}
-	return maxIndex
+
+	return timestamp
 }
 
-func check(busses []int, bus int, timestamp int) bool {
-	return checkCount(busses, bus, timestamp) == len(busses)
-}
-
-func checkCount(busses []int, bus int, timestamp int) (count int) {
-	timestamp -= bus
-	for _, b := range busses {
-		count++
-		if b == 0 {
-			timestamp++
-			continue
+func checkRules(timestamp int, rules []Rule) bool {
+	for _, rule := range rules {
+		if (timestamp+rule.Index)%rule.Cycle != 0 {
+			return false
 		}
-		if timestamp%b != 0 {
-			return count
-		}
-		timestamp++
 	}
-	return count
+	return true
+}
+
+func loadRules(line string) (rules []Rule) {
+	for i, c := range strings.Split(line, ",") {
+		if c != "x" {
+			rules = append(rules, Rule{Index: i, Cycle: util.ParseInt(c)})
+		}
+	}
+	return rules
+}
+
+type Rule struct {
+	Index int
+	Cycle int
 }
