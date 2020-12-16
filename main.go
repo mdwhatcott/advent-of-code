@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Println(advent.Part1())
+	fmt.Println(advent.Part2())
 }
