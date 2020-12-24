@@ -101,9 +101,9 @@ func (this *Fixture2020) LongTestDay15() {
 	this.So(day15.Part1(), should.Equal, 1025)
 	this.So(day15.Part2(), should.Equal, 129262)
 }
-func (this *Fixture2020) LongTestDay16() {
-	this.So(day16.Part1(), should.Equal, nil)
-	this.So(day16.Part2(), should.Equal, nil)
+func (this *Fixture2020) FocusLongTestDay16() {
+	this.So(day16.Part1(), should.Equal, 25984)
+	this.So(day16.Part2(), should.Equal, 0) // higher than 1190862849487
 }
 func (this *Fixture2020) LongTestDay17() {
 	this.So(day17.Part1(), should.Equal, nil)
