@@ -2,8 +2,6 @@ package advent
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"strings"
 
 	"advent/lib/util"
@@ -36,41 +34,11 @@ func Part2() (departureProduct int) {
 		}
 	}
 
-	departureIndex := map[int][]string{}
-
-	for name, allowed := range input.DepartureFields {
-		for x := 0; x < len(input.ValidTickets[0]); x++ {
-			valid := true
-			for _, ticket := range input.ValidTickets {
-				value := ticket[x]
-				if !allowed[value] {
-					valid = false
-					break
-				}
-			}
-			if valid {
-				departureIndex[x] = append(departureIndex[x], name)
-				break
-			}
-		}
-	}
-
-	if len(departureIndex) > 6 {
-		log.Panicln("too many fields:", len(departureIndex), departureIndex)
-	}
-
-	fmt.Println(departureIndex)
-	departureProduct = 1
-	for i := range departureIndex {
-		departureProduct *= input.YourTicket[i]
-	}
 	return departureProduct
 }
 
 type Input struct {
 	AllValidFieldValues map[int]bool
-
-	DepartureFields map[string]map[int]bool
 
 	YourTicket   []int
 	AllTickets   [][]int
@@ -80,7 +48,6 @@ type Input struct {
 func ScanInput(scanner *bufio.Scanner) *Input {
 	input := Input{
 		AllValidFieldValues: make(map[int]bool),
-		DepartureFields:     make(map[string]map[int]bool),
 	}
 	section := 0
 	for scanner.Scan() {
@@ -101,6 +68,7 @@ func ScanInput(scanner *bufio.Scanner) *Input {
 			line := strings.Replace(line, " or ", " ", 1)
 			halves := strings.Split(line, ": ")
 			name := halves[0]
+			_ = name
 			line = halves[1]
 			fields := strings.Fields(line)
 			for _, field := range fields {
@@ -109,15 +77,6 @@ func ScanInput(scanner *bufio.Scanner) *Input {
 				upper := util.ParseInt(bounds[1])
 				for x := lower; x <= upper; x++ {
 					input.AllValidFieldValues[x] = true
-
-					if strings.Contains(name, "departure") {
-						allowed, ok := input.DepartureFields[name]
-						if !ok {
-							allowed = make(map[int]bool)
-							input.DepartureFields[name] = allowed
-						}
-						allowed[x] = true
-					}
 				}
 			}
 
