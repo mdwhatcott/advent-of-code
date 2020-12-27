@@ -91,4 +91,4 @@ KeyboardInterrupt
 >>> 7 * 7 * 4 * 2 * 7 * 7
 19208  # This is where I realize that I was off by one on my assumption that 4 diffs of 1 in a row would multiply the solution space by 6, but it was actually 7!
 
- */
+*/
