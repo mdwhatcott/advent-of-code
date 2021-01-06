@@ -33,12 +33,6 @@
             "through " "")
           "," " ")))))
 
-(define (parse-from line)
-  1)
-
-(define (parse-to line)
-  4)
-
 (define (parse-instruction line)
   (list (parse-action line)
         (parse-numerals line)))
