@@ -37,7 +37,7 @@
     1))
 
 (define INPUT
-  (string-split (file->string "day05.txt") "\n"))
+  (string-split (file->string "05.txt") "\n"))
 
 (define answer1
   (count-nice1 INPUT))

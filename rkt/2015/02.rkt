@@ -5,7 +5,7 @@
 (require racket/string)
 (require racket/list)
 
-(define LINES (file->lines "day02.txt"))
+(define LINES (file->lines "02.txt"))
 
 (define (parse-box line)
   (map string->number (string-split line "x")))
