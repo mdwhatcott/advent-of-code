@@ -6,6 +6,7 @@
          racket/list
          racket/string
          racket/set
+         racket/stream
          rackunit)
 
 (define INPUT
@@ -37,10 +38,18 @@
   (list (parse-action line)
         (parse-numerals line)))
 
+(define (light-range xyxy)
+  (in-range (* (list-ref xyxy 0) (list-ref xyxy 1))
+      (add1 (* (list-ref xyxy 2) (list-ref xyxy 3)))))
+
 ; (define (apply-instruction all instruction)
   ; (for/??))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(test-equal? "light-range"
+  (stream->list (light-range (list 1 2 3 4))) ; (* 1 2) ... (* 3 4)
+  (list 2 3 4 5 6 7 8 9 10 11 12))            ;    2    ...    12
 
 (test-equal? "parse-instruction (off = 0)" 
   (parse-instruction "turn off 0,1 through 2,3")
