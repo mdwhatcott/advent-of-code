@@ -4,7 +4,7 @@
          racket/string)
 
 (define PARENTHESIS
-  (string->list (file->string "day01.txt")))
+  (string->list (file->string "01.txt")))
 
 (define (paren2num p)
   (if (char=? p #\() 1 -1))

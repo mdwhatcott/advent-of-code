@@ -8,7 +8,7 @@
 (require racket/set)
 
 (define INPUT
-  (string->list (file->string "day03.txt")))
+  (string->list (file->string "03.txt")))
 
 (define (move from direction)
   (cond [(char=? #\^ direction) (cons (car from) (add1 (cdr from)))]
