@@ -1,9 +1,9 @@
 #!/usr/bin/make
 
 tcr:
-	tcr -dry-run -command 'make test' -working .
+	tcr -command 'make test' -working .
 
 test:
-	racket 06.rkt
+	raco test 06.rkt
 
 .PHONY: test
