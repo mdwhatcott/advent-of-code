@@ -32,6 +32,9 @@
             "through " "")
           "," " ")))))
 
+(define (light-range x1 y1 x2 y2)
+  (for*/list ([y (in-range y1 (add1 y2))]
+              [x (in-range x1 (add1 x2))]) (cons x y)))
 
 ; (define answer1
 ;   (part1 INPUT))
@@ -48,6 +51,13 @@
 (test-equal? "parse-action (off)"    (parse-action "turn off") 0)
 (test-equal? "parse-action (on)"     (parse-action "turn on")  1)
 (test-equal? "parse-action (toggle)" (parse-action "toggle")   2)
+
+(test-equal? "light-range"
+  (light-range 2 1 4 4)
+  (list (cons 2 1) (cons 3 1) (cons 4 1)
+        (cons 2 2) (cons 3 2) (cons 4 2)
+        (cons 2 3) (cons 3 3) (cons 4 3)
+        (cons 2 4) (cons 3 4) (cons 4 4)))
 
 ; (test-equal? "part 1 acceptance"
 ;   (- 1000000 1000 4)
