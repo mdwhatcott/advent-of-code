@@ -6,9 +6,6 @@
          racket/list
          racket/string)
 
-(define INPUT
-  (string-split (file->string "06.txt") "\n"))
-
 (define OFF    0)
 (define ON     1)
 (define TOGGLE 2)
@@ -88,10 +85,10 @@
   (count-lights-on (setup-lights (hash) input)))
 
 (define answer1
-  (part1 INPUT))
+  (part1 (string-split (file->string "06.txt") "\n")))
 
 (printf "Part 1: ~a ~a~n"
-  (= 0 answer1) answer1)
+  (= 543903 answer1) answer1)
 
 (require rackunit)
 
