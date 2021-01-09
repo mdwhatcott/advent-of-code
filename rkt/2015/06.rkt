@@ -11,7 +11,7 @@
 (define TOGGLE 2)
 
 (define (on? lights light)
-  (= ON (hash-ref lights light OFF)))
+  (< OFF (hash-ref lights light OFF)))
 
 (define (turn-on lights light)
   (hash-set lights light ON))
@@ -84,11 +84,61 @@
 (define (part1 input)
   (count-lights-on (setup-lights (hash) input)))
 
+(define INPUT
+  (string-split (file->string "06.txt") "\n"))
+
 (define answer1
-  (part1 (string-split (file->string "06.txt") "\n")))
+  (part1 INPUT))
 
 (printf "Part 1: ~a ~a~n"
   (= 543903 answer1) answer1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (brighten lights light)
+  (hash-set lights light (add1 (hash-ref lights light 0))))
+
+(define (brighten2 lights light)
+  (hash-set lights light (+ 2 (hash-ref lights light 0))))
+
+(define (dim lights light)
+  (if (not (on? lights light))
+      lights
+      (hash-set lights light (sub1 (hash-ref lights light)))))
+
+(define (brighten-lights lights spots)
+  (apply-to-lights brighten lights spots))
+
+(define (brighten2-lights lights spots)
+  (apply-to-lights brighten2 lights spots))
+
+(define (dim-lights lights spots)
+  (apply-to-lights dim lights spots))
+
+(define (parse-action2 line)
+  (cond [(string-contains? line "off")    dim-lights]
+        [(string-contains? line "on")     brighten-lights]
+        [(string-prefix?   line "toggle") brighten2-lights]))
+
+(define (apply-instruction2 lights line)
+  ((parse-action2 line) lights (numerals2range (parse-numerals line))))
+
+(define (setup-lights2 lights instructions)
+  (if (empty? instructions)
+      lights
+      (setup-lights2 (apply-instruction2 lights (first instructions))
+                     (rest instructions))))
+
+(define (part2 input)
+  (count-lights-on (setup-lights2 (hash) input)))
+
+(define answer2
+  (part2 INPUT))
+
+(printf "Part 2: ~a ~a~n"
+  (= 14687245 answer2) answer2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require rackunit)
 
@@ -136,3 +186,9 @@
     "turn on 0,0 through 999,999"
     "toggle 0,0 through 999,0"
     "turn off 499,499 through 500,500")))
+
+(test-equal? "part 2 acceptance"
+  (+ 2000000 1)
+  (part2 (list
+    "turn on 0,0 through 0,0"
+    "toggle 0,0 through 999,999")))
