@@ -44,7 +44,24 @@
           from))
 
 (define (travel-all facing from steps)
-  (cons 10 2))
+  (if (empty? steps) from
+    (travel-all ((parse-turn (first steps)) facing)
+                (travel (first steps) facing from)
+                (rest steps))))
+
+(define (pair2list p)
+  (list (car p) (cdr p)))
+
+(define (part1 input)
+  (apply + (map abs (pair2list
+    (travel-all UP (cons 0 0) (string-split input ", "))))))
+
+(define INPUT (file->string "01.txt"))
+
+(define answer1 (part1 INPUT))
+
+(printf "part 1: ~a ~a ~n"
+  (= 291 answer1) answer1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
