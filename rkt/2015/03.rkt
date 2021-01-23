@@ -2,10 +2,10 @@
 
 #lang racket/base
 
-(require racket/file)
-(require racket/string)
-(require racket/list)
-(require racket/set)
+(require racket/file
+         racket/string
+         racket/list
+         racket/set)
 
 (define INPUT
   (string->list (file->string "03.txt")))

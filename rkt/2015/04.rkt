@@ -12,7 +12,7 @@
 
 (define answer1
   (for/first ([i (in-naturals)]
-            #:when (md5-prefix-match?
+              #:when (md5-prefix-match?
               "00000"
               (string-append INPUT (number->string i))))
     i))
@@ -22,7 +22,7 @@
 
 (define answer2
   (for/first ([i (in-naturals)]
-            #:when (md5-prefix-match?
+              #:when (md5-prefix-match?
               "000000"
               (string-append INPUT (number->string i))))
     i))

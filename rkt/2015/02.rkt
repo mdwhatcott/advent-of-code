@@ -1,9 +1,10 @@
 #!/usr/bin/env racket
+
 #lang racket/base
 
-(require racket/file)
-(require racket/string)
-(require racket/list)
+(require racket/file
+         racket/string
+         racket/list)
 
 (define LINES (file->lines "02.txt"))
 
