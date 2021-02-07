@@ -11,8 +11,8 @@
         [b (second triangle)]
         [c (third  triangle)])
     (and (< a (+ b c))
-       (< b (+ c a))
-       (< c (+ a b)))))
+         (< b (+ c a))
+         (< c (+ a b)))))
 
 (define (count-valid triangles)
   (length (filter valid triangles)))
