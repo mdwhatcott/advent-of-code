@@ -40,3 +40,5 @@
 (test-equal? "hi" (say "1211") "111221")
 (test-equal? "hi" (say "111221") "312211")
 (test-equal? "hi" (say-n "1" 5) "312211")
+
+; https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/
