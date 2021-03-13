@@ -12,6 +12,20 @@
         (#\D . 2)
         (#\L . 3)))
 
+(define (key-code keypad start lines)
+  (define (move from to)
+    (list-ref (hash-ref keypad from)
+              (hash-ref direction to)))
+  (define (moves from line)
+    (if (= (string-length line) 0) from
+      (moves (move from (string-ref line 0))
+             (substring line 1))))
+  (if (empty? lines) ""
+    (let ([next (moves start (car lines))])
+      (string-append
+        (string next)
+        (key-code keypad next (cdr lines))))))
+
 (define keypad1
   ; 1 2 3
   ; 4 5 6
@@ -47,23 +61,6 @@
         (#\C . (#\8  #\C  #\C  #\B))
         (#\D . (#\B  #\D  #\D  #\D))))
 
-(define (move keypad from to)
-  (list-ref (hash-ref keypad from)
-            (hash-ref direction to)))
-
-(define (moves keypad from line)
-  (if (= (string-length line) 0) from
-    (moves keypad
-           (move keypad from (string-ref line 0))
-           (substring line 1))))
-
-(define (key-code keypad start lines)
-  (if (empty? lines) ""
-    (let ([next (moves keypad start (car lines))])
-      (string-append
-        (string next)
-        (key-code keypad next (cdr lines))))))
-
 (let* ([lines (string-split (file->string "02.txt") "\n")]
        [part1 (key-code keypad1 #\5 lines)]
        [part2 (key-code keypad2 #\5 lines)])
@@ -74,14 +71,6 @@
 
 (require rackunit)
 
-(test-equal? "1" (move keypad1 #\1 #\U) #\1)
-(test-equal? "1" (move keypad1 #\1 #\L) #\1)
-(test-equal? "5" (move keypad1 #\5 #\U) #\2)
-(test-equal? "9" (move keypad1 #\9 #\D) #\9)
-(test-equal? "line 1" (moves keypad1 #\5 "ULL")   #\1)
-(test-equal? "line 2" (moves keypad1 #\1 "RRDDD") #\9)
-(test-equal? "line 3" (moves keypad1 #\9 "LURDL") #\8)
-(test-equal? "line 4" (moves keypad1 #\8 "UUUUD") #\5)
 (test-equal? "example 1, part 1 keypad"
   (key-code keypad1 #\5 (list "ULL" "RRDDD" "LURDL" "UUUUD")) "1985")
 (test-equal? "example 1, part 2 keypad"
