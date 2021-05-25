@@ -1,6 +1,7 @@
 package advent
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -25,27 +26,35 @@ func NewRecursiveCircuit(instructions []string) *RecursiveCircuit {
 }
 
 func (this *RecursiveCircuit) SolveFor(wire string) uint16 {
-	if value, err := strconv.ParseUint(wire, 10, 16); err == nil {
-		return uint16(value)
+	numeric, err := strconv.ParseUint(wire, 10, 16)
+	if err == nil {
+		return uint16(numeric)
 	}
-	if value, found := this.known[wire]; found {
+	value, found := this.known[wire]
+	if found {
 		return value
 	}
-	switch operation := this.instructions[wire]; decideOperator(operation) {
-	case "SET":
-		this.known[wire] = this.SolveFor(operation[0])
-	case "NOT":
-		this.known[wire] = ^this.SolveFor(operation[1])
-	case "AND":
-		this.known[wire] = this.SolveFor(operation[0]) & this.SolveFor(operation[2])
-	case "OR":
-		this.known[wire] = this.SolveFor(operation[0]) | this.SolveFor(operation[2])
-	case "LSHIFT":
-		this.known[wire] = this.SolveFor(operation[0]) << this.SolveFor(operation[2])
-	case "RSHIFT":
-		this.known[wire] = this.SolveFor(operation[0]) >> this.SolveFor(operation[2])
-	}
+	this.known[wire] = this.solve(wire)
 	return this.known[wire]
+}
+func (this *RecursiveCircuit) solve(wire string) uint16 {
+	operation := this.instructions[wire]
+	operator := decideOperator(operation)
+	switch operator {
+	case "SET":
+		return this.SolveFor(operation[0])
+	case "NOT":
+		return ^this.SolveFor(operation[1])
+	case "AND":
+		return this.SolveFor(operation[0]) & this.SolveFor(operation[2])
+	case "OR":
+		return this.SolveFor(operation[0]) | this.SolveFor(operation[2])
+	case "LSHIFT":
+		return this.SolveFor(operation[0]) << this.SolveFor(operation[2])
+	case "RSHIFT":
+		return this.SolveFor(operation[0]) >> this.SolveFor(operation[2])
+	}
+	panic(fmt.Sprintln(wire, operation))
 }
 
 func decideOperator(operation []string) string {
