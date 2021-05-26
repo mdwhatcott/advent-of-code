@@ -8,9 +8,7 @@ import (
 
 func Part1() interface{} {
 	world := ParseInitialWorld(util.InputString())
-	for x := 0; x < 6; x++ {
-		world.Cycle()
-	}
+	world.Boot()
 	return len(world)
 }
 
@@ -90,6 +88,12 @@ func (this World) IsActive(p P) int {
 		return 1
 	}
 	return 0
+}
+
+func (this World) Boot() {
+	for x := 0; x < 6; x++ {
+		this.Cycle()
+	}
 }
 
 func (this World) Cycle() {

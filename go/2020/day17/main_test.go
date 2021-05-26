@@ -48,8 +48,6 @@ func (this *ConwayFixture) TestOneCycle() {
 	this.AssertActive(11)
 }
 func (this *ConwayFixture) TestSixCycles() {
-	for x := 0; x < 6; x++ {
-		this.world.Cycle()
-	}
+	this.world.Boot()
 	this.AssertActive(112)
 }
