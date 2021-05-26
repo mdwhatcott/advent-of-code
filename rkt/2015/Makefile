@@ -4,6 +4,6 @@ tcr:
 	tcr -command 'make test' -working .
 
 test:
-	raco test 10.rkt
+	raco test 07.rkt
 
 .PHONY: test
