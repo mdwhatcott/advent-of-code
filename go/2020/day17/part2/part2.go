@@ -3,6 +3,7 @@ package part2
 import "strings"
 
 type P struct {
+	W int
 	X int
 	Y int
 	Z int
@@ -28,19 +29,30 @@ func (p P) Neighbors3d() (all []P) {
 	all = append(all, p.Below().Neighbors2d()...)
 	return all
 }
-func (p P) Above() P     { return Point(p.X, p.Y, p.Z+1) }
-func (p P) Below() P     { return Point(p.X, p.Y, p.Z-1) }
-func (p P) North() P     { return Point(p.X, p.Y+1, p.Z) }
-func (p P) South() P     { return Point(p.X, p.Y-1, p.Z) }
-func (p P) East() P      { return Point(p.X-1, p.Y, p.Z) }
-func (p P) West() P      { return Point(p.X+1, p.Y, p.Z) }
-func (p P) NorthWest() P { return Point(p.X-1, p.Y+1, p.Z) }
-func (p P) NorthEast() P { return Point(p.X+1, p.Y+1, p.Z) }
-func (p P) SouthWest() P { return Point(p.X-1, p.Y-1, p.Z) }
-func (p P) SouthEast() P { return Point(p.X+1, p.Y-1, p.Z) }
+func (p P) Neighbors4d() (all []P) {
+	all = append(all, p.Neighbors3d()...)
+	all = append(all, p.Above4d())
+	all = append(all, p.Above4d().Neighbors3d()...)
+	all = append(all, p.Below4d())
+	all = append(all, p.Below4d().Neighbors3d()...)
+	return all
+}
+func (p P) Above() P     { return Point(p.W, p.X, p.Y, p.Z+1) }
+func (p P) Below() P     { return Point(p.W, p.X, p.Y, p.Z-1) }
+func (p P) North() P     { return Point(p.W, p.X, p.Y+1, p.Z) }
+func (p P) South() P     { return Point(p.W, p.X, p.Y-1, p.Z) }
+func (p P) East() P      { return Point(p.W, p.X-1, p.Y, p.Z) }
+func (p P) West() P      { return Point(p.W, p.X+1, p.Y, p.Z) }
+func (p P) NorthWest() P { return Point(p.W, p.X-1, p.Y+1, p.Z) }
+func (p P) NorthEast() P { return Point(p.W, p.X+1, p.Y+1, p.Z) }
+func (p P) SouthWest() P { return Point(p.W, p.X-1, p.Y-1, p.Z) }
+func (p P) SouthEast() P { return Point(p.W, p.X+1, p.Y-1, p.Z) }
+func (p P) Above4d() P   { return Point(p.W+1, p.X, p.Y, p.Z) }
+func (p P) Below4d() P   { return Point(p.W-1, p.X, p.Y, p.Z) }
 
-func Point(x, y, z int) P {
+func Point(w, x, y, z int) P {
 	return P{
+		W: w,
 		X: x,
 		Y: y,
 		Z: z,
@@ -54,7 +66,7 @@ func ParseInitialWorld(s string) World {
 	for y, line := range strings.Fields(s) {
 		for x, char := range line {
 			if char == '#' {
-				world.Set(Point(x, y, 0), true)
+				world.Set(Point(0, x, y, 0), true)
 			}
 		}
 	}
@@ -84,9 +96,14 @@ func (this World) Boot() {
 
 func (this World) Cycle() {
 	// Establish upper/lower bounds of active world state.
-	var xMin, yMin, zMin int
-	var xMax, yMax, zMax int
+	var wMin, xMin, yMin, zMin int
+	var wMax, xMax, yMax, zMax int
 	for p := range this {
+		if p.W < wMin {
+			wMin = p.W
+		} else if p.W > wMax {
+			wMax = p.W
+		}
 		if p.X < xMin {
 			xMin = p.X
 		} else if p.X > xMax {
@@ -107,15 +124,17 @@ func (this World) Cycle() {
 	// Determine upcoming state of all points within bounds.
 	// The inspection must be extended to just beyond the bounds.
 	upcoming := make(map[P]bool)
-	for x := xMin - 1; x <= xMax+1; x++ {
-		for y := yMin - 1; y <= yMax+1; y++ {
-			for z := zMin - 1; z <= zMax+1; z++ {
-				p := Point(x, y, z)
-				active := this.countActiveNeighbors(p)
-				if this.IsActive(p) > 0 {
-					upcoming[p] = active == 2 || active == 3
-				} else {
-					upcoming[p] = active == 3
+	for w := wMin - 1; w <= wMax+1; w++ {
+		for x := xMin - 1; x <= xMax+1; x++ {
+			for y := yMin - 1; y <= yMax+1; y++ {
+				for z := zMin - 1; z <= zMax+1; z++ {
+					p := Point(w, x, y, z)
+					active := this.countActiveNeighbors(p)
+					if this.IsActive(p) > 0 {
+						upcoming[p] = active == 2 || active == 3
+					} else {
+						upcoming[p] = active == 3
+					}
 				}
 			}
 		}
@@ -128,7 +147,7 @@ func (this World) Cycle() {
 }
 
 func (this World) countActiveNeighbors(p P) (active int) {
-	for _, neighbor := range p.Neighbors3d() {
+	for _, neighbor := range p.Neighbors4d() {
 		active += this.IsActive(neighbor)
 	}
 	return active
