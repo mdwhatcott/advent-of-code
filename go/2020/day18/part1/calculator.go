@@ -1,4 +1,4 @@
-package advent
+package part1
 
 import (
 	"strconv"
