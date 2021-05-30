@@ -110,7 +110,7 @@ func (this *Fixture2020) LongTestDay17() {
 	this.So(day17.Part2(), should.Equal, 1936)
 }
 func (this *Fixture2020) LongTestDay18() {
-	this.So(day18.Part1(), should.Equal, nil)
+	this.So(day18.Part1(), should.Equal, 6923486965641)
 	this.So(day18.Part2(), should.Equal, nil)
 }
 func (this *Fixture2020) LongTestDay19() {
