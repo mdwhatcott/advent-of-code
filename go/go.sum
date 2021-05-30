@@ -6,8 +6,8 @@ github.com/ferhatelmas/levenshtein v0.0.0-20160518143259-a12aecc52d76 h1:R2K7yLH
 github.com/ferhatelmas/levenshtein v0.0.0-20160518143259-a12aecc52d76/go.mod h1:jr1MMO0KsDD+PQ57K7oJGk97TLYtbhLUOjCS577Ddm4=
 github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde h1:+5PMaaQtDUwOcJIUlmX89P0J3iwTvErTmyn5WghzXAQ=
 github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde/go.mod h1:RDgD/dfPmIwFH0qdUOjw71HjtWg56CtyLIoHL+R1wJw=
-github.com/mdwhatcott/testing v0.2.0 h1:Y6xhRHIB0HqIHCRjbIJrVbAOS0o0BNql7aNfId0qzIU=
-github.com/mdwhatcott/testing v0.2.0/go.mod h1:kTUltmHGNjAfXlHI3Q9/6w+7He7wPA+INVGTKVj8NiY=
+github.com/mdwhatcott/testing v0.2.1 h1:WY1vI8o3Tjc/lJplCWOgVLW+xi29BIGQdvM+79zh4Fg=
+github.com/mdwhatcott/testing v0.2.1/go.mod h1:kTUltmHGNjAfXlHI3Q9/6w+7He7wPA+INVGTKVj8NiY=
 github.com/smartystreets/assertions v1.2.0 h1:42S6lae5dvLc7BrLu/0ugRtcFVjoJNMC/N3yZFZkDFs=
 github.com/smartystreets/assertions v1.2.0/go.mod h1:tcbTF8ujkAEcZ8TElKY+i30BzYlVhC/LOxJk7iOWnoo=
 github.com/smartystreets/gunit v1.4.2 h1:tyWYZffdPhQPfK5VsMQXfauwnJkqg7Tv5DLuQVYxq3Q=
