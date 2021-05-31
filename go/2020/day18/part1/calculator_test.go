@@ -8,7 +8,7 @@ import (
 )
 
 func TestInterpreterSuite(t *testing.T) {
-	suite.Run(&InterpreterSuite{T: t})
+	suite.Run(&InterpreterSuite{T: t}, suite.Options.UnitTests())
 }
 
 type InterpreterSuite struct {
