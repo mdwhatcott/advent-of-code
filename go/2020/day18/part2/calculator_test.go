@@ -8,7 +8,7 @@ import (
 )
 
 func TestCalculatorSuite(t *testing.T) {
-	suite.Run(&CalculatorSuite{T: t})
+	suite.Run(&CalculatorSuite{T: t}, suite.Options.UnitTests())
 }
 
 type CalculatorSuite struct {
