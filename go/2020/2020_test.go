@@ -29,16 +29,16 @@ import (
 	day24 "advent/2020/day24"
 	day25 "advent/2020/day25"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestFixture2020(t *testing.T) {
-	gunit.Run(new(Fixture2020), t)
+	suite.Run(&Fixture2020{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Fixture2020 struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Fixture2020) LongTestDay01() {
