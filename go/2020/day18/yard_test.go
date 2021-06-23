@@ -30,10 +30,15 @@ func (this *ShuntingYardSuite) part2(input string) int {
 func (this *ShuntingYardSuite) TestShuntingYard() {
 	this.So(this.shunt1("3"), should.Equal, "3")
 	this.So(this.shunt1("3 + 4"), should.Equal, "34+")
-	this.So(this.shunt1("3 * (4 + 5) * 6"), should.Equal, "345+*6*")
 
-	this.So(this.shunt1("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "")
-	this.So(this.shunt2("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "")
+	this.So(this.shunt1("3 * (4 + 5) * 6"), should.Equal, "345+*6*")
+	this.So(this.shunt2("3 *  4 + 5  * 6"), should.Equal, "345+*6*")
+
+	this.So(this.shunt1("3 * 2 + 7"), should.Equal, "32*7+")
+	this.So(this.shunt2("3 * 2 + 7"), should.Equal, "327+*")
+
+	this.So(this.shunt1("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "12+3*4+5*6+")
+	this.So(this.shunt2("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "12+34+*56+*")
 }
 
 func (this *ShuntingYardSuite) TestEvalPostfix() {
