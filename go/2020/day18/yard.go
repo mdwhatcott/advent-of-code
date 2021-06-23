@@ -3,32 +3,32 @@ package advent
 // https://runestone.academy/runestone/books/published/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 
 func ParseShuntingYard(precedence map[rune]int, input string) []rune {
-	operators := new(RuneStack)
-	output := new(RuneStack)
+	ops := new(RuneStack)
+	result := new(RuneStack)
 	for _, c := range input {
 		switch c {
 		case ' ':
 			continue
 		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-			output.Push(c)
+			result.Push(c)
 		case '(':
-			operators.Push(c)
+			ops.Push(c)
 		case ')':
-			for operators.Peek() != '(' {
-				output.Push(operators.Pop())
+			for ops.Peek() != '(' {
+				result.Push(ops.Pop())
 			}
-			operators.Pop() // left paren
+			ops.Pop() // left paren
 		default:
-			for operators.Len() > 0 && operators.Peek() != '(' && precedence[operators.Peek()] >= precedence[c] {
-				output.Push(operators.Pop())
+			for ops.Len() > 0 && ops.Peek() != '(' && precedence[ops.Peek()] >= precedence[c] {
+				result.Push(ops.Pop())
 			}
-			operators.Push(c)
+			ops.Push(c)
 		}
 	}
-	for operators.Len() > 0 {
-		output.Push(operators.Pop())
+	for ops.Len() > 0 {
+		result.Push(ops.Pop())
 	}
-	return output.items
+	return result.items
 }
 
 func EvalPostfix(postfix string) (result int) {
