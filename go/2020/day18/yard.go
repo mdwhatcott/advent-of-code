@@ -19,7 +19,7 @@ func ParseShuntingYard(precedence map[rune]int, input string) []rune {
 			}
 			operators.Pop() // left paren
 		default:
-			for operators.Len() > 0 && precedence[operators.Peek()] <= precedence[c] {
+			for operators.Len() > 0 && operators.Peek() != '(' && precedence[operators.Peek()] >= precedence[c] {
 				output.Push(operators.Pop())
 			}
 			operators.Push(c)
