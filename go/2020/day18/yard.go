@@ -1,5 +1,7 @@
 package advent
 
+// https://runestone.academy/runestone/books/published/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
+
 func ParseShuntingYard(precedence map[rune]int, input string) []rune {
 	operators := new(RuneStack)
 	output := new(RuneStack)

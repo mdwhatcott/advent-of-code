@@ -15,16 +15,25 @@ type ShuntingYardSuite struct {
 	*suite.T
 }
 
-func (this *ShuntingYardSuite) parse1(input string) string {
+func (this *ShuntingYardSuite) shunt1(input string) string {
 	return string(ParseShuntingYard(part1Precedence, input))
 }
+func (this *ShuntingYardSuite) shunt2(input string) string {
+	return string(ParseShuntingYard(part2Precedence, input))
+}
 func (this *ShuntingYardSuite) part1(input string) int {
-	return EvalPostfix(this.parse1(input))
+	return EvalPostfix(this.shunt1(input))
+}
+func (this *ShuntingYardSuite) part2(input string) int {
+	return EvalPostfix(this.shunt2(input))
 }
 func (this *ShuntingYardSuite) TestShuntingYard() {
-	this.So(this.parse1("3"), should.Equal, "3")
-	this.So(this.parse1("3 + 4"), should.Equal, "34+")
-	this.So(this.parse1("3 * (4 + 5) * 6"), should.Equal, "345+*6*")
+	this.So(this.shunt1("3"), should.Equal, "3")
+	this.So(this.shunt1("3 + 4"), should.Equal, "34+")
+	this.So(this.shunt1("3 * (4 + 5) * 6"), should.Equal, "345+*6*")
+
+	this.So(this.shunt1("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "")
+	this.So(this.shunt2("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, "")
 }
 
 func (this *ShuntingYardSuite) TestEvalPostfix() {
@@ -36,4 +45,6 @@ func (this *ShuntingYardSuite) TestPart1() {
 	this.So(this.part1("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, 71)
 	this.So(this.part1("1 + (2 * 3) + (4 * (5 + 6))"), should.Equal, 51)
 	this.So(this.part1("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"), should.Equal, 13632)
+
+	this.So(this.part2("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, 231)
 }
