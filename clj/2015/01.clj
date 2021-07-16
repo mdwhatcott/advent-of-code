@@ -20,4 +20,20 @@
        (count)
        (inc)))
 
-(println "part 2:" (walk-until -1 input))
+(println "part 2 (slow):" (walk-until -1 input))
+
+(def up \()
+(defn step [char]
+  (if (= char up) 1 -1))
+
+(defn part2 [input cursor floor]
+  (if (= floor -1) cursor
+    (let [next-input  (drop 1 input)
+          next-cursor (inc cursor)
+          next-floor  (+ floor (step (first input)))]
+      (part2 next-input next-cursor next-floor))))
+
+(println "part 2 (fast):" (part2 (seq input) 0 0))
+
+
+
