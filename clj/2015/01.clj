@@ -7,8 +7,6 @@
   (- (count-char \( input)
      (count-char \) input)))
 
-(println "part 1:" (walk input))
-
 ;; super inefficient!
 ;; (walks incrementally larger sub-
 ;; strings until we arrive at -1)
@@ -19,8 +17,6 @@
        (take-while #(> % low-point))
        (count)
        (inc)))
-
-(println "part 2 (slow):" (walk-until -1 input))
 
 (def up \()
 (defn step [char]
@@ -33,7 +29,17 @@
           next-floor  (+ floor (step (first input)))]
       (part2 next-input next-cursor next-floor))))
 
-(println "part 2 (fast):" (part2 (seq input) 0 0))
+(require '[clojure.test :refer :all])
 
+(deftest day1
+  (testing "part1"
+    (is (= 232 (walk input))))
 
+  (testing "part2-slow"
+    (is (= 1783 (walk-until -1 input))))
 
+  (testing "part2-fast")
+    (is (= 1783 (part2 (seq input) 0 0)))
+)
+
+(run-tests)
