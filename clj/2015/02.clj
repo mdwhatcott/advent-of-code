@@ -3,7 +3,7 @@
 (defn dimensions [line] ; "2x3x4"
   (->> (re-matcher       #"(\d+)x(\d+)x(\d+)" line)
        (re-find) ; ("2x3x4" "2"   "3"   "4")
-       (drop 1)  ; (        "2"   "3"   "4")
+       (rest)    ; (        "2"   "3"   "4")
        (map #(Integer/parseInt %)))) ; (2 3 4)
 
 (defn paper-needed [line]
