@@ -1,3 +1,5 @@
+(ns advent.day01)
+
 (def input (slurp "01.txt"))
 
 (defn count-char [char input]

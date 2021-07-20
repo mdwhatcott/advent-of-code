@@ -1,3 +1,5 @@
+(ns advent.day02)
+
 (def lines (clojure.string/split-lines (slurp "02.txt")))
 
 (defn dimensions [line] ; "2x3x4"
