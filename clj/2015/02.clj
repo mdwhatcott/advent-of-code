@@ -24,17 +24,19 @@
 
 (require '[clojure.test :refer :all])
 
-
 (deftest day1
-
-  (def all-dimensions (map dimensions lines))
-
   (testing "components"
     (is (= 58 (paper-needed '(2 3 4))))
     (is (= 43 (paper-needed '(1 1 10))))
     (is (= 34 (ribbon-needed '(2 3 4))))
     (is (= 14 (ribbon-needed '(1 1 10)))))
-  (testing "part 1" (is (= 1606483 (reduce + (map paper-needed all-dimensions)))))
-  (testing "part 2" (is (= 3842356 (reduce + (map ribbon-needed all-dimensions))))))
+  
+  (let [all-dimensions (map dimensions lines)]
+
+    (testing "part 1" (is (= 1606483
+      (reduce + (map paper-needed all-dimensions)))))
+
+    (testing "part 2" (is (= 3842356
+      (reduce + (map ribbon-needed all-dimensions)))))))
 
 (run-tests)
