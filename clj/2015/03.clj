@@ -23,9 +23,12 @@
                  (conj visits next)
                  (rest steps))))))
 
+(defn evens [arrows] (take-nth 2       arrows))
+(defn odds  [arrows] (take-nth 2 (rest arrows)))
+
 (defn tag-team-unique-visits [arrows]
-  (let [santa (take-nth 2 arrows)
-        robot (take-nth 2 (rest arrows))]
+  (let [santa (evens arrows)
+        robot (odds arrows)]
     (union (unique-visits santa)
            (unique-visits robot))))
 
