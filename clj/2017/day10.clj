@@ -51,7 +51,8 @@
         hashed-ring   (braid (make-ring) part1-lengths 1)]
    (is (= 6952 (bi-product hashed-ring)))))
 
- (testing "part 2" 
+ ;; https://www.lvguowei.me/post/nested-for-loops-in-clojure/
+ (testing "part 2"
   (let [part2-lengths (seq (.getBytes (slurp "day10.txt")))
         extra-lengths '(17 31 73 47 23)
         all-lengths   (concat part2-lengths extra-lengths)
