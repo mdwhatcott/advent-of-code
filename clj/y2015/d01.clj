@@ -1,6 +1,6 @@
-(ns advent.day01)
+(ns d01)
 
-(def input (slurp "01.txt"))
+(def input (slurp "y2015/d01.txt"))
 
 (defn count-char [char input]
   (count (filter #(= char %) input)))
@@ -25,7 +25,8 @@
   (if (= char up) 1 -1))
 
 (defn part2 [input cursor floor]
-  (if (= floor -1) cursor
+  (if (= floor -1)
+    cursor
     (let [next-input  (drop 1 input)
           next-cursor (inc cursor)
           next-floor  (+ floor (step (first input)))]
@@ -41,7 +42,6 @@
     (is (= 1783 (walk-until -1 input))))
 
   (testing "part2-fast")
-    (is (= 1783 (part2 (seq input) 0 0)))
-)
+  (is (= 1783 (part2 (seq input) 0 0))))
 
 (run-tests)

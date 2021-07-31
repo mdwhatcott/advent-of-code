@@ -1,4 +1,4 @@
-(ns aoc.2017.day10)
+(ns d10)
 
 (defn make-ring []
   (vec (take 256 (range))))
@@ -18,6 +18,7 @@
                     (count ring)
                     (drop (- (count ring) at) (cycle complete)))]
     final))
+
 
 (defn bi-product [ring]
   (* (first ring)
@@ -75,6 +76,6 @@
 
   (testing "part 2"
     (is (= "28e7c4360520718a5dc811d3942cf1fd"
-           (knot-hash (.getBytes (slurp "day10.txt")))))))
+           (knot-hash (.getBytes (slurp "y2017/d10.txt")))))))
 
 (run-tests)

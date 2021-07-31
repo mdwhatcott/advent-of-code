@@ -1,30 +1,31 @@
-(ns advent.day03)
+(ns d03)
 
 (require '[clojure.set :refer [union]])
 
-(def directions {
-  \< '(-1  0)
-  \> '( 1  0)
-  \^ '( 0  1)
-  \v '( 0 -1)
-})
+(def directions
+  {
+   \< '(-1 0)
+   \> '(1 0)
+   \^ '(0 1)
+   \v '(0 -1)
+   })
 
 (defn move [from direction]
   (map + from (directions direction)))
 
 (defn unique-visits [arrows]
-  (loop [at '(0 0)
+  (loop [at     '(0 0)
          visits #{'(0 0)}
-         steps (seq arrows)]
+         steps  (seq arrows)]
     (if (empty? steps)
-        visits
-        (let [next (move at (first steps))]
-          (recur next
-                 (conj visits next)
-                 (rest steps))))))
+      visits
+      (let [next (move at (first steps))]
+        (recur next
+               (conj visits next)
+               (rest steps))))))
 
-(defn evens [arrows] (take-nth 2       arrows))
-(defn odds  [arrows] (take-nth 2 (rest arrows)))
+(defn evens [arrows] (take-nth 2 arrows))
+(defn odds [arrows] (take-nth 2 (rest arrows)))
 
 (defn tag-team-unique-visits [arrows]
   (let [santa (evens arrows)
@@ -51,7 +52,7 @@
   ;; alternating two houses, up then down
   (testing "example-3" (is (= 2 (part1 "^v^v^v^v^v"))))
 
-  (let [steps (slurp "03.txt")]
+  (let [steps (slurp "y2015/d03.txt")]
     (testing "part 1" (is (= 2572 (part1 steps))))
     (testing "part 2" (is (= 2631 (part2 steps))))))
 
