@@ -4,7 +4,7 @@
 
 (defn run [memory noun verb]
   (let [tweaked  (assoc memory, 1 noun, 2 verb)
-        executed (intcode/run tweaked)]
+        executed (intcode/run-simple tweaked)]
     (first executed)))
 
 (defn part1 [memory] (run memory 12 2))
