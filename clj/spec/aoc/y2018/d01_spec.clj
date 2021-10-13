@@ -8,7 +8,7 @@
 
 (def real-input (slurp "spec/aoc/y2018/d01.txt"))
 
-(describe "Day 1"
+(describe "2018 Day 1"
   (context "Part 1"
     (it "solves simple examples"
       (should= 3, (sut/part1 (convert-example "+1, +1, +1")))
