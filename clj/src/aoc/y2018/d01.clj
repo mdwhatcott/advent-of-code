@@ -9,7 +9,7 @@
   (->> (lines->ints input)
        (apply +)))
 
-(defn part2 [input]
+(defn part2-loop [input]
   (let [original (lines->ints input)]
     (loop [at    0
            seen  #{}
@@ -18,3 +18,13 @@
         at (recur (+ at (first steps))
                   (conj seen at)
                   (rest steps))))))
+
+(defn until-seen-in [seen x]
+  (if (seen x)
+    (reduced x)
+    (conj seen x)))
+
+(defn part2-reductions [input]
+  (as-> (cycle (lines->ints input)) $
+        (reductions + $)
+        (reduce until-seen-in #{0} $)))

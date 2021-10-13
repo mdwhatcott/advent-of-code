@@ -20,14 +20,17 @@
 
   (context "Part 2"
     (it "solves simple examples"
-      (should= 0, (sut/part2 (convert-example "+1, -1")))
-      (should= 10 (sut/part2 (convert-example "+3, +3, +4, -2, -4")))
-      (should= 5, (sut/part2 (convert-example "-6, +3, +8, +5, -6")))
-      (should= 14 (sut/part2 (convert-example "+7, +7, -2, -7, -4"))))
+      (should= 0, (sut/part2-loop (convert-example "+1, -1")))
+      (should= 10 (sut/part2-loop (convert-example "+3, +3, +4, -2, -4")))
+      (should= 5, (sut/part2-loop (convert-example "-6, +3, +8, +5, -6")))
+      (should= 14 (sut/part2-loop (convert-example "+7, +7, -2, -7, -4"))))
 
     (it "solves with real input"
-      (should= 312 (sut/part2 real-input)))
+      (should= 312 (sut/part2-loop real-input)))
     ; Returned to 312 after cycling through 139324 input numbers,
     ; of which there were 1014
+
+    (it "solves with reductions"
+      (should= 312 (sut/part2-reductions real-input)))
     )
   )
