@@ -5,11 +5,11 @@
   (->> (string/split-lines input)
        (map #(Integer/parseInt %))))
 
-(defn day01-part1 [input]
+(defn part1 [input]
   (->> (lines->ints input)
        (apply +)))
 
-(defn day01-part2 [input]
+(defn part2 [input]
   (let [original (lines->ints input)]
     (loop [at    0
            seen  #{}
