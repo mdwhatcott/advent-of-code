@@ -24,7 +24,7 @@
        "\n"
        "b"))
 
-(describe "day06"
+(describe "2020 Day 6"
   (it "counts distinct items per group"
     (should= 6 (count-any-yes example-input-1)))
 

@@ -9,7 +9,7 @@
        (format "[%s]")
        clojure.edn/read-string))
 
-(describe "Solution: Day 2"
+(describe "2019 Day 2"
   (it "solves part 1"
     (should= 3101878 (part1 initial-memory)))
 
