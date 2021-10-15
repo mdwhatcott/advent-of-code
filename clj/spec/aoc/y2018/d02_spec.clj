@@ -19,7 +19,7 @@
                      "axcye"
                      "wvxyz"])
 
-(def real-inputs (data/read-lines 2))
+(def real-inputs (data/read-lines 2018 2))
 
 (describe "2018 Day 2"
   (context "Part 1"

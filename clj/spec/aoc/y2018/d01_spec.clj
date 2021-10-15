@@ -11,7 +11,7 @@
       (should= -6 (sut/part1 [-1 -2 -3])))
 
     (it "solves with real input"
-      (should= 406 (sut/part1 (data/read-ints 1)))))
+      (should= 406 (sut/part1 (data/read-ints 2018 1)))))
 
   (context "Part 2"
     (it "solves simple examples"
@@ -21,11 +21,11 @@
       (should= 14 (sut/part2-loop [7 7 2 -7 -4])))
 
     (it "solves with real input"
-      (should= 312 (sut/part2-loop (data/read-ints 1))))
+      (should= 312 (sut/part2-loop (data/read-ints 2018 1))))
     ; Returned to 312 after cycling through 139324 input numbers,
     ; of which there were 1014
 
     (it "solves with reductions"
-      (should= 312 (sut/part2-reductions (data/read-ints 1))))
+      (should= 312 (sut/part2-reductions (data/read-ints 2018 1))))
     )
   )
