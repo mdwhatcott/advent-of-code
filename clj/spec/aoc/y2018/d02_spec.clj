@@ -1,7 +1,7 @@
 (ns aoc.y2018.d02-spec
   (:require [speclj.core :refer :all]
             [aoc.y2018.d02 :as sut]
-            [clojure.string :as string]))
+            [aoc.data :as data]))
 
 (def examples-part1 ["abcdef"
                      "bababc"
@@ -19,9 +19,7 @@
                      "axcye"
                      "wvxyz"])
 
-(def real-inputs
-  (as-> (slurp "spec/aoc/y2018/d02.txt") $
-        (string/split-lines $)))
+(def real-inputs (data/read-lines 2))
 
 (describe "2018 Day 2"
   (context "Part 1"

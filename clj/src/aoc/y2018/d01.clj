@@ -1,16 +1,10 @@
-(ns aoc.y2018.d01
-  (:require [clojure.string :as string]))
+(ns aoc.y2018.d01)
 
-(defn lines->ints [input]
-  (->> (string/split-lines input)
-       (map #(Integer/parseInt %))))
+(defn part1 [ints]
+  (apply + ints))
 
-(defn part1 [input]
-  (->> (lines->ints input)
-       (apply +)))
-
-(defn part2-loop [input]
-  (let [original (lines->ints input)]
+(defn part2-loop [ints]
+  (let [original ints]
     (loop [at    0
            seen  #{}
            steps (cycle original)]
@@ -24,7 +18,7 @@
     (reduced x)
     (conj seen x)))
 
-(defn part2-reductions [input]
-  (as-> (cycle (lines->ints input)) $
+(defn part2-reductions [ints]
+  (as-> (cycle ints) $
         (reductions + $)
         (reduce until-seen-in #{0} $)))
