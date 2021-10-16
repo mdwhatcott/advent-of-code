@@ -1,9 +1,10 @@
 (ns aoc.y2020.d01
   (:require
     [clojure.edn :as edn]
-    [clojure.string :as string]))
+    [clojure.string :as string]
+    [aoc.data :as data]))
 
-(def actual-input (slurp "src/aoc/y2020/d01.txt"))
+(def actual-input (data/read 2020 1))
 
 (defn part1 [input]
   (as-> input $
