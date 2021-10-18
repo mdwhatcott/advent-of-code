@@ -15,13 +15,11 @@
 
   (context "Part 2"
     (it "solves simple examples"
-      (should= 0, (sut/part2-loop [1 -1]))
-      (should= 10 (sut/part2-loop [3 3 4 -2 -4]))
-      (should= 5, (sut/part2-loop [-6 3 8 5 -6]))
-      (should= 14 (sut/part2-loop [7 7 2 -7 -4])))
+      (should= 0, (sut/part2-reductions [1 -1]))
+      (should= 10 (sut/part2-reductions [3 3 4 -2 -4]))
+      (should= 5, (sut/part2-reductions [-6 3 8 5 -6]))
+      (should= 14 (sut/part2-reductions [7 7 2 -7 -4])))
 
-    (it "solves with real input"
-      (should= 312 (sut/part2-loop (data/read-ints 2018 1))))
     ; Returned to 312 after cycling through 139324 input numbers,
     ; of which there were 1014
 
