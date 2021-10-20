@@ -34,13 +34,3 @@
        (remove #(= (count %) (count input)))
        (map #(part1 %))
        (apply min)))
-
-(defn part1-recur-fast [INPUT]
-  (loop [input  (rest INPUT)
-         output [(first INPUT)]]
-    (if (empty? input)
-      (count output)
-      (let [i (first input)]
-        (if (unstable? (peek output) i)
-          (recur (rest input) (pop output))
-          (recur (rest input) (conj output i)))))))

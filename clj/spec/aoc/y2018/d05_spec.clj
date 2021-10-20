@@ -1,8 +1,7 @@
 (ns aoc.y2018.d05-spec
   (:require [speclj.core :refer :all]
             [aoc.y2018.d05 :as sut]
-            [aoc.data :as data]
-            [aoc.perf :as perf]))
+            [aoc.data :as data]))
 
 (def sample-input "dabAcCaCBAcCcaDA")
 (def real-input (data/read 2018 5))
@@ -24,6 +23,3 @@
       (should= 4552 (sut/part2 real-input)))
     )
   )
-
-#_(perf/benchmark 10 20 "part1-recur-fast" #(sut/part1-recur-fast real-input))
-#_(perf/benchmark 10 20 "part1-reduce    " #(sut/part1 real-input))
