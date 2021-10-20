@@ -6,7 +6,7 @@
 
 (def initial-memory
   ; d02.txt: 3,4,3,5,1,...
-  (->> (data/read 2019 2)
+  (->> (data/read-str 2019 2)
        (format "[%s]")
        clojure.edn/read-string))
 

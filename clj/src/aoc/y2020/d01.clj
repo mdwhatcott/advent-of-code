@@ -4,7 +4,7 @@
     [clojure.string :as string]
     [aoc.data :as data]))
 
-(def actual-input (data/read 2020 1))
+(def actual-input (data/read-str 2020 1))
 
 (defn part1 [input]
   (as-> input $

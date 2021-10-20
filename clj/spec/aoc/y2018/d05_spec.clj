@@ -4,7 +4,7 @@
             [aoc.data :as data]))
 
 (def sample-input "dabAcCaCBAcCcaDA")
-(def real-input (data/read 2018 5))
+(def real-input (data/read-str 2018 5))
 
 (describe "2018 Day 5"
   (context "Part 1"

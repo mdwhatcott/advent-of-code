@@ -13,7 +13,7 @@
        (map counter)
        (apply +)))
 
-(def actual-input (data/read 2020 6))
+(def actual-input (data/read-str 2020 6))
 
 (defn part1 [input]
   (sum-group-yes input count-any-yes))

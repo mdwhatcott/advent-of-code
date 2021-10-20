@@ -23,7 +23,7 @@
        "[1518-11-05 00:45] falls asleep\n"
        "[1518-11-05 00:55] wakes up"))
 
-(def real-input (data/read 2018 4))
+(def real-input (data/read-str 2018 4))
 
 (describe "2018 Day 4"
   (context "Part 1"
