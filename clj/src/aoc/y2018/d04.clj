@@ -1,5 +1,6 @@
 (ns aoc.y2018.d04
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [aoc.data :as data]))
 
 ; regex matching
 ; reading 'staggered' records (a guard's shift is spead across multiple lines)
@@ -8,7 +9,7 @@
 ; sort-by :map-key
 
 (defn parse-int [input]
-  (if (nil? input) nil (Integer/parseInt input)))
+  (if (nil? input) nil (data/str->int input)))
 
 (defn int-match [re s]
   (parse-int (second (re-matches re s))))

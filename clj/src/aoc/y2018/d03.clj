@@ -1,9 +1,10 @@
-(ns aoc.y2018.d03)
+(ns aoc.y2018.d03
+  (:require [aoc.data :as data]))
 
 (defn parse-claim [raw]
   ; Sample Claim: #266 @ 105,418: 27x14
   (let [matches (re-seq #"\d+" raw)
-        [id x1 y1 w h] (map #(Integer/parseInt %) matches)]
+        [id x1 y1 w h] (map data/str->int matches)]
     {:id id :x x1 :y y1 :w w :h h}))
 
 (defn explode-cells [{:keys [x y w h]}]
