@@ -2,12 +2,16 @@
   (:require [clojure.string :as string]
             [clojure.pprint :as pprint]))
 
-(defn parse-map-line [[y line]]
-  (as-> (range (count line)) $
-        (for [x $
-              :let [c (str (nth line x))]
-              :when (not= c " ")]
-          [[x y] c])))
+(defn widest-line [lines]
+  (apply max (map count lines)))
+
+(defn parse-map-lines [lines]
+  (for [y (range (count lines))
+        x (range (widest-line lines))
+        :let [line (nth lines y)
+              char (str (get line x ""))]
+        :when (not= char " ")]
+    [[x y] char]))
 
 (defn parse-map [raw-map]
   (as-> raw-map $
@@ -16,10 +20,18 @@
         (string/replace $ ">" "-")
         (string/replace $ "<" "-")
         (string/split-lines $)
-        (interleave (range (count $)) $)
-        (partition 2 $)
-        (mapcat parse-map-line $)
-        (into (sorted-map) $)))
+        (parse-map-lines $)
+        (into {} $)))
+
+(defn parse-carts [lines]
+  (for [y (range (count lines))
+        x (range (widest-line lines))
+        :let [line (nth lines y)
+              char (str (get line x ""))]
+        :when (#{"<" ">" "v" "^"} char)]
+    {:= [x y]
+     :> char
+     :+ "<"}))
 
 (defn find-carts [raw-map]
-  )
+  (parse-carts (string/split-lines raw-map)))

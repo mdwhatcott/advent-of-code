@@ -15,15 +15,15 @@
                      [0 2] "|",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, [5 2] "|",
                      [0 3] "\\", [1 3] "-", [2 3] "-", [3 3] "-", [4 3] "-", [5 3] "/"})))
 
-    (xit "finds the starting position of the carts"
+    (it "finds the starting position of the carts"
       (->> (sut/find-carts sample-map-1)
            ; := (current location)
            ; :> (current direction)
            ; :+ (next intersection turn)
-           (should= [{:= [2 0] :> :r :+ :l}
-                     {:= [5 1] :> :d :+ :l}
-                     {:= [0 2] :> :u :+ :l}
-                     {:= [3 3] :> :l :+ :l}])))
+           (should= [{:= [2 0] :> ">" :+ "<"}
+                     {:= [5 1] :> "v" :+ "<"}
+                     {:= [0 2] :> "^" :+ "<"}
+                     {:= [3 3] :> "<" :+ "<"}])))
     )
 
   (context "Part 2"
