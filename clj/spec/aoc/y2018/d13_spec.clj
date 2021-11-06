@@ -3,7 +3,8 @@
             [aoc.y2018.d13 :as sut]
             [aoc.y2018.d13 :refer [L R U D]]
             [clojure.string :as string]
-            [clojure.string :refer [trim]]))
+            [clojure.string :refer [trim]]
+            [clojure.pprint :as pprint]))
 
 (def sample-tracks-1 (slurp "data/2018/d13/sample-tracks-1.txt"))
 (def sample-tracks-2 (slurp "data/2018/d13/sample-tracks-2.txt"))
@@ -37,12 +38,62 @@
       (let [world    (sut/parse-initial sample-tracks-3a)
             expected (sut/parse-initial sample-tracks-3c)
             tick1    (sut/tick world)]
-        (->> tick1 (should= expected))))
+        (->> (:tracks tick1) (should= (:tracks expected)))
+        (->> (:carts tick1) (should= (:carts expected)))))
 
     (it "removes colliding carts from the world"
       (let [world  (sut/parse-initial sample-tracks-3a)
             result (sut/tick (sut/tick world))]
         (should (empty? (:carts result)))))
+
+    (context "turning corners"
+      (it "R -> U"
+        (let [cart {:= [1 1] :> R} tracks {[2 1] "\\"}]
+          (should= U (:> (sut/move cart tracks)))))
+
+      (it "L -> D"
+        (let [cart {:= [1 1] :> L} tracks {[0 1] "\\"}]
+          (should= D (:> (sut/move cart tracks)))))
+
+      (it "D -> R"
+        (let [cart {:= [1 1] :> D} tracks {[1 2] "\\"}]
+          (should= R (:> (sut/move cart tracks)))))
+
+      (it "U -> L"
+        (let [cart {:= [1 1] :> U} tracks {[1 0] "\\"}]
+          (should= L (:> (sut/move cart tracks)))))
+
+      (it "U -> R"
+        (let [cart   {:= [1 1] :> U}
+              tracks {[1 0] "/"}]
+          (should= R (:> (sut/move cart tracks)))))
+
+      (it "D -> L"
+        (let [cart   {:= [1 1] :> D}
+              tracks {[1 2] "/"}]
+          (should= L (:> (sut/move cart tracks)))))
+
+      (it "L -> U"
+        (let [cart   {:= [1 1] :> L}
+              tracks {[0 1] "/"}]
+          (should= U (:> (sut/move cart tracks)))))
+
+      (it "R -> D"
+        (let [cart   {:= [1 1] :> R}
+              tracks {[2 1] "/"}]
+          (should= D (:> (sut/move cart tracks)))))
+      )
+
+    (context "intersections")
+
+    #_(it "registers-collisions"
+        (let [world     (sut/parse-initial sample-tracks-4)
+              collision (as-> (iterate sut/tick world) $
+                              (take 2 $)
+                              (last $)
+                              (do (println $) $)
+                              (:collisions $))]
+          (should= [7 3] collision)))
     )
 
   (context "Part 2"

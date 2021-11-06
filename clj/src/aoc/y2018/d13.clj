@@ -54,12 +54,26 @@
 (defn sorting-order [cart]
   (let [[x y] (:= cart)] [y x]))
 
-(defn move [cart tracks]
+(defn advance [cart]
   (let [[x1 y1] (:= cart)
-        [dx dy] (:> cart)
-        target [(+ x1 dx)
-                (+ y1 dy)]]
-    (assoc cart := target)))
+        [dx dy] (:> cart)]
+    [(+ x1 dx)
+     (+ y1 dy)]))
+
+(defn orient [cart track]
+  (let [direction (:> cart)]
+    (case track
+      "|" direction
+      "-" direction
+      "/", (condp = direction R D, L U, U R, D L)
+      "\\" (condp = direction R U, L D, U L, D R))))
+
+(defn move [cart tracks]
+  (let [target    (advance cart)
+        track     (get tracks target)
+        direction (orient cart track)]
+    (assoc cart := target
+                :> direction)))
 
 (defn tick [world]
   (loop [carts  (:carts world)
