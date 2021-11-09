@@ -8,6 +8,7 @@
 (def sample-tracks-3a (slurp "data/2018/d13/sample-tracks-3-a.txt"))
 (def sample-tracks-3c (slurp "data/2018/d13/sample-tracks-3-c.txt"))
 (def sample-tracks-4 (slurp "data/2018/d13/sample-tracks-4.txt"))
+(def sample-tracks-5 (slurp "data/2018/d13/sample-tracks-5.txt"))
 (def real-tracks (slurp "data/2018/d13.txt"))
 
 (describe "2018 Day 13"
@@ -70,7 +71,7 @@
       (it "R@+ L = U" (-> {:= [6 5] :> L :+ R} (sut/move @tracks) (should= {:= [5 5] :> U :+ L})))
       )
 
-    (it "registers-collisions"
+    (it "solves with sample data"
       (let [world     (sut/parse-initial sample-tracks-4)
             collision (sut/until-first-collision world)]
         (should= [7 3] collision)))
@@ -82,5 +83,15 @@
     )
 
   (context "Part 2"
+    (it "solves with sample data"
+      (let [world     (sut/parse-initial sample-tracks-5)
+            collision (sut/until-last-cart-remains world)]
+        (should= [6 4] collision)))
+
+    #_(it "solves with real data"
+      (let [world    (sut/parse-initial real-tracks)
+            survivor (sut/until-last-cart-remains world)]
+        (should= [14 42] survivor)))
+
     )
   )

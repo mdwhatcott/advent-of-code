@@ -108,7 +108,7 @@
                  (conj collisions target))
 
           (recur (rest carts)
-                 (conj positions target)
+                 (conj (disj positions (:= first carts)) target)
                  (assoc carts2 target moved)
                  collisions)))))
   )
@@ -119,3 +119,12 @@
         (first $)
         (:collisions $)
         (first $)))
+
+(defn until-last-cart-remains [world]
+  (as-> (iterate tick world) $
+        (drop-while #(> (count (:carts %)) 1) $)
+        (first $)
+        (do (println $) $)
+        (:carts $)
+        (first $)
+        (:= $)))
