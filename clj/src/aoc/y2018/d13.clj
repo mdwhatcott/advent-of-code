@@ -92,45 +92,30 @@
                 :+ turn-direction)))
 
 (defn tick [world]
-  (loop [carts      (:carts world)
+  (loop [carts      (sort-by sorting-order (:carts world))
+         positions  (set (map := carts))
          carts2     {}
-         positions  #{}
          collisions []]
-    (println "carts: " carts)
-    (println "carts2:" carts2)
-    (let [carts (sort-by sorting-order carts)]
-      (if (empty? carts)
-        (assoc world :carts (vals carts2) :collisions collisions)
-        (let [moved      (move (first carts) (:tracks world))
-              target     (:= moved)
-              collision? (contains? positions target)]
-          (if collision?
+    (if (empty? carts)
+      (assoc world :carts (vals carts2) :collisions collisions)
+      (let [moved      (move (first carts) (:tracks world))
+            target     (:= moved)
+            collision? (contains? positions target)]
+        (if collision?
+          (recur (rest carts)
+                 (disj positions target)
+                 (dissoc carts2 target)
+                 (conj collisions target))
 
-            (recur (rest carts)
-                   (dissoc carts2 target)
-                   (disj positions target)
-                   (conj collisions target))
-
-            (recur (rest carts)
-                   (assoc carts2 target moved)
-                   (conj positions target)
-                   collisions))))))
+          (recur (rest carts)
+                 (conj positions target)
+                 (assoc carts2 target moved)
+                 collisions)))))
   )
 
 (defn until-first-collision [world]
-  (loop [world1 world]
-    (let [world2     (tick world1)
-          collisions (:collisions world2)]
-      (if (seq collisions)
-        (first collisions)
-        (do
-          (Thread/sleep 100)
-          (recur world2)))))
-
-
-  #_(as-> (iterate tick world) $
-          (drop-while #(or (empty? (:collisions %))
-                           (empty? (:carts %))) $)
-          (first $)
-          (:collisions $)
-          (first $)))
+  (as-> (iterate tick world) $
+        (drop-while #(empty? (:collisions %)) $)
+        (first $)
+        (:collisions $)
+        (first $)))
