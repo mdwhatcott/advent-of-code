@@ -1,0 +1,22 @@
+(ns aoc.y!Y!.d!NS!-spec
+  (:require [speclj.core :refer :all]
+            [aoc.y!Y!.d!NS! :as sut]
+            [aoc.data :as data]))
+
+(def real-data
+  #_(data/read-str !Y! !D!))
+
+(describe "!Y! Day !D!"
+  (context "Part 1"
+    (it "solves with sample data")
+
+    #_(it "solves with real data")
+
+    )
+
+  #_(context "Part 2"
+      #_(it "solves with sample data")
+
+      #_(it "solves with real data")
+    )
+  )
