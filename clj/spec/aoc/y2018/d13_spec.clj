@@ -88,10 +88,10 @@
             collision (sut/until-last-cart-remains world)]
         (should= [6 4] collision)))
 
-    #_(it "solves with real data"
+    (it "solves with real data"
       (let [world    (sut/parse-initial real-tracks)
             survivor (sut/until-last-cart-remains world)]
-        (should= [14 42] survivor)))
+        (should= [8 7] survivor)))
 
     )
   )

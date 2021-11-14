@@ -91,26 +91,30 @@
                 :> direction
                 :+ turn-direction)))
 
-(defn tick [world]
-  (loop [carts      (sort-by sorting-order (:carts world))
-         positions  (set (map := carts))
-         carts2     {}
-         collisions []]
-    (if (empty? carts)
-      (assoc world :carts (vals carts2) :collisions collisions)
-      (let [moved      (move (first carts) (:tracks world))
-            target     (:= moved)
-            collision? (contains? positions target)]
-        (if collision?
-          (recur (rest carts)
-                 (disj positions target)
-                 (dissoc carts2 target)
-                 (conj collisions target))
+(defn carts-map [carts]
+  (into {} (for [cart carts] [(:= cart) cart])))
 
-          (recur (rest carts)
-                 (conj (disj positions (:= first carts)) target)
-                 (assoc carts2 target moved)
-                 collisions)))))
+(defn tick [world]
+  (loop [all        (carts-map (:carts world))
+         ordered    (sort-by sorting-order (:carts world))
+         collisions []]
+    (if (empty? ordered)
+      (assoc world :carts (vals all)
+                   :collisions collisions)
+      (let [original (:= (first ordered))]
+        (if-not (contains? all original)
+          (recur all (rest ordered) collisions)
+          (let [moved      (move (first ordered) (:tracks world))
+                target     (:= moved)
+                collision? (contains? all target)]
+
+            (if collision?
+              (recur (dissoc all original target)
+                     (rest ordered)
+                     (conj collisions target))
+              (recur (-> all (assoc target moved) (dissoc original))
+                     (rest ordered)
+                     collisions)))))))
   )
 
 (defn until-first-collision [world]
@@ -124,7 +128,7 @@
   (as-> (iterate tick world) $
         (drop-while #(> (count (:carts %)) 1) $)
         (first $)
-        (do (println $) $)
         (:carts $)
         (first $)
         (:= $)))
+
