@@ -20,12 +20,12 @@
 
   (context "Part 2"
     (it "solves with sample data"
-      (should= 9 (sut/find-suffix "51589" 3000))
-      (should= 5 (sut/find-suffix "01245" 3000))
-      (should= 18 (sut/find-suffix "92510" 3000))
-      (should= 2018 (sut/find-suffix "59414" 3000)))
+      (should= 9 (sut/find-suffix "51589"))
+      (should= 5 (sut/find-suffix "01245"))
+      (should= 18 (sut/find-suffix "92510"))
+      (should= 2018 (sut/find-suffix "59414")))
 
-    #_(it "solves with real data (albiet slowly - 25s)"
-        (should= 20220949 (sut/find-suffix "290431" 21000000)))
+    (it "solves with real data (albiet slowly - 13s)"
+      (should= 20220949 (sut/find-suffix "290431")))
     )
   )

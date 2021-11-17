@@ -1,5 +1,7 @@
 (ns aoc.y2018.d14
-  (:require [clojure.string :as str]))
+  (:require
+    [benchmarks.bench :as bench]
+    [clojure.string :as str]))
 
 (def input 290431)
 
@@ -26,13 +28,26 @@
           (drop (- (count $) 10) $)
           (apply str $))))
 
-(defn find-suffix [suffix to-drop]
+(defn iterate-n [seed]
   (as-> (iterate make-recipes seed) $
-        (drop to-drop $)
+        (drop (:iterate-n seed) $)
+        (first $)
+        (do
+          (when (>= (:iterate-n seed) 4096)
+            (println (:iterate-n seed))) $)
+        (assoc $ :iterate-n (* 2 (:iterate-n seed)))))
+
+(defn suffix-absent? [suffix state]
+  (nil? (str/index-of (apply str (:scores state)) suffix)))
+
+(defn find-suffix [suffix]
+  (as-> (assoc seed :iterate-n 1024) $
+        (iterate (partial iterate-n) $)
+        (drop-while (partial suffix-absent? suffix) $)
         (first $)
         (:scores $)
         (apply str $)
         (str/index-of $ suffix)))
 
 (defn -main []
-  (println (find-suffix (str input) 21000000)))
+  (println (bench/report #(find-suffix (str input)))))
