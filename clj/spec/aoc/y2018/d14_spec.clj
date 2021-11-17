@@ -25,7 +25,7 @@
       (should= 18 (sut/find-suffix "92510"))
       (should= 2018 (sut/find-suffix "59414")))
 
-    (it "solves with real data (albiet slowly - 13s)"
+    #_(it "solves with real data (albiet slowly - 13s)"
       (should= 20220949 (sut/find-suffix "290431")))
     )
   )
