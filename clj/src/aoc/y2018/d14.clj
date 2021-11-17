@@ -1,4 +1,5 @@
-(ns aoc.y2018.d14)
+(ns aoc.y2018.d14
+  (:require [clojure.string :as str]))
 
 (def input 290431)
 
@@ -14,8 +15,6 @@
         scores  (conj scores score2)
         elf1    (mod (inc (+ elf1 recipe1)) (count scores))
         elf2    (mod (inc (+ elf2 recipe2)) (count scores))]
-    (when (zero? (mod (count scores) 100))
-      (println (count scores)))
     {:scores scores :elf1 elf1 :elf2 elf2}))
 
 (defn ten-scores-after-n-iterations [n]
@@ -27,15 +26,13 @@
           (drop (- (count $) 10) $)
           (apply str $))))
 
-(defn last-n [n s]
-  (loop [s s result []]
-    (if (or (empty? s) (= n (count result)))
-      (vec (reverse result))
-      (recur (pop s) (conj result (peek s))))))
-
-(defn find-suffix [suffix]
+(defn find-suffix [suffix to-drop]
   (as-> (iterate make-recipes seed) $
-        (drop-while #(not= suffix (last-n (count suffix) (:scores %))) $)
+        (drop to-drop $)
         (first $)
         (:scores $)
-        (- (count $) (count suffix))))
+        (apply str $)
+        (str/index-of $ suffix)))
+
+(defn -main []
+  (println (find-suffix (str input) 21000000)))
