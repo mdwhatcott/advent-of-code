@@ -25,8 +25,10 @@
         data         {"Y" year "NS" namespace "D" day}
         spec-path    (format "./spec/aoc/y%s/d%s_spec.clj" year namespace)
         prod-path    (format "./src/aoc/y%s/d%s.clj" year namespace)
+        data-path    (format "./data/%s/d%s.txt" year namespace)
         spec-content (template spec-template data)
         prod-content (template prod-template data)]
     (println (format "Initializing %s Day %s..." year day))
     (write-file spec-path spec-content)
-    (write-file prod-path prod-content)))
+    (write-file prod-path prod-content)
+    (write-file data-path "")))
