@@ -23,19 +23,33 @@
 (describe "2021 Day 3"
   (context "Part 1"
     (it "picks most common bit value in a column"
-      (should= "10110" (sut/most-common-by-column sample-data)))
+      (should= "10110" (sut/gamma-rate sample-data)))
 
     (it "solves with sample data"
-      (should= 198 (sut/part1 sample-data)))
+      (should= 198 (sut/power-consumption sample-data)))
 
     (it "solves with real data"
-      (should= 749376 (sut/part1 real-data)))
+      (should= 749376 (sut/power-consumption real-data)))
 
     )
 
-  #_(context "Part 2"
-      #_(it "solves with sample data")
+  (context "Part 2"
+    (it "steps to find oxygen generator rating"
+      (let [data  (set sample-data)
+            state {:column 0 :lines data}]
+        (should=, {:column 1 :lines (remove #(= \0 (first %)) data)}
+                  (sut/rating-step > \1 state))))
 
-      #_(it "solves with real data")
+    (it "finds the oxygen generator rating"
+      (should= "10111" (sut/oxygen-generator-rating sample-data)))
+
+    (it "finds the CO2 scrubber rating"
+      (should= "01010" (sut/CO2-scrubber-rating sample-data)))
+
+    (it "solves with sample data"
+      (should= 230 (sut/life-support-rating sample-data)))
+
+    (it "solves with real data"
+      (should= 2372923 (sut/life-support-rating real-data)))
     )
   )
