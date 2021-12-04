@@ -1,3 +1,8 @@
 (ns aoc.y!Y!.d!NS!
-  (:require [clojure.string :as string]
-            [aoc.data :as data]))
+  (:require [aoc.data :as data]
+            [clojure.string :as string]
+            [clojure.pprint :as pprint]))
+
+(defn part1 [data])
+
+(defn part2 [data])

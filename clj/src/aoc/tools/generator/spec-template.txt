@@ -6,17 +6,26 @@
 (def real-data
   #_(data/read-str !Y! !D!))
 
+(def sample-data
+  [])
+
 (describe "!Y! Day !D!"
   (context "Part 1"
-    (it "solves with sample data")
+    (it "calculates __")
 
-    #_(it "solves with real data")
+    #_(it "solves with sample data"
+        (sut/part1 sample-data))
+
+    #_(it "solves with real data"
+        (sut/part1 real-data))
 
     )
 
   #_(context "Part 2"
-      #_(it "solves with sample data")
+      #_(it "solves with sample data"
+          (sut/part2 sample-data))
 
-      #_(it "solves with real data")
+      #_(it "solves with real data"
+          (sut/part2 real-data))
     )
   )
