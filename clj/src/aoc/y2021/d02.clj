@@ -1,6 +1,6 @@
 (ns aoc.y2021.d02
-  (:require [clojure.string :as string]
-            [aoc.data :as data]))
+  (:require [aoc.data :as data]
+            [clojure.string :as string]))
 
 (defn parse-line [line]
   (let [words (string/split line #"\s")]
@@ -40,10 +40,10 @@
   (update (step-aim (first (:steps state)) state) :steps rest))
 
 (defn traverse-aim [data]
-  (let [initial {:steps    data
-               :horizontal 0
-               :depth      0
-               :aim        0}]
+  (let [initial {:steps      data
+                 :horizontal 0
+                 :depth      0
+                 :aim        0}]
     (as-> initial $
           (iterate wrap-step-aim $)
           (drop (count data) $)
