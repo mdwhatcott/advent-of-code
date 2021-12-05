@@ -1,7 +1,6 @@
 (ns aoc.y2021.d04
   (:require [aoc.data :as data]
             [clojure.string :as string]
-            [clojure.pprint :as pprint]
             [clojure.set :as set]))
 
 (defn parse-input [lines]
@@ -72,12 +71,16 @@
                           (zero? (:score %))) $)
         (first $)))
 
-(defn part1 [data]
+(defn find-winner [data comparison]
   (let [parsed  (parse-input data)
         boards  (map #(prepare-board (:call-order parsed) %)
                      (:boards parsed))
         played  (map play boards)
         winners (filter #(pos? (:score %)) played)]
-    (:checksum (first (sort-by #(count (:called %)) winners)))))
+    (:checksum (first (sort-by #(count (:called %)) comparison winners)))))
 
-(defn part2 [data])
+(defn part1 [data]
+  (find-winner data <))
+
+(defn part2 [data]
+  (find-winner data >))

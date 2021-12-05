@@ -98,14 +98,13 @@
 
     (it "solves with real data"
       (should= 29440 (sut/part1 real-data)))
-
     )
 
-  #_(context "Part 2"
-      #_(it "solves with sample data"
-          (sut/part2 sample-data))
+  (context "Part 2"
+    (it "solves with sample data"
+      (should= 1924 (sut/part2 sample-data)))
 
-      #_(it "solves with real data"
-          (sut/part2 real-data))
-      )
+    (it "solves with real data"
+      (should= 13884 (sut/part2 real-data)))
+    )
   )
