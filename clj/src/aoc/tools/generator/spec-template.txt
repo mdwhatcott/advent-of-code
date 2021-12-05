@@ -14,18 +14,18 @@
     (it "calculates __")
 
     #_(it "solves with sample data"
-        (sut/part1 sample-data))
+        (should= 0 (sut/part1 sample-data)))
 
     #_(it "solves with real data"
-        (sut/part1 real-data))
+        (should= 0 (sut/part1 real-data)))
 
     )
 
   #_(context "Part 2"
       #_(it "solves with sample data"
-          (sut/part2 sample-data))
+          (should= 0 (sut/part2 sample-data)))
 
       #_(it "solves with real data"
-          (sut/part2 real-data))
+          (should= 0 (sut/part2 real-data)))
     )
   )
