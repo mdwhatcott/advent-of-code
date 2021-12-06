@@ -9,8 +9,14 @@
 (defn read-lines [year day]
   (string/split-lines (read-str year day)))
 
-(defn read-words [year day]
-  (string/split (read-str year day) #"\s+"))
+(defn read-words
+  ([year day]
+   (read-words year day #"\s+"))
+  ([year day re-sep]
+   (string/split (read-str year day) re-sep)))
 
-(defn read-ints [year day]
-  (map str->int (read-words year day)))
+(defn read-ints
+  ([year day]
+   (read-ints year day #"\s+"))
+  ([year day re-sep]
+   (map str->int (read-words year day re-sep))))
