@@ -1,8 +1,8 @@
 (ns aoc.y2018.d13-spec
   (:require [speclj.core :refer :all]
-            [aoc.y2018.d13 :as sut]
-            [aoc.y2018.d13 :refer [L R U D S]]
-            [clojure.string :refer [trim]]))
+            [aoc.y2018.d13 :as sut :refer [L R U D S]]))
+
+(def tracks nil)
 
 (def sample-tracks-1 (slurp "data/2018/d13/sample-tracks-1.txt"))
 (def sample-tracks-3a (slurp "data/2018/d13/sample-tracks-3-a.txt"))
