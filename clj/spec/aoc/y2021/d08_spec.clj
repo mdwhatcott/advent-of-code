@@ -21,21 +21,72 @@
    "egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb"
    "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"])
 
+;   0:      1:      2:      3:      4:
+;  aaaa    ....    aaaa    aaaa    ....
+; b    c  .    c  .    c  .    c  b    c
+; b    c  .    c  .    c  .    c  b    c
+;  ....    ....    dddd    dddd    dddd
+; e    f  .    f  e    .  .    f  .    f
+; e    f  .    f  e    .  .    f  .    f
+;  gggg    ....    gggg    gggg    ....
+;
+;   5:      6:      7:      8:      9:
+;  aaaa    aaaa    aaaa    aaaa    aaaa
+; b    .  b    .  .    c  b    c  b    c
+; b    .  b    .  .    c  b    c  b    c
+;  dddd    dddd    ....    dddd    dddd
+; .    f  e    f  .    f  e    f  .    f
+; .    f  e    f  .    f  e    f  .    f
+;  gggg    gggg    ....    gggg    gggg
+
+; acedgfb: 8
+; cdfbe: 5
+; gcdfa: 2
+; fbcad: 3
+; dab: 7
+; cefabd: 9
+; cdfgeb: 6
+; eafb: 4
+; cagedb: 0
+; ab: 1
+
+; cdfeb: 5
+; fcadb: 3
+; cdfeb: 5
+; cdbaf: 3
+
 (describe "2021 Day 8"
+
   (context "Part 1"
     (it "solves with sample data"
-      (should= 26 (sut/count-unique-digits sample-data)))
+      (should= 26 (sut/part1 sample-data)))
 
     (it "solves with real data"
-      (should= 519 (sut/count-unique-digits real-data)))
+      (should= 519 (sut/part1 real-data)))
 
     )
 
-  #_(context "Part 2"
-      #_(it "solves with sample data"
-          (should= 0 (sut/part2 sample-data)))
+  (context "Part 2"
 
-      #_(it "solves with real data"
-          (should= 0 (sut/part2 real-data)))
-      )
+    (it "deciphers digits"
+      (should= {(set "ab")      1
+                (set "dab")     7
+                (set "eafb")    4
+                (set "acedgfb") 8
+                (set "cefabd")  9
+                (set "fbcad")   3
+                (set "cdfbe")   5
+                (set "gcdfa")   2
+                (set "cdfgeb")  6
+                (set "cagedb")  0} (sut/decipher-digits one-line-sample)))
+
+    (it "reveals the 4-digit code of a line"
+      (should= 5353 (sut/reveal-code one-line-sample)))
+
+    (it "solves with sample data"
+        (should= 61229 (sut/part2 sample-data)))
+
+    (it "solves with real data"
+        (should= 1027483 (sut/part2 real-data)))
+    )
   )
