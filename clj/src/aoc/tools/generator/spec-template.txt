@@ -4,7 +4,7 @@
             [aoc.data :as data]))
 
 (def real-data
-  #_(data/read-str !Y! !D!))
+  #_(data/read-lines !Y! !D!))
 
 (def sample-data
   [])
@@ -22,6 +22,8 @@
     )
 
   #_(context "Part 2"
+    (it "calculates __")
+
       #_(it "solves with sample data"
           (should= 0 (sut/part2 sample-data)))
 
