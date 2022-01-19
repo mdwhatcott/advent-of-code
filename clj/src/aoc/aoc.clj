@@ -7,7 +7,8 @@
   (Integer/parseInt s))
 
 (defn input-string [year day]
-  (slurp (str "src/y" year "/d" day ".txt")))
+  (let [day (if (< day 10) (str "0" day) day)]
+    (slurp (str "src/y" year "/d" day ".txt"))))
 
 (defn input-lines [year day]
   (str/split-lines (input-string year day)))
