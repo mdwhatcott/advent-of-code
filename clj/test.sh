@@ -1,2 +1,2 @@
-FILE=src/y2020/d09.clj
+FILE=src/y2021/d13.clj
 echo $FILE | entr clj -M $FILE
