@@ -1,7 +1,5 @@
 (ns aoc.aoc
-  (:require
-    [clojure.string :as str]
-    [clojure.test :as test]))
+  (:require [clojure.string :as str]))
 
 (defn str->int [s]
   (Integer/parseInt s))
