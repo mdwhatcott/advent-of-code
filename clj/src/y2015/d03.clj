@@ -1,4 +1,5 @@
-(ns y2015.d03)
+(ns y2015.d03
+  (:require [aoc.aoc :as aoc]))
 
 (require '[clojure.set :refer [union]])
 
@@ -56,4 +57,4 @@
     (testing "part 1" (is (= 2572 (part1 steps))))
     (testing "part 2" (is (= 2631 (part2 steps))))))
 
-(run-tests)
+(aoc/run-tests)

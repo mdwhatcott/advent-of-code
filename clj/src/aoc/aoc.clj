@@ -1,5 +1,6 @@
 (ns aoc.aoc
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.test :as test]))
 
 (defn str->int [s]
   (Integer/parseInt s))
@@ -16,7 +17,6 @@
   ([year day sep]
    (map str->int (str/split (input-string year day) sep))))
 
-(defn exit [result]
-  (let [exit-code (+ (:fail result) (:error result))]
-    (println (if (zero? exit-code) "OK" "FAIL"))
-    (System/exit exit-code)))
+(defn run-tests []
+  (let [{:keys [fail error]} (test/run-tests)]
+    (System/exit (+ fail error))))

@@ -78,5 +78,5 @@
   (is (= 1588 (most-minus-least 10 sample-reactions sample-starting-polymer)))
   (is (= 2447 (most-minus-least 10 real-reactions real-starting-polymer))))
 
-(aoc/exit (run-tests))
+(aoc/run-tests)
 

@@ -70,4 +70,4 @@
   (is (= 62 (part2 sample-data 5)))
   (is (= 4011064 (part2 (aoc/input-ints 2020 9) 25))))
 
-(aoc/exit (test/run-tests))
+(aoc/run-tests)

@@ -1,4 +1,5 @@
-(ns y2015.d01)
+(ns y2015.d01
+  (:require [aoc.aoc :as aoc]))
 
 (def input (slurp "src/y2015/d01.txt"))
 
@@ -44,4 +45,4 @@
   (testing "part2-fast")
   (is (= 1783 (part2 (seq input) 0 0))))
 
-(run-tests)
+(aoc/run-tests)

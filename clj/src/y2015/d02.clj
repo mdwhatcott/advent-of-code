@@ -1,4 +1,5 @@
-(ns y2015.d02)
+(ns y2015.d02
+  (:require [aoc.aoc :as aoc]))
 
 (def lines (clojure.string/split-lines (slurp "src/y2015/d02.txt")))
 
@@ -43,4 +44,4 @@
       (is (= 3842356
              (reduce + (map ribbon-needed all-dimensions)))))))
 
-(run-tests)
+(aoc/run-tests)

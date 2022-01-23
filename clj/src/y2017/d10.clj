@@ -1,4 +1,5 @@
-(ns y2017.d10)
+(ns y2017.d10
+  (:require [aoc.aoc :as aoc]))
 
 (defn make-ring []
   (vec (take 256 (range))))
@@ -77,4 +78,4 @@
   (is (= "28e7c4360520718a5dc811d3942cf1fd"
          (knot-hash (.getBytes (slurp "src/y2017/d10.txt"))))))
 
-(run-tests)
+(aoc/run-tests)
