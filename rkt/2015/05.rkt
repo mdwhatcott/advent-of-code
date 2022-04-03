@@ -59,7 +59,7 @@
 (define (has-anagram3 s)
   (for/first ([i (in-range 0 (- (string-length s) 2))]
               #:when (string=? (substring s i (+ i 3))
-                               (string-reverse(substring s i (+ i 3))))) 
+                               (string-reverse(substring s i (+ i 3)))))
     #t))
 
 (define (nice2? s)
