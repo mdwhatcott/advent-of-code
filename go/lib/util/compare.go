@@ -11,6 +11,7 @@ func Min(all ...int) int {
 }
 
 func Max(all ...int) (max int) {
+	max = -0xffffffff
 	for _, a := range all {
 		if a > max {
 			max = a
