@@ -1,5 +1,7 @@
 package util
 
+// TODO: generics?
+
 type Strings []string
 
 func (haystack Strings) Index(needle string) int {
@@ -9,6 +11,15 @@ func (haystack Strings) Index(needle string) int {
 		}
 	}
 	return -1
+}
+
+func (haystack Strings) Count(needle string) (result int) {
+	for _, straw := range haystack {
+		if straw == needle {
+			result++
+		}
+	}
+	return result
 }
 
 func (haystack Strings) Contains(needle string) bool {
@@ -66,6 +77,15 @@ func (this Ints) Index(needle int) int {
 
 func (this Ints) Contains(needle int) bool {
 	return this.Index(needle) > -1
+}
+
+func (haystack Ints) Count(needle int) (result int) {
+	for _, straw := range haystack {
+		if straw == needle {
+			result++
+		}
+	}
+	return result
 }
 
 func (this Ints) Min() (min int) {
