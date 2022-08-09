@@ -57,6 +57,10 @@ func (this Turtle) EstimatedDistanceToTarget() float64 {
 	return float64(8 - len(this.visited)) // len("01234567") == 8
 }
 
+func (this Turtle) StepCost() float64 {
+	return 1.0
+}
+
 func (this Turtle) at(p grid.Point) string {
 	return string(this.maze[int(p.Y())][int(p.X())])
 }

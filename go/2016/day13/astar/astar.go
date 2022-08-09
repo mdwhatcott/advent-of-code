@@ -44,6 +44,10 @@ func (this Turtle) EstimatedDistanceToTarget() float64 {
 	return grid.CityBlockDistance(this.position, this.goal)
 }
 
+func (this Turtle) StepCost() float64 {
+	return 1.0
+}
+
 func (this Turtle) inOpenHallway() bool {
 	return IsHallway(this.seed, int(this.position.X()), int(this.position.Y()))
 }

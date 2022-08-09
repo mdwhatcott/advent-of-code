@@ -24,20 +24,20 @@ func (this *astarSearch) Search(start Turtle) (path []Turtle, found bool) {
 	for this.frontier.Len() > 0 {
 		pop, _ := this.frontier.Pop()
 		current := pop.(Turtle)
-		currentID := current.Hash()
 
 		if current.EstimatedDistanceToTarget() == 0 {
 			return this.pathFromStart(current, nil), true
 		}
 
+		currentID := current.Hash()
 		for _, adjacent := range current.AdjacentPositions() {
-			newCost := this.distanceTo[currentID] + 1
-
+			newCost := this.distanceTo[currentID] + adjacent.StepCost()
 			adjacentID := adjacent.Hash()
-			if cost, contains := this.distanceTo[adjacentID]; !contains || newCost < cost {
+			cost, seen := this.distanceTo[adjacentID]
+			if !seen || newCost < cost {
 				this.frontier.Insert(adjacent, newCost+adjacent.EstimatedDistanceToTarget())
-				this.trail[adjacent] = current
 				this.distanceTo[adjacentID] = newCost
+				this.trail[adjacent] = current
 			}
 		}
 	}
