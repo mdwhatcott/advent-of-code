@@ -18,15 +18,15 @@ func newAStarSearch() *astarSearch {
 
 func (this *astarSearch) Search(start Turtle) (path []Turtle, found bool) {
 	this.frontier.Insert(start, start.EstimatedDistanceToTarget())
-	this.trail[start] = nil
 	this.distanceTo[start.Hash()] = 0
+	this.trail[start] = nil
 
 	for this.frontier.Len() > 0 {
 		pop, _ := this.frontier.Pop()
 		current := pop.(Turtle)
 
 		if current.EstimatedDistanceToTarget() == 0 {
-			return this.pathFromStart(current, nil), true
+			return this.pathFromStart(current, []Turtle{current}), true
 		}
 
 		currentID := current.Hash()

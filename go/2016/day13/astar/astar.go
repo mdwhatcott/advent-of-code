@@ -15,9 +15,9 @@ func main() {
 		goal:     grid.NewPoint(31, 39),
 	}
 	if path, found := astar.SearchFrom(start); found {
-		fmt.Println("Distance:", len(path))
+		fmt.Println("Distance:", len(path)-1)
 	} else {
-		log.Fatal("Not found: ", len(path))
+		log.Fatal("Not found")
 	}
 }
 

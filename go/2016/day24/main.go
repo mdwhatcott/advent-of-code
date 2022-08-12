@@ -17,14 +17,14 @@ func main() {
 
 func part1() int {
 	if path, found := astar.SearchFrom(StartPoint(util.InputLines())); found {
-		return len(path)
+		return len(path) - 1
 	}
 	return -1
 }
 
 func part2() int {
 	if path, found := astar.SearchFrom(ReturnTo(StartPoint(util.InputLines()))); found {
-		return len(path)
+		return len(path) - 1
 	}
 	return -1
 }
