@@ -15,6 +15,40 @@ func Part1(lines []string) int {
 			max = point
 		}
 	}
+	return distance(grid, max)
+}
+
+func Part2(lines []string) int {
+	grid := make(Grid)
+	var max intgrid.Point
+	for gridRow := 0; gridRow < 5; gridRow++ {
+		for gridCol := 0; gridCol < 5; gridCol++ {
+			for y, line := range lines {
+				for x, char := range line {
+					point := intgrid.NewPoint((gridCol*len(lines))+x, (gridRow*len(lines))+y)
+					value := int(char - '0')
+					for gr := gridRow; gr > 0; gr-- {
+						value++
+						if value == 10 {
+							value = 1
+						}
+					}
+					for gc := gridCol; gc > 0; gc-- {
+						value++
+						if value == 10 {
+							value = 1
+						}
+					}
+					grid[point] = float64(value)
+					max = point
+				}
+			}
+		}
+	}
+	return distance(grid, max)
+}
+
+func distance(grid Grid, max intgrid.Point) int {
 	start := intgrid.NewPoint(0, 0)
 	path, found := astar.SearchFrom(NewTurtle(grid, start, max, 0))
 	if !found {
