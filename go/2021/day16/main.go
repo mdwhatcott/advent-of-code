@@ -1,129 +1,166 @@
 package day16
 
 import (
-	"container/list"
 	"fmt"
+	"io"
+	"strings"
 )
 
 func Part1(message string) (versionSum int) {
-	bits := hex2bit(message)
-	//fmt.Println("BITS:", bits)
-	cooked := Parse(NewBitReader(bits))
-	queue := list.New()
-	queue.PushFront(cooked)
-	for queue.Len() > 0 {
-		element := queue.Front()
-		packet := element.Value.(Packet)
-		//fmt.Println(packet)
-		versionSum += packet.Version
-		queue.Remove(element)
-		for _, sub := range packet.SubPackets {
-			queue.PushFront(sub)
-		}
-	}
-	return versionSum
+	return Parse(strings.NewReader(hex2bit(message))).VersionSum()
 }
 
-///////////////////////////////////////////////////////////////
-
-type BitReader struct {
-	source string
-	cursor int
+func Part2(message string) int {
+	return Parse(strings.NewReader(hex2bit(message))).Eval()
 }
-
-func NewBitReader(source string) *BitReader {
-	return &BitReader{source: source}
-}
-
-func (this *BitReader) ReadInt(length int) int {
-	return bit2int(this.Read(length))
-}
-func (this *BitReader) Read(length int) (result string) {
-	result = this.source[this.cursor : this.cursor+length]
-	this.cursor += length
-	return result
-}
-func (this *BitReader) Unread() int   { return len(this.source) - this.cursor }
-func (this *BitReader) Seek(to int)   { this.cursor = to }
-func (this *BitReader) Position() int { return this.cursor }
-
-///////////////////////////////////////////////////////////////
 
 type Packet struct {
 	Version    int
 	Type       int
 	Value      int
 	SubPackets []Packet
-
-	From int
-	To   int
 }
 
-func (this Packet) String() string {
-	return fmt.Sprintf(
-		"Version: [%d] Type: [%d] Value: [%d] Subpackets: [%d]",
-		this.Version, this.Type, this.Value, len(this.SubPackets),
-	)
-}
-
-func Parse(bits *BitReader) Packet {
-	packet := Packet{
-		From:    bits.Position(),
-		Version: bits.ReadInt(3),
-		Type:    bits.ReadInt(3),
+func (this Packet) VersionSum() (result int) {
+	for _, sub := range this.SubPackets {
+		result += sub.VersionSum()
 	}
-	defer func() {
-		packet.To = bits.Position()
-	}()
+	return result + this.Version
+}
+
+func (this Packet) Eval() int {
+	switch this.Type {
+	case 0:
+		return this.sum()
+	case 1:
+		return this.product()
+	case 2:
+		return this.minimum()
+	case 3:
+		return this.maximum()
+	case 4:
+		return this.Value
+	case 5:
+		return this.greaterThan()
+	case 6:
+		return this.lessThan()
+	case 7:
+		return this.equalTo()
+	}
+	panic("NOPE")
+}
+func (this Packet) sum() (result int) {
+	for _, value := range this.subValues() {
+		result += value
+	}
+	return result
+}
+func (this Packet) product() (result int) {
+	result = 1
+	for _, value := range this.subValues() {
+		result *= value
+	}
+	return result
+}
+func (this Packet) minimum() (result int) {
+	result = 0xFFFFFFFF
+	for _, value := range this.subValues() {
+		if value < result {
+			result = value
+		}
+	}
+	return result
+}
+func (this Packet) maximum() (result int) {
+	result = -0xFFFFFFFF
+	for _, value := range this.subValues() {
+		if value > result {
+			result = value
+		}
+	}
+	return result
+}
+func (this Packet) subValues() (results []int) {
+	for _, sub := range this.SubPackets {
+		results = append(results, sub.Eval())
+	}
+	return results
+}
+func (this Packet) greaterThan() int {
+	return bool2int(this.SubPackets[0].Eval() > this.SubPackets[1].Eval())
+}
+func (this Packet) lessThan() int {
+	return bool2int(this.SubPackets[0].Eval() < this.SubPackets[1].Eval())
+}
+func (this Packet) equalTo() int {
+	return bool2int(this.SubPackets[0].Eval() == this.SubPackets[1].Eval())
+}
+
+func Parse(bits io.Reader) Packet {
+	packet := Packet{
+		Version: read(bits, 3),
+		Type:    read(bits, 3),
+	}
 
 	if packet.Type == 4 {
 		packet.Value = parseLiteralValue(bits)
 		return packet
 	}
 
-	lengthType := bit2int(bits.Read(1))
+	lengthType := read(bits, 1)
 	if lengthType == 0 {
-		packet.SubPackets = parseSubpacketBits(bits, bits.ReadInt(15))
+		packet.SubPackets = parseSubpacketBits(chunk(bits, 15))
 	} else {
-		packet.SubPackets = parseManySubPackets(bits, bits.ReadInt(11))
+		packet.SubPackets = parseManySubPackets(bits, read(bits, 11))
 	}
 	return packet
 }
 
-func parseLiteralValue(bits *BitReader) (value int) {
-	groups := ""
+func parseLiteralValue(bits io.Reader) (value int) {
 	for {
-		flag := bits.Read(1)
-		groups += bits.Read(4)
-		if flag == "0" {
+		flag := read(bits, 1)
+		value = value<<4 | read(bits, 4)
+		if flag == 0 {
 			break
 		}
 	}
-	return bit2int(groups)
+	return value
 }
 
-func parseSubpacketBits(bits *BitReader, length int) (packets []Packet) {
+func parseSubpacketBits(bits io.Reader) (packets []Packet) {
 	defer func() { _ = recover() }() // HACK! (for dealing with trailing zero padding)
-	from := bits.Position()
-	to := from + length
-	for from <= to {
+	for {
 		packets = append(packets, Parse(bits))
 	}
-	return packets
 }
 
-func parseManySubPackets(bits *BitReader, count int) (packets []Packet) {
-	defer func() { _ = recover() }() // HACK! (for dealing with trailing zero padding)
+func parseManySubPackets(bits io.Reader, count int) (packets []Packet) {
 	for ; count > 0; count-- {
 		packets = append(packets, Parse(bits))
 	}
 	return packets
 }
 
-/////////////////////////////////////////////////////////////////
+func bool2int(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}
 
-func bit2int(bits string) (result int) {
-	_, _ = fmt.Sscanf(bits, "%b", &result)
+func chunk(bits io.Reader, length int) io.Reader {
+	b := make([]byte, read(bits, length))
+	_, _ = bits.Read(b)
+	return strings.NewReader(string(b))
+}
+
+func read(reader io.Reader, n int) (result int) {
+	b := make([]byte, n)
+	n, err := reader.Read(b)
+	if n == 0 && err == io.EOF {
+		panic(err) // HACK! (for dealing with trailing zero padding)
+	}
+	_, _ = fmt.Sscanf(string(b), "%b", &result)
 	return result
 }
 
