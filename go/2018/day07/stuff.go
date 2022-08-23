@@ -3,7 +3,7 @@ package day07
 import (
 	"sort"
 
-	"advent/lib/set"
+	"github.com/mdwhatcott/go-collections/set"
 )
 
 type Pool []*Worker

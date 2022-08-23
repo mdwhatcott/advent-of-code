@@ -3,7 +3,8 @@ package day07
 import (
 	"strings"
 
-	"advent/lib/set"
+	"github.com/mdwhatcott/go-collections/set"
+
 	"advent/lib/util"
 )
 
