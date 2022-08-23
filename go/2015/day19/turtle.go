@@ -39,3 +39,7 @@ func (this *MoleculeSearch) AdjacentPositions() (adjacent []astar.Turtle) {
 func (this *MoleculeSearch) Hash() string {
 	return this.current
 }
+
+func (this *MoleculeSearch) StepCost() float64 {
+	return 1.0
+}
