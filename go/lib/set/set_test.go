@@ -4,73 +4,79 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"advent/lib/set/internal/assert"
 )
 
-func TestSetFixture(t *testing.T) {
-	gunit.Run(new(SetFixture), t)
+func TestCreation(t *testing.T) {
+	assert.That(t, len(New[int](0))).Equals(0)
+	assert.That(t, len(From[int]())).Equals(0)
+	assert.That(t, From[int]().Len()).Equals(0)
 }
-
-type SetFixture struct {
-	*gunit.Fixture
+func TestContains(t *testing.T) {
+	assert.That(t, From[int](1).Contains(1)).IsTrue()
+	assert.That(t, From[int]().Contains(1)).IsFalse()
 }
-
-func (this *SetFixture) Setup() {
-	this.So(len(NewSet()), should.Equal, 0)
-	this.So(NewSet().Len(), should.Equal, 0)
-}
-
-func (this *SetFixture) TestContains() {
-	this.So(NewSet(1).Contains(1), should.BeTrue)
-	this.So(NewSet().Contains(1), should.BeFalse)
-}
-
-func (this *SetFixture) TestAdd() {
-	set := NewSet()
+func TestAdd(t *testing.T) {
+	set := New[int](0)
 	set.Add(1, 2, 3)
-	this.So(set.Contains(1), should.BeTrue)
-	this.So(set.Contains(2), should.BeTrue)
-	this.So(set.Contains(3), should.BeTrue)
-	this.So(set.Len(), should.Equal, 3)
+	assert.That(t, set.Contains(1)).IsTrue()
+	assert.That(t, set.Contains(2)).IsTrue()
+	assert.That(t, set.Contains(3)).IsTrue()
+	assert.That(t, set.Len()).Equals(3)
 }
-
-func (this *SetFixture) TestItems() {
-	set := NewSet(1, 2, 3, 4, 5)
-	items := set.Items()
+func TestRemove(t *testing.T) {
+	set := From[int](1, 2, 3)
+	set.Remove(2)
+	assert.That(t, set.Contains(1)).IsTrue()
+	assert.That(t, set.Contains(2)).IsFalse()
+	assert.That(t, set.Contains(3)).IsTrue()
+	assert.That(t, set.Len()).Equals(2)
+}
+func TestClear(t *testing.T) {
+	set := From[int](1, 2, 3)
+	set.Clear()
+	assert.That(t, set.Contains(1)).IsFalse()
+	assert.That(t, set.Contains(2)).IsFalse()
+	assert.That(t, set.Contains(3)).IsFalse()
+	assert.That(t, set.Len()).Equals(0)
+}
+func TestSlice(t *testing.T) {
+	set := From[int](1, 2, 3, 4, 5)
+	items := set.Slice()
 	sort.Slice(items, func(i, j int) bool {
-		return items[i].(int) < items[j].(int)
+		return items[i] < items[j]
 	})
-	this.So(items, should.Resemble, []interface{}{1, 2, 3, 4, 5})
+	assert.That(t, set.Len()).Equals(5)
+	assert.That(t, len(items)).Equals(5)
+	assert.That(t, items).Equals([]int{1, 2, 3, 4, 5})
 }
-
-func (this *SetFixture) TestIsSubset() {
-	this.So(NewSet(1, 2, 3).IsSubset(NewSet(1, 2, 3, 4, 5)), should.BeTrue)
-	this.So(NewSet(4, 5, 6).IsSubset(NewSet(1, 2, 3, 4, 5)), should.BeFalse)
+func TestEqual(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).Equal(From[int](3, 2, 1))).IsTrue()
+	assert.That(t, From[int](1, 2).Equal(From[int](3, 2, 1))).IsFalse()
+	assert.That(t, From[int](1, 2, 2).Equal(From[int](1, 2, 3))).IsFalse()
 }
-
-func (this *SetFixture) TestIsSuperset() {
-	this.So(NewSet(1, 2, 3, 4, 5).IsSuperset(NewSet(1, 2, 3)), should.BeTrue)
-	this.So(NewSet(1, 2, 3, 4, 5).IsSuperset(NewSet(4, 5, 6)), should.BeFalse)
+func TestIsSubset(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).IsSubset(From[int](1, 2, 3, 4, 5))).IsTrue()
+	assert.That(t, From[int](4, 5, 6).IsSubset(From[int](1, 2, 3, 4, 5))).IsFalse()
 }
-
-func (this *SetFixture) TestUnion() {
-	this.So(NewSet(1, 2, 3).Union(NewSet(1, 2, 3)), should.Resemble, NewSet(1, 2, 3))
-	this.So(NewSet(1, 2, 3).Union(NewSet(2, 3, 4)), should.Resemble, NewSet(1, 2, 3, 4))
-	this.So(NewSet(1, 2, 3).Union(NewSet(4, 5, 6)), should.Resemble, NewSet(1, 2, 3, 4, 5, 6))
+func TestIsSuperset(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3, 4, 5).IsSuperset(From[int](1, 2, 3))).IsTrue()
+	assert.That(t, From[int](1, 2, 3, 4, 5).IsSuperset(From[int](4, 5, 6))).IsFalse()
 }
-
-func (this *SetFixture) TestIntersection() {
-	this.So(NewSet(1, 2, 3).Intersection(NewSet(4, 5, 6)), should.Resemble, NewSet())
-	this.So(NewSet(1, 2, 3).Intersection(NewSet(2, 3, 4)), should.Resemble, NewSet(2, 3))
+func TestUnion(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).Union(From[int](1, 2, 3))).Equals(From[int](1, 2, 3))
+	assert.That(t, From[int](1, 2, 3).Union(From[int](2, 3, 4))).Equals(From[int](1, 2, 3, 4))
+	assert.That(t, From[int](1, 2, 3).Union(From[int](4, 5, 6))).Equals(From[int](1, 2, 3, 4, 5, 6))
 }
-
-func (this *SetFixture) TestDifference() {
-	this.So(NewSet(1, 2, 3).Difference(NewSet(4, 5, 6)), should.Resemble, NewSet(1, 2, 3))
-	this.So(NewSet(1, 2, 3).Difference(NewSet(2, 3)), should.Resemble, NewSet(1))
+func TestIntersection(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).Intersection(From[int](4, 5, 6))).Equals(From[int]())
+	assert.That(t, From[int](1, 2, 3).Intersection(From[int](2, 3, 4))).Equals(From[int](2, 3))
 }
-
-func (this *SetFixture) TestSymmetricDifference() {
-	this.So(NewSet(1, 2, 3).SymmetricDifference(NewSet(4, 5, 6)), should.Resemble, NewSet(1, 2, 3, 4, 5, 6))
-	this.So(NewSet(1, 2, 3).SymmetricDifference(NewSet(2, 3, 4)), should.Resemble, NewSet(1, 4))
+func TestDifference(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).Difference(From[int](4, 5, 6))).Equals(From[int](1, 2, 3))
+	assert.That(t, From[int](1, 2, 3).Difference(From[int](2, 3))).Equals(From[int](1))
+}
+func TestSymmetricDifference(t *testing.T) {
+	assert.That(t, From[int](1, 2, 3).SymmetricDifference(From[int](4, 5, 6))).Equals(From[int](1, 2, 3, 4, 5, 6))
+	assert.That(t, From[int](1, 2, 3).SymmetricDifference(From[int](2, 3, 4))).Equals(From[int](1, 4))
 }

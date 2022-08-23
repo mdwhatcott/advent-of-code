@@ -1,6 +1,6 @@
 module advent
 
-go 1.13
+go 1.18
 
 require (
 	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129

@@ -1,40 +1,48 @@
 package set
 
-type Set map[interface{}]struct{}
+type Set[T comparable] map[T]nothing
 
-func NewSet(items ...interface{}) (result Set) {
-	result = make(Set)
-	for _, item := range items {
-		result.Add(item)
-	}
+func New[T comparable](size int) Set[T] {
+	return make(Set[T], size)
+}
+func From[T comparable](items ...T) (result Set[T]) {
+	result = New[T](len(items))
+	result.Add(items...)
 	return result
 }
-
-func (this Set) Len() int {
+func (this Set[T]) Len() int {
 	return len(this)
 }
-
-func (this Set) Items() (result []interface{}) {
+func (this Set[T]) Slice() (result []T) {
+	result = make([]T, 0, len(this))
 	for item := range this {
 		result = append(result, item)
 	}
 	return result
 }
-
-func (this Set) Add(items ...interface{}) {
+func (this Set[T]) Add(items ...T) {
 	for _, item := range items {
-		if !this.Contains(item) {
-			this[item] = struct{}{}
-		}
+		this[item] = nothing{}
 	}
 }
-
-func (this Set) Contains(item interface{}) bool {
+func (this Set[T]) Remove(items ...T) {
+	for _, item := range items {
+		delete(this, item)
+	}
+}
+func (this Set[T]) Clear() {
+	for item := range this {
+		delete(this, item)
+	}
+}
+func (this Set[T]) Contains(item T) bool {
 	_, found := this[item]
 	return found
 }
-
-func (this Set) IsSubset(that Set) bool {
+func (this Set[T]) Equal(that Set[T]) bool {
+	if len(this) != len(that) {
+		return false
+	}
 	for item := range this {
 		if !that.Contains(item) {
 			return false
@@ -42,8 +50,15 @@ func (this Set) IsSubset(that Set) bool {
 	}
 	return true
 }
-
-func (this Set) IsSuperset(that Set) bool {
+func (this Set[T]) IsSubset(that Set[T]) bool {
+	for item := range this {
+		if !that.Contains(item) {
+			return false
+		}
+	}
+	return true
+}
+func (this Set[T]) IsSuperset(that Set[T]) bool {
 	for item := range that {
 		if !this.Contains(item) {
 			return false
@@ -51,9 +66,8 @@ func (this Set) IsSuperset(that Set) bool {
 	}
 	return true
 }
-
-func (this Set) Union(that Set) (result Set) {
-	result = make(Set)
+func (this Set[T]) Union(that Set[T]) (result Set[T]) {
+	result = make(Set[T])
 	for item := range this {
 		result.Add(item)
 	}
@@ -62,9 +76,8 @@ func (this Set) Union(that Set) (result Set) {
 	}
 	return result
 }
-
-func (this Set) Intersection(that Set) (result Set) {
-	result = make(Set)
+func (this Set[T]) Intersection(that Set[T]) (result Set[T]) {
+	result = make(Set[T])
 	for item := range this {
 		if that.Contains(item) {
 			result.Add(item)
@@ -77,9 +90,8 @@ func (this Set) Intersection(that Set) (result Set) {
 	}
 	return result
 }
-
-func (this Set) Difference(that Set) (result Set) {
-	result = make(Set)
+func (this Set[T]) Difference(that Set[T]) (result Set[T]) {
+	result = make(Set[T])
 	for item := range this {
 		if !that.Contains(item) {
 			result.Add(item)
@@ -87,9 +99,8 @@ func (this Set) Difference(that Set) (result Set) {
 	}
 	return result
 }
-
-func (this Set) SymmetricDifference(that Set) (result Set) {
-	result = make(Set)
+func (this Set[T]) SymmetricDifference(that Set[T]) (result Set[T]) {
+	result = make(Set[T])
 	for item := range this {
 		if !that.Contains(item) {
 			result.Add(item)
@@ -102,3 +113,5 @@ func (this Set) SymmetricDifference(that Set) (result Set) {
 	}
 	return result
 }
+
+type nothing struct{}

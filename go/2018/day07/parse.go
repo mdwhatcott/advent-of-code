@@ -3,14 +3,13 @@ package day07
 import (
 	"strings"
 
+	"advent/lib/set"
 	"advent/lib/util"
-
-	"github.com/deckarep/golang-set"
 )
 
-func parseTasksWithDependencies(input string) (tasks mapset.Set, dependencies map[string]mapset.Set) {
-	tasks = mapset.NewSet()
-	dependencies = make(map[string]mapset.Set)
+func parseTasksWithDependencies(input string) (tasks set.Set[string], dependencies map[string]set.Set[string]) {
+	tasks = set.From[string]()
+	dependencies = make(map[string]set.Set[string])
 
 	scanner := util.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
@@ -20,7 +19,7 @@ func parseTasksWithDependencies(input string) (tasks mapset.Set, dependencies ma
 		tasks.Add(b)
 		deps := dependencies[b]
 		if deps == nil {
-			deps = mapset.NewSet()
+			deps = set.From[string]()
 			dependencies[b] = deps
 		}
 		deps.Add(a)

@@ -3,7 +3,7 @@ package day07
 import (
 	"sort"
 
-	"github.com/deckarep/golang-set"
+	"advent/lib/set"
 )
 
 type Pool []*Worker
@@ -43,9 +43,9 @@ func (this *Worker) Enqueue(task string, delay int) {
 
 type TopologicalSort struct {
 	pool         Pool
-	tasks        mapset.Set
-	dependencies map[string]mapset.Set
-	done         mapset.Set
+	tasks        set.Set[string]
+	dependencies map[string]set.Set[string]
+	done         set.Set[string]
 	order        string
 	seconds      int
 	delay        int
@@ -56,7 +56,7 @@ func NewTopologicalSort(input string, workers, delay int) *TopologicalSort {
 	return &TopologicalSort{
 		tasks:        tasks,
 		dependencies: dependencies,
-		done:         mapset.NewSet(),
+		done:         set.New[string](0),
 		pool:         prepareWorkers(workers),
 		delay:        delay,
 	}
@@ -103,10 +103,10 @@ func (this *TopologicalSort) loadWorkers() {
 }
 
 func (this *TopologicalSort) findReadyTasks() (ready []string) {
-	for _, task := range this.tasks.ToSlice() {
-		deps := this.dependencies[task.(string)]
+	for _, task := range this.tasks.Slice() {
+		deps := this.dependencies[task]
 		if deps == nil || deps.IsSubset(this.done) {
-			ready = append(ready, task.(string))
+			ready = append(ready, task)
 		}
 	}
 	return ready
