@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestSlopeFixture(t *testing.T) {
-	gunit.Run(new(SlopeFixture), t)
+	suite.Run(&SlopeFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type SlopeFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *SlopeFixture) Test() {

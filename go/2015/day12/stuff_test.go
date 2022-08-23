@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestJSONAbacusFixture(t *testing.T) {
-	gunit.Run(new(JSONAbacusFixture), t)
+	suite.Run(&JSONAbacusFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type JSONAbacusFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *JSONAbacusFixture) TestPart1() {

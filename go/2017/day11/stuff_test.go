@@ -3,15 +3,15 @@ package day11
 import (
 	"testing"
 
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuff(t *testing.T) {
-	gunit.Run(new(Stuff), t)
+	suite.Run(&Stuff{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Stuff struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Stuff) Setup() {

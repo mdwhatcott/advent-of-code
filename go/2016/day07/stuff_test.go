@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestABBAFixture(t *testing.T) {
-	gunit.Run(new(ABBAFixture), t)
+	suite.Run(&ABBAFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type ABBAFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *ABBAFixture) TestHasABBA() {
@@ -52,11 +52,11 @@ func (this *ABBAFixture) TestIsABA() {
 }
 
 func (this *ABBAFixture) TestHasABA() {
-	this.So(ExtractABA("qqqqqq"+"aba"+"zzzzzzz"), should.Resemble, []string{"aba"})
-	this.So(ExtractABA("qqqqqqzzzzzzz"+"aba"), should.Resemble, []string{"aba"})
-	this.So(ExtractABA("aba"+"qqqqqqzzzzzzz"), should.Resemble, []string{"aba"})
+	this.So(ExtractABA("qqqqqq"+"aba"+"zzzzzzz"), should.Equal, []string{"aba"})
+	this.So(ExtractABA("qqqqqqzzzzzzz"+"aba"), should.Equal, []string{"aba"})
+	this.So(ExtractABA("aba"+"qqqqqqzzzzzzz"), should.Equal, []string{"aba"})
 	this.So(ExtractABA("qqqqqqzzzzzzz"), should.BeEmpty)
-	this.So(ExtractABA("zazbz"), should.Resemble, []string{"zaz", "zbz"})
+	this.So(ExtractABA("zazbz"), should.Equal, []string{"zaz", "zbz"})
 }
 
 func (this *ABBAFixture) HasCorrespondingBAB() {

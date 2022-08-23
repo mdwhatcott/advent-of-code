@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBotFixture(t *testing.T) {
-	gunit.Run(new(BotFixture), t)
+	suite.Run(&BotFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type BotFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	bot  *Bot
 	low  *Bot

@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestNineKeyFixture(t *testing.T) {
-	gunit.Run(new(NineKeyFixture), t)
+	suite.Run(&NineKeyFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type NineKeyFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	keypad *Keypad
 }
@@ -36,11 +36,11 @@ UUUUD`), should.Equal, "1985")
 }
 
 func TestThirteenKeyFixture(t *testing.T) {
-	gunit.Run(new(ThirteenKeyFixture), t)
+	suite.Run(&ThirteenKeyFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type ThirteenKeyFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	keypad *Keypad
 }

@@ -1,18 +1,22 @@
 package main
 
 import (
-	"fmt"
 	"strings"
+	"testing"
+
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
 )
 
-func main() {
+func Test(t *testing.T) {
 	max, max500Calories := ComputeUltimateCookie(100, parseIngredients()...)
-	fmt.Println("Part 1 (the ultimate cookie):", assert.So(max, should.Equal, 21367368))
-	fmt.Println("Part 2 (the meal replacement):", assert.So(max500Calories, should.Equal, 1766400))
+	t.Log("Part 1 (the ultimate cookie)")
+	assert.Error(t).So(max, should.Equal, 21367368)
+
+	t.Log("Part 2 (the meal replacement)")
+	assert.Error(t).So(max500Calories, should.Equal, 1766400)
 }
 
 func parseIngredients() (ingredients Ingredients) {

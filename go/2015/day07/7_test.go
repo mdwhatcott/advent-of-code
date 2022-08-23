@@ -5,26 +5,26 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test7A(t *testing.T) {
 	circuit := NewRecursiveCircuit(input7_ExampleA)
-	assert := assertions.New(t)
-	assert.So(circuit.SolveFor("x"), should.Equal, 123)
-	assert.So(circuit.SolveFor("y"), should.Equal, 456)
-	assert.So(circuit.SolveFor("d"), should.Equal, 72)
-	assert.So(circuit.SolveFor("e"), should.Equal, 507)
-	assert.So(circuit.SolveFor("f"), should.Equal, 492)
-	assert.So(circuit.SolveFor("g"), should.Equal, 114)
-	assert.So(circuit.SolveFor("h"), should.Equal, 65412)
-	assert.So(circuit.SolveFor("i"), should.Equal, 65079)
+	a := assert.Error(t)
+	a.So(circuit.SolveFor("x"), should.Equal, 123)
+	a.So(circuit.SolveFor("y"), should.Equal, 456)
+	a.So(circuit.SolveFor("d"), should.Equal, 72)
+	a.So(circuit.SolveFor("e"), should.Equal, 507)
+	a.So(circuit.SolveFor("f"), should.Equal, 492)
+	a.So(circuit.SolveFor("g"), should.Equal, 114)
+	a.So(circuit.SolveFor("h"), should.Equal, 65412)
+	a.So(circuit.SolveFor("i"), should.Equal, 65079)
 }
 
 func Test7(t *testing.T) {
 	circuit := NewRecursiveCircuit(input7)
-	assertions.New(t).So(circuit.SolveFor("a"), should.Equal, 3176)
+	assert.Error(t).So(circuit.SolveFor("a"), should.Equal, 3176)
 	//t.Log("Signal on the 'a' wire:", circuit.SolveFor("a"))
 }
 
@@ -35,7 +35,7 @@ func Test7_Part2(t *testing.T) {
 	circuit := NewRecursiveCircuit(input7)
 	circuit.instructions["b"] = []string{override}
 
-	assertions.New(t).So(circuit.SolveFor("a"), should.Equal, 14710)
+	assert.Error(t).So(circuit.SolveFor("a"), should.Equal, 14710)
 	//t.Log("Updated signal on the 'a' wire:", circuit.SolveFor("a"))
 }
 

@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRPGFixture(t *testing.T) {
-	gunit.Run(new(RPGFixture), t)
+	suite.Run(&RPGFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type RPGFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *RPGFixture) TestFight() {

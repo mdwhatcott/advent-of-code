@@ -4,35 +4,35 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test5_Examples(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(nice("aaa"), should.Equal, 1)
-	assert.So(nice("ugknbfddgicrmopn"), should.Equal, 1)
+	a := assert.Error(t)
+	a.So(nice("aaa"), should.Equal, 1)
+	a.So(nice("ugknbfddgicrmopn"), should.Equal, 1)
 
-	assert.So(nice("jchzalrnumimnmhp"), should.Equal, 0)
-	assert.So(nice("haegwjzuvuyypxyu"), should.Equal, 0)
-	assert.So(nice("dvszwmarrgswjxmb"), should.Equal, 0)
+	a.So(nice("jchzalrnumimnmhp"), should.Equal, 0)
+	a.So(nice("haegwjzuvuyypxyu"), should.Equal, 0)
+	a.So(nice("dvszwmarrgswjxmb"), should.Equal, 0)
 
 	n := 0
 	for _, line := range strings.Split(input5, "\n") {
 		n += nice(line)
 	}
-	assert.So(n, should.Equal, 258)
+	a.So(n, should.Equal, 258)
 	//t.Log("How many are nice?", n)
 }
 
 func Test5_Examples2(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(nice2("qjhvhtzxzqqjkmpb"), should.BeTrue)
-	assert.So(nice2("xxyxx"), should.BeTrue)
+	a := assert.Error(t)
+	a.So(nice2("qjhvhtzxzqqjkmpb"), should.BeTrue)
+	a.So(nice2("xxyxx"), should.BeTrue)
 
-	assert.So(nice2("xxxx"), should.BeFalse)
-	assert.So(nice2("uurcxstgmygtbstg"), should.BeFalse)
-	assert.So(nice2("ieodomkazucvgmuy"), should.BeFalse)
+	a.So(nice2("xxxx"), should.BeFalse)
+	a.So(nice2("uurcxstgmygtbstg"), should.BeFalse)
+	a.So(nice2("ieodomkazucvgmuy"), should.BeFalse)
 
 	n := 0
 	for _, line := range strings.Split(input5, "\n") {
@@ -40,7 +40,7 @@ func Test5_Examples2(t *testing.T) {
 			n++
 		}
 	}
-	assert.So(n, should.Equal, 53)
+	a.So(n, should.Equal, 53)
 	//t.Log("How many are nice2?", n)
 }
 

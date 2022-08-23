@@ -4,12 +4,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuffFixture(t *testing.T) {
-	gunit.Run(new(StuffFixture), t)
+	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 const toy = `[1518-11-01 00:00] Guard #10 begins shift
@@ -31,7 +31,7 @@ const toy = `[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-05 00:55] wakes up`
 
 type StuffFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *StuffFixture) TestToy() {

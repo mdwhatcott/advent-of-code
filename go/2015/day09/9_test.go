@@ -4,22 +4,22 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test9Example(t *testing.T) {
 	shortest, longest := CalculateShortestAndLongestDistances(input9_Example)
-	assert := assertions.New(t)
-	assert.So(shortest, should.Equal, 605)
-	assert.So(longest, should.Equal, 982)
+	a := assert.Error(t)
+	a.So(shortest, should.Equal, 605)
+	a.So(longest, should.Equal, 982)
 }
 
 func Test9Real(t *testing.T) {
 	shortest, longest := CalculateShortestAndLongestDistances(input9)
-	assert := assertions.New(t)
-	assert.So(shortest, should.Equal, 141)
-	assert.So(longest, should.Equal, 736)
+	a := assert.Error(t)
+	a.So(shortest, should.Equal, 141)
+	a.So(longest, should.Equal, 736)
 }
 
 var input9_Example = strings.Split(`London to Dublin = 464

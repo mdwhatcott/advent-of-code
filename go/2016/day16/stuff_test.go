@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestDragonChecksumFixture(t *testing.T) {
-	gunit.Run(new(DragonChecksumFixture), t)
+	suite.Run(&DragonChecksumFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type DragonChecksumFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *DragonChecksumFixture) TestReverse() {

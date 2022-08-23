@@ -3,18 +3,18 @@ package day11
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/grid"
 )
 
 func TestGrid2Fixture(t *testing.T) {
-	gunit.Run(new(Grid2Fixture), t)
+	suite.Run(&Grid2Fixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Grid2Fixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Grid2Fixture) TestExampleSerialNumber_18() {

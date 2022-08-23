@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestLCDFixture(t *testing.T) {
-	gunit.Run(new(LCDFixture), t)
+	suite.Run(&LCDFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type LCDFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	lcd *LCD
 }

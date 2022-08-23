@@ -3,16 +3,16 @@ package day03
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuffFixture(t *testing.T) {
-	gunit.Run(new(StuffFixture), t)
+	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 const toy = `#1 @ 1,3: 4x4
@@ -40,5 +40,5 @@ func (this *StuffFixture) TestFindNoConflicts() {
 			undisputed = append(undisputed, id+1)
 		}
 	}
-	this.So(undisputed, should.Resemble, []int{3})
+	this.So(undisputed, should.Equal, []int{3})
 }

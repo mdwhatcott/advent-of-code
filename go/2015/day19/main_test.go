@@ -1,20 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"strings"
+	"testing"
 	"time"
 
-	"advent/lib/util"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"advent/lib/util"
 )
 
-func main() {
-	fmt.Println(assert.So(part1(), should.Equal, 509))
-	fmt.Println(assert.So(part2(), should.Equal, 195))
+func Test(t *testing.T) {
+	assert.Error(t).So(part1(), should.Equal, 509)
+	assert.Error(t).So(part2(), should.Equal, 195)
 }
 
 const (

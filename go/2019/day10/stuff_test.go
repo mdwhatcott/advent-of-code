@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuffFixture(t *testing.T) {
-	gunit.Run(new(StuffFixture), t)
+	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *StuffFixture) Setup() {
@@ -21,7 +21,7 @@ func (this *StuffFixture) Setup() {
 
 func (this *StuffFixture) TestScan() {
 	field := scanField(exampleMap1)
-	this.So(field, should.Resemble, AsteroidField{
+	this.So(field, should.Equal, AsteroidField{
 		{X: 1, Y: 0},
 		{X: 4, Y: 0},
 		{X: 0, Y: 2},
@@ -63,11 +63,11 @@ func (this *StuffFixture) TestCountVisible() {
 }
 
 func (this *StuffFixture) TestBestPlace() {
-	this.So(BestPlaceWithCount(scanField(exampleMap1)), should.Resemble, PlaceCount{Place: NewAsteroid(3, 4), Count: 8})
-	this.So(BestPlaceWithCount(scanField(exampleMap2)), should.Resemble, PlaceCount{Place: NewAsteroid(5, 8), Count: 33})
-	this.So(BestPlaceWithCount(scanField(exampleMap3)), should.Resemble, PlaceCount{Place: NewAsteroid(1, 2), Count: 35})
-	this.So(BestPlaceWithCount(scanField(exampleMap4)), should.Resemble, PlaceCount{Place: NewAsteroid(6, 3), Count: 41})
-	this.So(BestPlaceWithCount(scanField(exampleMap5)), should.Resemble, PlaceCount{Place: NewAsteroid(11, 13), Count: 210})
+	this.So(BestPlaceWithCount(scanField(exampleMap1)), should.Equal, PlaceCount{Place: NewAsteroid(3, 4), Count: 8})
+	this.So(BestPlaceWithCount(scanField(exampleMap2)), should.Equal, PlaceCount{Place: NewAsteroid(5, 8), Count: 33})
+	this.So(BestPlaceWithCount(scanField(exampleMap3)), should.Equal, PlaceCount{Place: NewAsteroid(1, 2), Count: 35})
+	this.So(BestPlaceWithCount(scanField(exampleMap4)), should.Equal, PlaceCount{Place: NewAsteroid(6, 3), Count: 41})
+	this.So(BestPlaceWithCount(scanField(exampleMap5)), should.Equal, PlaceCount{Place: NewAsteroid(11, 13), Count: 210})
 }
 
 var exampleMap1 = strings.Split(strings.TrimSpace(""+

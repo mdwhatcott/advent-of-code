@@ -6,8 +6,8 @@ import (
 
 	"advent/lib/util"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func main() {
@@ -17,14 +17,14 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("Ending position:",
-		assert.So(turtle.Position(), should.Equal, "-126,165").Fatal())
+		assert.So(turtle.Position(), should.Equal, "-126,165"))
 	fmt.Println("Distance to ending position:",
-		assert.So(turtle.TaxiDistanceToEndingLocation(), should.Equal, 291).Fatal())
+		assert.So(turtle.TaxiDistanceToEndingLocation(), should.Equal, 291))
 
 	fmt.Println()
 
 	fmt.Println("Position first visited twice:",
-		assert.So(turtle.PositionFirstVisitedTwice(), should.Equal, "16,143").Fatal())
+		assert.So(turtle.PositionFirstVisitedTwice(), should.Equal, "16,143"))
 	fmt.Println("Distance to position first visited twice:",
-		assert.So(turtle.TaxiDistanceToLocationFirstVisitedTwice(), should.Equal, 159).Fatal())
+		assert.So(turtle.TaxiDistanceToLocationFirstVisitedTwice(), should.Equal, 159))
 }

@@ -47,8 +47,7 @@ func CalculateShortestAndLongestDistances(lines []string) (shortest, longest int
 	return shortest, longest
 }
 
-func citiesSlice(unique map[string]struct{}) []string {
-	cities := []string{}
+func citiesSlice(unique map[string]struct{}) (cities []string) {
 	for city := range unique {
 		cities = append(cities, city)
 	}

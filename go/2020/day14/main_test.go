@@ -5,21 +5,21 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestApplyMask(t *testing.T) {
-	assert := assertions.New(t)
+	a := assert.Error(t)
 	mask := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"
-	assert.So(ApplyMask("11", mask), should.Equal, 73)
-	assert.So(ApplyMask("101", mask), should.Equal, 101)
-	assert.So(ApplyMask("0", mask), should.Equal, 64)
+	a.So(ApplyMask("11", mask), should.Equal, 73)
+	a.So(ApplyMask("101", mask), should.Equal, 101)
+	a.So(ApplyMask("0", mask), should.Equal, 64)
 }
 
 func TestPart1(t *testing.T) {
 	result := part1(bufio.NewScanner(strings.NewReader(example1)))
-	assertions.New(t).So(result, should.Equal, 165)
+	assert.Error(t).So(result, should.Equal, 165)
 }
 
 const example1 = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
@@ -31,7 +31,7 @@ func TestPermuteFloatingBits(t *testing.T) {
 	values := PermuteFloatingBits(
 		"000000000000000000000000000000X1101X",
 	)
-	assertions.New(t).So(values, should.Resemble, []string{
+	assert.Error(t).So(values, should.Equal, []string{
 		"000000000000000000000000000000011010",
 		"000000000000000000000000000000011011",
 		"000000000000000000000000000000111010",
@@ -46,5 +46,5 @@ mem[26] = 1`
 
 func TestPart2(t *testing.T) {
 	result := part2(bufio.NewScanner(strings.NewReader(example2)))
-	assertions.New(t).So(result, should.Equal, 208)
+	assert.Error(t).So(result, should.Equal, 208)
 }

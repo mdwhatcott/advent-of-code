@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 
-	"advent/lib/astar"
 	"github.com/ferhatelmas/levenshtein"
+
+	"advent/lib/astar"
 )
 
 type MoleculeSearch struct {

@@ -5,15 +5,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestRepetitionCode(t *testing.T) {
 	code := NewRepetitionCode(bufio.NewScanner(strings.NewReader(input)), 6)
-	assert := assertions.New(t)
-	assert.So(code.DecodeFrequent(), should.Equal, "easter")
-	assert.So(code.DecodeInfrequent(), should.Equal, "advent")
+	a := assert.Error(t)
+	a.So(code.DecodeFrequent(), should.Equal, "easter")
+	a.So(code.DecodeInfrequent(), should.Equal, "advent")
 
 }
 

@@ -3,20 +3,20 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRoomValidationFixture(t *testing.T) {
-	gunit.Run(new(RoomValidationFixture), t)
+	suite.Run(&RoomValidationFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type RoomValidationFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *RoomValidationFixture) TestParsing() {
-	this.So(ParseEncryptedRoom("aaaaa-bbb-z-y-x-123[abxyz]"), should.Resemble, &EncryptedRoom{
+	this.So(ParseEncryptedRoom("aaaaa-bbb-z-y-x-123[abxyz]"), should.Equal, &EncryptedRoom{
 		EncryptedName:  "aaaaa-bbb-z-y-x",
 		SectorID:       123,
 		Valid:          true,
@@ -25,7 +25,7 @@ func (this *RoomValidationFixture) TestParsing() {
 		actualChecksum: "abxyz",
 	})
 
-	this.So(ParseEncryptedRoom("a-b-c-d-e-f-g-h-987[abcde]"), should.Resemble, &EncryptedRoom{
+	this.So(ParseEncryptedRoom("a-b-c-d-e-f-g-h-987[abcde]"), should.Equal, &EncryptedRoom{
 		EncryptedName:  "a-b-c-d-e-f-g-h",
 		SectorID:       987,
 		Valid:          true,
@@ -34,7 +34,7 @@ func (this *RoomValidationFixture) TestParsing() {
 		actualChecksum: "abcde",
 	})
 
-	this.So(ParseEncryptedRoom("not-a-real-room-404[oarel]"), should.Resemble, &EncryptedRoom{
+	this.So(ParseEncryptedRoom("not-a-real-room-404[oarel]"), should.Equal, &EncryptedRoom{
 		EncryptedName:  "not-a-real-room",
 		SectorID:       404,
 		Valid:          true,
@@ -43,7 +43,7 @@ func (this *RoomValidationFixture) TestParsing() {
 		actualChecksum: "oarel",
 	})
 
-	this.So(ParseEncryptedRoom("totally-real-room-200[decoy]"), should.Resemble, &EncryptedRoom{
+	this.So(ParseEncryptedRoom("totally-real-room-200[decoy]"), should.Equal, &EncryptedRoom{
 		EncryptedName:  "totally-real-room",
 		SectorID:       200,
 		Valid:          false,

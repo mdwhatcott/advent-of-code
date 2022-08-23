@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestInterpreterFixture(t *testing.T) {
-	gunit.Run(new(InterpreterFixture), t)
+	suite.Run(&InterpreterFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type InterpreterFixture struct {
-	*gunit.Fixture
+	*suite.T
 	a, b, c, d int
 }
 

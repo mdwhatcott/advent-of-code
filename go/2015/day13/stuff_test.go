@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRoundTableFixture(t *testing.T) {
-	gunit.Run(new(RoundTableFixture), t)
+	suite.Run(&RoundTableFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type RoundTableFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *RoundTableFixture) TestManualRegistrationOfRelations() {

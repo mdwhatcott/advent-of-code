@@ -3,8 +3,8 @@ package advent
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test3(t *testing.T) {
@@ -13,7 +13,7 @@ func Test3(t *testing.T) {
 	for _, c := range input3 {
 		turtle.Move(c)
 	}
-	assertions.New(t).So(len(visits), should.Equal, 2572)
+	assert.Error(t).So(len(visits), should.Equal, 2572)
 	//t.Log("How many houses receive at least one present?", len(visits))
 }
 
@@ -28,7 +28,7 @@ func Test3_RoboSanta(t *testing.T) {
 			robot.Move(c)
 		}
 	}
-	assertions.New(t).So(len(visits), should.Equal, 2631)
+	assert.Error(t).So(len(visits), should.Equal, 2631)
 	//t.Log("How many houses receive at least one present?", len(visits))
 }
 

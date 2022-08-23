@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuffFixture(t *testing.T) {
-	gunit.Run(new(StuffFixture), t)
+	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *StuffFixture) SkipTestA() {
@@ -22,7 +22,7 @@ func (this *StuffFixture) SkipTestA() {
 		m.Tick()
 		m.Tick()
 	}()
-	this.So(<-m.Signals, should.Resemble, NewPoint(0, 3))
+	this.So(<-m.Signals, should.Equal, NewPoint(0, 3))
 	this.So(m.String(), should.Equal, "|\n|\n|\nX\n|\n|\n|")
 }
 func (this *StuffFixture) TestB() {
@@ -31,7 +31,7 @@ func (this *StuffFixture) TestB() {
 		for m.Tick() {
 		}
 	}()
-	this.So(<-m.Signals, should.Resemble, NewPoint(7, 3))
+	this.So(<-m.Signals, should.Equal, NewPoint(7, 3))
 }
 
 var TestInputA = strings.TrimLeft(`

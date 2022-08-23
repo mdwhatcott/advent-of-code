@@ -1,17 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"testing"
+
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
 )
 
-func main() {
-	fmt.Println(assert.So(part1(), should.Equal, 2696))
-	fmt.Println(assert.So(part2(), should.Equal, 1084))
+func Test(t *testing.T) {
+	assert.Error(t).So(part1(), should.Equal, 2696)
+	assert.Error(t).So(part2(), should.Equal, 1084)
 }
 
 func part1() int { return max(runSimulation().distances) }

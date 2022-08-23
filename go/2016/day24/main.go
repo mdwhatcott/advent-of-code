@@ -6,13 +6,13 @@ import (
 	"advent/lib/astar"
 	"advent/lib/util"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func main() {
-	fmt.Println("Part 1: Bot travelled:", assert.So(part1(), should.Equal, 460).Fatal())
-	fmt.Println("Part 2: To return, bot travelled:", assert.So(part2(), should.Equal, 668).Fatal())
+	fmt.Println("Part 1: Bot travelled:", assert.So(part1(), should.Equal, 460))
+	fmt.Println("Part 2: To return, bot travelled:", assert.So(part2(), should.Equal, 668))
 }
 
 func part1() int {

@@ -3,17 +3,17 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestSequentialPassword(t *testing.T) {
 	if testing.Short() {
 		t.Skip("Skipping long-running test.")
 	}
-	assert := assertions.New(t)
+	a := assert.Error(t)
 	password := NewSequentialPassword("abc")
-	assert.So(password.String(), should.Equal, "18f47a30")
+	a.So(password.String(), should.Equal, "18f47a30")
 }
 
 func TestPositionalPassword(t *testing.T) {
@@ -21,7 +21,7 @@ func TestPositionalPassword(t *testing.T) {
 		t.Skip("Skipping long-running test.")
 	}
 
-	assert := assertions.New(t)
+	a := assert.Error(t)
 	password := NewPositionalPassword("abc")
-	assert.So(password.String(), should.Equal, "05ace8e3")
+	a.So(password.String(), should.Equal, "05ace8e3")
 }

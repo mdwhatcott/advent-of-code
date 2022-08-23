@@ -3,16 +3,16 @@ package advent
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestTrigFixture(t *testing.T) {
-	gunit.Run(new(TrigFixture), t)
+	suite.Run(&TrigFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type TrigFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *TrigFixture) TestAngleFromOrigin() {
@@ -26,10 +26,10 @@ func (this *TrigFixture) TestAngleFromOrigin() {
 	this.So(NewAsteroid(-3, 3).AngleFromOrigin(), should.Equal, 180+45)
 	this.So(NewAsteroid(-3, -3).AngleFromOrigin(), should.Equal, 270+45)
 
-	this.So(NewAsteroid(3, -4).AngleFromOrigin(), should.AlmostEqual, 36.87, .01)
-	this.So(NewAsteroid(4, 3).AngleFromOrigin(), should.AlmostEqual, 90+36.87, .01)
-	this.So(NewAsteroid(-3, 4).AngleFromOrigin(), should.AlmostEqual, 180+36.87, .01)
-	this.So(NewAsteroid(-4, -3).AngleFromOrigin(), should.AlmostEqual, 270+36.87, .01)
+	this.So(NewAsteroid(3, -4).AngleFromOrigin(), should.Equal, 36.86989764584402)
+	this.So(NewAsteroid(4, 3).AngleFromOrigin(), should.Equal, 90+36.86989764584402)
+	this.So(NewAsteroid(-3, 4).AngleFromOrigin(), should.Equal, 180+36.86989764584402)
+	this.So(NewAsteroid(-4, -3).AngleFromOrigin(), should.Equal, 270+36.86989764584405)
 }
 
 func (this *TrigFixture) TestDistanceFromOrigin() {

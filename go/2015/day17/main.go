@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
+
 	"advent/lib/util"
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
 )
 
 func main() {

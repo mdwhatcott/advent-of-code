@@ -6,11 +6,7 @@ github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde h1:+5PMaa
 github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde/go.mod h1:RDgD/dfPmIwFH0qdUOjw71HjtWg56CtyLIoHL+R1wJw=
 github.com/mdwhatcott/go-collections v0.1.0 h1:qcL4TJTxvyGEiz5KZcw/VzOTsyNKYhXTo4OKhvcHrV4=
 github.com/mdwhatcott/go-collections v0.1.0/go.mod h1:loj5w7NeYII+y0o/lgVIZkGxO6S6//XXMxhCqL8q7Kw=
-github.com/mdwhatcott/testing v0.15.1 h1:gVTaYiSgH1ji22h0ZGOzd+Z8L+75jOaajn5iu7Bc99E=
-github.com/mdwhatcott/testing v0.15.1/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
-github.com/smartystreets/assertions v1.2.0 h1:42S6lae5dvLc7BrLu/0ugRtcFVjoJNMC/N3yZFZkDFs=
-github.com/smartystreets/assertions v1.2.0/go.mod h1:tcbTF8ujkAEcZ8TElKY+i30BzYlVhC/LOxJk7iOWnoo=
-github.com/smartystreets/gunit v1.4.2 h1:tyWYZffdPhQPfK5VsMQXfauwnJkqg7Tv5DLuQVYxq3Q=
-github.com/smartystreets/gunit v1.4.2/go.mod h1:ZjM1ozSIMJlAz/ay4SG8PeKF00ckUp+zMHZXV9/bvak=
+github.com/mdwhatcott/testing v0.16.0 h1:V6T99bv5mxmHDe/0jg/a/eKliYv/2WqkiEaZMXGAEjQ=
+github.com/mdwhatcott/testing v0.16.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
 golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 h1:Sx/u41w+OwrInGdEckYmEuU5gHoGSL4QbDz3S9s6j4U=
 golang.org/x/sys v0.0.0-20220818161305-2296e01440c6/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

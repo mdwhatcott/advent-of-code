@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/2016/util/assembunny"
 	"advent/lib/util"
@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Print("Lowest starting value for 'a' that results in 0,1,0,1,0,1... ")
-	fmt.Println(assert.So(part1(), should.Equal, 158).Fatal())
+	fmt.Println(assert.So(part1(), should.Equal, 158))
 }
 
 func part1() int {

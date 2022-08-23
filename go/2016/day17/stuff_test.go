@@ -5,16 +5,16 @@ import (
 	"hash"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestDoorHashMazeFixture(t *testing.T) {
-	gunit.Run(new(DoorHashMazeFixture), t)
+	suite.Run(&DoorHashMazeFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type DoorHashMazeFixture struct {
-	*gunit.Fixture
+	*suite.T
 	hasher   hash.Hash
 	passcode string
 }
@@ -27,11 +27,11 @@ func (this *DoorHashMazeFixture) Setup() {
 func (this *DoorHashMazeFixture) TestOpenDoors() {
 	start := NewLocation(1, 1, "")
 	adjacents := start.AdjacentOpenRooms(this.passcode, this.hasher)
-	this.So(adjacents, should.Resemble, []*Location{{X: 1, Y: 2, Directions: "D"}})
+	this.So(adjacents, should.Equal, []*Location{{X: 1, Y: 2, Directions: "D"}})
 
 	next := adjacents[0]
 	adjacents = next.AdjacentOpenRooms(this.passcode, this.hasher)
-	this.So(adjacents, should.Resemble, []*Location{
+	this.So(adjacents, should.Equal, []*Location{
 		NewLocation(1, 1, "DU"),
 		NewLocation(2, 2, "DR"),
 	})

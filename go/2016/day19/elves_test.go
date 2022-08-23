@@ -1,17 +1,18 @@
 package main
 
 import (
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
+
 	"testing"
 )
 
 func TestWinningElfFixture(t *testing.T) {
-	gunit.Run(new(WinningElfFixture), t)
+	suite.Run(&WinningElfFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type WinningElfFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *WinningElfFixture) Setup() {

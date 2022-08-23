@@ -3,16 +3,16 @@ package intgrid
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestSummedAreaTableFixture(t *testing.T) {
-	gunit.Run(new(SummedAreaTableFixture), t)
+	suite.Run(&SummedAreaTableFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type SummedAreaTableFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	table  [][]int
 	summed SummedAreaTable
@@ -39,10 +39,10 @@ func (this *SummedAreaTableFixture) TestInitialization() {
 		{110, 186, 263, 371, 450, 555},
 		{111, 222, 333, 444, 555, 666},
 	}
-	this.So(this.summed, should.Resemble, expected)
+	this.So(this.summed, should.Equal, expected)
 }
 
 func (this *SummedAreaTableFixture) TestLookupQuadrant() {
 	quadrantSum := this.summed.SumQuadrant(NewPoint(2, 3), NewPoint(4, 4))
-	this.So(quadrantSum, should.Resemble, 111)
+	this.So(quadrantSum, should.Equal, 111)
 }

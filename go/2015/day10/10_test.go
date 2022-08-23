@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestLookSayFixture(t *testing.T) {
-	gunit.Run(new(LookSayFixture), t)
+	suite.Run(&LookSayFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type LookSayFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *LookSayFixture) Test() {

@@ -4,38 +4,38 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test8_CodeLength(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(CodeLength(`""`), should.Equal, 2)
-	assert.So(CodeLength(`"abc"`), should.Equal, 5)
-	assert.So(CodeLength(`"aaa\"aaa"`), should.Equal, 10)
-	assert.So(CodeLength(`"\x27"`), should.Equal, 6)
+	a := assert.Error(t)
+	a.So(CodeLength(`""`), should.Equal, 2)
+	a.So(CodeLength(`"abc"`), should.Equal, 5)
+	a.So(CodeLength(`"aaa\"aaa"`), should.Equal, 10)
+	a.So(CodeLength(`"\x27"`), should.Equal, 6)
 
-	assert.So(CodeLength(`"ffsfyxbyuhqkpwatkjgudo"`), should.Equal, 24)
-	assert.So(CodeLength(`"byc\x9dyxuafof\\\xa6uf\\axfozomj\\olh\x6a"`), should.Equal, 43)
+	a.So(CodeLength(`"ffsfyxbyuhqkpwatkjgudo"`), should.Equal, 24)
+	a.So(CodeLength(`"byc\x9dyxuafof\\\xa6uf\\axfozomj\\olh\x6a"`), should.Equal, 43)
 }
 
 func Test8_MemoryLength(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(MemoryLength(`""`), should.Equal, 0)
-	assert.So(MemoryLength(`"abc"`), should.Equal, 3)
-	assert.So(MemoryLength(`"aaa\"aaa"`), should.Equal, 7)
-	assert.So(MemoryLength(`"\x27"`), should.Equal, 1)
+	a := assert.Error(t)
+	a.So(MemoryLength(`""`), should.Equal, 0)
+	a.So(MemoryLength(`"abc"`), should.Equal, 3)
+	a.So(MemoryLength(`"aaa\"aaa"`), should.Equal, 7)
+	a.So(MemoryLength(`"\x27"`), should.Equal, 1)
 
-	assert.So(MemoryLength(`"ffsfyxbyuhqkpwatkjgudo"`), should.Equal, 22)
-	assert.So(MemoryLength(`"byc\x9dyxuafof\\\xa6uf\\axfozomj\\olh\x6a"`), should.Equal, 29)
+	a.So(MemoryLength(`"ffsfyxbyuhqkpwatkjgudo"`), should.Equal, 22)
+	a.So(MemoryLength(`"byc\x9dyxuafof\\\xa6uf\\axfozomj\\olh\x6a"`), should.Equal, 29)
 }
 
 func Test8_EscapeLength(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(EscapedLength(`""`), should.Equal, 6)
-	assert.So(EscapedLength(`"abc"`), should.Equal, 9)
-	assert.So(EscapedLength(`"aaa\"aaa"`), should.Equal, 16)
-	assert.So(EscapedLength(`"\x27"`), should.Equal, 11)
+	a := assert.Error(t)
+	a.So(EscapedLength(`""`), should.Equal, 6)
+	a.So(EscapedLength(`"abc"`), should.Equal, 9)
+	a.So(EscapedLength(`"aaa\"aaa"`), should.Equal, 16)
+	a.So(EscapedLength(`"\x27"`), should.Equal, 11)
 }
 
 func Test8(t *testing.T) {
@@ -49,9 +49,9 @@ func Test8(t *testing.T) {
 		escaped += EscapedLength(line)
 	}
 
-	assert := assertions.New(t)
-	assert.So(code-memory, should.Equal, 1350)
-	assert.So(escaped-code, should.Equal, 2085)
+	a := assert.Error(t)
+	a.So(code-memory, should.Equal, 1350)
+	a.So(escaped-code, should.Equal, 2085)
 	//t.Log("Code - Memory:", code-memory)
 	//t.Log("Escaped - Code:", escaped - code)
 }

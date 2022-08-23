@@ -3,16 +3,16 @@ package advent
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestFixture(t *testing.T) {
-	gunit.Run(new(Fixture), t)
+	suite.Run(&Fixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Fixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Fixture) Setup() {

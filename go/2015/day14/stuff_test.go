@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestReindeerFixture(t *testing.T) {
-	gunit.Run(new(ReindeerFixture), t)
+	suite.Run(&ReindeerFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type ReindeerFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	simulator *Simulator
 	comet     Reindeer
@@ -21,7 +21,7 @@ type ReindeerFixture struct {
 
 func (this *ReindeerFixture) TestParseReindeerLine() {
 	reindeer := ParseReindeer("Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.")
-	this.So(reindeer, should.Resemble, Reindeer{
+	this.So(reindeer, should.Equal, Reindeer{
 		Name:     "Comet",
 		Velocity: 14,
 		Sustain:  10,

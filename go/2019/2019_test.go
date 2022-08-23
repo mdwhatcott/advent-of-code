@@ -3,6 +3,8 @@ package advent
 import (
 	"testing"
 
+	"github.com/mdwhatcott/testing/suite"
+
 	day01 "advent/2019/day01"
 	day02 "advent/2019/day02"
 	day03 "advent/2019/day03"
@@ -29,16 +31,15 @@ import (
 	day24 "advent/2019/day24"
 	day25 "advent/2019/day25"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestFixture2019(t *testing.T) {
-	gunit.Run(new(Fixture2019), t)
+	suite.Run(&Fixture2019{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Fixture2019 struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Fixture2019) LongTestDay01() {
@@ -74,8 +75,8 @@ func (this *Fixture2019) LongTestDay08() {
 	this.So(day08.Part2(), should.Equal, "YGRYZ")
 }
 func (this *Fixture2019) LongTestDay09() {
-	this.So(day09.Part1(), should.Resemble, []int{3742852857})
-	this.So(day09.Part2(), should.Resemble, []int{73439})
+	this.So(day09.Part1(), should.Equal, []int{3742852857})
+	this.So(day09.Part2(), should.Equal, []int{73439})
 }
 func (this *Fixture2019) LongTestDay10() {
 	this.So(day10.Part1(), should.Equal, 253)

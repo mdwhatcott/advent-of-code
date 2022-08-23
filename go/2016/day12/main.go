@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/2016/util/assembunny"
 	"advent/lib/util"
@@ -12,10 +12,10 @@ import (
 
 func main() {
 	fmt.Println(`Part 1 - Value of 'a':`,
-		assert.So(part1(), should.Equal, 318077).Fatal())
+		assert.So(part1(), should.Equal, 318077))
 
 	fmt.Println(`Part 2 - Value of 'a' (when 'c' starts at 1):`,
-		assert.So(part2(), should.Equal, 9227731).Fatal())
+		assert.So(part2(), should.Equal, 9227731))
 }
 
 func part1() int {

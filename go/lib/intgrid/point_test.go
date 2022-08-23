@@ -3,16 +3,16 @@ package intgrid
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestPointFixture(t *testing.T) {
-	gunit.Run(new(PointFixture), t)
+	suite.Run(&PointFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type PointFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *PointFixture) TestXY() {
@@ -26,22 +26,22 @@ func (this *PointFixture) TestString() {
 }
 
 func (this *PointFixture) TestOffset() {
-	this.So(Point{0, 0}.Offset(42, -123), should.Resemble, NewPoint(42, -123))
+	this.So(Point{0, 0}.Offset(42, -123), should.Equal, NewPoint(42, -123))
 }
 
 func (this *PointFixture) TestNeighbors4() {
 	center := NewPoint(0, 0)
 	eight := center.Neighbors8()
 
-	this.So(eight[:4], should.Resemble, center.Neighbors4())
+	this.So(eight[:4], should.Equal, center.Neighbors4())
 
-	this.So(eight[0], should.Resemble, Point{x: 0 + 1, y: 0 + 0}) // right
-	this.So(eight[1], should.Resemble, Point{x: 0 - 1, y: 0 + 0}) // left
-	this.So(eight[2], should.Resemble, Point{x: 0 + 0, y: 0 + 1}) // top
-	this.So(eight[3], should.Resemble, Point{x: 0 + 0, y: 0 - 1}) // bottom
+	this.So(eight[0], should.Equal, Point{x: 0 + 1, y: 0 + 0}) // right
+	this.So(eight[1], should.Equal, Point{x: 0 - 1, y: 0 + 0}) // left
+	this.So(eight[2], should.Equal, Point{x: 0 + 0, y: 0 + 1}) // top
+	this.So(eight[3], should.Equal, Point{x: 0 + 0, y: 0 - 1}) // bottom
 
-	this.So(eight[4], should.Resemble, Point{x: 0 + 1, y: 0 + 1}) // top-right
-	this.So(eight[5], should.Resemble, Point{x: 0 - 1, y: 0 + 1}) // top-left
-	this.So(eight[6], should.Resemble, Point{x: 0 + 1, y: 0 - 1}) // bottom-right
-	this.So(eight[7], should.Resemble, Point{x: 0 - 1, y: 0 - 1}) // bottom-left
+	this.So(eight[4], should.Equal, Point{x: 0 + 1, y: 0 + 1}) // top-right
+	this.So(eight[5], should.Equal, Point{x: 0 - 1, y: 0 + 1}) // top-left
+	this.So(eight[6], should.Equal, Point{x: 0 + 1, y: 0 - 1}) // bottom-right
+	this.So(eight[7], should.Equal, Point{x: 0 - 1, y: 0 - 1}) // bottom-left
 }

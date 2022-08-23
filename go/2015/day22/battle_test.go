@@ -4,16 +4,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBattleFixture(t *testing.T) {
-	gunit.Run(new(BattleFixture), t)
+	suite.Run(&BattleFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type BattleFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *BattleFixture) Test_Example1() {
@@ -103,7 +103,7 @@ func (this *BattleFixture) Test_Example2() {
 	}
 
 	for t, turn := range turns {
-		this.Println("Turn:", t)
+		this.T.Log("Turn:", t)
 		var log string
 		battle, log = battle.TakeTurn(turn.Attack)
 		log = strings.ReplaceAll(log, "\n", " | ")

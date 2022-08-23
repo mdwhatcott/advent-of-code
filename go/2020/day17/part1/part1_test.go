@@ -3,16 +3,16 @@ package part1
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestConwayFixture(t *testing.T) {
-	gunit.Run(new(ConwayFixture), t)
+	suite.Run(&ConwayFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type ConwayFixture struct {
-	*gunit.Fixture
+	*suite.T
 	world World
 }
 
@@ -30,7 +30,7 @@ func (this *ConwayFixture) AssertActive(expected int) {
 }
 func (this *ConwayFixture) TestParseInitialWorld() {
 	world := ParseInitialWorld(".#.\n..#\n###")
-	this.So(world, should.Resemble, this.world)
+	this.So(world, should.Equal, this.world)
 }
 func (this *ConwayFixture) TestNeighbors3d() {
 	unique := make(map[P]struct{})

@@ -3,18 +3,18 @@ package day11
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/grid"
 )
 
 func TestSummedAreaTableFixture(t *testing.T) {
-	gunit.Run(new(SummedAreaTableFixture), t)
+	suite.Run(&SummedAreaTableFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type SummedAreaTableFixture struct {
-	*gunit.Fixture
+	*suite.T
 	source map[grid.Point]int
 	table  SummedAreaTable
 }
@@ -29,7 +29,7 @@ func (this *SummedAreaTableFixture) Setup() {
 }
 
 func (this *SummedAreaTableFixture) TestCalculateAllSums() {
-	this.So(this.table, should.Resemble, SummedAreaTable{
+	this.So(this.table, should.Equal, SummedAreaTable{
 		grid.NewPoint(0, 0): 1, grid.NewPoint(1, 0): 2, grid.NewPoint(2, 0): 3,
 		grid.NewPoint(0, 1): 2, grid.NewPoint(1, 1): 4, grid.NewPoint(2, 1): 6,
 		grid.NewPoint(0, 2): 3, grid.NewPoint(1, 2): 6, grid.NewPoint(2, 2): 9,

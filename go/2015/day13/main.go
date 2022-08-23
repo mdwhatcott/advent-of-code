@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
 )

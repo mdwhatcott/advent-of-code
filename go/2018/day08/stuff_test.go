@@ -4,18 +4,19 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/testing/suite"
+
 	"advent/lib/util"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestStuffFixture(t *testing.T) {
-	gunit.Run(new(StuffFixture), t)
+	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 const toy = `2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2`

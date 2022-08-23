@@ -3,18 +3,18 @@ package day22
 import (
 	"testing"
 
-	"advent/lib/grid"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"advent/lib/grid"
 )
 
 func TestStuff(t *testing.T) {
-	gunit.Run(new(Stuff), t)
+	suite.Run(&Stuff{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Stuff struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Stuff) Setup() {
@@ -22,23 +22,23 @@ func (this *Stuff) Setup() {
 
 func (this *Stuff) TestTheWormStartsInTheMiddleAndFacesUp() {
 	virus := NewVirus("..#\n#..\n...")
-	this.So(virus.Current(), should.Resemble, grid.NewPoint(1, 1))
-	this.So(virus.facing, should.Resemble, grid.Up)
+	this.So(virus.Current(), should.Equal, grid.NewPoint(1, 1))
+	this.So(virus.facing, should.Equal, grid.Up)
 }
 
 func (this *Stuff) TestWhenCurrentNodeAlreadyInfected_TurnRightAndLeavesClean() {
 	virus := NewVirus("...\n.#.\n...")
-	this.So(virus.Current(), should.Resemble, grid.NewPoint(1, 1))
+	this.So(virus.Current(), should.Equal, grid.NewPoint(1, 1))
 	virus.Move()
-	this.So(virus.Current(), should.Resemble, grid.NewPoint(2, 1))
+	this.So(virus.Current(), should.Equal, grid.NewPoint(2, 1))
 	this.So(virus.state[grid.NewPoint(1, 1)], should.BeFalse)
 }
 
 func (this *Stuff) TestWhenCurrentNodeClean_TurnLeftAndLeavesInfected() {
 	virus := NewVirus("..#\n...\n...")
-	this.So(virus.Current(), should.Resemble, grid.NewPoint(1, 1))
+	this.So(virus.Current(), should.Equal, grid.NewPoint(1, 1))
 	virus.Move()
-	this.So(virus.Current(), should.Resemble, grid.NewPoint(0, 1))
+	this.So(virus.Current(), should.Equal, grid.NewPoint(0, 1))
 	this.So(virus.state[grid.NewPoint(1, 1)], should.BeTrue)
 }
 

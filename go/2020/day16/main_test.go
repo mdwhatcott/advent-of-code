@@ -4,45 +4,45 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestParseFieldDefinition(t *testing.T) {
 	parsed := ParseFieldDefinition("departure location: 25-568 or 594-957")
 
-	assert := assertions.New(t)
-	assert.So(parsed.Name, should.Equal, "departure location")
-	assert.So(parsed.AllWithinRange(25, 100, 568, 594, 799, 957), should.BeTrue)
-	assert.So(parsed.WithinRange(24), should.BeFalse)
+	a := assert.Error(t)
+	a.So(parsed.Name, should.Equal, "departure location")
+	a.So(parsed.AllWithinRange(25, 100, 568, 594, 799, 957), should.BeTrue)
+	a.So(parsed.WithinRange(24), should.BeFalse)
 }
 
 func TestParseAllFieldDefinitions(t *testing.T) {
 	all := ParseAllFieldDefinitions(exampleInput1)
-	assert := assertions.New(t)
-	assert.So(len(all), should.Equal, 3)
-	assert.So(all[0].Name, should.Equal, "class")
+	a := assert.Error(t)
+	a.So(len(all), should.Equal, 3)
+	a.So(all[0].Name, should.Equal, "class")
 }
 
 func TestParseAllTickets(t *testing.T) {
 	all := ParseAllTickets(exampleInput1)
-	assert := assertions.New(t)
-	assert.So(len(all), should.Equal, 5)
-	assert.So(all[0], should.Resemble, []int{7, 1, 14})
-	assert.So(all[1], should.Resemble, []int{7, 3, 47})
+	a := assert.Error(t)
+	a.So(len(all), should.Equal, 5)
+	a.So(all[0], should.Equal, []int{7, 1, 14})
+	a.So(all[1], should.Equal, []int{7, 3, 47})
 }
 
 func TestCalculateErrorRate(t *testing.T) {
 	rate := CalculateErrorRate(ParseAllFieldDefinitions(exampleInput1), ParseAllTickets(exampleInput1))
-	assertions.New(t).So(rate, should.Equal, 71)
+	assert.Error(t).So(rate, should.Equal, 71)
 }
 
 func TestFilterValid(t *testing.T) {
 	valid := FilterValidTickets(ParseAllFieldDefinitions(exampleInput1), ParseAllTickets(exampleInput1))
-	assertions.New(t).So(len(valid), should.Equal, 2) // your ticket and one of the nearby tickets
+	assert.Error(t).So(len(valid), should.Equal, 2) // your ticket and one of the nearby tickets
 
 	valid2 := FilterValidTickets(ParseAllFieldDefinitions(exampleInput2), ParseAllTickets(exampleInput2))
-	assertions.New(t).So(len(valid2), should.Equal, 4) // your ticket and one of the nearby tickets
+	assert.Error(t).So(len(valid2), should.Equal, 4) // your ticket and one of the nearby tickets
 }
 
 var exampleInput1 = strings.TrimSpace(`
@@ -78,7 +78,7 @@ func TestCandidateFields(t *testing.T) {
 	definitions := ParseAllFieldDefinitions(exampleInput1)
 	tickets := FilterValidTickets(definitions, ParseAllTickets(exampleInput1))
 	placements := IdentifyFieldPlacementCandidates(definitions, tickets)
-	assertions.New(t).So(placements, should.Resemble, map[string][]int{
+	assert.Error(t).So(placements, should.Equal, map[string][]int{
 		"class": {0, 1},
 		"row":   {0},
 		"seat":  {2},
@@ -92,7 +92,7 @@ func TestFinalizeFieldPlacements(t *testing.T) {
 		"seat":  {2},
 	}
 	finalized := FinalizeFieldPlacements(candidates)
-	assertions.New(t).So(finalized, should.Resemble, map[string]int{
+	assert.Error(t).So(finalized, should.Equal, map[string]int{
 		"class": 1,
 		"row":   0,
 		"seat":  2,
@@ -107,5 +107,5 @@ func TestCalculateDepartureProduct(t *testing.T) {
 	finalized["departure row"] = finalized["row"]
 	finalized["departure seat"] = finalized["seat"]
 	product := CalculateDepartureProduct(finalized, tickets[0])
-	assertions.New(t).So(product, should.Equal, 11*13)
+	assert.Error(t).So(product, should.Equal, 11*13)
 }

@@ -1,18 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"testing"
+
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
-	"github.com/smartystreets/assertions/assert"
-	"github.com/smartystreets/assertions/should"
 )
 
-func main() {
+func Test(t *testing.T) {
 	input := util.InputString()
-	fmt.Println(assert.So(part1(input), should.Equal, 156366))
-	fmt.Println(assert.So(part2(input), should.Equal, 96852))
+	assert.Error(t).So(part1(input), should.Equal, 156366)
+	assert.Error(t).So(part2(input), should.Equal, 96852)
 }
 
 func part1(input string) (sum int) {

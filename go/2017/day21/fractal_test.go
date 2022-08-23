@@ -3,28 +3,28 @@ package day21
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuff(t *testing.T) {
-	gunit.Run(new(Stuff), t)
+	suite.Run(&Stuff{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type Stuff struct {
-	*gunit.Fixture
+	*suite.T
 }
 
 func (this *Stuff) Test2x2PatternRotation() {
-	this.So(Transformations("../.."), should.Resemble, []string{
+	this.So(Transformations("../.."), should.Equal, []string{
 		"../..",
 	})
-	this.So(Transformations("#./.#"), should.Resemble, []string{
+	this.So(Transformations("#./.#"), should.Equal, []string{
 		"#./.#",
 		".#/#.",
 	})
-	this.So(Transformations("##/##"), should.Resemble, []string{"##/##"})
-	this.So(Transformations("12/34"), should.Resemble, []string{
+	this.So(Transformations("##/##"), should.Equal, []string{"##/##"})
+	this.So(Transformations("12/34"), should.Equal, []string{
 		"12/34",
 		"31/42",
 		"43/21",
@@ -37,10 +37,10 @@ func (this *Stuff) Test2x2PatternRotation() {
 }
 
 func (this *Stuff) Test3x3PatternRotation() {
-	this.So(Transformations(".../.../..."), should.Resemble, []string{
+	this.So(Transformations(".../.../..."), should.Equal, []string{
 		".../.../...",
 	})
-	this.So(Transformations("123/456/789"), should.Resemble, []string{
+	this.So(Transformations("123/456/789"), should.Equal, []string{
 		"123/456/789",
 		"741/852/963",
 		"987/654/321",
@@ -56,20 +56,20 @@ func (this *Stuff) TestPatternTransformations() {
 	transformer := RegisterEnhancementRules(".#./..#/### => #..#/..../..../#..#")
 
 	this.So(func() { transformer.Enhance("not found") }, should.Panic)
-	this.So(transformer.Enhance(".#./..#/###"), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance("#../#.#/##."), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance("###/#../.#."), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance(".##/#.#/..#"), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance("###/..#/.#."), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance("..#/#.#/.##"), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance(".#./#../###"), should.Resemble, "#..#/..../..../#..#")
-	this.So(transformer.Enhance("##./#.#/#.."), should.Resemble, "#..#/..../..../#..#")
+	this.So(transformer.Enhance(".#./..#/###"), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance("#../#.#/##."), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance("###/#../.#."), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance(".##/#.#/..#"), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance("###/..#/.#."), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance("..#/#.#/.##"), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance(".#./#../###"), should.Equal, "#..#/..../..../#..#")
+	this.So(transformer.Enhance("##./#.#/#.."), should.Equal, "#..#/..../..../#..#")
 }
 
 func (this *Stuff) TestSplittingOfGridIntoPatterns() {
-	this.So(SplitPatterns("../.."), should.Resemble, []string{"../.."})
-	this.So(SplitPatterns(".../.../..."), should.Resemble, []string{".../.../..."})
-	this.So(SplitPatterns("##../##../..##/..##"), should.Resemble,
+	this.So(SplitPatterns("../.."), should.Equal, []string{"../.."})
+	this.So(SplitPatterns(".../.../..."), should.Equal, []string{".../.../..."})
+	this.So(SplitPatterns("##../##../..##/..##"), should.Equal,
 		[]string{"##/##", "../..", "../..", "##/##"})
 	this.So(SplitPatterns(""+
 		"....#./"+
@@ -78,7 +78,7 @@ func (this *Stuff) TestSplittingOfGridIntoPatterns() {
 		".....#/"+
 		"###.#./"+
 		"...#..",
-	), should.Resemble, []string{
+	), should.Equal, []string{
 		"../.#",
 		"../..",
 		"#./#.",
@@ -100,7 +100,7 @@ func (this *Stuff) TestReassemblePatternsIntoGrid() {
 		"2222/2222/2222/2222",
 		"3333/3333/3333/3333",
 		"4444/4444/4444/4444",
-	), should.Resemble, "11112222\n11112222\n11112222\n11112222\n33334444\n33334444\n33334444\n33334444\n")
+	), should.Equal, "11112222\n11112222\n11112222\n11112222\n33334444\n33334444\n33334444\n33334444\n")
 }
 
 func (this *Stuff) TestExampleRules() {

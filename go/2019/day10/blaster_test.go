@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBlasterFixture(t *testing.T) {
-	gunit.Run(new(BlasterFixture), t)
+	suite.Run(&BlasterFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type BlasterFixture struct {
-	*gunit.Fixture
+	*suite.T
 	field   AsteroidField
 	blaster *Blaster
 }

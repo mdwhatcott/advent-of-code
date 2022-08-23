@@ -5,26 +5,26 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/smartystreets/assertions"
-	"github.com/smartystreets/assertions/should"
+	"github.com/mdwhatcott/testing/assert"
+	"github.com/mdwhatcott/testing/should"
 )
 
 func Test2_ParseDimensions(t *testing.T) {
-	assert := assertions.New(t)
+	T := assert.Error(t)
 	l, h, w := parseDimensions("1x2x3")
-	assert.So([]int{l, h, w}, should.Resemble, []int{1, 2, 3})
+	T.So([]int{l, h, w}, should.Equal, []int{1, 2, 3})
 }
 
 func Test2_HowMuchPaper(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(howMuchPaper(2, 3, 4), should.Equal, 58)
-	assert.So(howMuchPaper(1, 1, 10), should.Equal, 43)
+	T := assert.Error(t)
+	T.So(howMuchPaper(2, 3, 4), should.Equal, 58)
+	T.So(howMuchPaper(1, 1, 10), should.Equal, 43)
 }
 
 func Test2_HowMuchRibbon(t *testing.T) {
-	assert := assertions.New(t)
-	assert.So(howMuchRibbon(2, 3, 4), should.Equal, 34)
-	assert.So(howMuchRibbon(1, 1, 10), should.Equal, 14)
+	T := assert.Error(t)
+	T.So(howMuchRibbon(2, 3, 4), should.Equal, 34)
+	T.So(howMuchRibbon(1, 1, 10), should.Equal, 14)
 }
 
 func Test2_Answer1(t *testing.T) {
@@ -37,8 +37,8 @@ func Test2_Answer1(t *testing.T) {
 		paper += howMuchPaper(l, h, w)
 		ribbon += howMuchRibbon(l, h, w)
 	}
-	assertions.New(t).So(paper, should.Equal, 1606483)
-	assertions.New(t).So(ribbon, should.Equal, 3842356)
+	assert.Error(t).So(paper, should.Equal, 1606483)
+	assert.Error(t).So(ribbon, should.Equal, 3842356)
 	//t.Logf("How much wrapping paper? %d\n", paper)
 	//t.Logf("How much ribbon? %d", ribbon)
 }

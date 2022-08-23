@@ -3,16 +3,16 @@ package main
 import (
 	"testing"
 
-	"github.com/smartystreets/assertions/should"
-	"github.com/smartystreets/gunit"
+	"github.com/mdwhatcott/testing/should"
+	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestTurtleFixture(t *testing.T) {
-	gunit.Run(new(TurtleFixture), t)
+	suite.Run(&TurtleFixture{T: suite.New(t)}, suite.Options.UnitTests())
 }
 
 type TurtleFixture struct {
-	*gunit.Fixture
+	*suite.T
 
 	turtle *Turtle
 }
@@ -52,7 +52,7 @@ func (this *TurtleFixture) Test4_MultiDigitSteps() {
 
 func (this *TurtleFixture) Test_DistanceToFirstPointVisitedTwice() {
 	this.turtle.Follow("R8")
-	this.So(this.turtle.PositionFirstVisitedTwice(), should.BeBlank)
+	this.So(this.turtle.PositionFirstVisitedTwice(), should.Equal, "")
 
 	this.turtle.FollowAll("R4, R4, R8")
 	this.So(this.turtle.PositionFirstVisitedTwice(), should.Equal, "4,0")
