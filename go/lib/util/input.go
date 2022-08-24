@@ -2,8 +2,8 @@ package util
 
 import (
 	"bytes"
-	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -25,7 +25,7 @@ func InputBytes() []byte {
 	}
 	dir := filepath.Dir(file)
 	input := filepath.Join(dir, "input.txt")
-	content, err := ioutil.ReadFile(input)
+	content, err := os.ReadFile(input)
 	if err != nil {
 		log.Panic(err)
 	}
