@@ -4,7 +4,7 @@ import "github.com/mdwhatcott/go-collections/stack"
 
 // https://runestone.academy/runestone/books/published/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 
-func ParseShuntingYard(precedence map[rune]int, input string) []rune {
+func ParseShuntingYard(precedence map[rune]int, input string) string {
 	ops := stack.New[rune](0)
 	result := stack.New[rune](0)
 	for _, c := range input {
@@ -30,22 +30,22 @@ func ParseShuntingYard(precedence map[rune]int, input string) []rune {
 	for ops.Len() > 0 {
 		result.Push(ops.Pop())
 	}
-	return result.Slice()
+	return string(result.Slice())
 }
 
 func EvalPostfix(postfix string) (result int) {
-	operands := stack.New[int](0)
+	s := stack.New[int](0)
 	for _, c := range postfix {
 		switch c {
 		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-			operands.Push(number(c))
+			s.Push(number(c))
 		case '+':
-			operands.Push(operands.Pop() + operands.Pop())
+			s.Push(s.Pop() + s.Pop())
 		case '*':
-			operands.Push(operands.Pop() * operands.Pop())
+			s.Push(s.Pop() * s.Pop())
 		}
 	}
-	return operands.Pop()
+	return s.Pop()
 }
 
 func number(r rune) int {

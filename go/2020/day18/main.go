@@ -8,16 +8,17 @@ var (
 )
 
 func Part1() int {
-	return solve(part1Precedence, util.InputLines())
+	return solve(part1Precedence, util.InputLines(), 0)
 }
 
 func Part2() int {
-	return solve(part2Precedence, util.InputLines())
+	return solve(part2Precedence, util.InputLines(), 0)
 }
 
-func solve(precedence map[rune]int, lines []string) (sum int) {
-	for _, line := range lines {
-		sum += EvalPostfix(string(ParseShuntingYard(precedence, line)))
+func solve(precedence map[rune]int, lines []string, sum int) int {
+	if len(lines) == 0 {
+		return sum
 	}
-	return sum
+	sum += EvalPostfix(ParseShuntingYard(precedence, lines[0]))
+	return solve(precedence, lines[1:], sum)
 }
