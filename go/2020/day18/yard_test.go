@@ -44,12 +44,17 @@ func (this *ShuntingYardSuite) TestShuntingYard() {
 func (this *ShuntingYardSuite) TestEvalPostfix() {
 	this.So(EvalPostfix("34+"), should.Equal, 7)
 	this.So(EvalPostfix("56+7*8+"), should.Equal, 85)
+	this.So(EvalPostfix("795+55+6**72+4+2++*9+"), should.Equal, 5994)
 }
 
 func (this *ShuntingYardSuite) TestPart1() {
 	this.So(this.part1("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, 71)
 	this.So(this.part1("1 + (2 * 3) + (4 * (5 + 6))"), should.Equal, 51)
 	this.So(this.part1("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"), should.Equal, 13632)
+	this.So(Part1(), should.Equal, 6923486965641)
+}
 
+func (this *ShuntingYardSuite) TestPart2() {
 	this.So(this.part2("1 + 2 * 3 + 4 * 5 + 6"), should.Equal, 231)
+	this.So(Part2(), should.Equal, 70722650566361)
 }
