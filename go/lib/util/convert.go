@@ -1,8 +1,8 @@
 package util
 
 import (
+	"fmt"
 	"strconv"
-	"strings"
 )
 
 func ParseFloat(value string) float64 {
@@ -22,8 +22,7 @@ func ParseInts(values []string) (ints []int) {
 	return ints
 }
 
-// See: https://en.wikipedia.org/wiki/Hamming_weight
-func BinaryHammingWeight(value int) (count int) {
+func BinaryHammingWeight(value int) (count int) { // See: https://en.wikipedia.org/wiki/Hamming_weight
 	for count = 0; value > 0; count++ {
 		value &= value - 1
 	}
@@ -31,9 +30,5 @@ func BinaryHammingWeight(value int) (count int) {
 }
 
 func EncodeBinary(value byte) string {
-	var buffer = make([]string, 8)
-	for i := 0; i < 8; i++ {
-		buffer[7-i] = strconv.Itoa((int(value) >> uint(i)) & 1)
-	}
-	return strings.Join(buffer, "")
+	return fmt.Sprintf("%08b", value)
 }

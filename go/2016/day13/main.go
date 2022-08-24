@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 
+	"advent/lib/intgrid"
 	"advent/lib/util"
 )
 
 func main() {
-	queue := NewLocationQueue()
-	fmt.Println("Distance to (31,39):", BreadthFirstSearch(queue, util.InputInt(), 31, 39))
-	fmt.Println("Locations within 50 moves:", queue.close)
+	target := intgrid.NewPoint(31, 39)
+	distance, near := BreadthFirstSearch(util.InputInt(), target)
+	fmt.Println("Distance to (31,39):", distance)
+	fmt.Println("Queue within 50 moves:", near)
 }
