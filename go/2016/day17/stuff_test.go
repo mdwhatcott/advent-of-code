@@ -7,6 +7,8 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 	"github.com/mdwhatcott/testing/suite"
+
+	"advent/lib/util"
 )
 
 func TestDoorHashMazeFixture(t *testing.T) {
@@ -35,7 +37,6 @@ func (this *DoorHashMazeFixture) TestOpenDoors() {
 		NewLocation(1, 1, "DU"),
 		NewLocation(2, 2, "DR"),
 	})
-
 }
 
 func (this *DoorHashMazeFixture) assertResult(passcode string, shortPath string, longDistance int) {
@@ -47,4 +48,9 @@ func (this *DoorHashMazeFixture) TestCases() {
 	this.assertResult("ihgpwlah", "DDRRRD", 370)
 	this.assertResult("kglvqrro", "DDUDRLRRUDRD", 492)
 	this.assertResult("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR", 830)
+}
+func (this *DoorHashMazeFixture) TestSolve() {
+	shortestPath, longestDistance := Navigate(util.InputString())
+	this.So(shortestPath, should.Equal, "RLRDRDUDDR")
+	this.So(longestDistance, should.Equal, 420)
 }
