@@ -11,6 +11,8 @@ func TestBinaryHammingWeight(t *testing.T) {
 	a := assert.Error(t)
 	a.So(BinaryHammingWeight(0), should.Equal, 0)
 	a.So(BinaryHammingWeight(1), should.Equal, 1)
+	a.So(BinaryHammingWeight(2), should.Equal, 1)
+	a.So(BinaryHammingWeight(3), should.Equal, 2)
 	a.So(BinaryHammingWeight(255), should.Equal, 8)
 }
 
