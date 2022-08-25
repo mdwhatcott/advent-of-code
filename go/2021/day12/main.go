@@ -6,14 +6,14 @@ import (
 	"advent/lib/util"
 )
 
-func Part1(lines util.Strings) (result int) { return CountPaths(lines, true) }
-func Part2(lines util.Strings) (result int) { return CountPaths(lines, false) }
+func Part1(lines util.Slice[string]) (result int) { return CountPaths(lines, true) }
+func Part2(lines util.Slice[string]) (result int) { return CountPaths(lines, false) }
 
-func CountPaths(lines util.Strings, twice bool) (result int) {
-	paths := make(chan util.Strings)
+func CountPaths(lines util.Slice[string], twice bool) (result int) {
+	paths := make(chan util.Slice[string])
 	go func() {
 		graph := parseInput(lines)
-		graph.YieldPaths(paths, util.Strings{"start"}, twice)
+		graph.YieldPaths(paths, util.Slice[string]{"start"}, twice)
 		close(paths)
 	}()
 	for range paths {
@@ -22,9 +22,9 @@ func CountPaths(lines util.Strings, twice bool) (result int) {
 	return result
 }
 
-type Graph map[string]util.Strings
+type Graph map[string]util.Slice[string]
 
-func parseInput(lines util.Strings) (result Graph) {
+func parseInput(lines util.Slice[string]) (result Graph) {
 	result = make(Graph)
 	for _, line := range lines {
 		parts := strings.Split(line, "-")
@@ -34,7 +34,7 @@ func parseInput(lines util.Strings) (result Graph) {
 	return result
 }
 
-func (this Graph) YieldPaths(results chan util.Strings, path util.Strings, twice bool) {
+func (this Graph) YieldPaths(results chan util.Slice[string], path util.Slice[string], twice bool) {
 	// Inspiration: https://github.com/fogleman/AdventOfCode2021/blob/main/12.py
 	last := path[len(path)-1]
 	if last == "end" {

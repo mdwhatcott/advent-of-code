@@ -15,6 +15,10 @@ type CompareSuite struct {
 	*suite.T
 }
 
+func (this *CompareSuite) TestSum() {
+	this.So(Sum(3, 2, 1), should.Equal, 6)
+}
+
 func (this *CompareSuite) TestMin() {
 	this.So(Min(3, 2, 1), should.Equal, 1)
 	this.So(Min(3, -1, 2, 1), should.Equal, -1)

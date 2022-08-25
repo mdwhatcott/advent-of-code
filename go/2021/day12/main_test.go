@@ -15,7 +15,7 @@ func TestDay12Suite(t *testing.T) {
 
 type Day12Suite struct {
 	*suite.T
-	lines util.Strings
+	lines util.Slice[string]
 }
 
 func (this *Day12Suite) Setup() {

@@ -4,7 +4,7 @@ import "advent/lib/util"
 
 func RootValue(node Node) (sum int) {
 	if len(node.Children) == 0 {
-		return util.Ints(node.Metadata).Sum()
+		return util.Sum[int](node.Metadata...)
 	}
 	for _, meta := range node.Metadata {
 		if 1 <= meta && meta <= len(node.Children) {
@@ -15,7 +15,7 @@ func RootValue(node Node) (sum int) {
 }
 
 func SumMetadata(node Node) (sum int) {
-	sum += util.Ints(node.Metadata).Sum()
+	sum += util.Sum[int](node.Metadata...)
 	for _, child := range node.Children {
 		sum += SumMetadata(child)
 	}
@@ -39,14 +39,14 @@ type Node struct {
 
 // See: https://www.michaelfogleman.com/aoc18/#8
 func ParseTree(source chan int) (node Node) {
-	num_children := <-source
-	num_metadata := <-source
+	numChildren := <-source
+	numMetadata := <-source
 
-	for x := 0; x < num_children; x++ {
+	for x := 0; x < numChildren; x++ {
 		node.Children = append(node.Children, ParseTree(source))
 	}
 
-	for x := 0; x < num_metadata; x++ {
+	for x := 0; x < numMetadata; x++ {
 		node.Metadata = append(node.Metadata, <-source)
 	}
 

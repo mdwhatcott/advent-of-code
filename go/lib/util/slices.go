@@ -1,10 +1,10 @@
 package util
 
-// TODO: generics?
+import "advent/lib/constraints"
 
-type Strings []string
+type Slice[T constraints.Ordered] []T
 
-func (haystack Strings) Index(needle string) int {
+func (haystack Slice[T]) Index(needle T) int {
 	for i, straw := range haystack {
 		if straw == needle {
 			return i
@@ -13,7 +13,7 @@ func (haystack Strings) Index(needle string) int {
 	return -1
 }
 
-func (haystack Strings) Count(needle string) (result int) {
+func (haystack Slice[T]) Count(needle T) (result int) {
 	for _, straw := range haystack {
 		if straw == needle {
 			result++
@@ -22,13 +22,14 @@ func (haystack Strings) Count(needle string) (result int) {
 	return result
 }
 
-func (haystack Strings) Contains(needle string) bool {
+func (haystack Slice[T]) Contains(needle T) bool {
 	return haystack.Index(needle) > -1
 }
 
-func (haystack Strings) Min() (min string) {
+func (haystack Slice[T]) Min() (min T) {
+	var zero T
 	if len(haystack) == 0 {
-		return ""
+		return zero
 	}
 	min = haystack[0]
 	for _, value := range haystack {
@@ -39,85 +40,26 @@ func (haystack Strings) Min() (min string) {
 	return min
 }
 
-func (this Strings) Unpack1() string {
+func (this Slice[T]) Unpack1() T {
 	return this.Get(0)
 }
-func (this Strings) Unpack2() (string, string) {
+func (this Slice[T]) Unpack2() (T, T) {
 	return this.Get(0), this.Get(1)
 }
-func (this Strings) Unpack3() (string, string, string) {
+func (this Slice[T]) Unpack3() (T, T, T) {
 	return this.Get(0), this.Get(1), this.Get(2)
 }
-func (this Strings) Unpack4() (string, string, string, string) {
+func (this Slice[T]) Unpack4() (T, T, T, T) {
 	return this.Get(0), this.Get(1), this.Get(2), this.Get(3)
 }
-func (this Strings) Unpack5() (string, string, string, string, string) {
+func (this Slice[T]) Unpack5() (T, T, T, T, T) {
 	return this.Get(0), this.Get(1), this.Get(2), this.Get(3), this.Get(4)
 }
-func (this Strings) Get(index int) string {
+func (this Slice[T]) Get(index int) T {
 	if len(this) > 0 && index < len(this) {
 		return this[index]
 	} else {
-		return ""
-	}
-}
-
-//////////////////////////////////////////////////////////
-
-type Ints []int
-
-func (this Ints) Index(needle int) int {
-	for i, straw := range this {
-		if straw == needle {
-			return i
-		}
-	}
-	return -1
-}
-
-func (this Ints) Contains(needle int) bool {
-	return this.Index(needle) > -1
-}
-
-func (haystack Ints) Count(needle int) (result int) {
-	for _, straw := range haystack {
-		if straw == needle {
-			result++
-		}
-	}
-	return result
-}
-
-func (this Ints) Min() (min int) {
-	return Min(this...)
-}
-
-func (this Ints) Sum() (sum int) {
-	for _, value := range this {
-		sum += value
-	}
-	return sum
-}
-
-func (this Ints) Unpack1() int {
-	return this.Get(0)
-}
-func (this Ints) Unpack2() (int, int) {
-	return this.Get(0), this.Get(1)
-}
-func (this Ints) Unpack3() (int, int, int) {
-	return this.Get(0), this.Get(1), this.Get(2)
-}
-func (this Ints) Unpack4() (int, int, int, int) {
-	return this.Get(0), this.Get(1), this.Get(2), this.Get(3)
-}
-func (this Ints) Unpack5() (int, int, int, int, int) {
-	return this.Get(0), this.Get(1), this.Get(2), this.Get(3), this.Get(4)
-}
-func (this Ints) Get(index int) int {
-	if len(this) > 0 && index < len(this) {
-		return this[index]
-	} else {
-		return 0
+		var zero T
+		return zero
 	}
 }

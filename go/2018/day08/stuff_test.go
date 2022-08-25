@@ -4,11 +4,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/testing/should"
 	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/util"
-
-	"github.com/mdwhatcott/testing/should"
 )
 
 func TestStuffFixture(t *testing.T) {
