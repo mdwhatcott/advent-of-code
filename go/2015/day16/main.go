@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/mdwhatcott/testing/assert"
@@ -25,8 +24,8 @@ func main() {
 		"perfumes":    1,
 	}
 
-	fmt.Println(assert.So(part1(candidates, search), should.Equal, 213))
-	fmt.Println(assert.So(part2(candidates, search), should.Equal, 323))
+	assert.So(nil, part1(candidates, search), should.Equal, 213)
+	assert.So(nil, part2(candidates, search), should.Equal, 323)
 }
 
 func gatherCandidates() (candidates []AuntSue) {

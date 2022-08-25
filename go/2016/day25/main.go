@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Print("Lowest starting value for 'a' that results in 0,1,0,1,0,1... ")
-	fmt.Println(assert.So(part1(), should.Equal, 158))
+	assert.So(nil, part1(), should.Equal, 158)
 }
 
 func part1() int {

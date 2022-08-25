@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"strings"
 
 	"github.com/mdwhatcott/testing/assert"
@@ -13,10 +12,10 @@ import (
 
 func main() {
 	people := ParseRelations(util.InputScanner().Scanner)
-	fmt.Println(assert.So(ComputeHappiestArrangement(people...), should.Equal, 733))
+	assert.So(nil, ComputeHappiestArrangement(people...), should.Equal, 733)
 
 	people = append(people, NewPerson("Me"))
-	fmt.Println(assert.So(ComputeHappiestArrangement(people...), should.Equal, 725))
+	assert.So(nil, ComputeHappiestArrangement(people...), should.Equal, 725)
 }
 
 func ParseRelations(scanner *bufio.Scanner) (people []*Person) {

@@ -11,11 +11,11 @@ import (
 )
 
 func main() {
-	fmt.Println(`Part 1 - Value of 'a':`,
-		assert.So(part1(), should.Equal, 318077))
+	fmt.Println(`Part 1 - Value of 'a':`)
+	assert.So(nil, part1(), should.Equal, 318077)
 
-	fmt.Println(`Part 2 - Value of 'a' (when 'c' starts at 1):`,
-		assert.So(part2(), should.Equal, 9227731))
+	fmt.Println(`Part 2 - Value of 'a' (when 'c' starts at 1):`)
+	assert.So(nil, part2(), should.Equal, 9227731)
 }
 
 func part1() int {
