@@ -34,15 +34,15 @@ func TestParseAllTickets(t *testing.T) {
 
 func TestCalculateErrorRate(t *testing.T) {
 	rate := CalculateErrorRate(ParseAllFieldDefinitions(exampleInput1), ParseAllTickets(exampleInput1))
-	assert.Error(t).So(rate, should.Equal, 71)
+	assert.So(t, rate, should.Equal, 71)
 }
 
 func TestFilterValid(t *testing.T) {
 	valid := FilterValidTickets(ParseAllFieldDefinitions(exampleInput1), ParseAllTickets(exampleInput1))
-	assert.Error(t).So(len(valid), should.Equal, 2) // your ticket and one of the nearby tickets
+	assert.So(t, len(valid), should.Equal, 2) // your ticket and one of the nearby tickets
 
 	valid2 := FilterValidTickets(ParseAllFieldDefinitions(exampleInput2), ParseAllTickets(exampleInput2))
-	assert.Error(t).So(len(valid2), should.Equal, 4) // your ticket and one of the nearby tickets
+	assert.So(t, len(valid2), should.Equal, 4) // your ticket and one of the nearby tickets
 }
 
 var exampleInput1 = strings.TrimSpace(`
@@ -78,7 +78,7 @@ func TestCandidateFields(t *testing.T) {
 	definitions := ParseAllFieldDefinitions(exampleInput1)
 	tickets := FilterValidTickets(definitions, ParseAllTickets(exampleInput1))
 	placements := IdentifyFieldPlacementCandidates(definitions, tickets)
-	assert.Error(t).So(placements, should.Equal, map[string][]int{
+	assert.So(t, placements, should.Equal, map[string][]int{
 		"class": {0, 1},
 		"row":   {0},
 		"seat":  {2},
@@ -92,7 +92,7 @@ func TestFinalizeFieldPlacements(t *testing.T) {
 		"seat":  {2},
 	}
 	finalized := FinalizeFieldPlacements(candidates)
-	assert.Error(t).So(finalized, should.Equal, map[string]int{
+	assert.So(t, finalized, should.Equal, map[string]int{
 		"class": 1,
 		"row":   0,
 		"seat":  2,
@@ -107,5 +107,5 @@ func TestCalculateDepartureProduct(t *testing.T) {
 	finalized["departure row"] = finalized["row"]
 	finalized["departure seat"] = finalized["seat"]
 	product := CalculateDepartureProduct(finalized, tickets[0])
-	assert.Error(t).So(product, should.Equal, 11*13)
+	assert.So(t, product, should.Equal, 11*13)
 }

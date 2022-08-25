@@ -11,8 +11,8 @@ import (
 )
 
 func Test(t *testing.T) {
-	assert.Error(t).So(part1(), should.Equal, 814)
-	assert.Error(t).So(part2(), should.Equal, 924)
+	assert.So(t, part1(), should.Equal, 814)
+	assert.So(t, part2(), should.Equal, 924)
 }
 
 func part1() int {

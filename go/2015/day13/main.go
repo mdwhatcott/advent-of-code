@@ -12,10 +12,10 @@ import (
 
 func main() {
 	people := ParseRelations(util.InputScanner().Scanner)
-	assert.So(nil, ComputeHappiestArrangement(people...), should.Equal, 733)
+	assert.So(t, nil, ComputeHappiestArrangement(people...), should.Equal, 733)
 
 	people = append(people, NewPerson("Me"))
-	assert.So(nil, ComputeHappiestArrangement(people...), should.Equal, 725)
+	assert.So(t, nil, ComputeHappiestArrangement(people...), should.Equal, 725)
 }
 
 func ParseRelations(scanner *bufio.Scanner) (people []*Person) {

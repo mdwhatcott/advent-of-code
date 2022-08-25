@@ -11,8 +11,8 @@ import (
 
 func TestDay01Suite(t *testing.T) {
 	in := util.InputInts("\n")
-	assert.Error(t).So(Part1(in), should.Equal, 1688)
-	assert.Error(t).So(Part2(in), should.Equal, 1728)
+	assert.So(t, Part1(in), should.Equal, 1688)
+	assert.So(t, Part2(in), should.Equal, 1728)
 }
 
 func Part1(depths []int) (result int) {

@@ -30,31 +30,29 @@ const (
 )
 
 func TestParse(t *testing.T) {
-	assert.Error(t).So(
+	assert.So(t,
 		Parse(strings.NewReader(hex2bit(example1A))),
 		should.Equal,
 		Packet{Version: 6, Type: 4, Value: 2021})
 }
 func TestPart1(t *testing.T) {
-	T := assert.Error(t)
-	T.So(Part1(example1A), should.Equal, 6)
-	T.So(Part1(example1AA), should.Equal, 9)
-	T.So(Part1(example1AAA), should.Equal, 14)
-	T.So(Part1(example1B), should.Equal, 16)
-	T.So(Part1(example1C), should.Equal, 12)
-	T.So(Part1(example1D), should.Equal, 23)
-	T.So(Part1(example1E), should.Equal, 31)
-	T.So(Part1(util.InputString()), should.Equal, 927)
+	assert.So(t, Part1(example1A), should.Equal, 6)
+	assert.So(t, Part1(example1AA), should.Equal, 9)
+	assert.So(t, Part1(example1AAA), should.Equal, 14)
+	assert.So(t, Part1(example1B), should.Equal, 16)
+	assert.So(t, Part1(example1C), should.Equal, 12)
+	assert.So(t, Part1(example1D), should.Equal, 23)
+	assert.So(t, Part1(example1E), should.Equal, 31)
+	assert.So(t, Part1(util.InputString()), should.Equal, 927)
 }
 func TestPart2(t *testing.T) {
-	T := assert.Error(t)
-	T.So(Part2(example2a), should.Equal, 3)
-	T.So(Part2(example2b), should.Equal, 54)
-	T.So(Part2(example2c), should.Equal, 7)
-	T.So(Part2(example2d), should.Equal, 9)
-	T.So(Part2(example2e), should.Equal, 1)
-	T.So(Part2(example2f), should.Equal, 0)
-	T.So(Part2(example2g), should.Equal, 0)
-	T.So(Part2(example2h), should.Equal, 1)
-	T.So(Part2(util.InputString()), should.Equal, 1725277876501)
+	assert.So(t, Part2(example2a), should.Equal, 3)
+	assert.So(t, Part2(example2b), should.Equal, 54)
+	assert.So(t, Part2(example2c), should.Equal, 7)
+	assert.So(t, Part2(example2d), should.Equal, 9)
+	assert.So(t, Part2(example2e), should.Equal, 1)
+	assert.So(t, Part2(example2f), should.Equal, 0)
+	assert.So(t, Part2(example2g), should.Equal, 0)
+	assert.So(t, Part2(example2h), should.Equal, 1)
+	assert.So(t, Part2(util.InputString()), should.Equal, 1725277876501)
 }

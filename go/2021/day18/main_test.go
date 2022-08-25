@@ -10,57 +10,48 @@ import (
 )
 
 func TestParseTree(t *testing.T) {
-	T := assert.Error(t)
 	raw := "[[[[1,2],[3,4]],[[5,6],[7,8]]],9]"
 	tree := ParseTree(raw)
-	T.So(tree.Left.Left.Left.Right.Value, should.Equal, 2)
-	T.So(tree.Left.Left.Left.Right.Next.Value, should.Equal, 3)
-	T.So(tree.String(), should.Equal, raw)
+	assert.So(t, tree.Left.Left.Left.Right.Value, should.Equal, 2)
+	assert.So(t, tree.Left.Left.Left.Right.Next.Value, should.Equal, 3)
+	assert.So(t, tree.String(), should.Equal, raw)
 }
 func TestExplode(t *testing.T) {
-	T := assert.Error(t)
 	raw := "[[[[[9,8],1],2],3],4]"
 	tree := ParseTree(raw)
 	Process(tree)
-	T.So(tree.String(), should.Equal, "[[[[0,9],2],3],4]")
+	assert.So(t, tree.String(), should.Equal, "[[[[0,9],2],3],4]")
 }
 func TestSplit(t *testing.T) {
-	T := assert.Error(t)
 	raw := "[[[[0,7],4],[[7,8],[0,13]]],[1,1]]"
 	tree := ParseTree(raw)
 	Process(tree)
-	T.So(tree.String(), should.Equal, "[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]")
+	assert.So(t, tree.String(), should.Equal, "[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]")
 }
 func TestAdd(t *testing.T) {
-	T := assert.Error(t)
 	a := ParseTree("[[[[4,3],4],4],[7,[[8,4],9]]]")
 	b := ParseTree("[1,1]")
 	c := Add(a, b)
-	T.So(c.String(), should.Equal, "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
+	assert.So(t, c.String(), should.Equal, "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
 }
 func TestReduce(t *testing.T) {
-	T := assert.Error(t)
 	a := ParseTree("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
 	b := Reduce(a)
-	T.So(b.String(), should.Equal, "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]")
+	assert.So(t, b.String(), should.Equal, "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]")
 }
 func TestSum1(t *testing.T) {
-	T := assert.Error(t)
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]"})
-	T.So(node.String(), should.Equal, "[[[[1,1],[2,2]],[3,3]],[4,4]]")
+	assert.So(t, node.String(), should.Equal, "[[[[1,1],[2,2]],[3,3]],[4,4]]")
 }
 func TestSum2(t *testing.T) {
-	T := assert.Error(t)
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]", "[5,5]"})
-	T.So(node.String(), should.Equal, "[[[[3,0],[5,3]],[4,4]],[5,5]]")
+	assert.So(t, node.String(), should.Equal, "[[[[3,0],[5,3]],[4,4]],[5,5]]")
 }
 func TestSum3(t *testing.T) {
-	T := assert.Error(t)
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]", "[5,5]", "[6,6]"})
-	T.So(node.String(), should.Equal, "[[[[5,0],[7,4]],[5,5]],[6,6]]")
+	assert.So(t, node.String(), should.Equal, "[[[[5,0],[7,4]],[5,5]],[6,6]]")
 }
 func TestSum4(t *testing.T) {
-	T := assert.Error(t)
 	node := Sum([]string{
 		"[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]",
 		"[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]",
@@ -73,16 +64,14 @@ func TestSum4(t *testing.T) {
 		"[[[5,[7,4]],7],1]",
 		"[[[[4,2],2],6],[8,7]]",
 	})
-	T.So(node.String(), should.Equal, "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]")
+	assert.So(t, node.String(), should.Equal, "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]")
 }
 func TestMagnitude(t *testing.T) {
-	T := assert.Error(t)
-	T.So(ParseTree("[[1,2],[[3,4],5]]").Magnitude(), should.Equal, 143)
-	T.So(ParseTree("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").Magnitude(), should.Equal, 1384)
-	T.So(ParseTree("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").Magnitude(), should.Equal, 3488)
+	assert.So(t, ParseTree("[[1,2],[[3,4],5]]").Magnitude(), should.Equal, 143)
+	assert.So(t, ParseTree("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").Magnitude(), should.Equal, 1384)
+	assert.So(t, ParseTree("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").Magnitude(), should.Equal, 3488)
 }
 func TestSolveSum(t *testing.T) {
-	T := assert.Error(t)
 	sum := Sum([]string{
 		"[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]",
 		"[[[5,[2,8]],4],[5,[[9,9],0]]]",
@@ -95,15 +84,13 @@ func TestSolveSum(t *testing.T) {
 		"[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]",
 		"[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]",
 	})
-	T.So(sum.Magnitude(), should.Equal, 4140)
+	assert.So(t, sum.Magnitude(), should.Equal, 4140)
 }
 func TestPart1(t *testing.T) {
-	T := assert.Error(t)
-	T.So(Sum(util.InputLines()).Magnitude(), should.Equal, 3691)
+	assert.So(t, Sum(util.InputLines()).Magnitude(), should.Equal, 3691)
 }
 func TestMaxSumPair(t *testing.T) {
-	T := assert.Error(t)
-	T.So(MaxSumPair([]string{
+	assert.So(t, MaxSumPair([]string{
 		"[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]",
 		"[[[5,[2,8]],4],[5,[[9,9],0]]]",
 		"[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]",
@@ -117,6 +104,5 @@ func TestMaxSumPair(t *testing.T) {
 	}), should.Equal, 3993)
 }
 func TestPart2(t *testing.T) {
-	T := assert.Error(t)
-	T.So(MaxSumPair(util.InputLines()), should.Equal, 4756)
+	assert.So(t, MaxSumPair(util.InputLines()), should.Equal, 4756)
 }

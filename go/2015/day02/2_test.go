@@ -10,21 +10,18 @@ import (
 )
 
 func Test2_ParseDimensions(t *testing.T) {
-	T := assert.Error(t)
 	l, h, w := parseDimensions("1x2x3")
-	T.So([]int{l, h, w}, should.Equal, []int{1, 2, 3})
+	assert.So(t, []int{l, h, w}, should.Equal, []int{1, 2, 3})
 }
 
 func Test2_HowMuchPaper(t *testing.T) {
-	T := assert.Error(t)
-	T.So(howMuchPaper(2, 3, 4), should.Equal, 58)
-	T.So(howMuchPaper(1, 1, 10), should.Equal, 43)
+	assert.So(t, howMuchPaper(2, 3, 4), should.Equal, 58)
+	assert.So(t, howMuchPaper(1, 1, 10), should.Equal, 43)
 }
 
 func Test2_HowMuchRibbon(t *testing.T) {
-	T := assert.Error(t)
-	T.So(howMuchRibbon(2, 3, 4), should.Equal, 34)
-	T.So(howMuchRibbon(1, 1, 10), should.Equal, 14)
+	assert.So(t, howMuchRibbon(2, 3, 4), should.Equal, 34)
+	assert.So(t, howMuchRibbon(1, 1, 10), should.Equal, 14)
 }
 
 func Test2_Answer1(t *testing.T) {
@@ -37,8 +34,8 @@ func Test2_Answer1(t *testing.T) {
 		paper += howMuchPaper(l, h, w)
 		ribbon += howMuchRibbon(l, h, w)
 	}
-	assert.Error(t).So(paper, should.Equal, 1606483)
-	assert.Error(t).So(ribbon, should.Equal, 3842356)
+	assert.So(t, paper, should.Equal, 1606483)
+	assert.So(t, ribbon, should.Equal, 3842356)
 	//t.Logf("How much wrapping paper? %d\n", paper)
 	//t.Logf("How much ribbon? %d", ribbon)
 }

@@ -17,16 +17,16 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("Ending position:")
-	assert.So(nil, turtle.Position(), should.Equal, "-126,165")
+	assert.So(t, nil, turtle.Position(), should.Equal, "-126,165")
 
 	fmt.Println("Distance to ending position:")
-	assert.So(nil, turtle.TaxiDistanceToEndingLocation(), should.Equal, 291)
+	assert.So(t, nil, turtle.TaxiDistanceToEndingLocation(), should.Equal, 291)
 
 	fmt.Println()
 	fmt.Println("Position first visited twice:")
-	assert.So(nil, turtle.PositionFirstVisitedTwice(), should.Equal, "16,143")
+	assert.So(t, nil, turtle.PositionFirstVisitedTwice(), should.Equal, "16,143")
 
 	fmt.Println("Distance to position first visited twice:")
-	assert.So(nil, turtle.TaxiDistanceToLocationFirstVisitedTwice(), should.Equal, 159)
+	assert.So(t, nil, turtle.TaxiDistanceToLocationFirstVisitedTwice(), should.Equal, 159)
 
 }

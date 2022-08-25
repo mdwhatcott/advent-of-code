@@ -13,12 +13,12 @@ func Test4_Sanity(t *testing.T) {
 	input := []byte("abcdef609043")
 	hash := md5.New()
 	hash.Write(input)
-	assert.Error(t).So(hex.EncodeToString(hash.Sum(nil)), should.Equal, "000001dbbfa3a5c83a2d506429c7b00e")
+	assert.So(t, hex.EncodeToString(hash.Sum(nil)), should.Equal, "000001dbbfa3a5c83a2d506429c7b00e")
 	//t.Log(hex.EncodeToString(hash.Sum(nil)))
 }
 
 func Test4_Examples(t *testing.T) {
-	assert.Error(t).So(smallestWithZeroPrefix("abcdef", 5), should.Equal, 609043)
+	assert.So(t, smallestWithZeroPrefix("abcdef", 5), should.Equal, 609043)
 }
 
 func Test4_Answer(t *testing.T) {

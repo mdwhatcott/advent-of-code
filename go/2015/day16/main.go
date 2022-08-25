@@ -24,8 +24,8 @@ func main() {
 		"perfumes":    1,
 	}
 
-	assert.So(nil, part1(candidates, search), should.Equal, 213)
-	assert.So(nil, part2(candidates, search), should.Equal, 323)
+	assert.So(t, nil, part1(candidates, search), should.Equal, 213)
+	assert.So(t, nil, part2(candidates, search), should.Equal, 323)
 }
 
 func gatherCandidates() (candidates []AuntSue) {

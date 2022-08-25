@@ -9,9 +9,10 @@ import (
 )
 
 func BreadthFirstSearch(maze int, target intgrid.Point) (distance, near int) {
-	seen := set.New[intgrid.Point](0)
 	q := queue.New[Step](0)
-	q.Enqueue(Step{Point: intgrid.NewPoint(1, 1), Distance: 0})
+	origin := intgrid.NewPoint(1, 1)
+	q.Enqueue(Step{Point: origin, Distance: 0})
+	seen := set.From[intgrid.Point]()
 
 	for !q.Empty() {
 		current := q.Dequeue()

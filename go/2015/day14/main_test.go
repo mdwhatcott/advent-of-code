@@ -11,8 +11,8 @@ import (
 )
 
 func Test(t *testing.T) {
-	assert.Error(t).So(part1(), should.Equal, 2696)
-	assert.Error(t).So(part2(), should.Equal, 1084)
+	assert.So(t, part1(), should.Equal, 2696)
+	assert.So(t, part2(), should.Equal, 1084)
 }
 
 func part1() int { return max(runSimulation().distances) }

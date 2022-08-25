@@ -12,10 +12,10 @@ import (
 
 func main() {
 	fmt.Println("Part 1: Bot travelled:")
-	assert.So(nil, part1(), should.Equal, 460)
+	assert.So(t, nil, part1(), should.Equal, 460)
 
 	fmt.Println("Part 2: To return, bot travelled:")
-	assert.So(nil, part2(), should.Equal, 668)
+	assert.So(t, nil, part2(), should.Equal, 668)
 }
 
 func part1() int {

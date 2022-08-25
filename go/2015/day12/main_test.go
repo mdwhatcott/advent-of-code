@@ -12,8 +12,8 @@ import (
 
 func Test(t *testing.T) {
 	input := util.InputString()
-	assert.Error(t).So(part1(input), should.Equal, 156366)
-	assert.Error(t).So(part2(input), should.Equal, 96852)
+	assert.So(t, part1(input), should.Equal, 156366)
+	assert.So(t, part2(input), should.Equal, 96852)
 }
 
 func part1(input string) (sum int) {

@@ -30,10 +30,10 @@ func main() {
 	}
 
 	fmt.Println("Part 1 - number of combinations adding up to 150:")
-	assert.So(nil, sumValues(containersUsed), should.Equal, 4372)
+	assert.So(t, nil, sumValues(containersUsed), should.Equal, 4372)
 
 	fmt.Println("Part 2 - number of minimum container combinations:")
-	assert.So(nil, minKey(containersUsed), should.Equal, 4)
+	assert.So(t, nil, minKey(containersUsed), should.Equal, 4)
 }
 
 func sum(values []int) (total int) {

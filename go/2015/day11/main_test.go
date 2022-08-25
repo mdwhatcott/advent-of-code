@@ -14,6 +14,6 @@ func Test(t *testing.T) {
 	v2 := Increment(v1)
 	v3 := Increment(v2)
 
-	assert.Error(t).So(v2, should.Equal, "cqjxxyzz")
-	assert.Error(t).So(v3, should.Equal, "cqkaabcc")
+	assert.So(t, v2, should.Equal, "cqjxxyzz")
+	assert.So(t, v3, should.Equal, "cqkaabcc")
 }

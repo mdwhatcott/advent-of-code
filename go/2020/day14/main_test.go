@@ -19,7 +19,7 @@ func TestApplyMask(t *testing.T) {
 
 func TestPart1(t *testing.T) {
 	result := part1(bufio.NewScanner(strings.NewReader(example1)))
-	assert.Error(t).So(result, should.Equal, 165)
+	assert.So(t, result, should.Equal, 165)
 }
 
 const example1 = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
@@ -31,7 +31,7 @@ func TestPermuteFloatingBits(t *testing.T) {
 	values := PermuteFloatingBits(
 		"000000000000000000000000000000X1101X",
 	)
-	assert.Error(t).So(values, should.Equal, []string{
+	assert.So(t, values, should.Equal, []string{
 		"000000000000000000000000000000011010",
 		"000000000000000000000000000000011011",
 		"000000000000000000000000000000111010",
@@ -46,5 +46,5 @@ mem[26] = 1`
 
 func TestPart2(t *testing.T) {
 	result := part2(bufio.NewScanner(strings.NewReader(example2)))
-	assert.Error(t).So(result, should.Equal, 208)
+	assert.So(t, result, should.Equal, 208)
 }

@@ -13,10 +13,10 @@ import (
 func Test(t *testing.T) {
 	max, max500Calories := ComputeUltimateCookie(100, parseIngredients()...)
 	t.Log("Part 1 (the ultimate cookie)")
-	assert.Error(t).So(max, should.Equal, 21367368)
+	assert.So(t, max, should.Equal, 21367368)
 
 	t.Log("Part 2 (the meal replacement)")
-	assert.Error(t).So(max500Calories, should.Equal, 1766400)
+	assert.So(t, max500Calories, should.Equal, 1766400)
 }
 
 func parseIngredients() (ingredients Ingredients) {
