@@ -40,7 +40,7 @@ type Step struct {
 func neighbors(maze int, l Step) (results []Step) {
 	distance := l.Distance + 1
 	for _, neighbor := range l.Point.Neighbors4() {
-		if neighbor.X() >= 0 && neighbor.Y() >= 0 && isHallway(maze, neighbor) {
+		if isHallway(maze, neighbor) {
 			results = append(results, Step{Point: neighbor, Distance: distance})
 		}
 	}
@@ -48,6 +48,9 @@ func neighbors(maze int, l Step) (results []Step) {
 }
 func isHallway(maze int, point intgrid.Point) bool {
 	x, y := point.X(), point.Y()
+	if x < 0 || y < 0 {
+		return false
+	}
 	sum := x*x + 3*x + 2*x*y + y + y*y + maze
 	bits := util.BinaryHammingWeight(sum)
 	return bits%2 == 0
