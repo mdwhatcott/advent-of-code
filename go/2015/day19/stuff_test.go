@@ -16,14 +16,14 @@ type ReplacementFixture struct {
 	*suite.T
 }
 
-func (this *ReplacementFixture) SkipTestReplacement_H_to_OH() {
+func (this *ReplacementFixture) TestReplacement_H_to_OH() {
 	machine := NewMoleculeMachine()
 	machine.RegisterReplacement("H => OH")
 	results := machine.Calibrate("HOH")
 	this.So(results, should.Equal, []string{"OHOH", "HOOH"})
 }
 
-func (this *ReplacementFixture) SkipTestReplacement_H_to_HO() {
+func (this *ReplacementFixture) TestReplacement_H_to_HO() {
 	machine := NewMoleculeMachine()
 	machine.RegisterReplacement("H => HO")
 	results := machine.Calibrate("HOH")

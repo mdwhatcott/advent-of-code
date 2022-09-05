@@ -1,7 +1,5 @@
 github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129 h1:gfAMKE626QEuKG3si0pdTRcr/YEbBoxY+3GOH3gWvl4=
 github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129/go.mod h1:u9UyCz2eTrSGy6fbupqJ54eY5c4IC8gREQ1053dK12U=
-github.com/ferhatelmas/levenshtein v0.0.0-20160518143259-a12aecc52d76 h1:R2K7yLHPmwoTdmNuQ5Wfm0/evh/+QFdoI6EbW3OSMKw=
-github.com/ferhatelmas/levenshtein v0.0.0-20160518143259-a12aecc52d76/go.mod h1:jr1MMO0KsDD+PQ57K7oJGk97TLYtbhLUOjCS577Ddm4=
 github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde h1:+5PMaaQtDUwOcJIUlmX89P0J3iwTvErTmyn5WghzXAQ=
 github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde/go.mod h1:RDgD/dfPmIwFH0qdUOjw71HjtWg56CtyLIoHL+R1wJw=
 github.com/mdwhatcott/go-collections v0.6.0 h1:hX+UX/D4u81+J7CtQZFRO/Y7b1QuA8fk1UClW/DqS44=

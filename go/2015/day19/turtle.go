@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/ferhatelmas/levenshtein"
-
 	"advent/lib/astar"
+	"advent/lib/util"
 )
 
 type MoleculeSearch struct {
@@ -15,7 +14,7 @@ type MoleculeSearch struct {
 }
 
 func (this *MoleculeSearch) EstimatedDistanceToTarget() float64 {
-	distance := float64(levenshtein.Dist(this.goal, this.current))
+	distance := float64(util.Levenshtein(this.goal, this.current))
 	fmt.Printf("distance from %s: %0.f\n", this.current, distance)
 	return distance
 }
