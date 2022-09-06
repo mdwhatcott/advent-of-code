@@ -30,15 +30,14 @@ import (
 	day25 "advent/2020/day25"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestFixture2020(t *testing.T) {
-	suite.Run(&Fixture2020{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Fixture2020{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Fixture2020 struct {
-	*suite.T
+	*should.T
 }
 
 func (this *Fixture2020) LongTestDay01() {

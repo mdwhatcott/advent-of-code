@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestTurtleFixture(t *testing.T) {
-	suite.Run(&TurtleFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&TurtleFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type TurtleFixture struct {
-	*suite.T
+	*should.T
 
 	turtle *Turtle
 }

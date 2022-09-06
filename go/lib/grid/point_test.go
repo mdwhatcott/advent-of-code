@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestPointFixture(t *testing.T) {
-	suite.Run(&PointFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&PointFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type PointFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *PointFixture) TestXY() {

@@ -24,7 +24,7 @@ func Test7A(t *testing.T) {
 
 func Test7(t *testing.T) {
 	circuit := NewRecursiveCircuit(input7)
-	assert.So(t, circuit.SolveFor("a"), should.Equal, 3176)
+	should.So(t, circuit.SolveFor("a"), should.Equal, 3176)
 	//t.Log("Signal on the 'a' wire:", circuit.SolveFor("a"))
 }
 
@@ -35,7 +35,7 @@ func Test7_Part2(t *testing.T) {
 	circuit := NewRecursiveCircuit(input7)
 	circuit.instructions["b"] = []string{override}
 
-	assert.So(t, circuit.SolveFor("a"), should.Equal, 14710)
+	should.So(t, circuit.SolveFor("a"), should.Equal, 14710)
 	//t.Log("Updated signal on the 'a' wire:", circuit.SolveFor("a"))
 }
 

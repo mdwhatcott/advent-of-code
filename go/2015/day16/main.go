@@ -3,7 +3,6 @@ package main
 import (
 	"strings"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -24,8 +23,8 @@ func main() {
 		"perfumes":    1,
 	}
 
-	assert.So(t, nil, part1(candidates, search), should.Equal, 213)
-	assert.So(t, nil, part2(candidates, search), should.Equal, 323)
+	should.So(nil, part1(candidates, search), should.Equal, 213)
+	should.So(nil, part2(candidates, search), should.Equal, 323)
 }
 
 func gatherCandidates() (candidates []AuntSue) {

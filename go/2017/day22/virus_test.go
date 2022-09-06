@@ -4,17 +4,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/grid"
 )
 
 func TestStuff(t *testing.T) {
-	suite.Run(&Stuff{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Stuff{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Stuff struct {
-	*suite.T
+	*should.T
 }
 
 func (this *Stuff) Setup() {

@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBoxSuite(t *testing.T) {
-	suite.Run(&BoxSuite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&BoxSuite{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type BoxSuite struct {
-	*suite.T
+	*should.T
 }
 
 func (this *BoxSuite) Test() {

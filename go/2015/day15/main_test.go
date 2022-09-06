@@ -4,7 +4,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -13,10 +12,10 @@ import (
 func Test(t *testing.T) {
 	max, max500Calories := ComputeUltimateCookie(100, parseIngredients()...)
 	t.Log("Part 1 (the ultimate cookie)")
-	assert.So(t, max, should.Equal, 21367368)
+	should.So(t, max, should.Equal, 21367368)
 
 	t.Log("Part 2 (the meal replacement)")
-	assert.So(t, max500Calories, should.Equal, 1766400)
+	should.So(t, max500Calories, should.Equal, 1766400)
 }
 
 func parseIngredients() (ingredients Ingredients) {

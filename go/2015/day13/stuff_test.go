@@ -6,15 +6,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRoundTableFixture(t *testing.T) {
-	suite.Run(&RoundTableFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&RoundTableFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type RoundTableFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *RoundTableFixture) TestManualRegistrationOfRelations() {

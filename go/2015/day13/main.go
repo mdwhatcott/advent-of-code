@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"strings"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -12,10 +11,10 @@ import (
 
 func main() {
 	people := ParseRelations(util.InputScanner().Scanner)
-	assert.So(t, nil, ComputeHappiestArrangement(people...), should.Equal, 733)
+	should.So(nil, ComputeHappiestArrangement(people...), should.Equal, 733)
 
 	people = append(people, NewPerson("Me"))
-	assert.So(t, nil, ComputeHappiestArrangement(people...), should.Equal, 725)
+	should.So(nil, ComputeHappiestArrangement(people...), should.Equal, 725)
 }
 
 func ParseRelations(scanner *bufio.Scanner) (people []*Person) {

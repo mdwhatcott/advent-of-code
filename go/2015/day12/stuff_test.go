@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestJSONAbacusFixture(t *testing.T) {
-	suite.Run(&JSONAbacusFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&JSONAbacusFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type JSONAbacusFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *JSONAbacusFixture) TestPart1() {

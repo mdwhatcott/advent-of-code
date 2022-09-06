@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/2016/util/assembunny"
@@ -12,7 +11,7 @@ import (
 
 func main() {
 	fmt.Print("Lowest starting value for 'a' that results in 0,1,0,1,0,1... ")
-	assert.So(t, nil, part1(), should.Equal, 158)
+	should.So(nil, part1(), should.Equal, 158)
 }
 
 func part1() int {

@@ -4,17 +4,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/util"
 )
 
 func TestDay12Suite(t *testing.T) {
-	suite.Run(&Day12Suite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Day12Suite{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Day12Suite struct {
-	*suite.T
+	*should.T
 	lines util.Slice[string]
 }
 

@@ -4,17 +4,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/intgrid"
 )
 
 func TestDay17Suite(t *testing.T) {
-	suite.Run(&Day17Suite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Day17Suite{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Day17Suite struct {
-	*suite.T
+	*should.T
 	start       string
 	conversions []string
 }

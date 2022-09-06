@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRPGFixture(t *testing.T) {
-	suite.Run(&RPGFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&RPGFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type RPGFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *RPGFixture) TestFight() {

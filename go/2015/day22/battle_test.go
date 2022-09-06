@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBattleFixture(t *testing.T) {
-	suite.Run(&BattleFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&BattleFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type BattleFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *BattleFixture) Test_Example1() {

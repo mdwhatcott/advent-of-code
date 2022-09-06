@@ -6,17 +6,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/util"
 )
 
 func TestDoorHashMazeFixture(t *testing.T) {
-	suite.Run(&DoorHashMazeFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&DoorHashMazeFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type DoorHashMazeFixture struct {
-	*suite.T
+	*should.T
 	hasher   hash.Hash
 	passcode string
 }

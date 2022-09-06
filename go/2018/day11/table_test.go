@@ -4,17 +4,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/grid"
 )
 
 func TestSummedAreaTableFixture(t *testing.T) {
-	suite.Run(&SummedAreaTableFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&SummedAreaTableFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type SummedAreaTableFixture struct {
-	*suite.T
+	*should.T
 	source map[grid.Point]int
 	table  SummedAreaTable
 }

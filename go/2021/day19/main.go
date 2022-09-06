@@ -28,3 +28,17 @@ func ParseScannerReports(reports string) (results [][]Point) {
 	}
 	return append(results, beacon)
 }
+
+func AreOverlapping(group1 []Point, group2 []Point) bool {
+	return false // TODO
+	//g2 := set.From[Point](group2...)
+	//for x := 0; x < 24; x++ {
+	//	g1 := set.From[Point](RotateAll(x, group1...)...)
+	//	for p1 := range g1 {
+	//		for _, p2 := range group2 {
+	//			diff := Diff(p1, p2)
+	//
+	//		}
+	//	}
+	//}
+}

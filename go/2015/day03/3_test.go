@@ -3,7 +3,6 @@ package advent
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 )
 
@@ -13,7 +12,7 @@ func Test3(t *testing.T) {
 	for _, c := range input3 {
 		turtle.Move(c)
 	}
-	assert.So(t, len(visits), should.Equal, 2572)
+	should.So(t, len(visits), should.Equal, 2572)
 	//t.Log("How many houses receive at least one present?", len(visits))
 }
 
@@ -28,7 +27,7 @@ func Test3_RoboSanta(t *testing.T) {
 			robot.Move(c)
 		}
 	}
-	assert.So(t, len(visits), should.Equal, 2631)
+	should.So(t, len(visits), should.Equal, 2631)
 	//t.Log("How many houses receive at least one present?", len(visits))
 }
 

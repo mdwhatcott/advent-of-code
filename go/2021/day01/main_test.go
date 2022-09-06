@@ -3,7 +3,6 @@ package day01
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -11,8 +10,8 @@ import (
 
 func TestDay01Suite(t *testing.T) {
 	in := util.InputInts("\n")
-	assert.So(t, Part1(in), should.Equal, 1688)
-	assert.So(t, Part2(in), should.Equal, 1728)
+	should.So(t, Part1(in), should.Equal, 1688)
+	should.So(t, Part2(in), should.Equal, 1728)
 }
 
 func Part1(depths []int) (result int) {

@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestOneTimePadFixture(t *testing.T) {
-	suite.Run(&OneTimePadFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&OneTimePadFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type OneTimePadFixture struct {
-	*suite.T
+	*should.T
 	generator *Generator
 }
 

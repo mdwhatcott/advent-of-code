@@ -4,14 +4,13 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestShuntingYardSuite(t *testing.T) {
-	suite.Run(&ShuntingYardSuite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ShuntingYardSuite{T: should.New(t)}, should.Options.UnitTests())
 }
 
-type ShuntingYardSuite struct{ *suite.T }
+type ShuntingYardSuite struct{ *should.T }
 
 func (this *ShuntingYardSuite) parse1(input string) string {
 	return ParseShuntingYard(part1Precedence, input)

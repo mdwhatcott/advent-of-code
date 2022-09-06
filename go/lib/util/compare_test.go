@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestCompareSuite(t *testing.T) {
-	suite.Run(&CompareSuite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&CompareSuite{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type CompareSuite struct {
-	*suite.T
+	*should.T
 }
 
 func (this *CompareSuite) TestSum() {

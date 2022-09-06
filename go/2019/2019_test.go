@@ -3,8 +3,6 @@ package advent
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/suite"
-
 	day01 "advent/2019/day01"
 	day02 "advent/2019/day02"
 	day03 "advent/2019/day03"
@@ -35,11 +33,11 @@ import (
 )
 
 func TestFixture2019(t *testing.T) {
-	suite.Run(&Fixture2019{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Fixture2019{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Fixture2019 struct {
-	*suite.T
+	*should.T
 }
 
 func (this *Fixture2019) LongTestDay01() {

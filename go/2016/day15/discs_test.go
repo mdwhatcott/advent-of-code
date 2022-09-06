@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestDiscs(t *testing.T) {
-	suite.Run(&Discs{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Discs{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Discs struct {
-	*suite.T
+	*should.T
 }
 
 func (this *Discs) Setup() {

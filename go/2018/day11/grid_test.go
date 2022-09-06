@@ -4,17 +4,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/grid"
 )
 
 func TestGrid2Fixture(t *testing.T) {
-	suite.Run(&Grid2Fixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Grid2Fixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Grid2Fixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *Grid2Fixture) TestExampleSerialNumber_18() {

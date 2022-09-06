@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -30,10 +29,10 @@ func main() {
 	}
 
 	fmt.Println("Part 1 - number of combinations adding up to 150:")
-	assert.So(t, nil, sumValues(containersUsed), should.Equal, 4372)
+	should.So(nil, sumValues(containersUsed), should.Equal, 4372)
 
 	fmt.Println("Part 2 - number of minimum container combinations:")
-	assert.So(t, nil, minKey(containersUsed), should.Equal, 4)
+	should.So(nil, minKey(containersUsed), should.Equal, 4)
 }
 
 func sum(values []int) (total int) {

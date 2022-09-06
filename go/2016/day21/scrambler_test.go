@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestScramblerFixture(t *testing.T) {
-	suite.Run(&ScramblerFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ScramblerFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type ScramblerFixture struct {
-	*suite.T
+	*should.T
 	scrambler *Scrambler
 }
 

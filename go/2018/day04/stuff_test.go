@@ -5,11 +5,10 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestStuffFixture(t *testing.T) {
-	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&StuffFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 const toy = `[1518-11-01 00:00] Guard #10 begins shift
@@ -31,7 +30,7 @@ const toy = `[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-05 00:55] wakes up`
 
 type StuffFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *StuffFixture) TestToy() {

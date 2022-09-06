@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestReindeerFixture(t *testing.T) {
-	suite.Run(&ReindeerFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ReindeerFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type ReindeerFixture struct {
-	*suite.T
+	*should.T
 
 	simulator *Simulator
 	comet     Reindeer

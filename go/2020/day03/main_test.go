@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestSlopeFixture(t *testing.T) {
-	suite.Run(&SlopeFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&SlopeFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type SlopeFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *SlopeFixture) Test() {

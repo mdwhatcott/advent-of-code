@@ -5,17 +5,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/util"
 )
 
 func TestStuffFixture(t *testing.T) {
-	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&StuffFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*suite.T
+	*should.T
 }
 
 const sampleInputA = "123456789012" // 3x2

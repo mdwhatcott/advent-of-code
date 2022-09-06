@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestOpCodeFixture(t *testing.T) {
-	suite.Run(&OpCodeFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&OpCodeFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type OpCodeFixture struct {
-	*suite.T
+	*should.T
 	i       int
 	inputs  []int
 	outputs []int

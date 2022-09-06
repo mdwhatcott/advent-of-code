@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestLookSayFixture(t *testing.T) {
-	suite.Run(&LookSayFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&LookSayFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type LookSayFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *LookSayFixture) Test() {

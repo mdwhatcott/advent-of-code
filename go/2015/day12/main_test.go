@@ -4,7 +4,6 @@ import (
 	"log"
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -12,8 +11,8 @@ import (
 
 func Test(t *testing.T) {
 	input := util.InputString()
-	assert.So(t, part1(input), should.Equal, 156366)
-	assert.So(t, part2(input), should.Equal, 96852)
+	should.So(t, part1(input), should.Equal, 156366)
+	should.So(t, part2(input), should.Equal, 96852)
 }
 
 func part1(input string) (sum int) {

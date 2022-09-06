@@ -3,19 +3,17 @@ package day07
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/suite"
-
 	"advent/lib/util"
 
 	"github.com/mdwhatcott/testing/should"
 )
 
 func TestStuffFixture(t *testing.T) {
-	suite.Run(&StuffFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&StuffFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type StuffFixture struct {
-	*suite.T
+	*should.T
 }
 
 const toy = `Step C must be finished before step A can begin.

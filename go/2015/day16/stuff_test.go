@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestAuntSueFixture(t *testing.T) {
-	suite.Run(&AuntSueFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&AuntSueFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type AuntSueFixture struct {
-	*suite.T
+	*should.T
 	search AuntSue
 }
 

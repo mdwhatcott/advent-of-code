@@ -4,7 +4,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -30,29 +29,29 @@ const (
 )
 
 func TestParse(t *testing.T) {
-	assert.So(t,
+	should.So(t,
 		Parse(strings.NewReader(hex2bit(example1A))),
 		should.Equal,
 		Packet{Version: 6, Type: 4, Value: 2021})
 }
 func TestPart1(t *testing.T) {
-	assert.So(t, Part1(example1A), should.Equal, 6)
-	assert.So(t, Part1(example1AA), should.Equal, 9)
-	assert.So(t, Part1(example1AAA), should.Equal, 14)
-	assert.So(t, Part1(example1B), should.Equal, 16)
-	assert.So(t, Part1(example1C), should.Equal, 12)
-	assert.So(t, Part1(example1D), should.Equal, 23)
-	assert.So(t, Part1(example1E), should.Equal, 31)
-	assert.So(t, Part1(util.InputString()), should.Equal, 927)
+	should.So(t, Part1(example1A), should.Equal, 6)
+	should.So(t, Part1(example1AA), should.Equal, 9)
+	should.So(t, Part1(example1AAA), should.Equal, 14)
+	should.So(t, Part1(example1B), should.Equal, 16)
+	should.So(t, Part1(example1C), should.Equal, 12)
+	should.So(t, Part1(example1D), should.Equal, 23)
+	should.So(t, Part1(example1E), should.Equal, 31)
+	should.So(t, Part1(util.InputString()), should.Equal, 927)
 }
 func TestPart2(t *testing.T) {
-	assert.So(t, Part2(example2a), should.Equal, 3)
-	assert.So(t, Part2(example2b), should.Equal, 54)
-	assert.So(t, Part2(example2c), should.Equal, 7)
-	assert.So(t, Part2(example2d), should.Equal, 9)
-	assert.So(t, Part2(example2e), should.Equal, 1)
-	assert.So(t, Part2(example2f), should.Equal, 0)
-	assert.So(t, Part2(example2g), should.Equal, 0)
-	assert.So(t, Part2(example2h), should.Equal, 1)
-	assert.So(t, Part2(util.InputString()), should.Equal, 1725277876501)
+	should.So(t, Part2(example2a), should.Equal, 3)
+	should.So(t, Part2(example2b), should.Equal, 54)
+	should.So(t, Part2(example2c), should.Equal, 7)
+	should.So(t, Part2(example2d), should.Equal, 9)
+	should.So(t, Part2(example2e), should.Equal, 1)
+	should.So(t, Part2(example2f), should.Equal, 0)
+	should.So(t, Part2(example2g), should.Equal, 0)
+	should.So(t, Part2(example2h), should.Equal, 1)
+	should.So(t, Part2(util.InputString()), should.Equal, 1725277876501)
 }

@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestLCDFixture(t *testing.T) {
-	suite.Run(&LCDFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&LCDFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type LCDFixture struct {
-	*suite.T
+	*should.T
 
 	lcd *LCD
 }

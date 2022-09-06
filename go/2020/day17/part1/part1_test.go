@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestConwayFixture(t *testing.T) {
-	suite.Run(&ConwayFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ConwayFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type ConwayFixture struct {
-	*suite.T
+	*should.T
 	world World
 }
 

@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestInterpreterFixture(t *testing.T) {
-	suite.Run(&InterpreterFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&InterpreterFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type InterpreterFixture struct {
-	*suite.T
+	*should.T
 	a, b, c, d int
 }
 

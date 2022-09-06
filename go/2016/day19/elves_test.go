@@ -1,18 +1,17 @@
 package main
 
 import (
-	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
-
 	"testing"
+
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestWinningElfFixture(t *testing.T) {
-	suite.Run(&WinningElfFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&WinningElfFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type WinningElfFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *WinningElfFixture) Setup() {

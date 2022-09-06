@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestNineKeyFixture(t *testing.T) {
-	suite.Run(&NineKeyFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&NineKeyFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type NineKeyFixture struct {
-	*suite.T
+	*should.T
 
 	keypad *Keypad
 }
@@ -36,11 +35,11 @@ UUUUD`), should.Equal, "1985")
 }
 
 func TestThirteenKeyFixture(t *testing.T) {
-	suite.Run(&ThirteenKeyFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ThirteenKeyFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type ThirteenKeyFixture struct {
-	*suite.T
+	*should.T
 
 	keypad *Keypad
 }

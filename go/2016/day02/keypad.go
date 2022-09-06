@@ -25,11 +25,13 @@ func (this *Keypad) FindDigit(instructions string) string {
 }
 
 /*
-  1
- 234
+	 1
+	234
+
 56789
- ABC
-  D
+
+	ABC
+	 D
 */
 var thirteenKeyDirections = map[string]string{
 	"1U": "1",

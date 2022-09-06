@@ -1,6 +1,10 @@
 package day19
 
-import "fmt"
+import (
+	"fmt"
+
+	"advent/lib/util"
+)
 
 var Origin Point
 
@@ -28,4 +32,19 @@ func (this Point) Offset(x, y, z int) Point {
 
 func (this Point) String() string {
 	return fmt.Sprintf("(%v, %v, %v)", this.x, this.y, this.z)
+}
+
+func Diff(p1, p2 Point) Direction {
+	return NewDirection(
+		p1.X()-p2.X(),
+		p1.Y()-p2.Y(),
+		p1.Z()-p2.Z())
+}
+
+func Manhattan(p1, p2 Point) int {
+	return 0 +
+		util.Abs(p1.X()-p2.X()) +
+		util.Abs(p1.Y()-p2.Y()) +
+		util.Abs(p1.Z()-p2.Z())
+
 }

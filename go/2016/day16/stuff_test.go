@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestDragonChecksumFixture(t *testing.T) {
-	suite.Run(&DragonChecksumFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&DragonChecksumFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type DragonChecksumFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *DragonChecksumFixture) TestReverse() {

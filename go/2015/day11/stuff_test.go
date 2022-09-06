@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestPasswordRotationFixture(t *testing.T) {
-	suite.Run(&PasswordRotationFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&PasswordRotationFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type PasswordRotationFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *PasswordRotationFixture) TestIncrementAlpha() {

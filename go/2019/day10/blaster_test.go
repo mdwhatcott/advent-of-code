@@ -6,15 +6,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBlasterFixture(t *testing.T) {
-	suite.Run(&BlasterFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&BlasterFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type BlasterFixture struct {
-	*suite.T
+	*should.T
 	field   AsteroidField
 	blaster *Blaster
 }

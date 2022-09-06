@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestTrigFixture(t *testing.T) {
-	suite.Run(&TrigFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&TrigFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type TrigFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *TrigFixture) TestAngleFromOrigin() {

@@ -6,15 +6,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
 )
 
 func Test(t *testing.T) {
-	assert.So(t, part1(), should.Equal, 509)
-	assert.So(t, part2(), should.Equal, 195)
+	should.So(t, part1(), should.Equal, 509)
+	should.So(t, part2(), should.Equal, 195)
 }
 
 const (

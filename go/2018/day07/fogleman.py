@@ -1,7 +1,6 @@
-from collections import defaultdict
 import fileinput
 import re
-
+from collections import defaultdict
 
 tasks = set()
 deps = defaultdict(set)
@@ -21,9 +20,9 @@ print(''.join(done))
 # part 2
 done = set()
 order = []
-seconds = 0       # total seconds elapsed
+seconds = 0  # total seconds elapsed
 counts = [0] * 5  # seconds remaining for worker `i` to finish its current task
-work = [''] * 5   # which task worker `i` is performing
+work = [''] * 5  # which task worker `i` is performing
 
 while True:
     for i, count in enumerate(counts):
@@ -49,7 +48,6 @@ while True:
         break
 
     seconds += 1
-
 
 print(seconds)
 print(''.join(order))

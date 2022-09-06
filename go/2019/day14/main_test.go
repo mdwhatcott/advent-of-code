@@ -5,17 +5,16 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 
 	"advent/lib/util"
 )
 
 func TestFixture(t *testing.T) {
-	suite.Run(&Fixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&Fixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type Fixture struct {
-	*suite.T
+	*should.T
 }
 
 func scanner(raw string) *util.Scanner {

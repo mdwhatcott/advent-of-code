@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestRoomValidationFixture(t *testing.T) {
-	suite.Run(&RoomValidationFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&RoomValidationFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type RoomValidationFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *RoomValidationFixture) TestParsing() {

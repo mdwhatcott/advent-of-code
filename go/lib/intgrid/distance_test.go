@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestDistanceFixture(t *testing.T) {
-	suite.Run(&DistanceFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&DistanceFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type DistanceFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *DistanceFixture) TestCityBlockDistance() {

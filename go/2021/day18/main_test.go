@@ -3,7 +3,6 @@ package day18
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -12,44 +11,44 @@ import (
 func TestParseTree(t *testing.T) {
 	raw := "[[[[1,2],[3,4]],[[5,6],[7,8]]],9]"
 	tree := ParseTree(raw)
-	assert.So(t, tree.Left.Left.Left.Right.Value, should.Equal, 2)
-	assert.So(t, tree.Left.Left.Left.Right.Next.Value, should.Equal, 3)
-	assert.So(t, tree.String(), should.Equal, raw)
+	should.So(t, tree.Left.Left.Left.Right.Value, should.Equal, 2)
+	should.So(t, tree.Left.Left.Left.Right.Next.Value, should.Equal, 3)
+	should.So(t, tree.String(), should.Equal, raw)
 }
 func TestExplode(t *testing.T) {
 	raw := "[[[[[9,8],1],2],3],4]"
 	tree := ParseTree(raw)
 	Process(tree)
-	assert.So(t, tree.String(), should.Equal, "[[[[0,9],2],3],4]")
+	should.So(t, tree.String(), should.Equal, "[[[[0,9],2],3],4]")
 }
 func TestSplit(t *testing.T) {
 	raw := "[[[[0,7],4],[[7,8],[0,13]]],[1,1]]"
 	tree := ParseTree(raw)
 	Process(tree)
-	assert.So(t, tree.String(), should.Equal, "[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]")
+	should.So(t, tree.String(), should.Equal, "[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]")
 }
 func TestAdd(t *testing.T) {
 	a := ParseTree("[[[[4,3],4],4],[7,[[8,4],9]]]")
 	b := ParseTree("[1,1]")
 	c := Add(a, b)
-	assert.So(t, c.String(), should.Equal, "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
+	should.So(t, c.String(), should.Equal, "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
 }
 func TestReduce(t *testing.T) {
 	a := ParseTree("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
 	b := Reduce(a)
-	assert.So(t, b.String(), should.Equal, "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]")
+	should.So(t, b.String(), should.Equal, "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]")
 }
 func TestSum1(t *testing.T) {
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]"})
-	assert.So(t, node.String(), should.Equal, "[[[[1,1],[2,2]],[3,3]],[4,4]]")
+	should.So(t, node.String(), should.Equal, "[[[[1,1],[2,2]],[3,3]],[4,4]]")
 }
 func TestSum2(t *testing.T) {
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]", "[5,5]"})
-	assert.So(t, node.String(), should.Equal, "[[[[3,0],[5,3]],[4,4]],[5,5]]")
+	should.So(t, node.String(), should.Equal, "[[[[3,0],[5,3]],[4,4]],[5,5]]")
 }
 func TestSum3(t *testing.T) {
 	node := Sum([]string{"[1,1]", "[2,2]", "[3,3]", "[4,4]", "[5,5]", "[6,6]"})
-	assert.So(t, node.String(), should.Equal, "[[[[5,0],[7,4]],[5,5]],[6,6]]")
+	should.So(t, node.String(), should.Equal, "[[[[5,0],[7,4]],[5,5]],[6,6]]")
 }
 func TestSum4(t *testing.T) {
 	node := Sum([]string{
@@ -64,12 +63,12 @@ func TestSum4(t *testing.T) {
 		"[[[5,[7,4]],7],1]",
 		"[[[[4,2],2],6],[8,7]]",
 	})
-	assert.So(t, node.String(), should.Equal, "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]")
+	should.So(t, node.String(), should.Equal, "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]")
 }
 func TestMagnitude(t *testing.T) {
-	assert.So(t, ParseTree("[[1,2],[[3,4],5]]").Magnitude(), should.Equal, 143)
-	assert.So(t, ParseTree("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").Magnitude(), should.Equal, 1384)
-	assert.So(t, ParseTree("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").Magnitude(), should.Equal, 3488)
+	should.So(t, ParseTree("[[1,2],[[3,4],5]]").Magnitude(), should.Equal, 143)
+	should.So(t, ParseTree("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").Magnitude(), should.Equal, 1384)
+	should.So(t, ParseTree("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").Magnitude(), should.Equal, 3488)
 }
 func TestSolveSum(t *testing.T) {
 	sum := Sum([]string{
@@ -84,13 +83,13 @@ func TestSolveSum(t *testing.T) {
 		"[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]",
 		"[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]",
 	})
-	assert.So(t, sum.Magnitude(), should.Equal, 4140)
+	should.So(t, sum.Magnitude(), should.Equal, 4140)
 }
 func TestPart1(t *testing.T) {
-	assert.So(t, Sum(util.InputLines()).Magnitude(), should.Equal, 3691)
+	should.So(t, Sum(util.InputLines()).Magnitude(), should.Equal, 3691)
 }
 func TestMaxSumPair(t *testing.T) {
-	assert.So(t, MaxSumPair([]string{
+	should.So(t, MaxSumPair([]string{
 		"[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]",
 		"[[[5,[2,8]],4],[5,[[9,9],0]]]",
 		"[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]",
@@ -104,5 +103,5 @@ func TestMaxSumPair(t *testing.T) {
 	}), should.Equal, 3993)
 }
 func TestPart2(t *testing.T) {
-	assert.So(t, MaxSumPair(util.InputLines()), should.Equal, 4756)
+	should.So(t, MaxSumPair(util.InputLines()), should.Equal, 4756)
 }

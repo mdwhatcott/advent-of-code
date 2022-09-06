@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestBotFixture(t *testing.T) {
-	suite.Run(&BotFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&BotFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type BotFixture struct {
-	*suite.T
+	*should.T
 
 	bot  *Bot
 	low  *Bot

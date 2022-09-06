@@ -4,15 +4,14 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestABBAFixture(t *testing.T) {
-	suite.Run(&ABBAFixture{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&ABBAFixture{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type ABBAFixture struct {
-	*suite.T
+	*should.T
 }
 
 func (this *ABBAFixture) TestHasABBA() {

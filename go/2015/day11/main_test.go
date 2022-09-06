@@ -3,7 +3,6 @@ package main
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -14,6 +13,6 @@ func Test(t *testing.T) {
 	v2 := Increment(v1)
 	v3 := Increment(v2)
 
-	assert.So(t, v2, should.Equal, "cqjxxyzz")
-	assert.So(t, v3, should.Equal, "cqkaabcc")
+	should.So(t, v2, should.Equal, "cqjxxyzz")
+	should.So(t, v3, should.Equal, "cqkaabcc")
 }

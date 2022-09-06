@@ -27,3 +27,11 @@ func RotateAll(i int, points ...Point) (results []Point) {
 	}
 	return results
 }
+
+func MoveAll(to Point, points ...Point) (results []Point) {
+	for _, p := range points {
+		diff := Diff(to, p)
+		results = append(results, p.Move(diff))
+	}
+	return results
+}

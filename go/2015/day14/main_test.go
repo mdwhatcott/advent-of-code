@@ -4,15 +4,14 @@ import (
 	"log"
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
 )
 
 func Test(t *testing.T) {
-	assert.So(t, part1(), should.Equal, 2696)
-	assert.So(t, part2(), should.Equal, 1084)
+	should.So(t, part1(), should.Equal, 2696)
+	should.So(t, part2(), should.Equal, 1084)
 }
 
 func part1() int { return max(runSimulation().distances) }

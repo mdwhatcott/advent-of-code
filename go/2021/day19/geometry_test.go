@@ -5,15 +5,14 @@ import (
 
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
-	"github.com/mdwhatcott/testing/suite"
 )
 
 func TestGeometrySuite(t *testing.T) {
-	suite.Run(&GeometrySuite{T: suite.New(t)}, suite.Options.UnitTests())
+	should.Run(&GeometrySuite{T: should.New(t)}, should.Options.UnitTests())
 }
 
 type GeometrySuite struct {
-	*suite.T
+	*should.T
 }
 
 func (this *GeometrySuite) TestRotations() {
