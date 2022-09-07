@@ -10,13 +10,16 @@ import (
 )
 
 func TestExample(t *testing.T) {
-	distance, _ := BreadthFirstSearch(10, intgrid.NewPoint(7, 4))
+	origin := intgrid.NewPoint(1, 1)
+	target := intgrid.NewPoint(7, 4)
+	distance, _ := BreadthFirstSearch(10, origin, target)
 	should.So(t, distance, should.Equal, 11)
 }
 
 func TestSolve(t *testing.T) {
+	origin := intgrid.NewPoint(1, 1)
 	target := intgrid.NewPoint(31, 39)
-	distance, near := BreadthFirstSearch(util.InputInt(), target)
+	distance, near := BreadthFirstSearch(util.InputInt(), origin, target)
 	should.So(t, distance, should.Equal, 96)
 	should.So(t, near, should.Equal, 141)
 }

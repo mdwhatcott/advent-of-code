@@ -8,9 +8,8 @@ import (
 	"advent/lib/util"
 )
 
-func BreadthFirstSearch(maze int, target intgrid.Point) (distance, near int) {
+func BreadthFirstSearch(maze int, origin, target intgrid.Point) (distance, near int) {
 	q := queue.New[Step](0)
-	origin := intgrid.NewPoint(1, 1)
 	q.Enqueue(Step{Point: origin, Distance: 0})
 	seen := set.From[intgrid.Point]()
 

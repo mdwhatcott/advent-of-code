@@ -23,7 +23,7 @@ func ParseInts(values []string) (ints []int) {
 }
 
 func BinaryHammingWeight(value int) (count int) { // See: https://en.wikipedia.org/wiki/Hamming_weight
-	for count = 0; value > 0; count++ {
+	for ; value > 0; count++ {
 		value &= value - 1
 	}
 	return count
