@@ -9,22 +9,23 @@ import (
 )
 
 func BreadthFirstSearch(maze int, origin, target intgrid.Point) (distance, near int) {
-	q := queue.New[Step](0)
-	q.Enqueue(Step{Point: origin, Distance: 0})
+	frontier := queue.New[Step](0)
+	frontier.Enqueue(Step{Point: origin, Distance: 0})
 	seen := set.From[intgrid.Point]()
+	short := set.From[intgrid.Point]()
 
-	for !q.Empty() {
-		current := q.Dequeue()
+	for !frontier.Empty() {
+		current := frontier.Dequeue()
 		if current.Point == target {
-			return current.Distance, near
+			return current.Distance, short.Len()
+		}
+		if current.Distance <= 50 {
+			short.Add(current.Point)
 		}
 		for _, adjacent := range neighbors(maze, current) {
 			if !seen.Contains(adjacent.Point) {
-				q.Enqueue(adjacent)
+				frontier.Enqueue(adjacent)
 				seen.Add(adjacent.Point)
-				if adjacent.Distance <= 50 {
-					near++
-				}
 			}
 		}
 	}
