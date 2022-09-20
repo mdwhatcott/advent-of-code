@@ -1,12 +1,16 @@
 package day19
 
 import (
+	"log"
+	"os"
 	"sort"
 	"strings"
 	"testing"
 
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
+
+	"advent/lib/util"
 )
 
 func (a XYZ) Less(b XYZ) bool {
@@ -31,11 +35,19 @@ func StringXYZs(a []XYZ) string {
 }
 
 func TestDay19Suite(t *testing.T) {
-	should.Run(&Day19Suite{T: should.New(t)}, should.Options.UnitTests())
+	should.Run(&Day19Suite{T: should.New(t)}, should.Options.IntegrationTests())
 }
 
 type Day19Suite struct {
 	*should.T
+}
+
+func (this *Day19Suite) Setup() {
+	log.SetFlags(0)
+	log.SetOutput(this)
+}
+func (this *Day19Suite) Teardown() {
+	log.SetOutput(os.Stderr)
 }
 
 func (this *Day19Suite) TestParseScannerReports() {
@@ -53,28 +65,14 @@ func (this *Day19Suite) TestParseScannerReports() {
 		},
 	})
 }
-
-var exampleBeaconReport = strings.TrimSpace(`
---- scanner 0 ---
-0,2,3
-4,1,5
-3,3,7
-
---- scanner 1 ---
--1,-1,3
--5,0,5
--2,1,7
-`)
-
 func (this *Day19Suite) TestSinglePointRotations() {
-	all := set.New[XYZ](24)
+	all := set.New[XYZ](ROTs)
 	point := NewXYZ(5, 6, -4)
-	for x := 0; x < 24; x++ {
+	for x := 0; x < ROTs; x++ {
 		all.Add(point.Rot(x))
 	}
-	this.So(all.Len(), should.Equal, 24)
+	this.So(all.Len(), should.Equal, ROTs)
 }
-
 func (this *Day19Suite) TestExampleRotations() {
 	expectedRotations := ParseScannerReports(exampleRotations)
 	this.So(len(expectedRotations), should.Equal, 5)
@@ -88,11 +86,8 @@ func (this *Day19Suite) TestExampleRotations() {
 	)), should.BeTrue)
 
 	rotations := set.New[string](0)
-	for r := 0; r < 24; r++ {
-		var rot []XYZ
-		for _, p := range expectedRotations[0] {
-			rot = append(rot, p.Rot(r))
-		}
+	for r := 0; r < ROTs; r++ {
+		rot := RotateMany(r, expectedRotations[0]...)
 		SortXYZs(rot)
 		rotations.Add(StringXYZs(rot))
 	}
@@ -108,7 +103,45 @@ func (this *Day19Suite) TestExampleRotations() {
 	}
 	this.So(matches, should.Equal, len(expectedRotations))
 }
+func (this *Day19Suite) TestAlignNeighboringCubes() {
+	cubes := PrepareCubes(ParseScannerReports(exampleFullBeaconReport))
+	cubeB, ok := TryAlign(cubes[0], cubes[1])
+	this.So(ok, should.BeTrue)
+	this.So(cubeB.scanner, should.Equal, NewXYZ(68, -1246, -43))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-618, -824, -621))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-537, -823, -458))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-447, -329, 318))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(404, -588, -901))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(544, -627, -890))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(528, -643, 409))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-661, -816, -575))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(390, -675, -793))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(423, -701, 434))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-345, -311, 381))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(459, -707, 401))
+	this.So(cubeB.beacons, should.Contain, NewXYZ(-485, -357, 347))
+}
+func (this *Day19Suite) TestFullExample() {
+	alignedCubes := AlignAll(PrepareCubes(ParseScannerReports(exampleFullBeaconReport)))
+	this.So(GatherBeacons(alignedCubes...).Len(), should.Equal, 79)
+}
+func (this *Day19Suite) LongTestSolution() {
+	alignedCubes := AlignAll(PrepareCubes(ParseScannerReports(util.InputString())))
+	this.So(GatherBeacons(alignedCubes...).Len(), should.Equal, 332)
+	this.So(MaxDistanceBetween(GatherScanners(alignedCubes...)), should.Equal, 8507)
+}
 
+var exampleBeaconReport = strings.TrimSpace(`
+--- scanner 0 ---
+0,2,3
+4,1,5
+3,3,7
+
+--- scanner 1 ---
+-1,-1,3
+-5,0,5
+-2,1,7
+`)
 var exampleRotations = strings.TrimSpace(`
 --- scanner 0 ---
 -1,-1,1
@@ -150,7 +183,6 @@ var exampleRotations = strings.TrimSpace(`
 -6,-4,-5
 0,7,-8
 `)
-
 var exampleFullBeaconReport = strings.TrimSpace(`
 --- scanner 0 ---
 404,-588,-901
