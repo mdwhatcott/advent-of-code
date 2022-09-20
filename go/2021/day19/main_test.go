@@ -1,11 +1,34 @@
 package day19
 
 import (
+	"sort"
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 )
+
+func (a XYZ) Less(b XYZ) bool {
+	if a.x != b.x {
+		return a.x < b.x
+	}
+	if a.y != b.y {
+		return a.y < b.y
+	}
+	return a.z < b.z
+}
+func SortXYZs(a []XYZ) {
+	sort.Slice(a, func(i, j int) bool { return a[i].Less(a[j]) })
+}
+func StringXYZs(a []XYZ) string {
+	var b strings.Builder
+	for _, x := range a {
+		b.WriteString(x.String())
+		b.WriteString(" ")
+	}
+	return strings.TrimSpace(b.String())
+}
 
 func TestDay19Suite(t *testing.T) {
 	should.Run(&Day19Suite{T: should.New(t)}, should.Options.UnitTests())
@@ -17,16 +40,16 @@ type Day19Suite struct {
 
 func (this *Day19Suite) TestParseScannerReports() {
 	beacons := ParseScannerReports(exampleBeaconReport)
-	this.So(beacons, should.Equal, [][]Point{
+	this.So(beacons, should.Equal, [][]XYZ{
 		{
-			NewPoint(0, 2, 3),
-			NewPoint(4, 1, 5),
-			NewPoint(3, 3, 7),
+			NewXYZ(0, 2, 3),
+			NewXYZ(4, 1, 5),
+			NewXYZ(3, 3, 7),
 		},
 		{
-			NewPoint(-1, -1, 3),
-			NewPoint(-5, 0, 5),
-			NewPoint(-2, 1, 7),
+			NewXYZ(-1, -1, 3),
+			NewXYZ(-5, 0, 5),
+			NewXYZ(-2, 1, 7),
 		},
 	})
 }
@@ -43,16 +66,47 @@ var exampleBeaconReport = strings.TrimSpace(`
 -2,1,7
 `)
 
-func (this *Day19Suite) TestRotations() {
-	beacons := ParseScannerReports(exampleRotations)
-	this.So(beacons[0], should.Equal, []Point{
-		NewPoint(-1, -1, 1),
-		NewPoint(-2, -2, 2),
-		NewPoint(-3, -3, 3),
-		NewPoint(-2, -3, 1),
-		NewPoint(5, 6, -4),
-		NewPoint(8, 0, 7),
-	})
+func (this *Day19Suite) TestSinglePointRotations() {
+	all := set.New[XYZ](24)
+	point := NewXYZ(5, 6, -4)
+	for x := 0; x < 24; x++ {
+		all.Add(point.Rot(x))
+	}
+	this.So(all.Len(), should.Equal, 24)
+}
+
+func (this *Day19Suite) TestExampleRotations() {
+	expectedRotations := ParseScannerReports(exampleRotations)
+	this.So(len(expectedRotations), should.Equal, 5)
+	this.So(set.From[XYZ](expectedRotations[0]...).Equal(set.From[XYZ](
+		NewXYZ(-1, -1, 1),
+		NewXYZ(-2, -2, 2),
+		NewXYZ(-3, -3, 3),
+		NewXYZ(-2, -3, 1),
+		NewXYZ(5, 6, -4),
+		NewXYZ(8, 0, 7),
+	)), should.BeTrue)
+
+	rotations := set.New[string](0)
+	for r := 0; r < 24; r++ {
+		var rot []XYZ
+		for _, p := range expectedRotations[0] {
+			rot = append(rot, p.Rot(r))
+		}
+		SortXYZs(rot)
+		rotations.Add(StringXYZs(rot))
+	}
+
+	matches := 0
+	for _, group := range expectedRotations {
+		SortXYZs(group)
+		for _, rot := range rotations.Slice() {
+			if rot == StringXYZs(group) {
+				matches++
+			}
+		}
+	}
+	this.So(matches, should.Equal, len(expectedRotations))
 }
 
 var exampleRotations = strings.TrimSpace(`
@@ -96,12 +150,6 @@ var exampleRotations = strings.TrimSpace(`
 -6,-4,-5
 0,7,-8
 `)
-
-func (this *Day19Suite) TestOverlappingBeacons() {
-	beacons := ParseScannerReports(exampleFullBeaconReport)
-	this.So(AreOverlapping(beacons[0], beacons[1]), should.BeTrue)
-
-}
 
 var exampleFullBeaconReport = strings.TrimSpace(`
 --- scanner 0 ---

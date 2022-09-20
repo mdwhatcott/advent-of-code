@@ -29,7 +29,7 @@ func Max[T constraints.Number](all ...T) (max T) {
 	return max
 }
 
-func MinMax[T constraints.Number](all ...T) (T, T) {
+func MinMax[T constraints.Number](all ...T) (min T, max T) {
 	return Min(all...), Max(all...)
 }
 
