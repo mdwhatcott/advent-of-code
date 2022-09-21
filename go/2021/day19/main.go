@@ -58,6 +58,7 @@ type Cube struct {
 	scanner   XYZ
 	beacons   set.Set[XYZ]
 	rotations [ROTs]set.Set[XYZ]
+	failed    set.Set[*Cube]
 }
 
 func PrepareCubes(beaconGroups [][]XYZ) (results []*Cube) {
@@ -66,6 +67,7 @@ func PrepareCubes(beaconGroups [][]XYZ) (results []*Cube) {
 			scanner:   XYZ{},
 			beacons:   set.From[XYZ](group...),
 			rotations: prepareRotations(group...),
+			failed:    set.New[*Cube](0),
 		})
 	}
 	return results
@@ -112,12 +114,17 @@ func AlignAll(cubes []*Cube) (results []*Cube) {
 	for !misaligned.Empty() {
 		for a := range aligned {
 			b := misaligned.Dequeue()
+			if a.failed.Contains(b) {
+				misaligned.Enqueue(b)
+				continue
+			}
 			c, ok := TryAlign(a, b)
 			if ok {
 				aligned.Add(c)
 				log.Print("Progress:", aligned.Len(), "/", len(cubes))
 				break
 			} else {
+				b.failed.Add(a)
 				misaligned.Enqueue(b)
 			}
 		}
