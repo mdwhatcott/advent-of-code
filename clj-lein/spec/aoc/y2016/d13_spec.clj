@@ -12,7 +12,9 @@
        count))
 
 (defn hallway? [seed [x y]]
-  (->> seed (+ (* x x) (* 3 x) (* 2 x y) y (* y y)) bits even?))
+  (and (not (neg? x))
+       (not (neg? y))
+       (->> seed (+ (* x x) (* 3 x) (* 2 x y) y (* y y)) bits even?)))
 
 (defn cardinal-neighbors [[x y]]
   [[(dec x) y]
@@ -67,7 +69,7 @@
     (should= 1 (bits 2)) #_"0010"
     (should= 1 (bits 4)) #_"0100"
     (should= 2 (bits 3)) #_"0011"
-    (should= 8 (bits 255))))
+    (should= 8 (bits 255)))
 
   (it "walls vs halls"
     (should= false (hallway? 10 [0 -1]))
