@@ -78,7 +78,7 @@ func (this *ImageEnhancementSuite) TestPart1() {
 	this.So(image.count(), should.NOT.Equal, 5938)
 	this.So(image.count(), should.Equal, 5259)
 }
-func (this *ImageEnhancementSuite) TestPart2() {
+func (this *ImageEnhancementSuite) LongTestPart2() {
 	lines := util.InputLines()
 	algorithm := parseAlgorithm(lines[0])
 	image := parseImage(strings.Join(lines[2:], "\n"))
