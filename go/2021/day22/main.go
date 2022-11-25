@@ -2,52 +2,86 @@ package day22
 
 import (
 	"fmt"
-	"regexp"
-	"strconv"
-	"strings"
 
 	"advent/lib/util"
 )
 
-type cuboid struct{ x, y, z int }
-
-func inRange(c cuboid) bool {
-	return c.x >= -50 && c.x <= 50 &&
-		c.y >= -50 && c.y <= 50 &&
-		c.z >= -50 && c.z <= 50
+// inspiration:
+// - https://github.com/tginsberg/advent-2021-kotlin/blob/master/src/main/kotlin/com/ginsberg/advent2021/Day22.kt
+// - https://github.com/lukechampine/advent/blob/master/2021/day22.go
+var part1Space = Cuboid{0,
+	Range{-50, 50},
+	Range{-50, 50},
+	Range{-50, 50},
 }
 
-func parseLine(s string) (ons, offs []cuboid) {
-	var all []cuboid
-	m := rangesPattern.FindAllStringSubmatch(s, -1)[0]
-	x1, x2, y1, y2, z1, z2 := N(m[1]), N(m[2]), N(m[3]), N(m[4]), N(m[5]), N(m[6])
-	if x1 > 50 || y1 > 50 || z1 > 50 || x2 < -50 || y2 < -50 || z2 < -50 {
-		return nil, nil
-	}
-	x1 = util.Max(-50, x1)
-	y1 = util.Max(-50, y1)
-	z1 = util.Max(-50, z1)
-	x2 = util.Min(50, x2)
-	y2 = util.Min(50, y2)
-	z2 = util.Min(50, z2)
-	for x := x1; x <= x2; x++ {
-		for y := y1; y <= y2; y++ {
-			for z := z1; z <= z2; z++ {
-				all = append(all, cuboid{x, y, z})
+func solve(lines []string) (part1, part2 int64) {
+	var results []Cuboid
+	for _, line := range lines {
+		current := parseCuboid(line)
+		for _, already := range results {
+			if current.intersects(already) {
+				results = append(results, current.intersection(already))
 			}
 		}
+		if current.sign == 1 {
+			results = append(results, current)
+		}
 	}
-	if strings.HasPrefix(s, "on") {
-		return all, nil
+	for _, c := range results {
+		volume := c.volume()
+		if c.intersects(part1Space) {
+			part1 += volume
+		}
+		part2 += volume
 	}
-	return nil, all
+	return part1, part2
 }
 
-func N(s string) int {
-	n, _ := strconv.Atoi(s)
-	return n
+type Cuboid struct {
+	sign    int64
+	x, y, z Range
 }
 
-const rangePattern = `(-?\d+)\.\.(-?\d+)`
+func (a Cuboid) intersection(b Cuboid) Cuboid {
+	return Cuboid{sign: -b.sign,
+		x: Range{util.Max(a.x.lo, b.x.lo), util.Min(a.x.hi, b.x.hi)},
+		y: Range{util.Max(a.y.lo, b.y.lo), util.Min(a.y.hi, b.y.hi)},
+		z: Range{util.Max(a.z.lo, b.z.lo), util.Min(a.z.hi, b.z.hi)},
+	}
+}
+func (a Cuboid) intersects(b Cuboid) bool {
+	return a.x.intersects(b.x) &&
+		a.y.intersects(b.y) &&
+		a.z.intersects(b.z)
+}
+func (c Cuboid) volume() int64 {
+	return c.sign *
+		(c.x.hi - c.x.lo + 1) *
+		(c.y.hi - c.y.lo + 1) *
+		(c.z.hi - c.z.lo + 1)
+}
 
-var rangesPattern = regexp.MustCompile(fmt.Sprintf("x=%s,y=%s,z=%s", rangePattern, rangePattern, rangePattern))
+type Range struct {
+	lo, hi int64
+}
+
+func (a Range) intersects(b Range) bool {
+	return a.lo <= b.hi && a.hi >= b.lo
+}
+
+func parseCuboid(line string) (c Cuboid) {
+	c.sign = int64(1)
+	var onOff string
+	_, _ = fmt.Sscanf(line,
+		"%s x=%d..%d,y=%d..%d,z=%d..%d",
+		&onOff,
+		&c.x.lo, &c.x.hi,
+		&c.y.lo, &c.y.hi,
+		&c.z.lo, &c.z.hi,
+	)
+	if onOff == "off" {
+		c.sign = -1
+	}
+	return c
+}
