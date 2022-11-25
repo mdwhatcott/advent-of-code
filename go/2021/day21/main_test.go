@@ -15,13 +15,13 @@ type DiracDiceSuite struct {
 }
 
 func (this *DiracDiceSuite) TestExample() {
-	game := NewGame(4, 8)
+	game := NewDeterministicGame(4, 8)
 	for game.Turn() {
 	}
 	this.So(game.Answer(), should.Equal, 739785)
 }
 func (this *DiracDiceSuite) TestPart1() {
-	game := NewGame(6, 3)
+	game := NewDeterministicGame(6, 3)
 	for game.Turn() {
 	}
 	this.So(game.Answer(), should.Equal, 752745)
