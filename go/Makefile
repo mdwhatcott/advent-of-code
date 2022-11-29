@@ -1,10 +1,10 @@
 #!/usr/bin/make
 
-day  := 21
-year := 21
+day  := 15
+year := 19
 
 test.day: fmt
-	go test -short -timeout=10s -v advent/20${year}/day${day}/... && \
+	go test -timeout=10s -v advent/20${year}/day${day}/... && \
 	go test -short -timeout=100s -v -run 'TestFixture20${year}/TestDay${day}' advent/20${year}
 
 test.2020: fmt

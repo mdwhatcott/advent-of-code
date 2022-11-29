@@ -2,6 +2,8 @@ package advent
 
 import (
 	"testing"
+
+	"github.com/mdwhatcott/testing/should"
 )
 
 func TestStuffFixture(t *testing.T) {
