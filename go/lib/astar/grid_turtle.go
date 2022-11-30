@@ -32,3 +32,4 @@ func (this *GridTurtle) AdjacentPositions() (results []Turtle) {
 
 func (this *GridTurtle) StepCost() float64 { return 1 }
 func (this *GridTurtle) Hash() string      { return this.from.String() }
+func (this *GridTurtle) At() intgrid.Point { return this.from }

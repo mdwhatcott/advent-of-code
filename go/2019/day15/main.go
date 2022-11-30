@@ -31,6 +31,7 @@ type Explorer struct {
 	target             intgrid.Point
 	currentLength      int
 	currentLengthCount int
+	path               set.Set[intgrid.Point]
 }
 
 func NewExplorer() *Explorer {
@@ -38,6 +39,7 @@ func NewExplorer() *Explorer {
 		maze:   set.New[intgrid.Point](0),
 		at:     intgrid.Origin,
 		facing: intgrid.Up,
+		path:   set.New[intgrid.Point](0),
 	}
 }
 
@@ -93,6 +95,9 @@ func (this *Explorer) AStarDistanceToTarget() int {
 	path, found := astar.NewGridTurtle(this.maze, intgrid.Origin, this.target).Search()
 	if !found {
 		return -1
+	}
+	for _, p := range path {
+		this.path.Add(p.(*astar.GridTurtle).At())
 	}
 	return len(path) - 1
 }
@@ -155,7 +160,9 @@ func (this *Explorer) RenderMaze() string {
 				b.WriteString("*")
 			} else if p == this.target {
 				b.WriteString("O")
-			} else if _, ok := this.maze[p]; ok {
+			} else if this.path.Contains(p) {
+				b.WriteString("+")
+			} else if this.maze.Contains(p) {
 				b.WriteString(" ")
 			} else {
 				b.WriteString("#")
@@ -187,6 +194,7 @@ func Part2() (result int) {
 			log.Println("Measuring distance to point furthest from target...")
 			result = finder.BFSDistanceToPointFurthestFromOxygen()
 			log.Println("Distance to point furthest from target:", result)
+			_ = finder.AStarDistanceToTarget()
 			log.Println(finder.RenderMaze())
 		}
 	}()
