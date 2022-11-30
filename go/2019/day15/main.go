@@ -2,6 +2,7 @@ package advent
 
 import (
 	"log"
+	"strings"
 
 	"github.com/mdwhatcott/go-collections/queue"
 	"github.com/mdwhatcott/go-collections/set"
@@ -129,6 +130,41 @@ func (this *Explorer) BFSDistanceToPointFurthestFromOxygen() (result int) {
 	return result
 }
 
+func (this *Explorer) RenderMaze() string {
+	minX, maxX, minY, maxY := 0xFFFF, -0xFFFF, 0xFFFF, -0xFFFF
+	for p := range this.maze {
+		if p.X() < minX {
+			minX = p.X()
+		}
+		if p.X() > maxX {
+			maxX = p.X()
+		}
+		if p.Y() < minY {
+			minY = p.Y()
+		}
+		if p.Y() > maxY {
+			maxY = p.Y()
+		}
+	}
+	var b strings.Builder
+	for y := minY - 1; y <= maxY+1; y++ {
+		b.WriteString("\n")
+		for x := minX - 1; x <= maxX+1; x++ {
+			p := intgrid.NewPoint(x, y)
+			if p == intgrid.Origin {
+				b.WriteString("*")
+			} else if p == this.target {
+				b.WriteString("O")
+			} else if _, ok := this.maze[p]; ok {
+				b.WriteString(" ")
+			} else {
+				b.WriteString("#")
+			}
+		}
+	}
+	return b.String()
+}
+
 func Part1() (result int) {
 	finder := NewExplorer()
 	defer func() {
@@ -151,6 +187,7 @@ func Part2() (result int) {
 			log.Println("Measuring distance to point furthest from target...")
 			result = finder.BFSDistanceToPointFurthestFromOxygen()
 			log.Println("Distance to point furthest from target:", result)
+			log.Println(finder.RenderMaze())
 		}
 	}()
 	intcode.RunProgram(util.InputInts(","), finder.input, finder.output)
