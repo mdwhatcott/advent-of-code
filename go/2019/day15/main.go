@@ -3,10 +3,10 @@ package advent
 import (
 	"log"
 
-	"github.com/mdwhatcott/go-collections/queue"
 	"github.com/mdwhatcott/go-collections/set"
 
 	"advent/2019/intcode"
+	"advent/lib/astar"
 	"advent/lib/intgrid"
 	"advent/lib/util"
 )
@@ -22,69 +22,107 @@ var directionals = map[intgrid.Direction]int{
 	intgrid.Right: 4,
 }
 
-type PathStep struct {
-	Distance  int
-	NowAt     intgrid.Point
-	Direction intgrid.Direction
-	LastAt    *PathStep
-}
-type PathFinder struct {
-	seen     set.Set[intgrid.Point]
-	frontier *queue.Queue[*PathStep]
-	current  *PathStep
-	target   *PathStep
+type Explorer struct {
+	maze               set.Set[intgrid.Point]
+	at                 intgrid.Point
+	facing             intgrid.Direction
+	target             intgrid.Point
+	currentLength      int
+	currentLengthCount int
 }
 
-func NewPathFinder() *PathFinder {
-	s := queue.New[*PathStep](0)
-	origin := &PathStep{NowAt: intgrid.Origin}
-	for _, d := range intgrid.Neighbors4 {
-		s.Enqueue(&PathStep{NowAt: intgrid.Origin.Move(d), Direction: d, LastAt: origin, Distance: 1})
-	}
-	return &PathFinder{
-		seen:     set.From[intgrid.Point](intgrid.Origin),
-		frontier: s,
+func NewExplorer() *Explorer {
+	return &Explorer{
+		maze:   set.New[intgrid.Point](0),
+		at:     intgrid.Origin,
+		facing: intgrid.Up,
 	}
 }
 
-func (this *PathFinder) input() int {
-	this.current = this.frontier.Dequeue()
-	i := directionals[this.current.Direction]
-	log.Println(this.current.Distance, "providing input:", i, this.current.NowAt)
-	return i
+func (this *Explorer) input() int {
+	return directionals[this.facing]
 }
 
-func (this *PathFinder) output(report int) {
-	this.seen.Add(this.current.NowAt)
+const (
+	ReportHitWall = 0
+	ReportOxygen  = 2
+)
 
-	switch report {
-	case 0:
-		// hit a wall...hope there's something in frontier...
-	case 1:
-		for _, d := range intgrid.Neighbors4 {
-			destination := this.current.NowAt.Move(d)
-			if !this.seen.Contains(destination) {
-				this.frontier.Enqueue(&PathStep{
-					Direction: d,
-					NowAt:     destination,
-					LastAt:    this.current,
-					Distance:  this.current.Distance + 1,
-				})
-			}
-		}
-	case 2:
-		if this.target != nil {
-			this.target = this.current
-		}
+func (this *Explorer) output(report int) {
+	// If we hit a wall, turn right, otherwise move forward and turn left.
+	// Credit for this strategy: https://www.reddit.com/r/adventofcode/comments/eaurfo/comment/fbbh2d3/
+
+	if report == ReportHitWall {
+		this.facing = intgrid.Clockwise[this.facing]
+		return
 	}
+
+	log.Println("at:", this.at, "facing:", this.facing, len(this.maze))
+
+	this.at = this.at.Move(this.facing)
+	this.facing = intgrid.CounterClockwise[this.facing]
+	this.maze.Add(this.at)
+
+	if this.exploredAll() {
+		log.Panicln("exploration complete") // HACK
+	}
+
+	if report == ReportOxygen {
+		log.Println("TARGET ACQUIRED!!!", this.at)
+		this.target = this.at
+	}
+}
+
+func (this *Explorer) exploredAll() bool {
+	if this.target == intgrid.Origin {
+		return false
+	}
+	if len(this.maze) == this.currentLength {
+		this.currentLengthCount++
+	} else {
+		this.currentLength = len(this.maze)
+		this.currentLengthCount = 0
+	}
+
+	return this.currentLengthCount >= 1000
+}
+
+func (this *Explorer) CalculatePathDistanceToTarget() int {
+	path, found := astar.NewGridTurtle(this.maze, intgrid.Origin, this.target).Search()
+	if !found {
+		return -1
+	}
+	return len(path) - 1
+}
+
+func (this *Explorer) CalculatePathDistanceToPointFurthestFromOxygen() (result int) {
+	return result
 }
 
 func Part1() (result int) {
-	finder := NewPathFinder()
+	finder := NewExplorer()
+	defer func() {
+		r := recover()
+		if r != nil {
+			log.Println("Pathfinding to target...")
+			result = finder.CalculatePathDistanceToTarget()
+			log.Println("Shortest path to target:", result)
+		}
+	}()
 	intcode.RunProgram(util.InputInts(","), finder.input, finder.output)
-	return finder.target.Distance
+	return -1 // shouldn't happen
 }
 
-func Part2() interface{} {
-	return nil
+func Part2() (result int) {
+	finder := NewExplorer()
+	defer func() {
+		r := recover()
+		if r != nil {
+			log.Println("Pathfinding to target...")
+			result = finder.CalculatePathDistanceToPointFurthestFromOxygen()
+			log.Println("Shortest path to target:", result)
+		}
+	}()
+	intcode.RunProgram(util.InputInts(","), finder.input, finder.output)
+	return -1 // shouldn't happen
 }
