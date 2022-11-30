@@ -7,5 +7,6 @@ import (
 )
 
 func main() {
-	fmt.Println(advent.Part1())
+	fmt.Println("Part 1:", advent.Part1())
+	fmt.Println("Part 2:", advent.Part2())
 }
