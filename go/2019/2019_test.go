@@ -101,11 +101,11 @@ func (this *Fixture2019) LongTestDay15() {
 	this.So(day15.Part2(), should.Equal, 328)
 }
 func (this *Fixture2019) LongTestDay16() {
-	this.So(day16.Part1(), should.Equal, nil)
+	this.So(day16.Part1(), should.Equal, "30369587")
 	this.So(day16.Part2(), should.Equal, nil)
 }
 func (this *Fixture2019) LongTestDay17() {
-	this.So(day17.Part1(), should.Equal, nil)
+	this.So(day17.Part1(), should.Equal, 7720)
 	this.So(day17.Part2(), should.Equal, nil)
 }
 func (this *Fixture2019) LongTestDay18() {
