@@ -21,17 +21,15 @@ func Part2(lines []string) (result int) {
 		a := set.From([]rune(lines[x+0])...)
 		b := set.From([]rune(lines[x+1])...)
 		c := set.From([]rune(lines[x+2])...)
-		ab := a.Intersection(b)
-		ac := a.Intersection(c)
-		abac := ab.Intersection(ac)
-		result += priority(abac.Slice()[0])
+		letter := a.Intersection(b).Intersection(c).Slice()[0]
+		result += priority(letter)
 	}
 	return result
 }
 func priority(letter rune) int {
 	if unicode.IsLower(letter) {
-		return int(letter - 'a' + 1)
+		return int(letter-'a') + 1
 	} else {
-		return int(letter-'A'+1) + 26
+		return int(letter-'A') + 1 + 26
 	}
 }
