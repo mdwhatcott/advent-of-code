@@ -1,19 +1,13 @@
-package main
+package day01
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 
 	"advent/lib/util"
 )
 
-func main() {
-	topElf, top3Elves := sums()
-	fmt.Println("Part 1:", topElf)
-	fmt.Println("Part 2:", top3Elves)
-}
-func sums() (int, int) {
+func sums() (part1, part2 int) {
 	var sums []int
 	for _, chunk := range strings.Split(util.InputString(), "\n\n") {
 		sums = append(sums, util.Sum(util.ParseInts(strings.Split(chunk, "\n"))...))
