@@ -34,18 +34,18 @@ func TestDay04(t *testing.T) {
 
 var pattern = regexp.MustCompile(`(\d+)-(\d+),(\d+)-(\d+)`)
 
+func Range(a, b int) (result []int) {
+	for ; a < b; a++ {
+		result = append(result, a)
+	}
+	return result
+}
 func Analyze(lines []string) (subsets, intersections int) {
 	for _, line := range lines {
-		matches := util.ParseInts(pattern.FindAllStringSubmatch(line, 4)[0][1:])
+		matches := util.ParseInts(pattern.FindStringSubmatch(line)[1:])
 		a, b, c, d := matches[0], matches[1], matches[2], matches[3]
-		A := set.New[int](0)
-		B := set.New[int](0)
-		for x := a; x <= b; x++ {
-			A.Add(x)
-		}
-		for x := c; x <= d; x++ {
-			B.Add(x)
-		}
+		A := set.From(Range(a, b+1)...)
+		B := set.From(Range(c, d+1)...)
 		if A.IsSubset(B) || B.IsSubset(A) {
 			subsets++
 		}
