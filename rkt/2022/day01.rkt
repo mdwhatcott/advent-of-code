@@ -24,10 +24,12 @@
    (for/list ([group (string-split input "\n\n")])
      (apply + (map string->number (string-split group "\n")))) >))
 
-(apply + (take (groups sample-data) 1)) ; part 1 (sample)
-(apply + (take (groups sample-data) 3)) ; part 2 (sample)
+(require rackunit)
 
-(define input-data (port->string (open-input-file "input.txt")))
+(test-equal? "part1-sample" 24000 (apply + (take (groups sample-data) 1)))
+(test-equal? "part2-sample" 45000 (apply + (take (groups sample-data) 3)))
 
-(apply + (take (groups input-data) 1)) ; part 1
-(apply + (take (groups input-data) 3)) ; part 2
+(define input-data (port->string (open-input-file "day01.txt")))
+
+(test-equal? "part1" 71924  (apply + (take (groups input-data) 1)))
+(test-equal? "part2" 210406 (apply + (take (groups input-data) 3)))
