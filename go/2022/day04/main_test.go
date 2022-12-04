@@ -23,16 +23,18 @@ var (
 )
 
 func TestDay04(t *testing.T) {
-	should.So(t, Part1(sampleLines), should.Equal, 2)
-	should.So(t, Part1(inputLines), should.Equal, 584)
+	part1, part2 := Analyze(sampleLines)
+	should.So(t, part1, should.Equal, 2)
+	should.So(t, part2, should.Equal, 4)
 
-	should.So(t, Part2(sampleLines), should.Equal, 4)
-	should.So(t, Part2(inputLines), should.Equal, 933)
+	part1, part2 = Analyze(inputLines)
+	should.So(t, part1, should.Equal, 584)
+	should.So(t, part2, should.Equal, 933)
 }
 
 var pattern = regexp.MustCompile(`(\d+)-(\d+),(\d+)-(\d+)`)
 
-func Part1(lines []string) (result int) {
+func Analyze(lines []string) (subsets, intersections int) {
 	for _, line := range lines {
 		matches := util.ParseInts(pattern.FindAllStringSubmatch(line, 4)[0][1:])
 		a, b, c, d := matches[0], matches[1], matches[2], matches[3]
@@ -45,26 +47,11 @@ func Part1(lines []string) (result int) {
 			B.Add(x)
 		}
 		if A.IsSubset(B) || B.IsSubset(A) {
-			result++
-		}
-	}
-	return result
-}
-func Part2(lines []string) (result int) {
-	for _, line := range lines {
-		matches := util.ParseInts(pattern.FindAllStringSubmatch(line, 4)[0][1:])
-		a, b, c, d := matches[0], matches[1], matches[2], matches[3]
-		A := set.New[int](0)
-		B := set.New[int](0)
-		for x := a; x <= b; x++ {
-			A.Add(x)
-		}
-		for x := c; x <= d; x++ {
-			B.Add(x)
+			subsets++
 		}
 		if A.Intersection(B).Len() > 0 {
-			result++
+			intersections++
 		}
 	}
-	return result
+	return subsets, intersections
 }
