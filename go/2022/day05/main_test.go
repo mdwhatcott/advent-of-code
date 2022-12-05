@@ -28,51 +28,41 @@ var (
 
 func sampleStacks() map[rune]*stack.Stack[rune] {
 	return map[rune]*stack.Stack[rune]{
-		'1': stackFrom('Z', 'N'),
-		'2': stackFrom('M', 'C', 'D'),
-		'3': stackFrom('P'),
+		'1': stackFrom("ZN"),
+		'2': stackFrom("MCD"),
+		'3': stackFrom("P"),
 	}
 }
 func inputStacks() map[rune]*stack.Stack[rune] {
 	//goland:noinspection SpellCheckingInspection
 	return map[rune]*stack.Stack[rune]{
-		'1': stackFrom([]rune("QMGCL")...),
-		'2': stackFrom([]rune("RDLCTFHG")...),
-		'3': stackFrom([]rune("VJFNMTWR")...),
-		'4': stackFrom([]rune("JFDVQP")...),
-		'5': stackFrom([]rune("NFMSLBT")...),
-		'6': stackFrom([]rune("RNVHCDP")...),
-		'7': stackFrom([]rune("HCT")...),
-		'8': stackFrom([]rune("GSJVZNHP")...),
-		'9': stackFrom([]rune("ZFHG")...),
+		'1': stackFrom("QMGCL"),
+		'2': stackFrom("RDLCTFHG"),
+		'3': stackFrom("VJFNMTWR"),
+		'4': stackFrom("JFDVQP"),
+		'5': stackFrom("NFMSLBT"),
+		'6': stackFrom("RNVHCDP"),
+		'7': stackFrom("HCT"),
+		'8': stackFrom("GSJVZNHP"),
+		'9': stackFrom("ZFHG"),
 	}
 }
 
-func stackFrom[T comparable](values ...T) *stack.Stack[T] {
-	result := stack.New[T](0)
-	for _, v := range values {
+func stackFrom(s string) *stack.Stack[rune] {
+	result := stack.New[rune](0)
+	for _, v := range s {
 		result.Push(v)
 	}
 	return result
 }
 
 func TestDay05Part1(t *testing.T) {
-	stacks := sampleStacks()
-	Execute(sampleLines, NewQueueAsStack[rune](), stacks)
-	should.So(t, PeekAll(stacks), should.Equal, []rune("CMZ"))
-
-	stacks = inputStacks()
-	Execute(inputLines, NewQueueAsStack[rune](), stacks)
-	should.So(t, PeekAll(stacks), should.Equal, []rune("VCTFTJQCG"))
+	should.So(t, Execute(sampleLines, NewQueueAsStack[rune](), sampleStacks()), should.Equal, "CMZ")
+	should.So(t, Execute(inputLines, NewQueueAsStack[rune](), inputStacks()), should.Equal, "VCTFTJQCG")
 }
 func TestDay05Part2(t *testing.T) {
-	stacks := sampleStacks()
-	Execute(sampleLines, stack.New[rune](0), stacks)
-	should.So(t, PeekAll(stacks), should.Equal, []rune("MCD"))
-
-	stacks = inputStacks()
-	Execute(inputLines, stack.New[rune](0), stacks)
-	should.So(t, PeekAll(stacks), should.Equal, []rune("GCFGLDNJZ"))
+	should.So(t, Execute(sampleLines, stack.New[rune](0), sampleStacks()), should.Equal, "MCD")
+	should.So(t, Execute(inputLines, stack.New[rune](0), inputStacks()), should.Equal, "GCFGLDNJZ")
 }
 
 type StackOrQueue[T comparable] interface {
@@ -87,7 +77,7 @@ func NewQueueAsStack[T comparable]() *QueueAsStack[T] {
 func (q *QueueAsStack[T]) Push(t T) { q.Enqueue(t) }
 func (q *QueueAsStack[T]) Pop() T   { return q.Dequeue() }
 
-func Execute(instructions []string, tmp StackOrQueue[rune], stacks map[rune]*stack.Stack[rune]) {
+func Execute(instructions []string, tmp StackOrQueue[rune], stacks map[rune]*stack.Stack[rune]) string {
 	for _, instruction := range instructions {
 		if !strings.HasPrefix(instruction, "move") {
 			continue
@@ -103,11 +93,12 @@ func Execute(instructions []string, tmp StackOrQueue[rune], stacks map[rune]*sta
 			to.Push(tmp.Pop())
 		}
 	}
+	return peekAll(stacks)
 }
-
-func PeekAll(stacks map[rune]*stack.Stack[rune]) (result []rune) {
+func peekAll(stacks map[rune]*stack.Stack[rune]) string {
+	var buffer []rune
 	for _, x := range "123456789"[:len(stacks)] {
-		result = append(result, stacks[x].Peek())
+		buffer = append(buffer, stacks[x].Peek())
 	}
-	return result
+	return string(buffer)
 }
