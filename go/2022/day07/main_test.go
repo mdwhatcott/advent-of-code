@@ -1,8 +1,7 @@
 package day06
 
 import (
-	"fmt"
-	"io"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -11,138 +10,101 @@ import (
 	"advent/lib/util"
 )
 
-var sampleLines = []string{
-	"$ cd /",
-	"$ ls",
-	"dir a",
-	"14848514 b.txt",
-	"8504156 c.dat",
-	"dir d",
-	"$ cd a",
-	"$ ls",
-	"dir e",
-	"29116 f",
-	"2557 g",
-	"62596 h.lst",
-	"$ cd e",
-	"$ ls",
-	"584 i",
-	"$ cd ..",
-	"$ cd ..",
-	"$ cd d",
-	"$ ls",
-	"4060174 j",
-	"8033020 d.log",
-	"5626152 d.ext",
-	"7214296 k",
-}
+var (
+	actualSession = util.InputLines()
+	sampleSession = []string{
+		"$ cd /",
+		"$ ls",
+		"dir a",
+		"14848514 b.txt",
+		"8504156 c.dat",
+		"dir d",
+		"$ cd a",
+		"$ ls",
+		"dir e",
+		"29116 f",
+		"2557 g",
+		"62596 h.lst",
+		"$ cd e",
+		"$ ls",
+		"584 i",
+		"$ cd ..",
+		"$ cd ..",
+		"$ cd d",
+		"$ ls",
+		"4060174 j",
+		"8033020 d.log",
+		"5626152 d.ext",
+		"7214296 k",
+	}
+)
 
 var (
-	sample = ParseTerminalSession(sampleLines)
-	input  = ParseTerminalSession(util.InputLines())
+	sampleFiles = CalculateDirectorySizes(ParseFiles(sampleSession))
+	actualFiles = CalculateDirectorySizes(ParseFiles(actualSession))
 )
 
 func TestDay06Part1(t *testing.T) {
-	should.So(t, sample.TotalSizeOfSmallDirectories(), should.Equal, 95437)
-	should.So(t, input.TotalSizeOfSmallDirectories(), should.Equal, 1118405)
+	should.So(t, TotalSizeOfSmallDirectories(sampleFiles), should.Equal, 95437)
+	should.So(t, TotalSizeOfSmallDirectories(actualFiles), should.Equal, 1118405)
 }
 func TestDay06Part2(t *testing.T) {
-	should.So(t, sample.SizeOfSingleDirectoryToDelete(), should.Equal, 24933642)
-	should.So(t, input.SizeOfSingleDirectoryToDelete(), should.Equal, 12545514)
+	should.So(t, SizeOfDirectoryPreventingUpdate(sampleFiles), should.Equal, 24933642)
+	should.So(t, SizeOfDirectoryPreventingUpdate(actualFiles), should.Equal, 12545514)
 }
-
-func ParseTerminalSession(lines []string) *Dir {
-	root := NewDir(nil, "/")
-	var at *Dir
-	for _, line := range lines {
+func ParseFiles(session []string) map[string]int {
+	files := make(map[string]int)
+	at := "/"
+	for _, line := range session {
 		fields := strings.Fields(line)
 		if line == "$ cd /" {
-			at = root
+			at = "/"
 		} else if line == "$ ls" {
 			continue
 		} else if line == "$ cd .." {
-			at = at.Parent
+			at = filepath.Join(filepath.Dir(at))
 		} else if strings.HasPrefix(line, "$ cd ") {
-			at = at.Dirs[fields[2]]
+			at = filepath.Join(at, fields[2])
 		} else if strings.HasPrefix(line, "dir ") {
-			at.Dirs[fields[1]] = NewDir(at, fields[1])
+			continue
 		} else {
-			at.Files[fields[1]] = util.ParseInt(fields[0])
+			files[filepath.Join(at, fields[1])] = util.ParseInt(fields[0])
 		}
 	}
-	return root
+	return files
 }
-
-type Dir struct {
-	Parent *Dir
-	Name   string
-	Dirs   map[string]*Dir
-	Files  map[string]int
+func CalculateDirectorySizes(files map[string]int) (directories map[string]int) {
+	directories = make(map[string]int)
+	for path, size := range files {
+		for path != "/" {
+			path = filepath.Dir(path)
+			directories[path] += size
+		}
+	}
+	return directories
 }
-
-func NewDir(parent *Dir, name string) *Dir {
-	return &Dir{
-		Parent: parent,
-		Name:   name,
-		Dirs:   make(map[string]*Dir),
-		Files:  make(map[string]int),
-	}
-}
-
-func (this *Dir) Size() (sum int) {
-	for _, dir := range this.Dirs {
-		sum += dir.Size()
-	}
-	for _, file := range this.Files {
-		sum += file
-	}
-	return sum
-}
-func (this *Dir) TotalSizeOfSmallDirectories() (result int) {
-	size := this.Size()
-	if size <= 100000 {
-		result += size
-	}
-	for _, dir := range this.Dirs {
-		result += dir.TotalSizeOfSmallDirectories()
+func TotalSizeOfSmallDirectories(sizes map[string]int) (result int) {
+	for _, size := range sizes {
+		if size <= 100_000 {
+			result += size
+		}
 	}
 	return result
 }
-func (this *Dir) SizeOfSingleDirectoryToDelete() int {
-	const (
-		capacity = 70_000_000
-		needed   = 30_000_000
-	)
-	var (
-		currentlyFree   = capacity - this.Size()
-		stillMustDelete = needed - currentlyFree
-	)
-	return util.Min[int](this.listDirsAbove(stillMustDelete)...)
+func SizeOfDirectoryPreventingUpdate(sizes map[string]int) int {
+	currentlyUsed := sizes["/"]
+	currentlyFree := TotalCapacity - currentlyUsed
+	mustDeleteAtLease := SizeOfUpdate - currentlyFree
+	candidate := 0xFFFFFFFF
+	for _, size := range sizes {
+		if size >= mustDeleteAtLease && size < candidate {
+			candidate = size
+		}
+	}
+	return candidate
 }
-func (this *Dir) listDirsAbove(minSize int) (results []int) {
-	for _, dir := range this.Dirs {
-		results = append(results, dir.listDirsAbove(minSize)...)
-	}
-	size := this.Size()
-	if size >= minSize {
-		results = append(results, size)
-	}
-	return results
-}
-func (this *Dir) DebugRendering(w io.Writer, depth int) {
-	prefix := strings.Repeat(" ", depth*2)
-	_, _ = io.WriteString(w, prefix)
-	_, _ = io.WriteString(w, "- ")
-	_, _ = io.WriteString(w, this.Name)
-	_, _ = io.WriteString(w, " (dir)\n")
-	for _, dir := range this.Dirs {
-		dir.DebugRendering(w, depth+1)
-	}
-	for name, file := range this.Files {
-		_, _ = io.WriteString(w, prefix)
-		_, _ = io.WriteString(w, "  ")
-		_, _ = io.WriteString(w, "- ")
-		_, _ = io.WriteString(w, name)
-		_, _ = fmt.Fprintf(w, " (file, size=%d)\n", file)
-	}
-}
+
+const (
+	TotalCapacity = 70_000_000
+	SizeOfUpdate  = 30_000_000
+)
