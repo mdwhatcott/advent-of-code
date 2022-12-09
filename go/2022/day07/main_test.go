@@ -94,10 +94,10 @@ func TotalSizeOfSmallDirectories(sizes map[string]int) (result int) {
 func SizeOfDirectoryPreventingUpdate(sizes map[string]int) int {
 	currentlyUsed := sizes["/"]
 	currentlyFree := TotalCapacity - currentlyUsed
-	mustDeleteAtLease := SizeOfUpdate - currentlyFree
+	mustDeleteAtLeast := SizeOfUpdate - currentlyFree
 	candidate := 0xFFFFFFFF
 	for _, size := range sizes {
-		if size >= mustDeleteAtLease && size < candidate {
+		if size >= mustDeleteAtLeast && size < candidate {
 			candidate = size
 		}
 	}
