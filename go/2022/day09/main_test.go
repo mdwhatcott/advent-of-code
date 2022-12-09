@@ -12,27 +12,9 @@ import (
 )
 
 var (
-	inputLines  = util.InputLines()
-	sampleLines = []string{
-		"R 4",
-		"U 4",
-		"L 3",
-		"D 1",
-		"R 4",
-		"D 1",
-		"L 5",
-		"R 2",
-	}
-	sample2Lines = []string{
-		"R 5",
-		"U 8",
-		"L 8",
-		"D 3",
-		"R 17",
-		"D 10",
-		"L 25",
-		"U 20",
-	}
+	inputLines   = util.InputLines()
+	sampleLines  = []string{"R 4", "U 4", "L 3", "D 1", "R 4", "D 1", "L 5", "R 2"}
+	sample2Lines = []string{"R 5", "U 8", "L 8", "D 3", "R 17", "D 10", "L 25", "U 20"}
 )
 
 func TestDay09(t *testing.T) {
@@ -51,43 +33,40 @@ var directions = map[string]intgrid.Direction{
 	"D": intgrid.Down,
 }
 
-func Simulate(lines []string, knots int) int {
+func Simulate(moves []string, knots int) int {
 	visited := set.From[intgrid.Point]()
 	chain := make([]intgrid.Point, knots)
-	for _, line := range lines {
-		fields := strings.Fields(line)
+	for _, move := range moves {
+		fields := strings.Fields(move)
 		direction := directions[fields[0]]
 		steps := util.ParseInt(fields[1])
 
 		for ; steps > 0; steps-- {
-			newChain := make([]intgrid.Point, knots)
-			newChain[0] = chain[0].Move(direction)
-			for x := 1; x < len(chain); x++ {
-				tail := chain[x]
-				newHead := newChain[x-1]
-				if tooFar(tail, newHead) {
-					newChain[x] = tail.Move(follow(tail, newHead))
-				} else {
-					newChain[x] = chain[x]
-				}
-			}
-			chain = newChain
+			chain[0] = chain[0].Move(direction)
+			drag(chain)
 			visited.Add(chain[len(chain)-1])
 		}
 	}
 	return visited.Len()
 }
-
-func tooFar(tail, head intgrid.Point) bool {
+func drag(chain []intgrid.Point) {
+	for x := 1; x < len(chain); x++ {
+		tail, head := chain[x], chain[x-1]
+		if !stretchedTooFar(tail, head) {
+			return
+		}
+		chain[x] = tail.Move(follow(tail, head))
+	}
+}
+func stretchedTooFar(tail, head intgrid.Point) bool {
 	return intgrid.ManhattanDistance(tail, head) > 1 &&
-		util.Abs(tail.X()-head.X()) > 1 ||
-		util.Abs(tail.Y()-head.Y()) > 1
+		(util.Abs(tail.X()-head.X()) > 1 ||
+			util.Abs(tail.Y()-head.Y()) > 1)
 }
 func follow(from, to intgrid.Point) intgrid.Direction {
 	return intgrid.NewDirection(
 		zeroOrOne(to.X()-from.X()),
-		zeroOrOne(to.Y()-from.Y()),
-	)
+		zeroOrOne(to.Y()-from.Y()))
 }
 func zeroOrOne(n int) int {
 	if n > 0 {
