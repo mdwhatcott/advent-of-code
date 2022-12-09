@@ -36,16 +36,12 @@ var (
 )
 
 func TestDay09(t *testing.T) {
-	should.So(t, Part1(sampleLines), should.Equal, 13)
-	should.So(t, Part1(inputLines), should.Equal, 5907)
+	should.So(t, Simulate(sampleLines, 2), should.Equal, 13)
+	should.So(t, Simulate(inputLines, 2), should.Equal, 5907)
 
-	// Part 1, but with code for Part 2 (which should work...)
-	should.So(t, Part2(sampleLines, 2), should.Equal, 13)
-	should.So(t, Part2(inputLines, 2), should.Equal, 5907)
-
-	should.So(t, Part2(sampleLines, 10), should.Equal, 1)
-	should.So(t, Part2(sample2Lines, 10), should.Equal, 36)
-	should.So(t, Part2(inputLines, 10), should.Equal, 2303)
+	should.So(t, Simulate(sampleLines, 10), should.Equal, 1)
+	should.So(t, Simulate(sample2Lines, 10), should.Equal, 36)
+	should.So(t, Simulate(inputLines, 10), should.Equal, 2303)
 }
 
 var directions = map[string]intgrid.Direction{
@@ -55,7 +51,7 @@ var directions = map[string]intgrid.Direction{
 	"D": intgrid.Down,
 }
 
-func Part2(lines []string, knots int) int {
+func Simulate(lines []string, knots int) int {
 	visited := set.From[intgrid.Point]()
 	chain := make([]intgrid.Point, knots)
 	for _, line := range lines {
@@ -82,65 +78,23 @@ func Part2(lines []string, knots int) int {
 	return visited.Len()
 }
 
-func Part1(lines []string) int {
-	head := intgrid.NewPoint(0, 0)
-	tail := intgrid.NewPoint(0, 0)
-	visited := set.From[intgrid.Point](tail)
-	for _, line := range lines {
-		fields := strings.Fields(line)
-		direction := directions[fields[0]]
-		distance := util.ParseInt(fields[1])
-		for ; distance > 0; distance-- {
-			newHead := head.Move(direction)
-			if tooFar(tail, newHead) {
-				tail = tail.Move(follow(tail, newHead))
-			}
-			head = newHead
-			visited.Add(tail)
-		}
-	}
-	return visited.Len()
-}
-
 func tooFar(tail, head intgrid.Point) bool {
-	if tail == head {
-		return false
-	}
-	distance := intgrid.ManhattanDistance(tail, head)
-	if distance == 1 {
-		return false
-	}
-	if distance > 2 {
-		return true
-	}
-	return util.Abs(tail.X()-head.X()) != 1 || util.Abs(tail.Y()-head.Y()) != 1
+	return intgrid.ManhattanDistance(tail, head) > 1 &&
+		util.Abs(tail.X()-head.X()) > 1 ||
+		util.Abs(tail.Y()-head.Y()) > 1
 }
-
-func one(n int) int {
-	if n == 0 {
-		return 0
-	}
+func follow(from, to intgrid.Point) intgrid.Direction {
+	return intgrid.NewDirection(
+		zeroOrOne(to.X()-from.X()),
+		zeroOrOne(to.Y()-from.Y()),
+	)
+}
+func zeroOrOne(n int) int {
 	if n > 0 {
 		return 1
 	}
-	return -1
-}
-func follow(from, to intgrid.Point) intgrid.Direction {
-	if from.X() == to.X() || from.Y() == to.Y() {
-		return intgrid.NewDirection(one(to.X()-from.X()), one(to.Y()-from.Y()))
+	if n < 0 {
+		return -1
 	}
-	dist := intgrid.ManhattanDistance(from, to)
-	for _, diag := range diags {
-		if intgrid.ManhattanDistance(from.Move(diag), to) < dist {
-			return diag
-		}
-	}
-	panic("NOPE" + from.String() + to.String())
-}
-
-var diags = []intgrid.Direction{
-	intgrid.NewDirection(1, 1),
-	intgrid.NewDirection(-1, 1),
-	intgrid.NewDirection(-1, -1),
-	intgrid.NewDirection(1, -1),
+	return 0
 }
