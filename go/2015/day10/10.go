@@ -3,10 +3,12 @@ package main
 import (
 	"bytes"
 	"fmt"
+
+	"advent/lib/util"
 )
 
 func main() {
-	input := "1113222113"
+	input := util.InputString()
 	forty := LookSayMany(input, 40)
 	fifty := LookSayMany(forty, 10)
 	fmt.Println("Length of result after 40 rounds:", len(forty))
