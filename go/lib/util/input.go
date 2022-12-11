@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
@@ -18,14 +19,19 @@ func InputCharacters() (all []string) {
 }
 
 func InputBytes() []byte {
-	_, file, _, _ := runtime.Caller(0)
-	this := file
-	for caller := 1; file == this; caller++ {
-		_, file, _, _ = runtime.Caller(caller)
+	_, path, _, _ := runtime.Caller(0)
+	this := path
+	for caller := 1; path == this; caller++ {
+		_, path, _, _ = runtime.Caller(caller)
 	}
-	dir := filepath.Dir(file)
-	input := filepath.Join(dir, "input.txt")
-	content, err := os.ReadFile(input)
+	pattern := regexp.MustCompile(`advent-of-code\/go\/(\d{4})\/day(\d{2})\/`)
+	matches := pattern.FindStringSubmatch(path)
+	year, day := matches[1], matches[2]
+	for strings.Contains(path, "advent-of-code") {
+		path = filepath.Dir(path)
+	}
+	path = filepath.Join(path, "advent-of-code-inputs", year, day) + ".txt"
+	content, err := os.ReadFile(path)
 	if err != nil {
 		log.Panic(err)
 	}
