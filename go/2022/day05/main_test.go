@@ -14,11 +14,6 @@ import (
 var (
 	inputLines  = util.InputLines()
 	sampleLines = []string{
-		"    [D]    ",
-		"[N] [C]    ",
-		"[Z] [M] [P]",
-		" 1   2   3 ",
-		"",
 		"move 1 from 2 to 1",
 		"move 3 from 1 to 3",
 		"move 2 from 2 to 1",
@@ -47,7 +42,6 @@ func inputStacks() map[rune]*stack.Stack[rune] {
 		'9': stackFrom("ZFHG"),
 	}
 }
-
 func stackFrom(s string) *stack.Stack[rune] {
 	result := stack.New[rune](0)
 	for _, v := range s {
@@ -56,11 +50,10 @@ func stackFrom(s string) *stack.Stack[rune] {
 	return result
 }
 
-func TestDay05Part1(t *testing.T) {
+func TestDay05(t *testing.T) {
 	should.So(t, Execute(sampleLines, NewQueueAsStack[rune](), sampleStacks()), should.Equal, "CMZ")
 	should.So(t, Execute(inputLines, NewQueueAsStack[rune](), inputStacks()), should.Equal, "VCTFTJQCG")
-}
-func TestDay05Part2(t *testing.T) {
+
 	should.So(t, Execute(sampleLines, stack.New[rune](0), sampleStacks()), should.Equal, "MCD")
 	should.So(t, Execute(inputLines, stack.New[rune](0), inputStacks()), should.Equal, "GCFGLDNJZ")
 }
