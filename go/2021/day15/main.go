@@ -82,7 +82,7 @@ func NewTurtle(grid Grid, point, target intgrid.Point, distance float64) astar.T
 }
 
 func (this *Turtle) EstimatedDistanceToTarget() float64 {
-	return intgrid.CityBlockDistance(this.point, this.target)
+	return float64(intgrid.CityBlockDistance(this.point, this.target))
 }
 
 func (this *Turtle) StepCost() float64 {

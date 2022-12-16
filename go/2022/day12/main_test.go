@@ -86,7 +86,7 @@ func (this *Step) AdjacentPositions() (result []astar.Turtle) {
 	return result
 }
 func (this *Step) EstimatedDistanceToTarget() float64 {
-	return intgrid.ManhattanDistance(this.At, this.Target)
+	return float64(intgrid.ManhattanDistance(this.At, this.Target))
 }
 func (this *Step) StepCost() float64 { return 1 }
 func (this *Step) Hash() string      { return this.At.String() }

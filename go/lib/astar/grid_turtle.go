@@ -18,7 +18,7 @@ func (this *GridTurtle) Search() (path []Turtle, found bool) {
 	return SearchFrom(this)
 }
 func (this *GridTurtle) EstimatedDistanceToTarget() float64 {
-	return intgrid.CityBlockDistance(this.from, this.to)
+	return float64(intgrid.CityBlockDistance(this.from, this.to))
 }
 func (this *GridTurtle) AdjacentPositions() (results []Turtle) {
 	for _, d := range intgrid.Neighbors4 {

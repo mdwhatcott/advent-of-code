@@ -2,13 +2,13 @@ package intgrid
 
 import "math"
 
-func ManhattanDistance(p, q Point) float64 {
+func ManhattanDistance(p, q Point) int {
 	return CityBlockDistance(p, q)
 }
 
-func CityBlockDistance(p, q Point) float64 {
+func CityBlockDistance(p, q Point) int {
 	x, y := diff(p, q)
-	return math.Abs(x) + math.Abs(y)
+	return int(math.Abs(x)) + int(math.Abs(y))
 }
 
 func EuclideanDistance(p, q Point) float64 {
