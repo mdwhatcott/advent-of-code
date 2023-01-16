@@ -3,7 +3,6 @@ package day15
 import (
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/util"
@@ -23,11 +22,11 @@ var exampleLines = []string{
 }
 
 func TestPart1(t *testing.T) {
-	assert.Fatal(t).So(Part1(exampleLines), should.Equal, 40)
-	assert.Fatal(t).So(Part1(util.InputLines()), should.Equal, 824)
+	should.So(t, Part1(exampleLines), should.Equal, 40)
+	should.So(t, Part1(util.InputLines()), should.Equal, 824)
 }
 
 func TestPart2(t *testing.T) {
-	assert.Fatal(t).So(Part2(exampleLines), should.Equal, 315)
-	assert.Fatal(t).So(Part2(util.InputLines()), should.Equal, 3063)
+	should.So(t, Part2(exampleLines), should.Equal, 315)
+	should.So(t, Part2(util.InputLines()), should.Equal, 3063)
 }
