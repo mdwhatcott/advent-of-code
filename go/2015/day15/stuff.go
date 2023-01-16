@@ -1,4 +1,4 @@
-package main
+package day15
 
 func ComputeUltimateCookie(totalTeaspoons int, ingredients ...Ingredient) (max, max500Calories int) {
 	for _, mixture := range mixtures(len(ingredients), totalTeaspoons) {

@@ -1,4 +1,4 @@
-package main
+package day18
 
 import (
 	"strings"

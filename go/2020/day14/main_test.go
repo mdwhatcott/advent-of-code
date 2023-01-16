@@ -5,12 +5,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mdwhatcott/testing/assert"
 	"github.com/mdwhatcott/testing/should"
 )
 
 func TestApplyMask(t *testing.T) {
-	a := assert.Error(t)
+	a := should.New(t)
 	mask := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"
 	a.So(ApplyMask("11", mask), should.Equal, 73)
 	a.So(ApplyMask("101", mask), should.Equal, 101)
