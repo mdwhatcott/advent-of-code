@@ -8,7 +8,6 @@ import (
 
 	"advent/2017/day10/knot"
 	"advent/lib/grid"
-	"advent/lib/util"
 )
 
 type Disk struct {
@@ -22,7 +21,7 @@ func makeDisk(key string) *Disk {
 		digest := knot.HashString(key + "-" + strconv.Itoa(row))
 		hash, _ := hex.DecodeString(digest)
 		for s, sector := range hash {
-			for d, digit := range util.EncodeBinary(sector) {
+			for d, digit := range encodeBinary(sector) {
 				column := s*8 + d
 				if digit == '1' {
 					fmt.Fprint(disk.visual, "•")
@@ -73,4 +72,8 @@ func (disk *Disk) resetRegion(row, column int) {
 			disk.resetRegion(x, y)
 		}
 	}
+}
+
+func encodeBinary(value byte) string {
+	return fmt.Sprintf("%08b", value)
 }

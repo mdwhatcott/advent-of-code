@@ -23,3 +23,10 @@ func TestSolve(t *testing.T) {
 	should.So(t, distance, should.Equal, 96)
 	should.So(t, near, should.Equal, 141)
 }
+func TestBinaryHammingWeight(t *testing.T) {
+	should.So(t, binaryHammingWeight(0), should.Equal, 0)
+	should.So(t, binaryHammingWeight(1), should.Equal, 1)
+	should.So(t, binaryHammingWeight(2), should.Equal, 1)
+	should.So(t, binaryHammingWeight(3), should.Equal, 2)
+	should.So(t, binaryHammingWeight(255), should.Equal, 8)
+}

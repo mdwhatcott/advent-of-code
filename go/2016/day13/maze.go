@@ -5,7 +5,6 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 
 	"advent/lib/intgrid"
-	"advent/lib/util"
 )
 
 func BreadthFirstSearch(maze int, origin, target intgrid.Point) (distance, near int) {
@@ -52,6 +51,12 @@ func isHallway(maze int, point intgrid.Point) bool {
 		return false
 	}
 	sum := x*x + 3*x + 2*x*y + y + y*y + maze
-	bits := util.BinaryHammingWeight(sum)
+	bits := binaryHammingWeight(sum)
 	return bits%2 == 0
+}
+func binaryHammingWeight(value int) (count int) { // See: https://en.wikipedia.org/wiki/Hamming_weight
+	for ; value > 0; count++ {
+		value &= value - 1
+	}
+	return count
 }
