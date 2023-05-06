@@ -4,6 +4,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 
@@ -13,7 +14,7 @@ import (
 )
 
 var (
-	inputLines  = util.InputLines()
+	inputLines  = inputs.Read(2022, 15).Lines()
 	sampleLines = []string{
 		"Sensor at x=2, y=18: closest beacon is at x=-2, y=15",
 		"Sensor at x=9, y=16: closest beacon is at x=10, y=16",
