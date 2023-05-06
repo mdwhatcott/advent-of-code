@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Scrambler struct {
@@ -56,7 +56,7 @@ func (this *Scrambler) insertInstruction(line string, fields []string, invert bo
 
 func (this *Scrambler) insertMove(fields []string, invert bool) {
 	this.insert(func(s string) string {
-		x, y := util.ParseInt(fields[2]), util.ParseInt(fields[5])
+		x, y := parse.Int(fields[2]), parse.Int(fields[5])
 		if invert {
 			return Move(s, y, x)
 		} else {
@@ -66,7 +66,7 @@ func (this *Scrambler) insertMove(fields []string, invert bool) {
 }
 func (this *Scrambler) insertSwapPosition(fields []string, invert bool) {
 	this.insert(func(s string) string {
-		return SwapPositions(s, util.ParseInt(fields[2]), util.ParseInt(fields[5]))
+		return SwapPositions(s, parse.Int(fields[2]), parse.Int(fields[5]))
 	})
 }
 func (this *Scrambler) insertSwapLetters(fields []string, invert bool) {
@@ -76,7 +76,7 @@ func (this *Scrambler) insertSwapLetters(fields []string, invert bool) {
 }
 func (this *Scrambler) insertReverse(fields []string, invert bool) {
 	this.insert(func(s string) string {
-		return ReverseRange(s, util.ParseInt(fields[2]), util.ParseInt(fields[4]))
+		return ReverseRange(s, parse.Int(fields[2]), parse.Int(fields[4]))
 	})
 }
 func (this *Scrambler) insertRotateByChar(fields []string, invert bool) {
@@ -110,7 +110,7 @@ func (this *Scrambler) insertRotateByChar(fields []string, invert bool) {
 }
 func (this *Scrambler) insertRotateLeft(fields []string, invert bool) {
 	this.insert(func(s string) string {
-		x := util.ParseInt(fields[2])
+		x := parse.Int(fields[2])
 		if invert {
 			return Rotate(s, x)
 		} else {
@@ -120,7 +120,7 @@ func (this *Scrambler) insertRotateLeft(fields []string, invert bool) {
 }
 func (this *Scrambler) insertRotateRight(fields []string, invert bool) {
 	this.insert(func(s string) string {
-		x := util.ParseInt(fields[2])
+		x := parse.Int(fields[2])
 		if invert {
 			return Rotate(s, -x)
 		} else {

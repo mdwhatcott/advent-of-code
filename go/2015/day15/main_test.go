@@ -6,6 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -27,11 +28,11 @@ func parseIngredients() (ingredients Ingredients) {
 		line = strings.Replace(line, ",", "", -1)
 		words := strings.Fields(line)
 		ingredients = append(ingredients, Ingredient{
-			Capacity:   util.ParseInt(words[2]),
-			Durability: util.ParseInt(words[4]),
-			Flavor:     util.ParseInt(words[6]),
-			Texture:    util.ParseInt(words[8]),
-			Calories:   util.ParseInt(words[10]),
+			Capacity:   parse.Int(words[2]),
+			Durability: parse.Int(words[4]),
+			Flavor:     parse.Int(words[6]),
+			Texture:    parse.Int(words[8]),
+			Calories:   parse.Int(words[10]),
 		})
 	}
 	return ingredients

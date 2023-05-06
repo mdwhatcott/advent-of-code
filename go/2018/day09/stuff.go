@@ -6,13 +6,13 @@ import (
 	"strings"
 
 	"advent/lib/maths"
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func Parse(input string) (players int, maxMarble int) {
 	fields := strings.Fields(input)
-	players = util.ParseInt(fields[0])
-	maxMarble = util.ParseInt(fields[6])
+	players = parse.Int(fields[0])
+	maxMarble = parse.Int(fields[6])
 	return players, maxMarble
 }
 

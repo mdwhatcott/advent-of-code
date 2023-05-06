@@ -3,13 +3,14 @@ package advent
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
 func Part1() interface{} {
 	lines := util.InputLines()
-	timestamp := util.ParseInt(lines[0])
-	busses := util.ParseInts(strings.Split(lines[1], ","))
+	timestamp := parse.Int(lines[0])
+	busses := parse.Ints(strings.Split(lines[1], ","))
 	min := 1_000_000
 	minBus := -1
 	for _, bus := range busses {
@@ -71,7 +72,7 @@ func checkRules(timestamp int, rules []Rule) bool {
 func loadRules(line string) (rules []Rule) {
 	for i, c := range strings.Split(line, ",") {
 		if c != "x" {
-			rules = append(rules, Rule{Index: i, Cycle: util.ParseInt(c)})
+			rules = append(rules, Rule{Index: i, Cycle: parse.Int(c)})
 		}
 	}
 	return rules

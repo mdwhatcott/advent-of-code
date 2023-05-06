@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"advent/lib/grid"
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func calculateAreaWithinRadius(points []grid.Point, radius float64) (within int) {
@@ -79,8 +79,8 @@ func parsePoints(input string) (points []grid.Point) {
 		line = strings.Replace(line, ",", "", -1)
 		fields := strings.Fields(line)
 		point := grid.NewPoint(
-			util.ParseFloat(fields[0]),
-			util.ParseFloat(fields[1]),
+			parse.Float64(fields[0]),
+			parse.Float64(fields[1]),
 		)
 		points = append(points, point)
 	}

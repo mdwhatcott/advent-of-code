@@ -3,7 +3,7 @@ package day18
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type SoundBlaster struct {
@@ -40,7 +40,7 @@ func (this *SoundBlaster) resolve(label string) int {
 	if found {
 		return value
 	}
-	return util.ParseInt(label)
+	return parse.Int(label)
 }
 func (this *SoundBlaster) execute(instruction string) int {
 	fields := strings.Fields(instruction)

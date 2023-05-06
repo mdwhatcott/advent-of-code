@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"advent/lib/maths"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -19,7 +20,7 @@ func part1Checksum(lines []string) int {
 	checksum := 0
 	for _, line := range lines {
 		fields := strings.Fields(line)
-		ints := util.ParseInts(fields)
+		ints := parse.Ints(fields)
 		min, max := maths.MinMax(ints...)
 		diff := max - min
 		checksum += diff
@@ -31,7 +32,7 @@ func part2Checksum(lines []string) int {
 	checksum := 0
 	for _, line := range lines {
 		fields := strings.Fields(line)
-		ints := util.ParseInts(fields)
+		ints := parse.Ints(fields)
 		checksum += divider(ints)
 	}
 	return checksum

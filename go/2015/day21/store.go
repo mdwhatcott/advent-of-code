@@ -3,6 +3,7 @@ package main
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -91,9 +92,9 @@ func loadStore() *Store {
 		fields := scanner.Fields()
 		store.Stock(Equipment{
 			Name:    fields[0],
-			Cost:    util.ParseInt(fields[1]),
-			Damage:  util.ParseInt(fields[2]),
-			Defense: util.ParseInt(fields[3]),
+			Cost:    parse.Int(fields[1]),
+			Damage:  parse.Int(fields[2]),
+			Defense: parse.Int(fields[3]),
 		})
 	}
 	return store

@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/intgrid"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -33,7 +34,7 @@ func FillSand(lines []string) int {
 		var endpoints []intgrid.Point
 		for _, endpoint := range strings.Split(line, " -> ") {
 			xy := strings.Split(endpoint, ",")
-			endpoints = append(endpoints, intgrid.NewPoint(util.ParseInt(xy[0]), util.ParseInt(xy[1])))
+			endpoints = append(endpoints, intgrid.NewPoint(parse.Int(xy[0]), parse.Int(xy[1])))
 		}
 		for x := 1; x < len(endpoints); x++ {
 			from, to := endpoints[x-1], endpoints[x-0]

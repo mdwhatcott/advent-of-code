@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/go-collections/stack"
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -76,7 +77,7 @@ func Execute(instructions []string, tmp StackOrQueue[rune], stacks map[rune]*sta
 			continue
 		}
 		fields := strings.Fields(instruction)
-		moves := util.ParseInt(fields[1])
+		moves := parse.Int(fields[1])
 		from := stacks[rune(fields[3][0])]
 		to := stacks[rune(fields[5][0])]
 		for x := 0; x < moves; x++ {

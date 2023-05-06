@@ -4,7 +4,7 @@ import (
 	"log"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Interpreter struct {
@@ -41,14 +41,14 @@ func (this *Interpreter) execute(args []string) (cursorOffset int) {
 	case INCREMENT:
 		this.registers[args[1]]++
 	case JUMP:
-		return util.ParseInt(args[1])
+		return parse.Int(args[1])
 	case JUMPEVEN:
 		if this.registers[args[1]]%2 == 0 {
-			return util.ParseInt(args[2])
+			return parse.Int(args[2])
 		}
 	case JUMP1:
 		if this.registers[args[1]] == 1 {
-			return util.ParseInt(args[2])
+			return parse.Int(args[2])
 		}
 	default:
 		log.Println("Ignoring instruction:", args)

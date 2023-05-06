@@ -10,7 +10,7 @@ import (
 
 	"advent/lib/intgrid"
 	"advent/lib/maths"
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 var (
@@ -44,8 +44,8 @@ func Part1(lines []string, targetY int) (result int) {
 	beacons := set.New[intgrid.Point](0)
 	for _, line := range lines {
 		fields := strings.Fields(strings.NewReplacer("=", " ", ",", " ", ":", " ").Replace(line))
-		sensor := intgrid.NewPoint(util.ParseInt(fields[3]), util.ParseInt(fields[5]))
-		beacon := intgrid.NewPoint(util.ParseInt(fields[11]), util.ParseInt(fields[13]))
+		sensor := intgrid.NewPoint(parse.Int(fields[3]), parse.Int(fields[5]))
+		beacon := intgrid.NewPoint(parse.Int(fields[11]), parse.Int(fields[13]))
 		x := maths.Min(sensor.X(), beacon.X())
 		if x < minX {
 			minX = sensor.X()

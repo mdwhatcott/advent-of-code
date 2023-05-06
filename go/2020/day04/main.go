@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -55,24 +56,24 @@ func (this Passport) HasAllValidFields() bool {
 		this.hasValidPID()
 }
 func (this Passport) hasValidBYR() bool {
-	value := util.ParseInt(this["byr"])
+	value := parse.Int(this["byr"])
 	return 1920 <= value && value <= 2002
 }
 func (this Passport) hasValidIYR() bool {
-	value := util.ParseInt(this["iyr"])
+	value := parse.Int(this["iyr"])
 	return 2010 <= value && value <= 2020
 }
 func (this Passport) hasValidEYR() bool {
-	value := util.ParseInt(this["eyr"])
+	value := parse.Int(this["eyr"])
 	return 2020 <= value && value <= 2030
 }
 func (this Passport) hasValidHGT() bool {
 	value := this["hgt"]
 	if strings.HasSuffix(value, "cm") {
-		parsed := util.ParseInt(strings.TrimSuffix(value, "cm"))
+		parsed := parse.Int(strings.TrimSuffix(value, "cm"))
 		return 150 <= parsed && parsed <= 193
 	} else if strings.HasSuffix(value, "in") {
-		parsed := util.ParseInt(strings.TrimSuffix(value, "in"))
+		parsed := parse.Int(strings.TrimSuffix(value, "in"))
 		return 59 <= parsed && parsed <= 76
 	} else {
 		return false

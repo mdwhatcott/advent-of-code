@@ -3,7 +3,7 @@ package day20
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func ParsePixel(id int, line string) *Pixel {
@@ -22,9 +22,9 @@ func ParseFirstTriplet(line string) Triplet {
 	excerpt := line[start+1 : stop]
 	fields := strings.Split(excerpt, ",")
 	return Triplet{
-		X: util.ParseInt(fields[0]),
-		Y: util.ParseInt(fields[1]),
-		Z: util.ParseInt(fields[2]),
+		X: parse.Int(fields[0]),
+		Y: parse.Int(fields[1]),
+		Z: parse.Int(fields[2]),
 	}
 }
 

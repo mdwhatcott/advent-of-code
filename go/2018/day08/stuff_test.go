@@ -6,7 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func TestStuffFixture(t *testing.T) {
@@ -24,7 +24,7 @@ const toy = `2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2`
 //                                D-----
 
 func prepare(input string) []int {
-	return util.ParseInts(strings.Fields(input))
+	return parse.Ints(strings.Fields(input))
 }
 
 func (this *StuffFixture) TestPart1() {

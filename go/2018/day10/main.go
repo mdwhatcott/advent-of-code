@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"advent/lib/grid"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -18,7 +19,7 @@ func Part1() interface{} {
 	var directions []grid.Direction
 	for _, line := range lines {
 		fields := strings.Fields(line)
-		x, y, dx, dy := util.Slice[int](util.ParseInts(fields)).Unpack4()
+		x, y, dx, dy := util.Slice[int](parse.Ints(fields)).Unpack4()
 		points = append(points, grid.NewPoint(float64(x), float64(y)))
 		directions = append(directions, grid.NewDirection(float64(dx), float64(dy)))
 	}

@@ -3,7 +3,7 @@ package day07
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Program struct {
@@ -78,7 +78,7 @@ func (this *Tower) AddProgram(description string) {
 		return
 	}
 	program := this.getProgram(fields[0])
-	program.weight = util.ParseInt(strings.Trim(fields[1], "()"))
+	program.weight = parse.Int(strings.Trim(fields[1], "()"))
 
 	for x := 3; x < len(fields); x++ {
 		program.Children = append(program.Children, this.getProgram(fields[x]))

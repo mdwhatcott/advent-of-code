@@ -6,6 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -82,7 +83,7 @@ func Render(lines []string) (Part1 int, Part2 string) {
 			}
 			cycle++
 		} else {
-			register += util.ParseInt(strings.Fields(line)[1])
+			register += parse.Int(strings.Fields(line)[1])
 			lines = lines[1:]
 			line = ""
 			cycle++

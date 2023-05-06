@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"advent/lib/grid"
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type PlotPoint struct {
@@ -47,7 +47,7 @@ func parseFields(line string) []int {
 	line = strings.Replace(line, ",", " ", -1)
 	line = strings.Replace(line, ":", " ", -1)
 	line = strings.Replace(line, "x", " ", -1)
-	return util.ParseInts(strings.Fields(line))
+	return parse.Ints(strings.Fields(line))
 }
 
 type Claim []grid.Point

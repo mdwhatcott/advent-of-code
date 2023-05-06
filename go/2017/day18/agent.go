@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Agent struct {
@@ -42,7 +42,7 @@ func (this *Agent) resolve(label string) int {
 	if found {
 		return value
 	}
-	return util.ParseInt(label)
+	return parse.Int(label)
 }
 func (this *Agent) execute(instruction string) int {
 	fields := strings.Fields(instruction)

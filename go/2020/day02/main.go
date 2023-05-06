@@ -3,6 +3,7 @@ package advent
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -13,8 +14,8 @@ func Part1() interface{} {
 		fields := strings.Fields(line)
 		range_ := fields[0]
 		ranges := strings.Split(range_, "-")
-		lower := util.ParseInt(ranges[0])
-		upper := util.ParseInt(ranges[1])
+		lower := parse.Int(ranges[0])
+		upper := parse.Int(ranges[1])
 		letter := fields[1][0:1]
 		value := fields[2]
 		count := strings.Count(value, letter)
@@ -33,8 +34,8 @@ func Part2() interface{} {
 		fields := strings.Fields(line)
 		options := fields[0]
 		options2 := strings.Split(options, "-")
-		optionA := util.ParseInt(options2[0])
-		optionB := util.ParseInt(options2[1])
+		optionA := parse.Int(options2[0])
+		optionB := parse.Int(options2[1])
 		letter := fields[1][0:1]
 		value := fields[2]
 		if string(value[optionA-1]) == letter && string(value[optionB-1]) == letter {

@@ -7,6 +7,7 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -42,7 +43,7 @@ func Range(a, b int) (result []int) {
 }
 func Analyze(lines []string) (subsets, intersections int) {
 	for _, line := range lines {
-		matches := util.ParseInts(pattern.FindStringSubmatch(line)[1:])
+		matches := parse.Ints(pattern.FindStringSubmatch(line)[1:])
 		a, b, c, d := matches[0], matches[1], matches[2], matches[3]
 		A := set.From(Range(a, b+1)...)
 		B := set.From(Range(c, d+1)...)

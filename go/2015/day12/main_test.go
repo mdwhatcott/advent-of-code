@@ -6,6 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -19,7 +20,7 @@ func part1(input string) (sum int) {
 	scanner := prepare(input)
 
 	for scanner.Scan() {
-		sum += util.ParseInt(scanner.Text())
+		sum += parse.Int(scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {

@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/maths"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -40,7 +41,7 @@ func TestDay01(t *testing.T) {
 func sums(input string) (topElf, top3Elves int) {
 	var sums []int
 	for _, chunk := range strings.Split(input, "\n\n") {
-		sums = append(sums, maths.Sum(util.ParseInts(strings.Split(chunk, "\n"))...))
+		sums = append(sums, maths.Sum(parse.Ints(strings.Split(chunk, "\n"))...))
 	}
 	sort.Sort(sort.Reverse(sort.IntSlice(sums)))
 	return sums[0], maths.Sum(sums[:3]...)

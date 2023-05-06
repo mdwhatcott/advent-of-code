@@ -3,6 +3,7 @@ package day12
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -72,7 +73,7 @@ func group(start *Pipe) map[int]bool {
 }
 
 func getPipe(name string) *Pipe {
-	id := util.ParseInt(name)
+	id := parse.Int(name)
 	pipe := pipes[id]
 	if pipe == nil {
 		pipe = &Pipe{id: id}

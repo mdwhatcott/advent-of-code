@@ -9,6 +9,7 @@ import (
 
 	"advent/lib/intgrid"
 	"advent/lib/maths"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -40,7 +41,7 @@ func Simulate(moves []string, knots int) int {
 	for _, move := range moves {
 		fields := strings.Fields(move)
 		direction := directions[fields[0]]
-		steps := util.ParseInt(fields[1])
+		steps := parse.Int(fields[1])
 
 		for ; steps > 0; steps-- {
 			chain[0] = chain[0].Move(direction)

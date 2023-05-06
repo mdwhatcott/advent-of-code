@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
 func Part1() int {
-	d := NewDebugger(util.ParseInts(strings.Fields(util.InputString())))
+	d := NewDebugger(parse.Ints(strings.Fields(util.InputString())))
 	return d.Debug() + 1
 }
 
 func Part2() int {
-	d := NewDebugger(util.ParseInts(strings.Fields(util.InputString())))
+	d := NewDebugger(parse.Ints(strings.Fields(util.InputString())))
 	d.Debug() // perform part 1 calculations...
 	d.states = make(map[string]struct{})
 	d.states[fmt.Sprint(d.registers)] = struct{}{}

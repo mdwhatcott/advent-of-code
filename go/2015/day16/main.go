@@ -5,6 +5,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -39,9 +40,9 @@ func gatherCandidates() (candidates []AuntSue) {
 		line = strings.Replace(line, ",", "", -1)
 		words := strings.Fields(line)
 		candidates = append(candidates, AuntSue{
-			words[2]: util.ParseInt(words[3]),
-			words[4]: util.ParseInt(words[5]),
-			words[6]: util.ParseInt(words[7]),
+			words[2]: parse.Int(words[3]),
+			words[4]: parse.Int(words[5]),
+			words[6]: parse.Int(words[7]),
 		})
 	}
 	return candidates

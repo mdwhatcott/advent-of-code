@@ -4,6 +4,7 @@ import (
 	"sort"
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -18,9 +19,9 @@ func loadFirewall(scanner *util.Scanner) (firewall Firewall) {
 	for scanner.Scan() {
 		fields := strings.Split(scanner.Text(), ": ")
 		firewall = append(firewall, Layer{
-			Level:    util.ParseInt(fields[0]),
-			Width:    util.ParseInt(fields[1]),
-			WidthMod: (util.ParseInt(fields[1]) - 1) * 2,
+			Level:    parse.Int(fields[0]),
+			Width:    parse.Int(fields[1]),
+			WidthMod: (parse.Int(fields[1]) - 1) * 2,
 		})
 	}
 	firewall.Sort()

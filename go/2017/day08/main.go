@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"advent/lib/maths"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -36,7 +37,7 @@ func Answers() (part1, part2 int) {
 			log.Panic("Test not found:", fields[5])
 		}
 
-		if !test(fields[4], util.ParseInt(fields[6])) {
+		if !test(fields[4], parse.Int(fields[6])) {
 			continue
 		}
 
@@ -49,7 +50,7 @@ func Answers() (part1, part2 int) {
 		default:
 			log.Panic("Operation not found:", fields[1])
 		}
-		op(fields[0], util.ParseInt(fields[2]))
+		op(fields[0], parse.Int(fields[2]))
 		maxes = append(maxes, max())
 	}
 

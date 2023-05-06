@@ -1,7 +1,7 @@
 package day01
 
 import (
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func sumOfIdenticalNeighborDigits(input []string) (sum int) {
@@ -12,7 +12,7 @@ func sumOfIdenticalNeighborDigits(input []string) (sum int) {
 		c2 := input[x+1]
 
 		if c1 == c2 {
-			sum += util.ParseInt(c2)
+			sum += parse.Int(c2)
 		}
 	}
 
@@ -32,7 +32,7 @@ func sumOfIdenticalOppositeDigits(input []string) (sum int) {
 		c2 := input[x2]
 
 		if c1 == c2 {
-			sum += util.ParseInt(c2)
+			sum += parse.Int(c2)
 		}
 	}
 

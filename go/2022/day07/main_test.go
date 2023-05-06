@@ -7,6 +7,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -59,7 +60,7 @@ func ParseFiles(session []string) map[string]int {
 		} else if strings.HasPrefix(line, "dir ") {
 			continue
 		} else {
-			files[filepath.Join(at, fields[1])] = util.ParseInt(fields[0])
+			files[filepath.Join(at, fields[1])] = parse.Int(fields[0])
 		}
 	}
 	return files

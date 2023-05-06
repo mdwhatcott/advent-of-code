@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Turtle struct {
@@ -32,7 +32,7 @@ func (this *Turtle) FollowAll(instructions string) {
 
 func (this *Turtle) Follow(instruction string) {
 	this.turn(instruction[0])
-	this.walk(util.ParseInt(instruction[1:]))
+	this.walk(parse.Int(instruction[1:]))
 }
 
 func (this *Turtle) turn(direction byte) {

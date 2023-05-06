@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 // prepare removes superfluous tokens and adds padding
@@ -66,7 +66,7 @@ func (this *Scope) ascend() *Scope {
 	return this.parent
 }
 func (this *Scope) add(token string) *Scope {
-	this.sum += util.ParseInt(token)
+	this.sum += parse.Int(token)
 	return this
 }
 

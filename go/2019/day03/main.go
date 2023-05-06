@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"advent/lib/grid"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -21,7 +22,7 @@ func Follow(instructions []string, current grid.Point) (path map[grid.Point]int)
 	step := 0
 	for _, instruction := range instructions {
 		direction := instruction[0:1]
-		steps := util.ParseInt(instruction[1:])
+		steps := parse.Int(instruction[1:])
 		for x := 0; x < steps; x++ {
 			old := path[current]
 			if old == 0 {

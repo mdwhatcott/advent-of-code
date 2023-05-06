@@ -3,7 +3,7 @@ package day24
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func FindStrongestBridge(lines []string) (max int) {
@@ -57,7 +57,7 @@ func (this *Node) other(that int) int {
 func parseNodes(lines []string) (result []*Node) {
 	for _, line := range lines {
 		fields := strings.Split(line, "/")
-		a, b := util.ParseInt(fields[0]), util.ParseInt(fields[1])
+		a, b := parse.Int(fields[0]), parse.Int(fields[1])
 		result = append(result, &Node{A: a, B: b})
 	}
 	return result

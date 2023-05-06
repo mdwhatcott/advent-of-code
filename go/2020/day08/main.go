@@ -5,6 +5,7 @@ import (
 	"log"
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -33,7 +34,7 @@ func NewInterpreter(scanner *bufio.Scanner) *Interpreter {
 		words := strings.Fields(line)
 		this.program = append(this.program, Statement{
 			Operation: words[0],
-			Value:     util.ParseInt(words[1]),
+			Value:     parse.Int(words[1]),
 		})
 	}
 	return this

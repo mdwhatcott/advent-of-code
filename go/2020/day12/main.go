@@ -2,6 +2,7 @@ package advent
 
 import (
 	"advent/lib/intgrid"
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -17,7 +18,7 @@ func Part1() interface{} {
 	}
 
 	for _, line := range util.InputLines() {
-		direction, distance := line[0], util.ParseInt(line[1:])
+		direction, distance := line[0], parse.Int(line[1:])
 		switch direction {
 		case 'F':
 			for ; distance > 0; distance-- {
@@ -65,7 +66,7 @@ func part2(lines []string) intgrid.Point {
 
 	for _, line := range lines {
 		//log.Println("before:", ship.Point, "instruction:", line, "waypoint:", waypoint)
-		direction, distance := line[0], util.ParseInt(line[1:])
+		direction, distance := line[0], parse.Int(line[1:])
 		switch direction {
 		case 'F':
 			for ; distance > 0; distance-- {

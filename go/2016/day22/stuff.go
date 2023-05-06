@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -31,11 +32,11 @@ func scanDisk() Disk {
 		line = strings.Replace(line, "/dev/grid/node", "", -1)
 		fields := strings.Fields(line)
 		nodes = append(nodes, Node{
-			X:     util.ParseInt(fields[0]),
-			Y:     util.ParseInt(fields[1]),
-			Size:  util.ParseInt(fields[2]),
-			Used:  util.ParseInt(fields[3]),
-			Avail: util.ParseInt(fields[4]),
+			X:     parse.Int(fields[0]),
+			Y:     parse.Int(fields[1]),
+			Size:  parse.Int(fields[2]),
+			Used:  parse.Int(fields[3]),
+			Avail: parse.Int(fields[4]),
 		})
 	}
 	return nodes

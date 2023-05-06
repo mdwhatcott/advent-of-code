@@ -4,7 +4,7 @@ import (
 	"log"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type Interpreter struct {
@@ -38,7 +38,7 @@ func (this *Interpreter) resolve(label string) int {
 	if found {
 		return value
 	}
-	return util.ParseInt(label)
+	return parse.Int(label)
 }
 func (this *Interpreter) execute(instruction string) int {
 	fields := strings.Fields(instruction)

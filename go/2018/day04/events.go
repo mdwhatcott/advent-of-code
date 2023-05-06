@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 type ClockedInEvent struct {
@@ -31,7 +31,7 @@ func parseEvent(line string) interface{} {
 	}
 	switch fields = strings.Fields(fields[1]); fields[0] {
 	case "Guard":
-		return ClockedInEvent{Stamp: stamp, GuardID: util.ParseInt(fields[1])}
+		return ClockedInEvent{Stamp: stamp, GuardID: parse.Int(fields[1])}
 	case "falls":
 		return AsleepEvent{Stamp: stamp}
 	case "wakes":

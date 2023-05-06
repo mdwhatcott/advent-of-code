@@ -5,6 +5,7 @@ package advent
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -49,11 +50,11 @@ func Parse(scanner *util.Scanner) map[string]Reaction {
 		line = strings.ReplaceAll(line, "=> ", "")
 		fields := strings.Fields(line)
 		key := fields[len(fields)-1]
-		recipe := Reaction{OutputQuantity: util.ParseInt(fields[len(fields)-2])}
+		recipe := Reaction{OutputQuantity: parse.Int(fields[len(fields)-2])}
 		fields = fields[:len(fields)-2]
 		for x := 0; x < len(fields); x += 2 {
 			recipe.Reactants = append(recipe.Reactants, Reactant{
-				Count:    util.ParseInt(fields[x]),
+				Count:    parse.Int(fields[x]),
 				Material: fields[x+1],
 			})
 		}

@@ -1,11 +1,14 @@
 package day05
 
-import "advent/lib/util"
+import (
+	"advent/lib/parse"
+	"advent/lib/util"
+)
 
 func Part1() int {
-	return NewProgram(util.ParseInts(util.InputLines())).Execute()
+	return NewProgram(parse.Ints(util.InputLines())).Execute()
 }
 
 func Part2() int {
-	return NewProgram(util.ParseInts(util.InputLines())).Part2().Execute()
+	return NewProgram(parse.Ints(util.InputLines())).Part2().Execute()
 }

@@ -5,6 +5,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -12,7 +13,7 @@ func main() {
 	input := util.InputLines()
 	var containers []int
 	for _, line := range input {
-		containers = append(containers, util.ParseInt(line))
+		containers = append(containers, parse.Int(line))
 	}
 
 	containersUsed := make(map[int]int)

@@ -6,6 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -29,7 +30,7 @@ func ParseRelations(scanner *bufio.Scanner) (people []*Person) {
 		words := strings.Fields(line)
 		from := words[0]
 		to := words[10]
-		value := util.ParseInt(words[3])
+		value := parse.Int(words[3])
 		if words[2] == "lose" {
 			value = -value
 		}

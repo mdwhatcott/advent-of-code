@@ -3,16 +3,16 @@ package day14
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func ParseReindeer(line string) Reindeer {
 	fields := strings.Fields(line)
 	return Reindeer{
 		Name:     fields[0],
-		Velocity: util.ParseInt(fields[3]),
-		Sustain:  util.ParseInt(fields[6]),
-		Rest:     util.ParseInt(fields[13]),
+		Velocity: parse.Int(fields[3]),
+		Sustain:  parse.Int(fields[6]),
+		Rest:     parse.Int(fields[13]),
 	}
 }
 

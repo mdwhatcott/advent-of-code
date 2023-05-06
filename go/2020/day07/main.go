@@ -3,6 +3,7 @@ package advent
 import (
 	"strings"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -74,7 +75,7 @@ func Part2() interface{} {
 			words := strings.Fields(inner)
 			bags[outer] = append(bags[outer], Bag{
 				Color:    strings.Join(words[1:], " "),
-				Quantity: util.ParseInt(words[0]),
+				Quantity: parse.Int(words[0]),
 			})
 		}
 	}

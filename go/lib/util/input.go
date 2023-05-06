@@ -9,6 +9,8 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+
+	"advent/lib/parse"
 )
 
 func InputCharacters() (all []string) {
@@ -44,7 +46,7 @@ func InputInt() int {
 }
 
 func InputInts(sep string) []int {
-	return ParseInts(strings.Split(InputString(), sep))
+	return parse.Ints(strings.Split(InputString(), sep))
 }
 
 func InputString() string {

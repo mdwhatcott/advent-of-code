@@ -9,7 +9,7 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 
 	"advent/lib/maths"
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 const ROTs = 24
@@ -45,9 +45,9 @@ func ParseScannerReports(reports string) (results [][]XYZ) {
 		var group []XYZ
 		for _, line := range strings.Split(rawGroup, "\n")[1:] {
 			fields := strings.Split(line, ",")
-			x := util.ParseInt(fields[0])
-			y := util.ParseInt(fields[1])
-			z := util.ParseInt(fields[2])
+			x := parse.Int(fields[0])
+			y := parse.Int(fields[1])
+			z := parse.Int(fields[2])
 			group = append(group, NewXYZ(x, y, z))
 		}
 		results = append(results, group)

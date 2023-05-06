@@ -4,6 +4,7 @@ import (
 	"strings"
 	"unicode"
 
+	"advent/lib/parse"
 	"advent/lib/util"
 )
 
@@ -51,8 +52,8 @@ func ParseFieldDefinition(line string) (definition *FieldDefinition) {
 	fields := strings.Fields(line)
 	for _, field := range fields {
 		bounds := strings.Split(field, "-")
-		lower := util.ParseInt(bounds[0])
-		upper := util.ParseInt(bounds[1])
+		lower := parse.Int(bounds[0])
+		upper := parse.Int(bounds[1])
 		for x := lower; x <= upper; x++ {
 			definition.ValidValues[x] = true
 		}
@@ -77,7 +78,7 @@ func (this FieldDefinition) AllWithinRange(candidates ...int) bool {
 func ParseAllTickets(input string) (result [][]int) {
 	for _, line := range strings.Split(input, "\n") {
 		if len(line) > 0 && unicode.IsDigit(rune(line[0])) {
-			result = append(result, util.ParseInts(strings.Split(line, ",")))
+			result = append(result, parse.Ints(strings.Split(line, ",")))
 		}
 	}
 	return result

@@ -3,7 +3,7 @@ package day16
 import (
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/parse"
 )
 
 func spin(s string, i int) string {
@@ -36,10 +36,10 @@ func NewInterpreter(start string) *Interpreter {
 func (this *Interpreter) Dance(move string) string {
 	switch move[0] {
 	case 's':
-		this.spin(util.ParseInt(move[1:]))
+		this.spin(parse.Int(move[1:]))
 	case 'x':
 		elements := strings.Split(move[1:], "/")
-		this.exchange(util.ParseInt(elements[0]), util.ParseInt(elements[1]))
+		this.exchange(parse.Int(elements[0]), parse.Int(elements[1]))
 	case 'p':
 		elements := strings.Split(move[1:], "/")
 		this.partner(elements[0], elements[1])
