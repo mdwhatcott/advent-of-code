@@ -24,7 +24,7 @@ func InputBytes() []byte {
 	for caller := 1; path == this; caller++ {
 		_, path, _, _ = runtime.Caller(caller)
 	}
-	pattern := regexp.MustCompile(`advent-of-code\/go\/(\d{4})\/day(\d{2})\/`)
+	pattern := regexp.MustCompile(`advent-of-code/go/(\d{4})/day(\d{2})/`)
 	matches := pattern.FindStringSubmatch(path)
 	year, day := matches[1], matches[2]
 	for strings.Contains(path, "advent-of-code") {
