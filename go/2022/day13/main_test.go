@@ -7,6 +7,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
+	"advent/lib/maths"
 	"advent/lib/must"
 	"advent/lib/util"
 )
@@ -71,7 +72,7 @@ func compare(A, B any) int {
 	aa, aaOK := A.([]any)
 	bb, bbOK := B.([]any)
 	if aaOK && bbOK {
-		for x := 0; x < util.Min(len(aa), len(bb)); x++ {
+		for x := 0; x < maths.Min(len(aa), len(bb)); x++ {
 			if comparison := compare(aa[x], bb[x]); comparison != 0 {
 				return comparison
 			}

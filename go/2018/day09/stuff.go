@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -41,7 +42,7 @@ func MarbleHighScore(playerCount int, maxMarble int) int {
 		}
 		//debug(start, marble)
 	}
-	return util.Max(players...)
+	return maths.Max(players...)
 }
 
 func debug(circle *ring.Ring, marble int) {

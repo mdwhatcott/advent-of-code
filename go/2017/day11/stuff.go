@@ -1,6 +1,8 @@
 package day11
 
-import "advent/lib/util"
+import (
+	"advent/lib/maths"
+)
 
 // https://www.redblobgames.com/grids/hexagons/
 type Hex struct {
@@ -27,7 +29,7 @@ func (this Hex) Neighbors() []Hex {
 }
 
 func (this Hex) DistanceTo(other Hex) int {
-	return util.Max(Abs(this.X-other.X), Abs(this.Y-other.Y), Abs(this.Z-other.Z))
+	return maths.Max(Abs(this.X-other.X), Abs(this.Y-other.Y), Abs(this.Z-other.Z))
 }
 
 func Abs(a int) int {

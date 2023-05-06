@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/intgrid"
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -60,8 +61,8 @@ func drag(chain []intgrid.Point) {
 }
 func stretchedTooFar(tail, head intgrid.Point) bool {
 	return intgrid.ManhattanDistance(tail, head) > 1 &&
-		(util.Abs(tail.X()-head.X()) > 1 ||
-			util.Abs(tail.Y()-head.Y()) > 1)
+		(maths.Abs(tail.X()-head.X()) > 1 ||
+			maths.Abs(tail.Y()-head.Y()) > 1)
 }
 func follow(from, to intgrid.Point) intgrid.Direction {
 	return intgrid.NewDirection(

@@ -3,7 +3,7 @@ package day22
 import (
 	"fmt"
 
-	"advent/lib/util"
+	"advent/lib/maths"
 )
 
 // inspiration:
@@ -45,9 +45,9 @@ type Cuboid struct {
 
 func (a Cuboid) intersection(b Cuboid) Cuboid {
 	return Cuboid{sign: -b.sign,
-		x: Range{util.Max(a.x.lo, b.x.lo), util.Min(a.x.hi, b.x.hi)},
-		y: Range{util.Max(a.y.lo, b.y.lo), util.Min(a.y.hi, b.y.hi)},
-		z: Range{util.Max(a.z.lo, b.z.lo), util.Min(a.z.hi, b.z.hi)},
+		x: Range{maths.Max(a.x.lo, b.x.lo), maths.Min(a.x.hi, b.x.hi)},
+		y: Range{maths.Max(a.y.lo, b.y.lo), maths.Min(a.y.hi, b.y.hi)},
+		z: Range{maths.Max(a.z.lo, b.z.lo), maths.Min(a.z.hi, b.z.hi)},
 	}
 }
 func (a Cuboid) intersects(b Cuboid) bool {

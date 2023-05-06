@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/go-collections/queue"
 	"github.com/mdwhatcott/go-collections/set"
 
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -20,7 +21,7 @@ func NewXYZ(x, y, z int) XYZ { return XYZ{x: x, y: y, z: z} }
 func (a XYZ) Add(b XYZ) XYZ  { return NewXYZ(a.x+b.x, a.y+b.y, a.z+b.z) }
 func (a XYZ) Sub(b XYZ) XYZ  { return NewXYZ(a.x-b.x, a.y-b.y, a.z-b.z) }
 func (a XYZ) Rot(i int) XYZ  { return NewXYZ(spins[i%4](faces[i/4](a.x, a.y, a.z))) }
-func (a XYZ) Dist(b XYZ) int { d := a.Sub(b); return util.Abs(d.x) + util.Abs(d.y) + util.Abs(d.z) }
+func (a XYZ) Dist(b XYZ) int { d := a.Sub(b); return maths.Abs(d.x) + maths.Abs(d.y) + maths.Abs(d.z) }
 func (a XYZ) String() string { return fmt.Sprintf("(%v, %v, %v)", a.x, a.y, a.z) }
 
 var faces = []func(x, y, z int) (X, Y, Z int){

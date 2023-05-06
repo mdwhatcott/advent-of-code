@@ -8,6 +8,7 @@ import (
 	"github.com/mdwhatcott/testing/should"
 
 	"advent/lib/intgrid"
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -44,7 +45,7 @@ func Part1(lines []string, targetY int) (result int) {
 		fields := strings.Fields(strings.NewReplacer("=", " ", ",", " ", ":", " ").Replace(line))
 		sensor := intgrid.NewPoint(util.ParseInt(fields[3]), util.ParseInt(fields[5]))
 		beacon := intgrid.NewPoint(util.ParseInt(fields[11]), util.ParseInt(fields[13]))
-		x := util.Min(sensor.X(), beacon.X())
+		x := maths.Min(sensor.X(), beacon.X())
 		if x < minX {
 			minX = sensor.X()
 		}

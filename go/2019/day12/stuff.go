@@ -1,6 +1,8 @@
 package advent
 
-import "advent/lib/util"
+import (
+	"advent/lib/maths"
+)
 
 var ( // example 1
 	e1a = []int{-1, 0, 2}
@@ -97,7 +99,7 @@ func CalculatePeriods(a, b, c, d []int) (px, py, pz int) {
 }
 
 func CalculatePeriodIntersection(x int, y int, z int) int {
-	max := util.Max(x, y, z)
+	max := maths.Max(x, y, z)
 	for q := max; q < (x * y * z); q += max {
 		if q%x == 0 && q%y == 0 && q%z == 0 {
 			return q

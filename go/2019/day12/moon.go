@@ -3,7 +3,7 @@ package advent
 import (
 	"fmt"
 
-	"advent/lib/util"
+	"advent/lib/maths"
 )
 
 type Moon struct {
@@ -58,8 +58,8 @@ func (this *Moon) updatePosition() {
 }
 
 func (this *Moon) TotalEnergy() int {
-	potential := util.Abs(this.x) + util.Abs(this.y) + util.Abs(this.z)
-	kinetic := util.Abs(this.dx) + util.Abs(this.dy) + util.Abs(this.dz)
+	potential := maths.Abs(this.x) + maths.Abs(this.y) + maths.Abs(this.z)
+	kinetic := maths.Abs(this.dx) + maths.Abs(this.dy) + maths.Abs(this.dz)
 	return potential * kinetic
 }
 

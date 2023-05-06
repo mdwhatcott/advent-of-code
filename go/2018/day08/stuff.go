@@ -1,10 +1,12 @@
 package day08
 
-import "advent/lib/util"
+import (
+	"advent/lib/maths"
+)
 
 func RootValue(node Node) (sum int) {
 	if len(node.Children) == 0 {
-		return util.Sum[int](node.Metadata...)
+		return maths.Sum[int](node.Metadata...)
 	}
 	for _, meta := range node.Metadata {
 		if 1 <= meta && meta <= len(node.Children) {
@@ -15,7 +17,7 @@ func RootValue(node Node) (sum int) {
 }
 
 func SumMetadata(node Node) (sum int) {
-	sum += util.Sum[int](node.Metadata...)
+	sum += maths.Sum[int](node.Metadata...)
 	for _, child := range node.Children {
 		sum += SumMetadata(child)
 	}

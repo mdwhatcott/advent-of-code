@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/util"
+	"advent/lib/maths"
 )
 
 type Bot struct {
@@ -24,7 +24,7 @@ type StartingBot struct {
 
 func (this *Bot) Receive(value int) {
 	if this.value > 0 {
-		low, high := util.MinMax(value, this.value)
+		low, high := maths.MinMax(value, this.value)
 		this.low.Receive(low)
 		this.high.Receive(high)
 		if low == 17 && high == 61 {

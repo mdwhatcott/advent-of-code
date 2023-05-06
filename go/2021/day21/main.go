@@ -3,7 +3,7 @@ package day21
 import (
 	"fmt"
 
-	"advent/lib/util"
+	"advent/lib/maths"
 )
 
 type DeterministicGame struct {
@@ -36,7 +36,7 @@ func (this *DeterministicGame) alternate() {
 	this.turn ^= 1
 }
 func (this *DeterministicGame) Answer() int64 {
-	return this.die.rolls * util.Min(
+	return this.die.rolls * maths.Min(
 		this.players[0].score,
 		this.players[1].score,
 	)

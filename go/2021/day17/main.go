@@ -2,7 +2,7 @@ package day17
 
 import (
 	"advent/lib/intgrid"
-	"advent/lib/util"
+	"advent/lib/maths"
 )
 
 func SimulateLaunches(target intgrid.BoundingBox) (maxElevation, hits int) {
@@ -49,7 +49,7 @@ func NewProbe(direction intgrid.Direction) *Probe {
 func (this *Probe) Advance() {
 	this.Location = this.Location.Move(this.direction)
 	this.direction = intgrid.NewDirection(this.applyDrag(), this.applyGravity())
-	this.MaxY = util.Max(this.MaxY, this.Location.Y())
+	this.MaxY = maths.Max(this.MaxY, this.Location.Y())
 }
 
 func (this *Probe) applyGravity() int {

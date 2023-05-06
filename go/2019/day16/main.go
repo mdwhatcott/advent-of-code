@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -34,7 +35,7 @@ func Phase(inputs []int) (outputs []int) {
 			sum += n * repeater.Next()
 		}
 		repeater.IncrementPeriod()
-		outputs = append(outputs, util.Abs(sum%10))
+		outputs = append(outputs, maths.Abs(sum%10))
 	}
 	return outputs
 }

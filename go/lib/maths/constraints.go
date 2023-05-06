@@ -4,7 +4,7 @@
 
 // Package constraints defines a set of useful constraints to be used
 // with type parameters.
-package constraints
+package maths
 
 // Signed is a constraint that permits any signed integer type.
 // If future releases of Go add new predeclared signed integer types,

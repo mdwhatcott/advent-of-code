@@ -3,6 +3,7 @@ package day08
 import (
 	"log"
 
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -52,7 +53,7 @@ func Answers() (part1, part2 int) {
 		maxes = append(maxes, max())
 	}
 
-	return max(), util.Max(maxes...)
+	return max(), maths.Max(maxes...)
 }
 
 func max() (m int) {

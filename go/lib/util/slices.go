@@ -1,8 +1,10 @@
 package util
 
-import "advent/lib/constraints"
+import (
+	"advent/lib/maths"
+)
 
-type Slice[T constraints.Ordered] []T
+type Slice[T maths.Ordered] []T
 
 func (haystack Slice[T]) Index(needle T) int {
 	for i, straw := range haystack {

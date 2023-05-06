@@ -7,6 +7,7 @@ import (
 
 	"advent/2019/intcode"
 	"advent/lib/intgrid"
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -34,7 +35,7 @@ func Part1() interface{} {
 			alignments = append(alignments, p.X()*p.Y())
 		}
 	}
-	return util.Sum(alignments...)
+	return maths.Sum(alignments...)
 }
 func isCrossSection(graph set.Set[intgrid.Point], p intgrid.Point) bool {
 	for _, neighbor := range intgrid.Neighbors4 {

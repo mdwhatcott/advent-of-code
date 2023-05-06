@@ -1,6 +1,7 @@
 package advent
 
 import (
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -22,7 +23,7 @@ func Part2() interface{} {
 		for y := x + 1; sum < search; y++ {
 			sum += numbers[y]
 			if sum == search {
-				return util.Min(numbers[x:y+1]...) + util.Max(numbers[x:y+1]...)
+				return maths.Min(numbers[x:y+1]...) + maths.Max(numbers[x:y+1]...)
 			}
 		}
 	}

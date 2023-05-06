@@ -3,6 +3,7 @@ package day02
 import (
 	"strings"
 
+	"advent/lib/maths"
 	"advent/lib/util"
 )
 
@@ -19,7 +20,7 @@ func part1Checksum(lines []string) int {
 	for _, line := range lines {
 		fields := strings.Fields(line)
 		ints := util.ParseInts(fields)
-		min, max := util.MinMax(ints...)
+		min, max := maths.MinMax(ints...)
 		diff := max - min
 		checksum += diff
 	}
