@@ -13,13 +13,6 @@ import (
 	"advent/lib/parse"
 )
 
-func InputCharacters() (all []string) {
-	for _, c := range InputString() {
-		all = append(all, string(c))
-	}
-	return all
-}
-
 func InputBytes() []byte {
 	_, path, _, _ := runtime.Caller(0)
 	this := path
