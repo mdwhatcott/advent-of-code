@@ -7,9 +7,9 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/maths"
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var sampleInput = strings.TrimSpace(`

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 type Agent struct {

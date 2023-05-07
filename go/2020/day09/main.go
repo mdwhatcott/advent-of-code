@@ -1,8 +1,8 @@
 package advent
 
 import (
-	"advent/lib/maths"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() int {

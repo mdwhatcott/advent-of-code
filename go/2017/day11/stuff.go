@@ -1,7 +1,7 @@
 package day11
 
 import (
-	"advent/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
 )
 
 // https://www.redblobgames.com/grids/hexagons/

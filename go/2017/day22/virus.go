@@ -3,7 +3,7 @@ package day22
 import (
 	"strings"
 
-	"advent/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
 )
 
 type Virus struct {

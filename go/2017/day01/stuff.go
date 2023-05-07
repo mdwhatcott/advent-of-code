@@ -1,7 +1,7 @@
 package day01
 
 import (
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 func sumOfIdenticalNeighborDigits(input []string) (sum int) {

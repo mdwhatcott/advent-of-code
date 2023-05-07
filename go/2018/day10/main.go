@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/grid"
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 const ExpectedSecondsToReachMessage = 10813
@@ -60,7 +60,7 @@ func Render(points []grid.Point) {
 
 	for _, line := range screen {
 		for _, char := range line {
-			fmt.Print(string(char))
+			fmt.Print(char)
 		}
 		fmt.Println()
 	}

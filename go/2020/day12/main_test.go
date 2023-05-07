@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"advent/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
 )
 
 var exampleInput = strings.Split(`F10

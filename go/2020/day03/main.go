@@ -1,6 +1,6 @@
 package advent
 
-import "advent/lib/util"
+import "github.com/mdwhatcott/advent-of-code/go/lib/util"
 
 func Part1() int {
 	return Forest(util.InputLines()).CountTreesHitOnDescent(1, 3)

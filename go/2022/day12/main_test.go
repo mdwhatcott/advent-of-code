@@ -5,9 +5,9 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/astar"
-	"advent/lib/intgrid"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/astar"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var (

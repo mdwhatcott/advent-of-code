@@ -5,8 +5,8 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/2016/util/assembunny"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/2016/util/assembunny"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func main() {

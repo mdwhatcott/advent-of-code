@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strings"
 
-	"advent/lib/astar"
-	"advent/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/astar"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
 )
 
 type Turtle struct {

@@ -1,8 +1,8 @@
 package day15
 
 import (
-	"advent/lib/astar"
-	"advent/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/astar"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
 )
 
 func Part1(lines []string) int {

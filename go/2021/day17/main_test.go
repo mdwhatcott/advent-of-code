@@ -5,7 +5,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
 )
 
 func TestDay17Suite(t *testing.T) {

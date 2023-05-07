@@ -1,8 +1,8 @@
 package day03
 
 import (
-	"advent/lib/grid"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() int {

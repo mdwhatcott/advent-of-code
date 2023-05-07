@@ -6,7 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Test9Example(t *testing.T) {

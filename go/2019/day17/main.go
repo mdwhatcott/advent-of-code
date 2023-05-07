@@ -5,10 +5,10 @@ import (
 
 	"github.com/mdwhatcott/go-collections/set"
 
-	"advent/2019/intcode"
-	"advent/lib/intgrid"
-	"advent/lib/maths"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/2019/intcode"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() interface{} {

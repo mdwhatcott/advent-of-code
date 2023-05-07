@@ -5,7 +5,7 @@ import (
 
 	"github.com/mdwhatcott/go-collections/set"
 
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func parseTasksWithDependencies(input string) (tasks set.Set[string], dependencies map[string]set.Set[string]) {

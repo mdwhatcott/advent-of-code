@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 type Turtle struct {

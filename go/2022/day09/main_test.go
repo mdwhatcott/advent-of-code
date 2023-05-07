@@ -7,10 +7,10 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/intgrid"
-	"advent/lib/maths"
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var (

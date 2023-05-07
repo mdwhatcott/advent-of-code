@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() int {

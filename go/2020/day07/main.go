@@ -3,8 +3,8 @@ package advent
 import (
 	"strings"
 
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var exampleInput1 = strings.Split(`light red bags contain 1 bright white bag, 2 muted yellow bags.

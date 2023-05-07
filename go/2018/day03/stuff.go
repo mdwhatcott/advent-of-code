@@ -3,8 +3,8 @@ package day03
 import (
 	"strings"
 
-	"advent/lib/grid"
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 type PlotPoint struct {

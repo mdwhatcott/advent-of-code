@@ -3,7 +3,7 @@ package day18
 import (
 	"strings"
 
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 type SoundBlaster struct {

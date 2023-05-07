@@ -3,7 +3,7 @@ package day16
 import (
 	"strings"
 
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 func spin(s string, i int) string {

@@ -4,7 +4,7 @@ import (
 	"github.com/mdwhatcott/go-collections/queue"
 	"github.com/mdwhatcott/go-collections/set"
 
-	"advent/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
 )
 
 func BreadthFirstSearch(maze int, origin, target intgrid.Point) (distance, near int) {

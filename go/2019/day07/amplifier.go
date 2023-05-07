@@ -3,7 +3,7 @@ package advent
 import (
 	"sync"
 
-	"advent/2019/intcode"
+	"github.com/mdwhatcott/advent-of-code/go/2019/intcode"
 )
 
 type Amplifier struct {

@@ -3,7 +3,7 @@ package day21
 import (
 	"fmt"
 
-	"advent/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
 )
 
 type DeterministicGame struct {

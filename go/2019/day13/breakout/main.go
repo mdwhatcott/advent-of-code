@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	day13 "advent/2019/day13"
+	day13 "github.com/mdwhatcott/advent-of-code/go/2019/day13"
 )
 
 func main() {

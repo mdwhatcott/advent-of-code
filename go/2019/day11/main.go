@@ -1,8 +1,10 @@
 package advent
 
 import (
-	year2018day10 "advent/2018/day10"
-	"advent/lib/util"
+	"fmt"
+
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() interface{} {
@@ -16,8 +18,55 @@ func Part2() interface{} {
 	robot := NewRobot(1, util.InputInts(","))
 	for robot.Move() {
 	}
-	year2018day10.Render(robot.HullSlice())
+	Render(robot.HullSlice())
 	return "ABCLFUHJ"
+}
+
+func Render(points []grid.Point) {
+	minX, maxX, minY, maxY := drawBoundingBox(points)
+	width := maxX - minX
+	height := maxY - minY
+	if width > 300 || height > 300 {
+		return
+	}
+
+	fmt.Println(minX, maxX, minY, maxY)
+	screen := make([][]string, int(height)+20)
+	for y := 0; y < len(screen); y++ {
+		screen[y] = make([]string, int(width+20))
+		for x := 0; x < len(screen[y]); x++ {
+			screen[y][x] = " "
+		}
+	}
+	for _, point := range points {
+		y := int(point.Y() - minY)
+		x := int(point.X() - minX)
+		screen[y][x] = "x"
+	}
+
+	for _, line := range screen {
+		for _, char := range line {
+			fmt.Print(char)
+		}
+		fmt.Println()
+	}
+}
+func drawBoundingBox(points []grid.Point) (minX, maxX, minY, maxY float64) {
+	for _, point := range points {
+		x := point.X()
+		y := point.Y()
+		if x > maxX {
+			maxX = x
+		} else if x < minX {
+			minX = x
+		}
+		if y > maxY {
+			maxY = y
+		} else if y < minY {
+			minY = y
+		}
+	}
+	return minX, maxX, minY, maxY
 }
 
 /*

@@ -3,8 +3,8 @@ package advent
 import (
 	"log"
 
-	"advent/2019/intcode"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/2019/intcode"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() interface{} {

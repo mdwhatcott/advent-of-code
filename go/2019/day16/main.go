@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/maths"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func SplitDigits(s string) (output []int) {

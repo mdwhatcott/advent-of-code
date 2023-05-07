@@ -1,7 +1,7 @@
 package day06
 
 import (
-	"advent/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
 )
 
 type BoundingBox struct {

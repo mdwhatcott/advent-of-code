@@ -6,8 +6,8 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/intgrid"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var sampleLines = []string{"30373", "25512", "65332", "33549", "35390"}

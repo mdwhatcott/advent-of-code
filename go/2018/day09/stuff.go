@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"advent/lib/maths"
-	"advent/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 )
 
 func Parse(input string) (players int, maxMarble int) {

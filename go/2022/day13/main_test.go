@@ -7,9 +7,9 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/maths"
-	"advent/lib/must"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code/go/lib/must"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 var (

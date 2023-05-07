@@ -1,6 +1,6 @@
 package day01
 
-import "advent/lib/util"
+import "github.com/mdwhatcott/advent-of-code/go/lib/util"
 
 func Part1() (sum int) {
 	return sumOfIdenticalNeighborDigits(InputCharacters())

@@ -6,8 +6,8 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/intgrid"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func TestImageEnhancementSuite(t *testing.T) {

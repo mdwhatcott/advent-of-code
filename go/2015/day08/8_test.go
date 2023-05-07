@@ -6,7 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Test8_CodeLength(t *testing.T) {

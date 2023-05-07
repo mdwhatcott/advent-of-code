@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"sort"
 
-	"advent/2016/util/pair"
+	"github.com/mdwhatcott/advent-of-code/go/2016/util/pair"
 )
 
 type RepetitionCode struct {

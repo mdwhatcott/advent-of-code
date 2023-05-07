@@ -3,9 +3,9 @@ package advent
 import (
 	"strings"
 
-	"advent/lib/grid"
-	"advent/lib/parse"
-	"advent/lib/util"
+	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() interface{} {

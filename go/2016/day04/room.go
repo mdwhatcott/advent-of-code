@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"advent/2016/util/pair"
+	"github.com/mdwhatcott/advent-of-code/go/2016/util/pair"
 )
 
 type EncryptedRoom struct {
