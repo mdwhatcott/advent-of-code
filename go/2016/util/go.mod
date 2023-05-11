@@ -7,4 +7,4 @@ require (
 	github.com/mdwhatcott/testing v1.0.0
 )
 
-require golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54 // indirect
+require golang.org/x/sys v0.8.0 // indirect
