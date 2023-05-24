@@ -4,8 +4,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/grid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 )
 
 func calculateAreaWithinRadius(points []grid.Point, radius float64) (within int) {

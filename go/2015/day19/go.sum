@@ -1,2 +1,8 @@
-github.com/mdwhatcott/testing v1.0.0 h1:1pR648cMmslWuEfhVPKsGHhKmCbbA05bzlSSVVpvv4U=
-github.com/mdwhatcott/testing v1.0.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
+github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde h1:+5PMaaQtDUwOcJIUlmX89P0J3iwTvErTmyn5WghzXAQ=
+github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde/go.mod h1:RDgD/dfPmIwFH0qdUOjw71HjtWg56CtyLIoHL+R1wJw=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0 h1:XeSXBIYmID1ckWJgb5FDZ78WLXqjR6xCufcWvF//2Ag=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0/go.mod h1:r4QWCX8033jpqmS1+D30qjYTV2pgasG2wVVAwcbft+8=
+github.com/mdwhatcott/astar v1.1.0 h1:xnYjS0nqDVwKiqZo0YyKmFRKVCEeJ2HZ4p+SxiAwG/I=
+github.com/mdwhatcott/astar v1.1.0/go.mod h1:N49sc1SRCpmvGEygmoOFd6waOhRhOD8Q+VIxa8B4hoA=
+github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
+github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=

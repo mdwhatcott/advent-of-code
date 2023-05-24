@@ -3,7 +3,7 @@ package day12
 import (
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func Part1(lines util.Slice[string]) (result int) { return CountPaths(lines, true) }

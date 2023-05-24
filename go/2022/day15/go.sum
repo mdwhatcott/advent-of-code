@@ -1,12 +1,10 @@
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0 h1:XeSXBIYmID1ckWJgb5FDZ78WLXqjR6xCufcWvF//2Ag=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0/go.mod h1:r4QWCX8033jpqmS1+D30qjYTV2pgasG2wVVAwcbft+8=
 github.com/mdwhatcott/advent-of-code-inputs v1.0.0 h1:w/4U4j5gKzpzIKjtyB/g43IyIk8G12VZbXl1P92UU6M=
 github.com/mdwhatcott/advent-of-code-inputs v1.0.0/go.mod h1:wDw9qUJ6Kqv/2uPzkZPSTfee4RRhmo656DR37Xt1DXA=
-github.com/mdwhatcott/advent-of-code/go/lib/maths v0.0.0-20230511040225-61195ed4b9c8 h1:b5PJgQSV4I/3q+GDlYG1SkCvpXatGWpJYykhzr0cV/0=
-github.com/mdwhatcott/advent-of-code/go/lib/maths v0.0.0-20230511040225-61195ed4b9c8/go.mod h1:z7JBVBfRPdG0R0ZVLXqqA0O5d9UI72yxFn54u2aGd0s=
-github.com/mdwhatcott/advent-of-code/go/lib/parse v0.0.0-20230511040225-61195ed4b9c8 h1:5eogUAzxBKNLgQuc1u/umNucysnwSbR9odkXRFqmeB4=
-github.com/mdwhatcott/advent-of-code/go/lib/parse v0.0.0-20230511040225-61195ed4b9c8/go.mod h1:zUbxBqjChIaOfBgp4vVxByiGVlI7aCOz06NfurVW9O0=
 github.com/mdwhatcott/go-set/v2 v2.0.1 h1:KEPe5jrZZhJd7Al6ZyENFfXKz34S21tjoubMN9kfMpg=
 github.com/mdwhatcott/go-set/v2 v2.0.1/go.mod h1:gnLMxayqGJiKQ9uZoqoZLvHuvxgmcnCF1ldKrWSlOgU=
 github.com/mdwhatcott/must v1.0.0 h1:oOCUB6bjkOdQ+e9Mv+GXKEo46Lf67Gk9Tk2RfZK57zs=
 github.com/mdwhatcott/must v1.0.0/go.mod h1:3rldN1MW4me3st97YNJxDm3L+zo5R5kKoh7Km75kWnY=
-github.com/mdwhatcott/testing v1.0.0 h1:1pR648cMmslWuEfhVPKsGHhKmCbbA05bzlSSVVpvv4U=
-github.com/mdwhatcott/testing v1.0.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
+github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
+github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=

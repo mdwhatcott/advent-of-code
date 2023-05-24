@@ -3,7 +3,7 @@ package advent
 import (
 	"fmt"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
 )
 
 type Moon struct {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/grid"
 )
 
 func TestSummedAreaTableFixture(t *testing.T) {

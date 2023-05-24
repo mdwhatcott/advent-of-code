@@ -3,7 +3,7 @@ package day14
 import (
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 )
 
 func ParseReindeer(line string) Reindeer {

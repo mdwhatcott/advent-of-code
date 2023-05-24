@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func Test6(t *testing.T) {

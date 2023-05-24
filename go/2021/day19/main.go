@@ -8,8 +8,8 @@ import (
 	"github.com/mdwhatcott/go-collections/queue"
 	"github.com/mdwhatcott/go-collections/set"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 )
 
 const ROTs = 24

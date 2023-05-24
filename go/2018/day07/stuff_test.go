@@ -3,7 +3,7 @@ package day07
 import (
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 
 	"github.com/mdwhatcott/testing/should"
 )

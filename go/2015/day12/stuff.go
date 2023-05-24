@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 )
 
 // prepare removes superfluous tokens and adds padding

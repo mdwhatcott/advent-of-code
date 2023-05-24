@@ -1,0 +1,11 @@
+github.com/buger/goterm v1.0.4 h1:Z9YvGmOih81P0FbVtEYTFF6YsSgxSUKEhf/f9bTMXbY=
+github.com/buger/goterm v1.0.4/go.mod h1:HiFWV3xnkolgrBV3mY8m0X0Pumt4zg4QhbdOzQtB8tE=
+github.com/mdwhatcott/advent-of-code-assembunny v1.0.0 h1:H+wNBvMZI+E54dHKM0kG1lvyq+HdomTXRQEQ+a98F4Y=
+github.com/mdwhatcott/advent-of-code-assembunny v1.0.0/go.mod h1:0nThzy1e11glakrpNct1twvxfpUfdBaAzNgcxMwnHOM=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0 h1:XeSXBIYmID1ckWJgb5FDZ78WLXqjR6xCufcWvF//2Ag=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.0/go.mod h1:r4QWCX8033jpqmS1+D30qjYTV2pgasG2wVVAwcbft+8=
+github.com/mdwhatcott/advent-of-code-lcd v1.0.0 h1:EQBr3e8MEJFgZufkrAr1Kylbrlkd5Kt51wZsiO/L2do=
+github.com/mdwhatcott/advent-of-code-lcd v1.0.0/go.mod h1:WETOIA5dKxLrfcnFiAosG4Zy65xggGj0NBkGI/CktAo=
+github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
+golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54 h1:rF3Ohx8DRyl8h2zw9qojyLHLhrJpEMgyPOImREEryf0=
+golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=

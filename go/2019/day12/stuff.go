@@ -1,7 +1,7 @@
 package advent
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
 )
 
 var ( // example 1

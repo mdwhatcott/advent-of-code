@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 // Inspired by: https://github.com/lukaszroz/advent-of-code-2017/blob/master/day13.go

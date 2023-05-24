@@ -1,6 +1,6 @@
 package day03
 
-import "github.com/mdwhatcott/advent-of-code/go/lib/util"
+import "github.com/mdwhatcott/advent-of-code-go-lib/util"
 
 func Part1() interface{} {
 	fabric := plotClaimsOnFabric(parseClaims(util.InputString()))

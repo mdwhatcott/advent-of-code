@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
 )
 
 type Bot struct {

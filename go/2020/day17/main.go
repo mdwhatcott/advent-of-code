@@ -1,9 +1,9 @@
 package advent
 
 import (
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 	"github.com/mdwhatcott/advent-of-code/go/2020/day17/part1"
 	"github.com/mdwhatcott/advent-of-code/go/2020/day17/part2"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
 )
 
 func Part1() interface{} {

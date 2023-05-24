@@ -1,7 +1,7 @@
 package day08
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
 )
 
 func RootValue(node Node) (sum int) {

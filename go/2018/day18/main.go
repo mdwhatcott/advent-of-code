@@ -1,8 +1,8 @@
 package day18
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func Part1() interface{} {

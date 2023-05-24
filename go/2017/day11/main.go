@@ -3,7 +3,7 @@ package day11
 import (
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func Answers() (part1, part2 int) {

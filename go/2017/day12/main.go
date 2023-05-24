@@ -3,8 +3,8 @@ package day12
 import (
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 var pipes = make(map[int]*Pipe)

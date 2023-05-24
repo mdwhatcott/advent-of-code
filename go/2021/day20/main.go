@@ -3,7 +3,7 @@ package day20
 import (
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/intgrid"
 )
 
 type World map[intgrid.Point]bool

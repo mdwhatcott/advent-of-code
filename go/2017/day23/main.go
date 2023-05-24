@@ -3,7 +3,7 @@ package day23
 import (
 	"math"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func Part1() int {

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
 	"github.com/mdwhatcott/go-set/v2/set"
 	"github.com/mdwhatcott/testing/should"
 )

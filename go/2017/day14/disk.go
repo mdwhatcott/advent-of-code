@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/mdwhatcott/advent-of-code/go/2017/knot"
-	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/grid"
+	"github.com/mdwhatcott/advent-of-code-knot"
 )
 
 type Disk struct {

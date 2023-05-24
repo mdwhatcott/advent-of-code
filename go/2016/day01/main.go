@@ -6,7 +6,7 @@ import (
 
 	"github.com/mdwhatcott/testing/should"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func main() {

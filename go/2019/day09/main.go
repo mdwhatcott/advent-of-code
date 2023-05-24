@@ -1,8 +1,8 @@
 package advent
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/2019/intcode"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
+	"github.com/mdwhatcott/advent-of-code-intcode"
 )
 
 const (

@@ -1,6 +1,6 @@
 package day11
 
-import "github.com/mdwhatcott/advent-of-code/go/lib/grid"
+import "github.com/mdwhatcott/advent-of-code-go-lib/grid"
 
 type SummedAreaTable map[grid.Point]int
 

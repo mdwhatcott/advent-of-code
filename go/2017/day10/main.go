@@ -1,8 +1,8 @@
 package day10
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/2017/knot"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
+	"github.com/mdwhatcott/advent-of-code-knot"
 )
 
 func Part1() int {

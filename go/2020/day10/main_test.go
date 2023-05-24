@@ -5,7 +5,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 var firstExample = []int{

@@ -1,7 +1,7 @@
 package day11
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/grid"
 )
 
 func MaxPowerXYSize(table SummedAreaTable, Length, MinSize, MaxSize int) (maxPoint grid.Point, maxSize int) {

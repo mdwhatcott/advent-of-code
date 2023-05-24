@@ -4,7 +4,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/parse"
+	"github.com/mdwhatcott/advent-of-code-go-lib/parse"
 )
 
 type Interpreter struct {

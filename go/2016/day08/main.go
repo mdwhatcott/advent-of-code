@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 
-	"github.com/mdwhatcott/advent-of-code/go/2016/util/lcd"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
+	"github.com/mdwhatcott/advent-of-code-lcd"
 )
 
 func main() {

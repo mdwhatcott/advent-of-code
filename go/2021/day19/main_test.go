@@ -10,7 +10,7 @@ import (
 	"github.com/mdwhatcott/go-collections/set"
 	"github.com/mdwhatcott/testing/should"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
 )
 
 func (a XYZ) Less(b XYZ) bool {

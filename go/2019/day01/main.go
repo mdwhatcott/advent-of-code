@@ -1,6 +1,6 @@
 package advent
 
-import "github.com/mdwhatcott/advent-of-code/go/lib/util"
+import "github.com/mdwhatcott/advent-of-code-go-lib/util"
 
 func Part1() (sum int) {
 	for _, input := range util.InputInts("\n") {

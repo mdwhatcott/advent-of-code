@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"bytes"
 
-	"github.com/mdwhatcott/advent-of-code/go/2016/util/assembunny"
-	"github.com/mdwhatcott/advent-of-code/go/2016/util/lcd"
-	"github.com/mdwhatcott/advent-of-code/go/lib/util"
+	"github.com/mdwhatcott/advent-of-code-assembunny"
+	"github.com/mdwhatcott/advent-of-code-go-lib/util"
+	"github.com/mdwhatcott/advent-of-code-lcd"
 )
 
 func main() {

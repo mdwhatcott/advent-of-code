@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code/go/lib/grid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/grid"
 )
 
 const (

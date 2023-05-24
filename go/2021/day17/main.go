@@ -1,8 +1,8 @@
 package day17
 
 import (
-	"github.com/mdwhatcott/advent-of-code/go/lib/intgrid"
-	"github.com/mdwhatcott/advent-of-code/go/lib/maths"
+	"github.com/mdwhatcott/advent-of-code-go-lib/intgrid"
+	"github.com/mdwhatcott/advent-of-code-go-lib/maths"
 )
 
 func SimulateLaunches(target intgrid.BoundingBox) (maxElevation, hits int) {

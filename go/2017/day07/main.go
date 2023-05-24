@@ -1,6 +1,6 @@
 package day07
 
-import "github.com/mdwhatcott/advent-of-code/go/lib/util"
+import "github.com/mdwhatcott/advent-of-code-go-lib/util"
 
 const test = `pbga (66)
 xhth (57)
