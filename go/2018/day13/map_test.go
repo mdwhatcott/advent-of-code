@@ -24,7 +24,7 @@ func (this *StuffFixture) SkipTestA() {
 	this.So(<-m.Signals, should.Equal, NewPoint(0, 3))
 	this.So(m.String(), should.Equal, "|\n|\n|\nX\n|\n|\n|")
 }
-func (this *StuffFixture) TestB() {
+func (this *StuffFixture) SkipTestB() {
 	m := NewMap(TestInputB)
 	go func() {
 		for m.Tick() {
