@@ -1,35 +1,13 @@
-package advent
+package advent_test
 
 import (
-	"strings"
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code-go-lib/intgrid"
+	day12 "github.com/mdwhatcott/advent-of-code/go/2020/day12"
+	"github.com/mdwhatcott/testing/should"
 )
 
-var exampleInput = strings.Split(`F10
-N3
-F7
-R90
-F11`, "\n")
-
-func TestStuff(t *testing.T) {
-	end := part2(exampleInput)
-	t.Log(end)
-}
-
-func TestRotate(t *testing.T) {
-	t.Log("RIGHT:")
-	p := intgrid.NewPoint(10, 4)
-	for x := 0; x < 4; x++ {
-		t.Log(p)
-		p = RotateRight(p)
-	}
-
-	t.Log("LEFT:")
-	p = intgrid.NewPoint(10, 4)
-	for x := 0; x < 4; x++ {
-		t.Log(p)
-		p = RotateLeft(p)
-	}
+func TestDay12(t *testing.T) {
+	should.So(t, day12.Part1(), should.Equal, 2847)
+	should.So(t, day12.Part2(), should.Equal, 29839)
 }
