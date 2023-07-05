@@ -1,0 +1,12 @@
+github.com/mdwhatcott/advent-of-code-inputs v1.0.0 h1:w/4U4j5gKzpzIKjtyB/g43IyIk8G12VZbXl1P92UU6M=
+github.com/mdwhatcott/advent-of-code-inputs v1.0.0/go.mod h1:wDw9qUJ6Kqv/2uPzkZPSTfee4RRhmo656DR37Xt1DXA=
+github.com/mdwhatcott/advent-of-code-inputs v1.0.1 h1:jUG9mG5HVCNJdH8ct8p2fBDm4Q5cc4P3yzhWg/xQAY0=
+github.com/mdwhatcott/advent-of-code-inputs v1.0.1/go.mod h1:wDw9qUJ6Kqv/2uPzkZPSTfee4RRhmo656DR37Xt1DXA=
+github.com/mdwhatcott/funcy v1.7.0 h1:20+XCFp8lYg6wWTcKM2118WJUAMeUE3Ooyowq9kOF28=
+github.com/mdwhatcott/funcy v1.7.0/go.mod h1:hry3gV/UZ7hDs9QaoV4k27e6w/uHWMiALhxvHQyqphg=
+github.com/mdwhatcott/go-set/v2 v2.0.1 h1:KEPe5jrZZhJd7Al6ZyENFfXKz34S21tjoubMN9kfMpg=
+github.com/mdwhatcott/go-set/v2 v2.0.1/go.mod h1:gnLMxayqGJiKQ9uZoqoZLvHuvxgmcnCF1ldKrWSlOgU=
+github.com/mdwhatcott/must v1.1.0 h1:ZN/cTpnkRuz9amHEp/7mm7ICXQfMtYQ/HzcBiwXltP4=
+github.com/mdwhatcott/must v1.1.0/go.mod h1:3rldN1MW4me3st97YNJxDm3L+zo5R5kKoh7Km75kWnY=
+github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
+github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
