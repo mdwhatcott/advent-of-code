@@ -37,7 +37,7 @@ func TestDay15(t *testing.T) {
 	should.So(t, Part1(inputLines, 2000000), should.Equal, 4424278)
 
 	should.So(t, Part2(sampleLines, 0, 20), should.Equal, 56000011)
-	should.So(t, Part2(inputLines, 0, 4_000_000), should.Equal, 0)
+	should.So(t, Part2(inputLines, 0, 4_000_000), should.Equal, 10382630753392)
 }
 
 func Part1(lines []string, targetY int) (result int) {

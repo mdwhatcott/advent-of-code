@@ -1,10 +1,10 @@
-github.com/mdwhatcott/advent-of-code-go-lib v1.0.0 h1:XeSXBIYmID1ckWJgb5FDZ78WLXqjR6xCufcWvF//2Ag=
-github.com/mdwhatcott/advent-of-code-go-lib v1.0.0/go.mod h1:r4QWCX8033jpqmS1+D30qjYTV2pgasG2wVVAwcbft+8=
-github.com/mdwhatcott/advent-of-code-inputs v1.0.0 h1:w/4U4j5gKzpzIKjtyB/g43IyIk8G12VZbXl1P92UU6M=
-github.com/mdwhatcott/advent-of-code-inputs v1.0.0/go.mod h1:wDw9qUJ6Kqv/2uPzkZPSTfee4RRhmo656DR37Xt1DXA=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.1 h1:w5Q28iBTq9Sax9kT/nqArt0OZg+nSk5DmCmvLobn2BY=
+github.com/mdwhatcott/advent-of-code-go-lib v1.0.1/go.mod h1:gnMZoePAcXJaEx+EtwRr5nQwCjBrSnch1XBhIFX11Mc=
+github.com/mdwhatcott/advent-of-code-inputs v1.1.0 h1:0KqNzRXNBxx2JBBliINXWTuCouPMKNuGEOfFHKLOCAA=
+github.com/mdwhatcott/advent-of-code-inputs v1.1.0/go.mod h1:wDw9qUJ6Kqv/2uPzkZPSTfee4RRhmo656DR37Xt1DXA=
 github.com/mdwhatcott/go-set/v2 v2.0.1 h1:KEPe5jrZZhJd7Al6ZyENFfXKz34S21tjoubMN9kfMpg=
 github.com/mdwhatcott/go-set/v2 v2.0.1/go.mod h1:gnLMxayqGJiKQ9uZoqoZLvHuvxgmcnCF1ldKrWSlOgU=
-github.com/mdwhatcott/must v1.0.0 h1:oOCUB6bjkOdQ+e9Mv+GXKEo46Lf67Gk9Tk2RfZK57zs=
-github.com/mdwhatcott/must v1.0.0/go.mod h1:3rldN1MW4me3st97YNJxDm3L+zo5R5kKoh7Km75kWnY=
+github.com/mdwhatcott/must v1.1.0 h1:ZN/cTpnkRuz9amHEp/7mm7ICXQfMtYQ/HzcBiwXltP4=
+github.com/mdwhatcott/must v1.1.0/go.mod h1:3rldN1MW4me3st97YNJxDm3L+zo5R5kKoh7Km75kWnY=
 github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
 github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
