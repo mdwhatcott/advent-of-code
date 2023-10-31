@@ -7,7 +7,9 @@ import (
 	"github.com/mdwhatcott/testing/should"
 )
 
-func TestDay16(t *testing.T) {
+func TestDay16Part1(t *testing.T) {
 	should.So(t, day16.Part1(), should.Equal, "30369587")
+}
+func TestDay16Part2(t *testing.T) {
 	should.So(t, day16.Part2(), should.Equal, nil)
 }
