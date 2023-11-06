@@ -1,2 +1,8 @@
-github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
-github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
+github.com/mdwhatcott/go-set/v2 v2.0.1 h1:KEPe5jrZZhJd7Al6ZyENFfXKz34S21tjoubMN9kfMpg=
+github.com/mdwhatcott/go-set/v2 v2.0.1/go.mod h1:gnLMxayqGJiKQ9uZoqoZLvHuvxgmcnCF1ldKrWSlOgU=
+github.com/mdwhatcott/grid v1.0.1 h1:cFBt7z5Psmkj9aViDniBNXySiAEs7HeKzPNKneOLsXA=
+github.com/mdwhatcott/grid v1.0.1/go.mod h1:A2XblF5uqXV61s8vt8vkuUrv45bpLrgp5PayiKA2uu4=
+github.com/mdwhatcott/must v1.1.0 h1:ZN/cTpnkRuz9amHEp/7mm7ICXQfMtYQ/HzcBiwXltP4=
+github.com/mdwhatcott/must v1.1.0/go.mod h1:3rldN1MW4me3st97YNJxDm3L+zo5R5kKoh7Km75kWnY=
+github.com/mdwhatcott/testing v1.2.1 h1:qCj+apUK6Qscy4M0iIpu0cCLrLB/4I+yGx7JQ7t6XTY=
+github.com/mdwhatcott/testing v1.2.1/go.mod h1:qw9pmVND0BqPmN/DE1BtaVzIvmQcffQAY+DOpnZ3qMo=

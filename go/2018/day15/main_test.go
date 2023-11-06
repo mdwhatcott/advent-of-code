@@ -1,15 +1,78 @@
-package day15_test
+package starter
 
 import (
+	"fmt"
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code/go/2018/day15"
+	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
+	"github.com/mdwhatcott/go-set/v2/set"
+	"github.com/mdwhatcott/grid"
+	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/testing/should"
 )
 
-func TestDay15(t *testing.T) {
-	t.Parallel()
+const TODO = -1
 
-	should.So(t, day15.Part1(), should.Equal, nil)
-	should.So(t, day15.Part2(), should.Equal, nil)
+var (
+	inputLines  = inputs.Read(2018, 15).Lines()
+	sampleLines = []string{
+		fmt.Sprint(TODO),
+	}
+)
+
+func Test(t *testing.T) {
+	should.So(t, Part1(sampleLines), should.Equal, TODO)
+	should.So(t, Part1(inputLines), should.Equal, TODO)
+
+	should.So(t, Part2(sampleLines), should.Equal, TODO)
+	should.So(t, Part2(inputLines), should.Equal, TODO)
+}
+
+func Part1(lines []string) any {
+	return TODO
+}
+
+func Part2(lines []string) any {
+	return TODO
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+func TestParseWorld(t *testing.T) {
+	lines := []string{
+		"#####",
+		"#...#",
+		"#...#",
+		"#...#",
+		"#####",
+	}
+	world := ParseWorld(lines)
+	should.So(t, world, should.Equal, set.Of(
+		grid.NewPoint(1, 1),
+		grid.NewPoint(1, 2),
+		grid.NewPoint(1, 3),
+
+		grid.NewPoint(2, 1),
+		grid.NewPoint(2, 2),
+		grid.NewPoint(2, 3),
+
+		grid.NewPoint(3, 1),
+		grid.NewPoint(3, 2),
+		grid.NewPoint(3, 3),
+	))
+}
+func TestParseCharacters(t *testing.T) {
+	lines := []string{
+		"#####",
+		"#.G.#",
+		"#E..#",
+		"#..G#",
+		"#####",
+	}
+	characters := ParseCharacters(lines)
+	should.So(t, characters, should.Equal, []*Character{
+		NewCharacter('G', 2, 1),
+		NewCharacter('E', 1, 2),
+		NewCharacter('G', 3, 3),
+	})
 }
