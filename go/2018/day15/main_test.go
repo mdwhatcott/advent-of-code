@@ -1,7 +1,6 @@
 package starter
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -13,19 +12,10 @@ import (
 
 const TODO = -1
 
-var (
-	inputLines  = inputs.Read(2018, 15).Lines()
-	sampleLines = []string{
-		fmt.Sprint(TODO),
-	}
-)
-
 func Test(t *testing.T) {
+	inputLines := inputs.Read(2018, 15).Lines()
 	t.Log(ParseWorld(inputLines).String())
-	should.So(t, Part1(sampleLines), should.Equal, TODO)
 	should.So(t, Part1(inputLines), should.Equal, TODO)
-
-	should.So(t, Part2(sampleLines), should.Equal, TODO)
 	should.So(t, Part2(inputLines), should.Equal, TODO)
 }
 
@@ -105,4 +95,17 @@ func TestParseAndPrintWorld1(t *testing.T) {
 	expected := "\n" + strings.Join(lines, "\n") + "\n"
 	should.So(t, actual, should.Equal, expected)
 	t.Log(actual)
+}
+func TestSample1(t *testing.T) {
+	t.Skip("baby steps...")
+	sampleLines := []string{
+		"#######",
+		"#.G...#   G(200)",
+		"#...EG#   E(200), G(200)",
+		"#.#.#G#   G(200)",
+		"#..G#E#   G(200), E(200)",
+		"#.....#",
+		"#######",
+	}
+	should.So(t, Part1(sampleLines), should.Equal, 27730) // (200+131+59+200) * 47
 }
