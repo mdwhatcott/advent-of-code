@@ -1,6 +1,9 @@
 package starter
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/mdwhatcott/go-set/v2/set"
 	"github.com/mdwhatcott/grid"
 )
@@ -20,13 +23,69 @@ for rounds := 0; ; rounds++
 
 		if adjacent to a target:
 			attack()
-
 */
 
-func ParseWorld(lines []string) (result set.Set[grid.Point[int]]) {
+type World struct {
+	height     int
+	width      int
+	cave       set.Set[grid.Point[int]]
+	characters map[grid.Point[int]]*Character
+}
+
+func (this *World) String() string {
+	var result strings.Builder
+	result.WriteString("\n")
+	for y := 0; y < this.height; y++ {
+		var characters []*Character
+		for x := 0; x < this.width; x++ {
+			at := grid.NewPoint(x, y)
+			if character, ok := this.characters[at]; ok {
+				characters = append(characters, character)
+				result.WriteRune(character.spec)
+			} else if this.cave.Contains(at) {
+				result.WriteRune('.')
+			} else {
+				result.WriteRune('#')
+			}
+		}
+		if len(characters) == 0 {
+			result.WriteString("\n")
+			continue
+		}
+		result.WriteString("   ")
+		for c, character := range characters {
+			_, _ = fmt.Fprintf(&result, "%c(%d)", character.spec, 200) // TODO: HP
+			if c < len(characters)-1 {
+				result.WriteString(", ")
+			}
+		}
+		result.WriteString("\n")
+	}
+	return result.String()
+}
+
+func ParseWorld(lines []string) fmt.Stringer {
+	characters := ParseCharacters(lines)
+	index := make(map[grid.Point[int]]*Character)
+	for _, character := range characters {
+		index[character.loc] = character
+	}
+	world := &World{
+		height:     len(lines),
+		width:      len(lines[0]),
+		cave:       ParseCaveMap(lines),
+		characters: index, // TODO: associate
+	}
+	return world
+}
+
+func ParseCaveMap(lines []string) (result set.Set[grid.Point[int]]) {
 	result = set.Make[grid.Point[int]](0)
 	for y, line := range lines {
 		for x, char := range line {
+			if x >= len(lines[0]) {
+				break
+			}
 			if char != '#' {
 				result.Add(grid.NewPoint(x, y))
 			}

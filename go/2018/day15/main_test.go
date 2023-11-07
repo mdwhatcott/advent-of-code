@@ -2,6 +2,7 @@ package starter
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
@@ -21,6 +22,7 @@ var (
 )
 
 func Test(t *testing.T) {
+	t.Log(ParseWorld(inputLines).String())
 	should.So(t, Part1(sampleLines), should.Equal, TODO)
 	should.So(t, Part1(inputLines), should.Equal, TODO)
 
@@ -38,7 +40,7 @@ func Part2(lines []string) any {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-func TestParseWorld(t *testing.T) {
+func TestParseMap(t *testing.T) {
 	lines := []string{
 		"#####",
 		"#...#",
@@ -46,8 +48,8 @@ func TestParseWorld(t *testing.T) {
 		"#...#",
 		"#####",
 	}
-	world := ParseWorld(lines)
-	should.So(t, world, should.Equal, set.Of(
+	cave := ParseCaveMap(lines)
+	should.So(t, cave, should.Equal, set.Of(
 		grid.NewPoint(1, 1),
 		grid.NewPoint(1, 2),
 		grid.NewPoint(1, 3),
@@ -88,4 +90,20 @@ func TestAssociateCharacters(t *testing.T) {
 	should.So(t, g2.targets, should.Equal, []*Character{e1, e2})
 	should.So(t, e1.targets, should.Equal, []*Character{g1, g2})
 	should.So(t, e2.targets, should.Equal, []*Character{g1, g2})
+}
+func TestPrintWorld1(t *testing.T) {
+	lines := []string{
+		"#######",
+		"#.G...#   G(200)",
+		"#...EG#   E(200), G(200)",
+		"#.#.#G#   G(200)",
+		"#..G#E#   G(200), E(200)",
+		"#.....#",
+		"#######",
+	}
+	world := ParseWorld(lines)
+	actual := world.String()
+	expected := "\n" + strings.Join(lines, "\n") + "\n"
+	should.So(t, actual, should.Equal, expected)
+	t.Log(actual)
 }
