@@ -63,7 +63,7 @@ func TestParseMap(t *testing.T) {
 		grid.NewPoint(3, 3),
 	))
 }
-func TestParseCharacters(t *testing.T) {
+func TestParseUnits(t *testing.T) {
 	lines := []string{
 		"#####",
 		"#.G.#",
@@ -71,27 +71,27 @@ func TestParseCharacters(t *testing.T) {
 		"#..G#",
 		"#####",
 	}
-	characters := ParseCharacters(lines)
-	should.So(t, characters, should.Equal, []*Character{
-		NewCharacter('G', 2, 1),
-		NewCharacter('E', 1, 2),
-		NewCharacter('G', 3, 3),
+	units := ParseUnits(lines)
+	should.So(t, units, should.Equal, []*Unit{
+		NewUnit('G', 2, 1),
+		NewUnit('E', 1, 2),
+		NewUnit('G', 3, 3),
 	})
 }
-func TestAssociateCharacters(t *testing.T) {
-	g1 := NewCharacter('G', 1, 1)
-	g2 := NewCharacter('G', 2, 2)
-	e1 := NewCharacter('E', 3, 3)
-	e2 := NewCharacter('E', 4, 4)
+func TestAssociateEnemyCharacters(t *testing.T) {
+	g1 := NewUnit('G', 1, 1)
+	g2 := NewUnit('G', 2, 2)
+	e1 := NewUnit('E', 3, 3)
+	e2 := NewUnit('E', 4, 4)
 
-	AssociateCharacters(g1, g2, e1, e2)
+	AssociateEnemyUnits(g1, g2, e1, e2)
 
-	should.So(t, g1.targets, should.Equal, []*Character{e1, e2})
-	should.So(t, g2.targets, should.Equal, []*Character{e1, e2})
-	should.So(t, e1.targets, should.Equal, []*Character{g1, g2})
-	should.So(t, e2.targets, should.Equal, []*Character{g1, g2})
+	should.So(t, g1.targets, should.Equal, []*Unit{e1, e2})
+	should.So(t, g2.targets, should.Equal, []*Unit{e1, e2})
+	should.So(t, e1.targets, should.Equal, []*Unit{g1, g2})
+	should.So(t, e2.targets, should.Equal, []*Unit{g1, g2})
 }
-func TestPrintWorld1(t *testing.T) {
+func TestParseAndPrintWorld1(t *testing.T) {
 	lines := []string{
 		"#######",
 		"#.G...#   G(200)",

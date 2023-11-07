@@ -10,10 +10,10 @@ import (
 
 /*
 for rounds := 0; ; rounds++
-	sort characters in reading order
-	for each character in reading order:
+	sort units in reading order
+	for each unit in reading order:
 		if no targets:
-			return rounds * sum(map(hit-points, living characters))
+			return rounds * sum(map(hit-points, living units))
 
 		if not adjacent to a target and there is any pathway to a target:
 			move()
@@ -26,36 +26,36 @@ for rounds := 0; ; rounds++
 */
 
 type World struct {
-	height     int
-	width      int
-	cave       set.Set[grid.Point[int]]
-	characters map[grid.Point[int]]*Character
+	height int
+	width  int
+	cave   set.Set[grid.Point[int]]
+	units  map[grid.Point[int]]*Unit
 }
 
 func (this *World) String() string {
 	var result strings.Builder
 	result.WriteString("\n")
 	for y := 0; y < this.height; y++ {
-		var characters []*Character
+		var units []*Unit
 		for x := 0; x < this.width; x++ {
 			at := grid.NewPoint(x, y)
-			if character, ok := this.characters[at]; ok {
-				characters = append(characters, character)
-				result.WriteRune(character.spec)
+			if unit, ok := this.units[at]; ok {
+				units = append(units, unit)
+				result.WriteRune(unit.species)
 			} else if this.cave.Contains(at) {
 				result.WriteRune('.')
 			} else {
 				result.WriteRune('#')
 			}
 		}
-		if len(characters) == 0 {
+		if len(units) == 0 {
 			result.WriteString("\n")
 			continue
 		}
 		result.WriteString("   ")
-		for c, character := range characters {
-			_, _ = fmt.Fprintf(&result, "%c(%d)", character.spec, 200) // TODO: HP
-			if c < len(characters)-1 {
+		for u, unit := range units {
+			_, _ = fmt.Fprintf(&result, "%c(%d)", unit.species, 200) // TODO: HP
+			if u < len(units)-1 {
 				result.WriteString(", ")
 			}
 		}
@@ -64,21 +64,20 @@ func (this *World) String() string {
 	return result.String()
 }
 
-func ParseWorld(lines []string) fmt.Stringer {
-	characters := ParseCharacters(lines)
-	index := make(map[grid.Point[int]]*Character)
-	for _, character := range characters {
-		index[character.loc] = character
+func ParseWorld(lines []string) *World {
+	units := ParseUnits(lines)
+	index := make(map[grid.Point[int]]*Unit)
+	for _, unit := range units {
+		index[unit.location] = unit
 	}
 	world := &World{
-		height:     len(lines),
-		width:      len(lines[0]),
-		cave:       ParseCaveMap(lines),
-		characters: index, // TODO: associate
+		height: len(lines),
+		width:  len(lines[0]),
+		cave:   ParseCaveMap(lines),
+		units:  index, // TODO: associate
 	}
 	return world
 }
-
 func ParseCaveMap(lines []string) (result set.Set[grid.Point[int]]) {
 	result = set.Make[grid.Point[int]](0)
 	for y, line := range lines {
@@ -93,31 +92,31 @@ func ParseCaveMap(lines []string) (result set.Set[grid.Point[int]]) {
 	}
 	return result
 }
-func ParseCharacters(lines []string) (result []*Character) {
+func ParseUnits(lines []string) (result []*Unit) {
 	for y, line := range lines {
 		for x, char := range line {
 			if char == 'G' || char == 'E' {
-				result = append(result, NewCharacter(char, x, y))
+				result = append(result, NewUnit(char, x, y))
 			}
 		}
 	}
 	return result
 }
 
-type Character struct {
-	spec    rune
-	loc     grid.Point[int]
-	targets []*Character
+type Unit struct {
+	species  rune
+	location grid.Point[int]
+	targets  []*Unit
 }
 
-func NewCharacter(spec rune, x, y int) *Character {
-	return &Character{spec: spec, loc: grid.NewPoint(x, y)}
+func NewUnit(species rune, x, y int) *Unit {
+	return &Unit{species: species, location: grid.NewPoint(x, y)}
 }
 
-func AssociateCharacters(all ...*Character) {
+func AssociateEnemyUnits(all ...*Unit) {
 	for c, c1 := range all {
 		for _, c2 := range all[c+1:] {
-			if c1.spec == c2.spec {
+			if c1.species == c2.species {
 				continue
 			}
 			c1.targets = append(c1.targets, c2)
