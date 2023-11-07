@@ -8,7 +8,6 @@ import (
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
 	"github.com/mdwhatcott/go-set/v2/set"
 	"github.com/mdwhatcott/grid"
-	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/testing/should"
 )
 
