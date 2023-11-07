@@ -46,10 +46,23 @@ func ParseCharacters(lines []string) (result []*Character) {
 }
 
 type Character struct {
-	spec rune
-	loc  grid.Point[int]
+	spec    rune
+	loc     grid.Point[int]
+	targets []*Character
 }
 
 func NewCharacter(spec rune, x, y int) *Character {
 	return &Character{spec: spec, loc: grid.NewPoint(x, y)}
+}
+
+func AssociateCharacters(all ...*Character) {
+	for c, c1 := range all {
+		for _, c2 := range all[c+1:] {
+			if c1.spec == c2.spec {
+				continue
+			}
+			c1.targets = append(c1.targets, c2)
+			c2.targets = append(c2.targets, c1)
+		}
+	}
 }
