@@ -109,3 +109,27 @@ func TestSample1(t *testing.T) {
 	}
 	should.So(t, Part1(sampleLines), should.Equal, 27730) // (200+131+59+200) * 47
 }
+func TestRound1(t *testing.T) {
+	world := ParseWorld([]string{
+		"#######",
+		"#.G...#   G(200)",
+		"#...EG#   E(200), G(200)",
+		"#.#.#G#   G(200)",
+		"#..G#E#   G(200), E(200)",
+		"#.....#",
+		"#######",
+	})
+
+	result := world.PlayRound()
+
+	should.So(t, result, should.BeTrue)
+	should.So(t, world.String(), should.Equal, "\n"+strings.Join([]string{
+		"#######",
+		"#..G..#   G(200)",
+		"#...EG#   E(197), G(197)",
+		"#.#G#G#   G(200), G(197)",
+		"#...#E#   E(197)",
+		"#.....#",
+		"#######",
+	}, "\n")+"\n")
+}
