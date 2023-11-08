@@ -1,10 +1,7 @@
 package starter
 
 import (
-	"container/list"
-	"fmt"
 	"sort"
-	"strings"
 
 	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/go-set/v2/set"
@@ -28,6 +25,23 @@ for rounds := 0; ; rounds++
 			attack()
 */
 
+func Battle(lines []string, debug bool) (roundCount int, hitPoints int, history []string) {
+	world := ParseWorld(lines)
+	if debug {
+		history = append(history, RenderWorld(world))
+	}
+	for world.PlayRound() && len(history) < 100 {
+		roundCount++
+		if debug {
+			history = append(history, RenderWorld(world))
+		}
+	}
+	for _, unit := range world.units {
+		hitPoints += unit.HP()
+	}
+	return roundCount, hitPoints, history
+}
+
 type World struct {
 	height int
 	width  int
@@ -35,49 +49,23 @@ type World struct {
 	units  map[grid.Point[int]]*Unit
 }
 
-func (this *World) String() string {
-	var result strings.Builder
-	result.WriteString("\n")
-	for y := 0; y < this.height; y++ {
-		var units []*Unit
-		for x := 0; x < this.width; x++ {
-			at := grid.NewPoint(x, y)
-			if unit, ok := this.units[at]; ok {
-				units = append(units, unit)
-				result.WriteRune(unit.species)
-			} else if this.cave.Contains(at) {
-				result.WriteRune('.')
-			} else {
-				result.WriteRune('#')
-			}
-		}
-		if len(units) == 0 {
-			result.WriteString("\n")
+func (this *World) PlayRound() bool {
+	for _, key := range this.readingOrder(funcy.MapKeys(this.units)) {
+		unit := this.units[key]
+		if unit == nil {
 			continue
 		}
-		result.WriteString("   ")
-		for u, unit := range units {
-			_, _ = fmt.Fprintf(&result, "%c(%d)", unit.species, unit.HP())
-			if u < len(units)-1 {
-				result.WriteString(", ")
+		targetCount := 0
+		for _, target := range this.units {
+			if target != nil && target.species != unit.species {
+				if target.HP() > 0 {
+					targetCount++
+				}
 			}
 		}
-		result.WriteString("\n")
-	}
-	return result.String()
-}
-
-func (this *World) readingOrder(points []grid.Point[int]) []grid.Point[int] {
-	return funcy.SortAscending(this.pointID, points)
-}
-func (this *World) pointID(p grid.Point[int]) int {
-	return p.Y()*this.width + p.X()
-}
-func (this *World) PlayRound() bool {
-	// TODO: filter out dead units
-	for _, key := range this.readingOrder(funcy.MapKeys(this.units)) {
-		// TODO: check for no targets and return false
-		unit := this.units[key]
+		if targetCount == 0 {
+			return false
+		}
 		if this.weakestTargetInRangeOf(unit) == nil {
 			step, ok := this.firstStepTowardsClosestTarget(unit)
 			if ok {
@@ -88,11 +76,19 @@ func (this *World) PlayRound() bool {
 		}
 		if target := this.weakestTargetInRangeOf(unit); target != nil {
 			target.damage += 3
+			if target.HP() == 0 {
+				delete(this.units, target.location)
+			}
 		}
 	}
 	return true
 }
-
+func (this *World) readingOrder(points []grid.Point[int]) []grid.Point[int] {
+	return funcy.SortAscending(this.pointID, points)
+}
+func (this *World) pointID(p grid.Point[int]) int {
+	return p.Y()*this.width + p.X()
+}
 func (this *World) firstStepTowardsClosestTarget(mover *Unit) (result grid.Point[int], ok bool) {
 	cave := set.Of[grid.Point[int]](this.cave.Slice()...)
 	for location, target := range this.units {
@@ -121,7 +117,6 @@ func (this *World) firstStepTowardsClosestTarget(mover *Unit) (result grid.Point
 	}
 	return this.readingOrder(candidates.Slice())[0], true
 }
-
 func (this *World) weakestTargetInRangeOf(attacker *Unit) *Unit {
 	minHP := 200
 	byHP := make(map[int][]*Unit)
@@ -144,97 +139,4 @@ func (this *World) weakestTargetInRangeOf(attacker *Unit) *Unit {
 	}
 	order := this.readingOrder(funcy.MapKeys(byLocations))
 	return byLocations[order[0]]
-}
-
-func ParseWorld(lines []string) *World {
-	units := ParseUnits(lines)
-	AssociateEnemyUnits(units...)
-	index := make(map[grid.Point[int]]*Unit)
-	for _, unit := range units {
-		index[unit.location] = unit
-	}
-	world := &World{
-		height: len(lines),
-		width:  len(lines[0]),
-		cave:   ParseCaveMap(lines),
-		units:  index,
-	}
-	return world
-}
-func ParseCaveMap(lines []string) (result set.Set[grid.Point[int]]) {
-	result = set.Make[grid.Point[int]](0)
-	for y, line := range lines {
-		for x, char := range line {
-			if x >= len(lines[0]) {
-				break
-			}
-			if char != '#' {
-				result.Add(grid.NewPoint(x, y))
-			}
-		}
-	}
-	return result
-}
-func ParseUnits(lines []string) (result []*Unit) {
-	for y, line := range lines {
-		for x, char := range line {
-			if x >= len(lines[0]) {
-				break
-			}
-			if char == 'G' || char == 'E' {
-				result = append(result, NewUnit(char, x, y))
-			}
-		}
-	}
-	return result
-}
-
-type Unit struct {
-	species  rune
-	location grid.Point[int]
-	targets  []*Unit
-	damage   int
-}
-
-func NewUnit(species rune, x, y int) *Unit {
-	return &Unit{species: species, location: grid.NewPoint(x, y)}
-}
-func (this *Unit) HP() int {
-	return max(0, 200-this.damage)
-}
-
-func AssociateEnemyUnits(all ...*Unit) {
-	for c, c1 := range all {
-		for _, c2 := range all[c+1:] {
-			if c1.species == c2.species {
-				continue
-			}
-			c1.targets = append(c1.targets, c2)
-			c2.targets = append(c2.targets, c1)
-		}
-	}
-}
-
-func findShortestPaths(world set.Set[grid.Point[int]], start, end grid.Point[int]) (results [][]grid.Point[int]) {
-	queue := list.New()
-	queue.PushBack([]grid.Point[int]{start})
-	visited := set.Of(start)
-	for queue.Len() > 0 {
-		path := queue.Remove(queue.Front()).([]grid.Point[int])
-		current := path[len(path)-1]
-
-		if grid.CityBlockDistance(current, end) == 1 && len(path) > 1 {
-			results = append(results, path[1:])
-			continue
-		}
-		for _, next := range current.Neighbors4() {
-			if world.Contains(next) && !visited.Contains(next) {
-				visited.Add(next)
-				newPath := append([]grid.Point[int]{}, path...)
-				newPath = append(newPath, next)
-				queue.PushBack(newPath)
-			}
-		}
-	}
-	return results
 }

@@ -14,7 +14,7 @@ const TODO = -1
 
 func Test(t *testing.T) {
 	inputLines := inputs.Read(2018, 15).Lines()
-	t.Log(ParseWorld(inputLines).String())
+	t.Log(RenderWorld(ParseWorld(inputLines)))
 	should.So(t, Part1(inputLines), should.Equal, TODO)
 	should.So(t, Part2(inputLines), should.Equal, TODO)
 }
@@ -91,14 +91,13 @@ func TestParseAndPrintWorld1(t *testing.T) {
 		"#######",
 	}
 	world := ParseWorld(lines)
-	actual := world.String()
+	actual := RenderWorld(world)
 	expected := "\n" + strings.Join(lines, "\n") + "\n"
 	should.So(t, actual, should.Equal, expected)
 	t.Log(actual)
 }
 func TestSample1(t *testing.T) {
-	t.Skip("baby steps...")
-	sampleLines := []string{
+	rounds, hitPoints, history := Battle([]string{
 		"#######",
 		"#.G...#   G(200)",
 		"#...EG#   E(200), G(200)",
@@ -106,24 +105,12 @@ func TestSample1(t *testing.T) {
 		"#..G#E#   G(200), E(200)",
 		"#.....#",
 		"#######",
-	}
-	should.So(t, Part1(sampleLines), should.Equal, 27730) // (200+131+59+200) * 47
-}
-func TestRound1(t *testing.T) {
-	world := ParseWorld([]string{
-		"#######",
-		"#.G...#   G(200)",
-		"#...EG#   E(200), G(200)",
-		"#.#.#G#   G(200)",
-		"#..G#E#   G(200), E(200)",
-		"#.....#",
-		"#######",
-	})
+	}, true)
 
-	result := world.PlayRound()
-
-	should.So(t, result, should.BeTrue)
-	should.So(t, world.String(), should.Equal, "\n"+strings.Join([]string{
+	should.So(t, rounds, should.Equal, 47)
+	should.So(t, hitPoints, should.Equal, 200+131+59+200)
+	should.So(t, rounds*hitPoints, should.Equal, 27730)
+	should.So(t, history[1], should.Equal, "\n"+strings.Join([]string{
 		"#######",
 		"#..G..#   G(200)",
 		"#...EG#   E(197), G(197)",
@@ -132,4 +119,8 @@ func TestRound1(t *testing.T) {
 		"#.....#",
 		"#######",
 	}, "\n")+"\n")
+
+	for r, round := range history {
+		t.Log(r, round)
+	}
 }
