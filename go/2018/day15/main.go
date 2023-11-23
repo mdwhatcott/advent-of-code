@@ -17,6 +17,21 @@ func (this Point) X() int                 { return this.point().X() }
 func (this Point) Y() int                 { return this.point().Y() }
 func (this Point) point() grid.Point[int] { return grid.Point[int](this) }
 
+type Unit struct {
+	point Point
+}
+
+func NewUnit(x, y int) *Unit {
+	return &Unit{point: NewPoint(x, y)}
+}
+
+func (this *Unit) Point() Point {
+	return this.point
+}
+func (this *Unit) GoTo(p Point) {
+	this.point = p
+}
+
 type (
 	Path []Point
 
@@ -28,16 +43,21 @@ type (
 	}
 )
 
-func MapWalls(lines []string) set.Set[Point] {
-	result := set.Of[Point]()
+func ParseCave(lines []string) (elves, goblins []*Unit, walls set.Set[Point]) {
+	walls = set.Of[Point]()
 	for y, line := range lines {
 		for x, char := range line {
-			if char == '#' {
-				result.Add(NewPoint(x, y))
+			switch char {
+			case '#':
+				walls.Add(NewPoint(x, y))
+			case 'G':
+				goblins = append(goblins, NewUnit(x, y))
+			case 'E':
+				elves = append(elves, NewUnit(x, y))
 			}
 		}
 	}
-	return result
+	return elves, goblins, walls
 }
 func SortReadingOrder[T Pin](points []T) {
 	sort.SliceStable(points, func(i, j int) bool {

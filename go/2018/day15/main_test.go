@@ -29,7 +29,7 @@ func Part2(lines []string) any {
 ////////////////////////////////////////////////////////////////////////////////
 
 func TestSortReadingOrder(t *testing.T) {
-	points := []*TestUnit{
+	points := []*Unit{
 		{point: NewPoint(9, 2)},
 		{point: NewPoint(0, 3)},
 		{point: NewPoint(4, 9)},
@@ -44,7 +44,7 @@ func TestSortReadingOrder(t *testing.T) {
 
 	SortReadingOrder(points)
 
-	should.So(t, points, should.Equal, []*TestUnit{
+	should.So(t, points, should.Equal, []*Unit{
 		{point: NewPoint(6, 0)},
 		{point: NewPoint(9, 2)},
 		{point: NewPoint(0, 3)},
@@ -57,19 +57,7 @@ func TestSortReadingOrder(t *testing.T) {
 		{point: NewPoint(7, 9)},
 	})
 }
-
-type TestUnit struct {
-	point Point
-}
-
-func (this *TestUnit) Point() Point {
-	return this.point
-}
-func (this *TestUnit) GoTo(p Point) {
-	this.point = p
-}
-
-func TestMapWalls(t *testing.T) {
+func TestParseCave(t *testing.T) {
 	lines := []string{
 		"#######",
 		"#E..G.#",
@@ -77,7 +65,15 @@ func TestMapWalls(t *testing.T) {
 		"#.G.#G#",
 		"#######",
 	}
-	obstacles := MapWalls(lines)
+	elves, goblins, obstacles := ParseCave(lines)
+	should.So(t, elves, should.Equal, []*Unit{
+		NewUnit(1, 1),
+	})
+	should.So(t, goblins, should.Equal, []*Unit{
+		NewUnit(4, 1),
+		NewUnit(2, 3),
+		NewUnit(5, 3),
+	})
 	should.So(t, obstacles, should.Equal, set.Of(
 		// top side walls
 		NewPoint(0, 0),
@@ -121,24 +117,16 @@ func TestNextMove_ExampleA(t *testing.T) {
 		#.G.#G#       #?G?#G#       #@G@#G#       #!G.#G#       #.G.#G#
 		#######       #######       #######       #######       #######
 	*/
-	walls := MapWalls([]string{
+	elves, goblins, walls := ParseCave([]string{
 		"#######",
 		"#E..G.#",
 		"#...#.#",
 		"#.G.#G#",
 		"#######",
 	})
-	goblins := []*TestUnit{
-		{point: NewPoint(4, 1)},
-		{point: NewPoint(3, 2)},
-		{point: NewPoint(5, 3)},
-	}
-	obstacles := walls.Union(set.Of(Points(goblins)...))
-	elf := &TestUnit{point: NewPoint(1, 1)}
+	MoveActor(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
 
-	MoveActor(elf, goblins, obstacles)
-
-	should.So(t, elf.Point(), should.Equal, NewPoint(2, 1))
+	should.So(t, elves[0].Point(), should.Equal, NewPoint(2, 1))
 }
 func TestNextMove_ExampleB(t *testing.T) {
 	/*
@@ -149,20 +137,14 @@ func TestNextMove_ExampleB(t *testing.T) {
 		#..?G?#       #..!G.#       #...G.#       #432G2#       #...G.#
 		#######       #######       #######       #######       #######
 	*/
-	walls := MapWalls([]string{
+	elves, goblins, walls := ParseCave([]string{
 		"#######",
 		"#.E...#",
 		"#.....#",
 		"#...G.#",
 		"#######",
 	})
-	goblins := []*TestUnit{
-		{point: NewPoint(4, 3)},
-	}
-	obstacles := walls.Union(set.Of(Points(goblins)...))
-	elf := &TestUnit{point: NewPoint(2, 1)}
+	MoveActor(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
 
-	MoveActor(elf, goblins, obstacles)
-
-	should.So(t, elf.Point(), should.Equal, NewPoint(3, 1))
+	should.So(t, elves[0].Point(), should.Equal, NewPoint(3, 1))
 }
