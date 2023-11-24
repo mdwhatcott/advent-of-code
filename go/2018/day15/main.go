@@ -2,7 +2,10 @@ package starter
 
 import (
 	"container/list"
+	"fmt"
+	"log"
 	"sort"
+	"strings"
 
 	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/go-set/v2/set"
@@ -16,26 +19,28 @@ func (this Point) Point() Point           { return this }
 func (this Point) X() int                 { return this.point().X() }
 func (this Point) Y() int                 { return this.point().Y() }
 func (this Point) point() grid.Point[int] { return grid.Point[int](this) }
+func (this Point) String() string         { return this.point().String() }
 
 type Unit struct {
 	point Point
+	class rune
 }
 
-func NewUnit(x, y int) *Unit {
-	return &Unit{point: NewPoint(x, y)}
+func NewUnit(x, y int, class rune) *Unit {
+	return &Unit{
+		point: NewPoint(x, y),
+		class: class,
+	}
 }
-
-func (this *Unit) Point() Point {
-	return this.point
-}
-func (this *Unit) GoTo(p Point) {
-	this.point = p
-}
+func (this *Unit) String() string { return string(this.class) }
+func (this *Unit) Point() Point   { return this.point }
+func (this *Unit) GoTo(p Point)   { this.point = p }
 
 type (
 	Path []Point
 
 	Pin interface {
+		fmt.Stringer
 		Point() Point
 	}
 	Mobile interface {
@@ -51,13 +56,50 @@ func ParseCave(lines []string) (elves, goblins []*Unit, walls set.Set[Point]) {
 			case '#':
 				walls.Add(NewPoint(x, y))
 			case 'G':
-				goblins = append(goblins, NewUnit(x, y))
+				goblins = append(goblins, NewUnit(x, y, char))
 			case 'E':
-				elves = append(elves, NewUnit(x, y))
+				elves = append(elves, NewUnit(x, y, char))
 			}
 		}
 	}
 	return elves, goblins, walls
+}
+func RenderCave(elves, goblins []*Unit, walls set.Set[Point]) string {
+	var all []Pin
+	for _, e := range elves {
+		all = append(all, e)
+	}
+	for _, g := range goblins {
+		all = append(all, g)
+	}
+	for p := range walls {
+		all = append(all, p)
+	}
+	SortReadingOrder(all)
+	minWall, maxWall := funcy.First(all).Point(), funcy.Last(all).Point()
+
+	index := make(map[Point]Pin)
+	for _, pin := range all {
+		index[pin.Point()] = pin
+	}
+
+	var builder strings.Builder
+	for y := minWall.Y(); y <= maxWall.Y(); y++ {
+		for x := minWall.X(); x <= maxWall.X(); x++ {
+			item, ok := index[NewPoint(x, y)]
+			if ok {
+				if _, ok := item.(Point); ok {
+					builder.WriteString("#")
+				} else {
+					builder.WriteString(item.String())
+				}
+			} else {
+				builder.WriteString(".")
+			}
+		}
+		builder.WriteString("\n")
+	}
+	return strings.TrimSpace(builder.String())
 }
 func SortReadingOrder[T Pin](points []T) {
 	sort.SliceStable(points, func(i, j int) bool {
@@ -72,11 +114,17 @@ func SortReadingOrder[T Pin](points []T) {
 func Points[T Pin](units []T) (result []Point) {
 	return funcy.Map(T.Point, units)
 }
-func MoveActor[T Pin](actor T, targets []T, obstacles set.Set[Point]) {
+func MoveUnit[T Pin](actor T, targets []T, obstacles set.Set[Point]) {
+	log.Println("actor", actor, "at", actor.Point(), "with targets", len(targets))
 	// Calculate all paths to all targets:
 	var all []Path
 	for _, target := range targets {
-		all = append(all, findShortestPaths(actor.Point(), target.Point(), obstacles)...)
+		log.Println("aiming for", target.Point())
+		newPaths := findShortestPaths(actor.Point(), target.Point(), obstacles)
+		for _, p := range newPaths {
+			log.Println("path found:", p)
+		}
+		all = append(all, newPaths...)
 	}
 	if len(all) == 0 {
 		return
@@ -104,6 +152,9 @@ func MoveActor[T Pin](actor T, targets []T, obstacles set.Set[Point]) {
 
 	// Filter the shortest paths and index them by their first step:
 	candidates := shortestByLast[keys[0]]
+	for _, candidate := range candidates {
+		log.Println("actor", actor, "at", actor.Point(), "candidate path", candidate)
+	}
 	byFirst := make(map[Point]Path)
 	for _, path := range candidates {
 		byFirst[path[0]] = path
@@ -115,6 +166,7 @@ func MoveActor[T Pin](actor T, targets []T, obstacles set.Set[Point]) {
 
 	// Actor takes first step along best path:
 	best := byFirst[keys[0]]
+	log.Println("actor", actor, "at", actor.Point(), "will move on path", best)
 	any(actor).(Mobile).GoTo(best[0])
 }
 func findShortestPaths(start, end Point, obstacles set.Set[Point]) (results []Path) {
@@ -123,7 +175,7 @@ func findShortestPaths(start, end Point, obstacles set.Set[Point]) (results []Pa
 	visited := set.Of(start)
 	for queue.Len() > 0 {
 		path := queue.Remove(queue.Front()).([]Point)
-		current := path[len(path)-1].point()
+		current := funcy.Last(path).point()
 
 		if grid.CityBlockDistance(current, end.point()) == 1 && len(path) > 1 {
 			results = append(results, path[1:])
@@ -140,4 +192,19 @@ func findShortestPaths(start, end Point, obstacles set.Set[Point]) (results []Pa
 		}
 	}
 	return results
+}
+func MoveAll(elves, goblins []*Unit, walls set.Set[Point]) (outElves, outGoblins []*Unit) {
+	all := append(elves, goblins...)
+	SortReadingOrder(all)
+	for _, unit := range all {
+		var others = goblins
+		if unit.class == 'G' {
+			others = elves
+		}
+		log.Println("-----")
+		log.Println("actor", unit, "starts at", unit.Point())
+		MoveUnit(unit, others, walls.Union(set.Of(Points(all)...)))
+		log.Println("actor", unit, "moved to ", unit.Point())
+	}
+	return elves, goblins
 }

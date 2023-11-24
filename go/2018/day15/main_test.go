@@ -1,6 +1,8 @@
 package starter
 
 import (
+	"fmt"
+	"log"
 	"strings"
 	"testing"
 
@@ -67,12 +69,12 @@ func TestParseCave(t *testing.T) {
 	}
 	elves, goblins, obstacles := ParseCave(lines)
 	should.So(t, elves, should.Equal, []*Unit{
-		NewUnit(1, 1),
+		NewUnit(1, 1, 'E'),
 	})
 	should.So(t, goblins, should.Equal, []*Unit{
-		NewUnit(4, 1),
-		NewUnit(2, 3),
-		NewUnit(5, 3),
+		NewUnit(4, 1, 'G'),
+		NewUnit(2, 3, 'G'),
+		NewUnit(5, 3, 'G'),
 	})
 	should.So(t, obstacles, should.Equal, set.Of(
 		// top side walls
@@ -108,7 +110,18 @@ func TestParseCave(t *testing.T) {
 		NewPoint(4, 3),
 	))
 }
-func TestNextMove_ExampleA(t *testing.T) {
+func TestRenderCave(t *testing.T) {
+	lines := []string{
+		"#######",
+		"#E..G.#",
+		"#...#.#",
+		"#.G.#G#",
+		"#######",
+	}
+	cave := RenderCave(ParseCave(lines))
+	should.So(t, strings.Split(cave, "\n"), should.Equal, lines)
+}
+func TestMoveUnit_ExampleA(t *testing.T) {
 	/*
 		Targets:      In range:     Reachable:    Nearest:      Chosen:
 		#######       #######       #######       #######       #######
@@ -124,11 +137,11 @@ func TestNextMove_ExampleA(t *testing.T) {
 		"#.G.#G#",
 		"#######",
 	})
-	MoveActor(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
+	MoveUnit(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
 
 	should.So(t, elves[0].Point(), should.Equal, NewPoint(2, 1))
 }
-func TestNextMove_ExampleB(t *testing.T) {
+func TestMoveUnit_ExampleB(t *testing.T) {
 	/*
 		In range:     Nearest:      Chosen:       Distance:     Step:
 		#######       #######       #######       #######       #######
@@ -144,7 +157,97 @@ func TestNextMove_ExampleB(t *testing.T) {
 		"#...G.#",
 		"#######",
 	})
-	MoveActor(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
+	MoveUnit(elves[0], goblins, walls.Union(set.Of(Points(goblins)...)))
 
 	should.So(t, elves[0].Point(), should.Equal, NewPoint(3, 1))
+}
+func TestMoveAll_SeveralRounds(t *testing.T) {
+	rounds := [][]string{
+		{
+			"#########",
+			"#G..G..G#",
+			"#.......#",
+			"#.......#",
+			"#G..E..G#",
+			"#.......#",
+			"#.......#",
+			"#G..G..G#",
+			"#########",
+		},
+		{
+			"#########",
+			"#.G...G.#",
+			"#...G...#",
+			"#...E..G#",
+			"#.G.....#",
+			"#.......#",
+			"#G..G..G#",
+			"#.......#",
+			"#########",
+		},
+		{
+			"#########",
+			"#..G.G..#",
+			"#...G...#",
+			"#.G.E.G.#",
+			"#.......#",
+			"#G..G..G#",
+			"#.......#",
+			"#.......#",
+			"#########",
+		},
+		{
+			"#########",
+			"#.......#",
+			"#..GGG..#",
+			"#..GEG..#",
+			"#G..G...#",
+			"#......G#",
+			"#.......#",
+			"#.......#",
+			"#########",
+		},
+	}
+
+	log.SetFlags(0)
+	log.SetOutput(tWriter{t})
+	elves, goblins, walls := ParseCave(rounds[0])
+	for x := 1; x < len(rounds); x++ {
+		log.Println()
+		elves, goblins = MoveAll(elves, goblins, walls)
+		t.Run(fmt.Sprintf("After round %d", x), func(t *testing.T) {
+			rendered := RenderCave(elves, goblins, walls)
+			should.So(t, strings.Split(rendered, "\n"), should.Equal, rounds[x])
+			if t.Failed() {
+				t.Log("Expected:\n" + strings.Join(rounds[x], "\n"))
+				t.Log("Actual:\n" + rendered)
+			}
+		})
+	}
+}
+
+type tWriter struct{ *testing.T }
+
+func (this tWriter) Write(p []byte) (n int, err error) {
+	this.T.Log(strings.TrimSpace(string(p)))
+	return len(p), nil
+}
+
+func TestPathFinding(t *testing.T) {
+	raw := []string{
+		"#########",
+		"#G..G..G#",
+		"#.......#",
+		"#.......#",
+		"#G..E..G#",
+		"#.......#",
+		"#.......#",
+		"#G..G..G#",
+		"#########",
+	}
+	_, _, walls := ParseCave(raw)
+	t.Log(len(walls))
+	for _, path := range findShortestPaths(NewPoint(7, 4), NewPoint(5, 3), walls) {
+		t.Log(path)
+	}
 }
