@@ -217,15 +217,15 @@ func MoveUnit(unit *Unit, units []*Unit, obstacles set.Set[Point]) {
 			targets[target] = path
 		}
 	}
+	if len(targets) == 0 {
+		return
+	}
 	for target, path := range targets {
 		if len(path) > minDistance {
 			delete(targets, target)
 		}
 	}
 	keys := Sort(funcy.MapKeys(targets))
-	if len(keys) == 0 {
-		return
-	}
 	path := targets[keys[0]]
 	step := path[0]
 	unit.Point = step
@@ -245,6 +245,10 @@ var EnemyOf = map[string]string{
 
 func SimulateRound(units []*Unit, walls set.Set[Point]) (gameOver bool, results []*Unit) {
 	for _, unit := range Sort(units) {
+		if unit.Health <= 0 {
+			continue
+		}
+		units = Living(units)
 		enemies := FilterTeam(units, EnemyOf[unit.Team])
 		if len(enemies) == 0 {
 			gameOver = true
@@ -253,12 +257,16 @@ func SimulateRound(units []*Unit, walls set.Set[Point]) (gameOver bool, results 
 		MoveUnit(unit, units, walls)
 		AttackWith(unit, units)
 	}
+	return gameOver, Living(units)
+}
+
+func Living(units []*Unit) (results []*Unit) {
 	for _, unit := range units {
 		if unit.Health > 0 {
 			results = append(results, unit)
 		}
 	}
-	return gameOver, results
+	return results
 }
 
 func AttackWith(attacker *Unit, units []*Unit) {
@@ -275,6 +283,9 @@ func AttackWith(attacker *Unit, units []*Unit) {
 			}
 		}
 	}
+	if len(targets) == 0 {
+		return
+	}
 	minEnemies := make(map[Point][]*Unit)
 	for target, enemies := range targets {
 		for _, enemy := range enemies {
@@ -284,15 +295,12 @@ func AttackWith(attacker *Unit, units []*Unit) {
 		}
 	}
 	keys := Sort(funcy.MapKeys(minEnemies))
-	if len(keys) == 0 {
-		return
-	}
 	target := Sort(minEnemies[keys[0]])[0]
 	target.Health -= attacker.Attack
 }
 
 func TotalHealth(units []*Unit) (result int) {
-	for _, unit := range units {
+	for _, unit := range Living(units) {
 		result += unit.Health
 	}
 	return result
@@ -301,12 +309,14 @@ func TotalHealth(units []*Unit) (result int) {
 func BeverageBanditsBattle(cave []string) (rounds, health int, steps []string) {
 	units, walls := ParseCave(cave)
 	steps = append(steps, FullRendering(units, walls))
-	for gameOver := false; ; rounds++ {
+	for gameOver := false; ; {
 		gameOver, units = SimulateRound(units, walls)
-		steps = append(steps, FullRendering(units, walls))
 		if gameOver {
+			steps = append(steps, FullRendering(units, walls))
 			break
 		}
+		steps = append(steps, FullRendering(units, walls))
+		rounds++
 	}
 	return rounds, TotalHealth(units), steps
 }
