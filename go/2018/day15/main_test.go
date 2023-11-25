@@ -15,17 +15,18 @@ import (
 const TODO = -1
 
 func Test(t *testing.T) {
-	t.Skip()
 	inputLines := inputs.Read(2018, 15).Lines()
 	t.Log("\n" + FullRendering(ParseCave(inputLines)))
-	should.So(t, Part1(inputLines), should.BeLessThan, 264721)
-	should.So(t, Part2(inputLines), should.Equal, TODO)
+	should.So(t, Part1(t, inputLines), should.Equal, 261855)
+	should.So(t, Part2(t, inputLines), should.Equal, TODO)
 }
-func Part1(lines []string) any {
-	rounds, health, _ := BeverageBanditsBattle(lines)
+func Part1(t *testing.T, lines []string) any {
+	t.Log("Before:\n" + strings.Join(lines, "\n"))
+	rounds, health, steps := BeverageBanditsBattle(lines)
+	t.Logf("Rounds: %d; Health: %d; Result: %d\n%s", rounds, health, rounds*health, funcy.Last(steps))
 	return rounds * health
 }
-func Part2(lines []string) any {
+func Part2(t *testing.T, lines []string) any {
 	return TODO
 }
 
