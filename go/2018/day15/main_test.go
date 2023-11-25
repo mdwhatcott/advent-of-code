@@ -3,10 +3,12 @@ package day15
 import (
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 	"testing"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
+	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/go-set/v2/set"
 	"github.com/mdwhatcott/testing/should"
 )
@@ -260,4 +262,149 @@ func TestSomething(t *testing.T) {
 	MoveUnit(goblin, units, walls)
 	should.So(t, goblin.Point, should.Equal, start)
 	t.Log("\n" + RenderCave(units, walls))
+}
+
+func TestFullSimulationA1(t *testing.T) {
+	caves := map[int][]string{
+		0: {
+			"#######",
+			"#.G...#   G(200)",
+			"#...EG#   E(200), G(200)",
+			"#.#.#G#   G(200)",
+			"#..G#E#   G(200), E(200)",
+			"#.....#",
+			"#######",
+		},
+		1: {
+			"#######",
+			"#..G..#   G(200)",
+			"#...EG#   E(197), G(197)",
+			"#.#G#G#   G(200), G(197)",
+			"#...#E#   E(197)",
+			"#.....#",
+			"#######",
+		},
+		2: {
+			"#######",
+			"#...G.#   G(200)",
+			"#..GEG#   G(200), E(188), G(194)",
+			"#.#.#G#   G(194)",
+			"#...#E#   E(194)",
+			"#.....#",
+			"#######",
+		},
+		23: {
+			"#######",
+			"#...G.#   G(200)",
+			"#..G.G#   G(200), G(131)",
+			"#.#.#G#   G(131)",
+			"#...#E#   E(131)",
+			"#.....#",
+			"#######",
+		},
+		28: {
+			"#######",
+			"#G....#   G(200)",
+			"#.G...#   G(131)",
+			"#.#.#G#   G(116)",
+			"#...#E#   E(113)",
+			"#....G#   G(200)",
+			"#######",
+		},
+		47: {
+			"#######",
+			"#G....#   G(200)",
+			"#.G...#   G(131)",
+			"#.#.#G#   G(59)",
+			"#...#.#",
+			"#....G#   G(200)",
+			"#######",
+		},
+	}
+	rounds, health, steps := BeverageBanditsBattle(caves[0])
+	should.So(t, rounds, should.Equal, 47)
+	should.So(t, health, should.Equal, 200+131+59+200)
+
+	keys := funcy.MapKeys(caves)
+	sort.Ints(keys)
+
+	for _, checkpoint := range keys {
+		t.Run(fmt.Sprintf("After round %02d", checkpoint), func(t *testing.T) {
+			should.So(t, strings.Split(steps[checkpoint], "\n"), should.Equal, caves[checkpoint])
+			t.Logf("Expected after round %d:\n%s", checkpoint, strings.Join(caves[checkpoint], "\n"))
+			t.Logf("Actual   after round %d:\n%s", checkpoint, steps[checkpoint])
+		})
+	}
+}
+
+func TestFullSimulations(t *testing.T) {
+	tests := []struct {
+		name          string
+		input         []string
+		wantRounds    int
+		wantHealth    int
+		wantRendering string
+	}{
+		{
+			name: "B",
+			input: []string{
+				"#######",
+				"#G..#E#",
+				"#E#E.E#",
+				"#G.##.#",
+				"#...#E#",
+				"#...E.#",
+				"#######",
+			},
+			wantRounds: 37,
+			wantHealth: 982,
+			wantRendering: strings.Join([]string{
+				"#######",
+				"#...#E#   E(200)",
+				"#E#...#   E(197)",
+				"#.E##.#   E(185)",
+				"#E..#E#   E(200), E(200)",
+				"#.....#",
+				"#######",
+			}, "\n"),
+		},
+		{
+			name: "C",
+			input: []string{
+				"#######",
+				"#E..EG#",
+				"#.#G.E#",
+				"#E.##E#",
+				"#G..#.#",
+				"#..E#.#",
+				"#######",
+			},
+			wantRounds: 46,
+			wantHealth: 859,
+			wantRendering: strings.Join([]string{
+				"#######",
+				"#.E.E.#   E(164), E(197)",
+				"#.#E..#   E(200)",
+				"#E.##.#   E(98)",
+				"#.E.#.#   E(200)",
+				"#...#.#",
+				"#######",
+			}, "\n"),
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			rounds, health, steps := BeverageBanditsBattle(test.input)
+			should.So(t, rounds, should.Equal, test.wantRounds)
+			should.So(t, health, should.Equal, test.wantHealth)
+			should.So(t, steps[rounds], should.Equal, test.wantRendering)
+			for s, step := range steps {
+				t.Run(fmt.Sprint(s), func(t *testing.T) {
+					t.Log("\n" + step)
+				})
+			}
+			t.Logf("Expected after round %d:\n%s", test.wantRounds, test.wantRendering)
+			t.Logf("Actual   after round %d:\n%s", rounds, steps[rounds])
+		})
+	}
 }

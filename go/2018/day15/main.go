@@ -12,8 +12,12 @@ import (
 
 func ParseCave(lines []string) (units []*Unit, walls set.Set[Point]) {
 	walls = set.Of[Point]()
+	maxLineLength := len(lines[0])
 	for y, line := range lines {
 		for x, char := range line {
+			if x >= maxLineLength {
+				break
+			}
 			switch char {
 			case '#':
 				walls.Add(XY(x, y))
@@ -60,6 +64,30 @@ func RenderCave(units []*Unit, walls set.Set[Point]) string {
 	}
 	return strings.TrimSpace(builder.String())
 }
+func AnnotateUnits(rendering string, units []*Unit) string {
+	var builder strings.Builder
+	index := make(map[Point]*Unit)
+	for _, unit := range units {
+		index[unit.Point] = unit
+	}
+	lines := strings.Split(rendering, "\n")
+	for y, line := range lines {
+		var lineUnits []string
+		for x := range line {
+			unit, ok := index[XY(x, y)]
+			if ok {
+				lineUnits = append(lineUnits, unit.Status())
+			}
+		}
+		builder.WriteString(line)
+		if len(lineUnits) > 0 {
+			builder.WriteString("   ")
+		}
+		builder.WriteString(strings.Join(lineUnits, ", "))
+		builder.WriteString("\n")
+	}
+	return strings.TrimSpace(builder.String())
+}
 
 func Points[T point](things []T) (result []Point) {
 	for _, thing := range things {
@@ -102,9 +130,15 @@ type Unit struct {
 
 func NewUnit(x, y int, team string) *Unit {
 	return &Unit{
-		Point: XY(x, y),
-		Team:  team,
+		Point:  XY(x, y),
+		Team:   team,
+		Health: 200,
+		Attack: 3,
 	}
+}
+
+func (this *Unit) Status() string {
+	return fmt.Sprintf("%s(%d)", this.Team, this.Health)
 }
 
 func FilterTeam(units []*Unit, team string) (results []*Unit) {
@@ -207,4 +241,76 @@ func MoveAll(units []*Unit, walls set.Set[Point]) []*Unit {
 var EnemyOf = map[string]string{
 	"E": "G",
 	"G": "E",
+}
+
+func SimulateRound(units []*Unit, walls set.Set[Point]) (gameOver bool, results []*Unit) {
+	for _, unit := range Sort(units) {
+		enemies := FilterTeam(units, EnemyOf[unit.Team])
+		if len(enemies) == 0 {
+			gameOver = true
+			break
+		}
+		MoveUnit(unit, units, walls)
+		AttackWith(unit, units)
+	}
+	for _, unit := range units {
+		if unit.Health > 0 {
+			results = append(results, unit)
+		}
+	}
+	return gameOver, results
+}
+
+func AttackWith(attacker *Unit, units []*Unit) {
+	enemies := FilterTeam(units, EnemyOf[attacker.Team])
+	targets := make(map[Point][]*Unit)
+	minHealth := 200
+	for _, enemy := range enemies {
+		for _, target := range Neighbors(enemy.Point) {
+			if attacker.Point == target {
+				targets[target] = append(targets[target], enemy)
+				if enemy.Health < minHealth {
+					minHealth = enemy.Health
+				}
+			}
+		}
+	}
+	minEnemies := make(map[Point][]*Unit)
+	for target, enemies := range targets {
+		for _, enemy := range enemies {
+			if enemy.Health == minHealth {
+				minEnemies[target] = append(minEnemies[target], enemy)
+			}
+		}
+	}
+	keys := Sort(funcy.MapKeys(minEnemies))
+	if len(keys) == 0 {
+		return
+	}
+	target := Sort(minEnemies[keys[0]])[0]
+	target.Health -= attacker.Attack
+}
+
+func TotalHealth(units []*Unit) (result int) {
+	for _, unit := range units {
+		result += unit.Health
+	}
+	return result
+}
+
+func BeverageBanditsBattle(cave []string) (rounds, health int, steps []string) {
+	units, walls := ParseCave(cave)
+	steps = append(steps, FullRendering(units, walls))
+	for gameOver := false; ; rounds++ {
+		gameOver, units = SimulateRound(units, walls)
+		steps = append(steps, FullRendering(units, walls))
+		if gameOver {
+			break
+		}
+	}
+	return rounds, TotalHealth(units), steps
+}
+
+func FullRendering(units []*Unit, walls set.Set[Point]) string {
+	return AnnotateUnits(RenderCave(units, walls), units)
 }
