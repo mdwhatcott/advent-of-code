@@ -12,22 +12,26 @@ import (
 	"github.com/mdwhatcott/testing/should"
 )
 
-const TODO = -1
-
 func Test(t *testing.T) {
+	if testing.Short() {
+		t.Skip("long-running test (duration of last run on 2023-11-25: 1m10s)")
+	}
 	inputLines := inputs.Read(2018, 15).Lines()
-	t.Log("\n" + FullRendering(ParseCave(inputLines)))
 	should.So(t, Part1(t, inputLines), should.Equal, 261855)
-	should.So(t, Part2(t, inputLines), should.Equal, TODO)
+	should.So(t, Part2(t, inputLines), should.Equal, 59568)
 }
 func Part1(t *testing.T, lines []string) any {
 	t.Log("Before:\n" + strings.Join(lines, "\n"))
-	rounds, health, steps := BeverageBanditsBattle(lines)
+	units, walls := ParseCave(lines)
+	rounds, health, steps := BeverageBanditsBattle(units, walls)
 	t.Logf("Rounds: %d; Health: %d; Result: %d\n%s", rounds, health, rounds*health, funcy.Last(steps))
 	return rounds * health
 }
 func Part2(t *testing.T, lines []string) any {
-	return TODO
+	t.Log("Before:\n" + strings.Join(lines, "\n"))
+	rounds, health, final := BoostedBeverageBanditsBattle(lines)
+	t.Logf("Rounds: %d; Health: %d; Result: %d\n%s", rounds, health, rounds*health, final)
+	return rounds * health
 }
 
 type tWriter struct{ *testing.T }
@@ -245,11 +249,16 @@ func TestMoveAll_SeveralRounds(t *testing.T) {
 }
 func TestFullSimulations(t *testing.T) {
 	tests := []struct {
-		name          string
-		input         []string
-		wantRounds    int
-		wantHealth    int
-		wantRendering string
+		name  string
+		input []string
+
+		part1WantRounds    int
+		part1WantHealth    int
+		part1WantRendering string
+
+		part2WantRounds    int
+		part2WantHealth    int
+		part2WantRendering string
 	}{
 		{
 			name: "A",
@@ -262,15 +271,26 @@ func TestFullSimulations(t *testing.T) {
 				"#.....#",
 				"#######",
 			},
-			wantRounds: 47,
-			wantHealth: 200 + 131 + 59 + 200,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 47,
+			part1WantHealth: 200 + 131 + 59 + 200,
+			part1WantRendering: strings.Join([]string{
 				"#######",
 				"#G....#   G(200)",
 				"#.G...#   G(131)",
 				"#.#.#G#   G(59)",
 				"#...#.#",
 				"#....G#   G(200)",
+				"#######",
+			}, "\n"),
+			part2WantRounds: 29,
+			part2WantHealth: 172,
+			part2WantRendering: strings.Join([]string{
+				"#######",
+				"#..E..#   E(158)",
+				"#...E.#   E(14)",
+				"#.#.#.#",
+				"#...#.#",
+				"#.....#",
 				"#######",
 			}, "\n"),
 		},
@@ -285,9 +305,9 @@ func TestFullSimulations(t *testing.T) {
 				"#...E.#",
 				"#######",
 			},
-			wantRounds: 37,
-			wantHealth: 982,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 37,
+			part1WantHealth: 982,
+			part1WantRendering: strings.Join([]string{
 				"#######",
 				"#...#E#   E(200)",
 				"#E#...#   E(197)",
@@ -308,13 +328,24 @@ func TestFullSimulations(t *testing.T) {
 				"#..E#.#",
 				"#######",
 			},
-			wantRounds: 46,
-			wantHealth: 859,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 46,
+			part1WantHealth: 859,
+			part1WantRendering: strings.Join([]string{
 				"#######",
 				"#.E.E.#   E(164), E(197)",
 				"#.#E..#   E(200)",
 				"#E.##.#   E(98)",
+				"#.E.#.#   E(200)",
+				"#...#.#",
+				"#######",
+			}, "\n"),
+			part2WantRounds: 33,
+			part2WantHealth: 948,
+			part2WantRendering: strings.Join([]string{
+				"#######",
+				"#.E.E.#   E(200), E(23)",
+				"#.#E..#   E(200)",
+				"#E.##E#   E(125), E(200)",
 				"#.E.#.#   E(200)",
 				"#...#.#",
 				"#######",
@@ -331,15 +362,26 @@ func TestFullSimulations(t *testing.T) {
 				"#...E.#",
 				"#######",
 			},
-			wantRounds: 35,
-			wantHealth: 793,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 35,
+			part1WantHealth: 793,
+			part1WantRendering: strings.Join([]string{
 				"#######",
 				"#G.G#.#   G(200), G(98)",
 				"#.#G..#   G(200)",
 				"#..#..#",
 				"#...#G#   G(95)",
 				"#...G.#   G(200)",
+				"#######",
+			}, "\n"),
+			part2WantRounds: 37,
+			part2WantHealth: 94,
+			part2WantRendering: strings.Join([]string{
+				"#######",
+				"#.E.#.#   E(8)",
+				"#.#E..#   E(86)",
+				"#..#..#",
+				"#...#.#",
+				"#.....#",
 				"#######",
 			}, "\n"),
 		},
@@ -354,15 +396,26 @@ func TestFullSimulations(t *testing.T) {
 				"#...#G#",
 				"#######",
 			},
-			wantRounds: 54,
-			wantHealth: 536,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 54,
+			part1WantHealth: 536,
+			part1WantRendering: strings.Join([]string{
 				"#######",
 				"#.....#",
 				"#.#G..#   G(200)",
 				"#.###.#",
 				"#.#.#.#",
 				"#G.G#G#   G(98), G(38), G(200)",
+				"#######",
+			}, "\n"),
+			part2WantRounds: 39,
+			part2WantHealth: 166,
+			part2WantRendering: strings.Join([]string{
+				"#######",
+				"#...E.#   E(14)",
+				"#.#..E#   E(152)",
+				"#.###.#",
+				"#.#.#.#",
+				"#...#.#",
 				"#######",
 			}, "\n"),
 		},
@@ -379,9 +432,9 @@ func TestFullSimulations(t *testing.T) {
 				"#.....G.#",
 				"#########",
 			},
-			wantRounds: 20,
-			wantHealth: 937,
-			wantRendering: strings.Join([]string{
+			part1WantRounds: 20,
+			part1WantHealth: 937,
+			part1WantRendering: strings.Join([]string{
 				"#########",
 				"#.G.....#   G(137)",
 				"#G.G#...#   G(200), G(200)",
@@ -392,21 +445,48 @@ func TestFullSimulations(t *testing.T) {
 				"#.......#",
 				"#########",
 			}, "\n"),
+			part2WantRounds: 30,
+			part2WantHealth: 38,
+			part2WantRendering: strings.Join([]string{
+				"#########",
+				"#.......#",
+				"#.E.#...#   E(38)",
+				"#..##...#",
+				"#...##..#",
+				"#...#...#",
+				"#.......#",
+				"#.......#",
+				"#########",
+			}, "\n"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			rounds, health, steps := BeverageBanditsBattle(test.input)
-			should.So(t, rounds, should.Equal, test.wantRounds)
-			should.So(t, health, should.Equal, test.wantHealth)
-			should.So(t, funcy.Last(steps), should.Equal, test.wantRendering)
-			for s, step := range steps {
-				t.Run(fmt.Sprint(s), func(t *testing.T) {
-					t.Log("\n" + step)
-				})
+			t.Run("part1", func(t *testing.T) {
+				log.SetOutput(tWriter{t})
+				units, walls := ParseCave(test.input)
+				rounds, health, steps := BeverageBanditsBattle(units, walls)
+				should.So(t, rounds, should.Equal, test.part1WantRounds)
+				should.So(t, health, should.Equal, test.part1WantHealth)
+				should.So(t, funcy.Last(steps), should.Equal, test.part1WantRendering)
+				for s, step := range steps {
+					t.Run(fmt.Sprint(s), func(t *testing.T) { t.Log("\n" + step) })
+				}
+				t.Logf("Expected after round %d:\n%s", test.part1WantRounds, test.part1WantRendering)
+				t.Logf("Actual   after round %d:\n%s", rounds, steps[rounds])
+			})
+			if test.part2WantRounds == 0 {
+				return
 			}
-			t.Logf("Expected after round %d:\n%s", test.wantRounds, test.wantRendering)
-			t.Logf("Actual   after round %d:\n%s", rounds, steps[rounds])
+			t.Run("part2", func(t *testing.T) {
+				log.SetOutput(tWriter{t})
+				rounds, health, final := BoostedBeverageBanditsBattle(test.input)
+				should.So(t, rounds, should.Equal, test.part2WantRounds)
+				should.So(t, health, should.Equal, test.part2WantHealth)
+				should.So(t, final, should.Equal, test.part2WantRendering)
+				t.Logf("Expected after round %d:\n%s", test.part2WantRounds, test.part2WantRendering)
+				t.Logf("Actual   after round %d:\n%s", rounds, final)
+			})
 		})
 	}
 }

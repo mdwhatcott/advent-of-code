@@ -2,6 +2,7 @@ package day15
 
 import (
 	"fmt"
+	"log"
 	"slices"
 	"sort"
 	"strings"
@@ -306,8 +307,7 @@ func TotalHealth(units []*Unit) (result int) {
 	return result
 }
 
-func BeverageBanditsBattle(cave []string) (rounds, health int, steps []string) {
-	units, walls := ParseCave(cave)
+func BeverageBanditsBattle(units []*Unit, walls set.Set[Point]) (rounds, health int, steps []string) {
 	steps = append(steps, FullRendering(units, walls))
 	for gameOver := false; ; {
 		gameOver, units = SimulateRound(units, walls)
@@ -323,4 +323,24 @@ func BeverageBanditsBattle(cave []string) (rounds, health int, steps []string) {
 
 func FullRendering(units []*Unit, walls set.Set[Point]) string {
 	return AnnotateUnits(RenderCave(units, walls), units)
+}
+
+func BoostedBeverageBanditsBattle(input []string) (rounds, health int, rendering string) {
+	for attackBonus := 1; ; attackBonus++ {
+		log.Println("Elf attack strength:", 3+attackBonus)
+		units, walls := ParseCave(input)
+		starters := FilterTeam(units, "E")
+		BoostAll(attackBonus, starters)
+		rounds, health, steps := BeverageBanditsBattle(units, walls)
+		survivors := FilterTeam(Living(units), "E")
+		if len(survivors) == len(starters) {
+			return rounds, health, funcy.Last(steps)
+		}
+	}
+}
+
+func BoostAll(bonus int, units []*Unit) {
+	for _, unit := range units {
+		unit.Attack += bonus
+	}
 }
