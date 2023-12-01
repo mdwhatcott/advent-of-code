@@ -4,6 +4,7 @@ go 1.21.0
 
 require (
 	github.com/mdwhatcott/advent-of-code-inputs v1.1.0
+	github.com/mdwhatcott/funcy v1.8.0
 	github.com/mdwhatcott/testing v1.2.1
 )
 
