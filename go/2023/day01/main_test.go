@@ -1,13 +1,11 @@
 package day01
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 	"unicode"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
-	"github.com/mdwhatcott/must/strconvmust"
 	"github.com/mdwhatcott/testing/should"
 )
 
@@ -31,63 +29,48 @@ var (
 )
 
 func Test(t *testing.T) {
-	should.So(t, Part1(sampleLines1), should.Equal, 142)
-	should.So(t, Part1(inputLines), should.Equal, 55538)
+	should.So(t, CalibrationSum(sampleLines1, nil), should.Equal, 142)
+	should.So(t, CalibrationSum(inputLines, nil), should.Equal, 55538)
 
-	should.So(t, Part2(sampleLines2), should.Equal, 281)
-	should.So(t, Part2(inputLines), should.Equal, 54875)
+	should.So(t, CalibrationSum(sampleLines2, numbers), should.Equal, 281)
+	should.So(t, CalibrationSum(inputLines, numbers), should.Equal, 54875)
 }
 
-func Part1(lines []string) (result int) {
+func CalibrationSum(lines []string, replacements map[string]int) (result int) {
 	for _, line := range lines {
-		var first, second string
-		for _, char := range line {
-			if unicode.IsDigit(char) {
-				if first == "" {
-					first = string(char)
-				}
-				second = string(char)
-			}
-		}
-		result += strconvmust.Atoi(first + second)
+		result += CalibrationValue(line, replacements)
 	}
 	return result
 }
-
-func Part2(lines []string) (result int) {
-	for _, line := range lines {
-		var first, second string
-		for c, char := range line {
-			if unicode.IsDigit(char) {
-				if first == "" {
-					first = string(char)
-				}
-				second = string(char)
-				continue
-			}
-			sub := line[c:]
-			digit, ok := extractDigit(sub)
-			if !ok {
-				continue
-			}
-			if first == "" {
-				first = fmt.Sprint(digit)
-			}
-			second = fmt.Sprint(digit)
-		}
-
-		result += strconvmust.Atoi(first + second)
-	}
-	return result
+func CalibrationValue(s string, replacements map[string]int) int {
+	return first(s, replacements)*10 + last(s, replacements)
 }
-
-func extractDigit(s string) (int, bool) {
-	for key, val := range numbers {
+func first(s string, replacements map[string]int) int {
+	for x := 0; x < len(s); x++ {
+		if i := digit(s[x:], replacements); i > 0 {
+			return i
+		}
+	}
+	panic("boink")
+}
+func last(s string, replacements map[string]int) int {
+	for x := len(s) - 1; x >= 0; x-- {
+		if i := digit(s[x:], replacements); i > 0 {
+			return i
+		}
+	}
+	panic("boink")
+}
+func digit(s string, replacements map[string]int) int {
+	if unicode.IsDigit(rune(s[0])) {
+		return int(s[0] - '0')
+	}
+	for key, val := range replacements {
 		if strings.HasPrefix(s, key) {
-			return val, true
+			return val
 		}
 	}
-	return 0, false
+	return 0
 }
 
 var numbers = map[string]int{
