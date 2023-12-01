@@ -43,23 +43,25 @@ func CalibrationSum(lines []string, replacements map[string]int) (result int) {
 	return result
 }
 func CalibrationValue(s string, replacements map[string]int) int {
-	return first(s, replacements)*10 + last(s, replacements)
+	return first(s, replacements)*10 + last(len(s)-1, s, replacements)
 }
 func first(s string, replacements map[string]int) int {
-	for x := 0; x < len(s); x++ {
-		if i := digit(s[x:], replacements); i > 0 {
-			return i
-		}
+	if len(s) == 0 {
+		return 0
 	}
-	panic("boink")
+	if i := digit(s, replacements); i > 0 {
+		return i
+	}
+	return first(s[1:], replacements)
 }
-func last(s string, replacements map[string]int) int {
-	for x := len(s) - 1; x >= 0; x-- {
-		if i := digit(s[x:], replacements); i > 0 {
-			return i
-		}
+func last(x int, s string, replacements map[string]int) int {
+	if x < 0 {
+		return 0
 	}
-	panic("boink")
+	if i := digit(s[x:], replacements); i > 0 {
+		return i
+	}
+	return last(x-1, s, replacements)
 }
 func digit(s string, replacements map[string]int) int {
 	if unicode.IsDigit(rune(s[0])) {
