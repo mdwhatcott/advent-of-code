@@ -7,6 +7,14 @@ My solutions to puzzles found on adventofcode.com
 
 Here are my top-ranking performances over the years wherein I was within or close to first 1,000 to solve any puzzle.
 
+### 2023
+
+```
+      -------Part 1--------   -------Part 2--------
+Day       Time  Rank  Score       Time  Rank  Score
+  1   00:04:31  1734      0   00:10:03   356      0
+```
+
 ### 2022
 
 ```
