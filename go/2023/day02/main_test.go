@@ -1,11 +1,11 @@
 package day02
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
-	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/must/strconvmust"
 	"github.com/mdwhatcott/testing/should"
 )
@@ -66,7 +66,7 @@ func (this Game) Power() int {
 	return this.power("red") * this.power("green") * this.power("blue")
 }
 func (this Game) power(color string) int {
-	return funcy.Max(this[color])
+	return slices.Max(this[color])
 }
 
 var cleaner = strings.NewReplacer("Game", "", ":", "", ";", "", ",", "")
