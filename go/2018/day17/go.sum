@@ -1,2 +1,4 @@
+github.com/mdwhatcott/go-set/v2 v2.0.1 h1:KEPe5jrZZhJd7Al6ZyENFfXKz34S21tjoubMN9kfMpg=
+github.com/mdwhatcott/go-set/v2 v2.0.1/go.mod h1:gnLMxayqGJiKQ9uZoqoZLvHuvxgmcnCF1ldKrWSlOgU=
 github.com/mdwhatcott/testing v1.2.0 h1:6k+vxQ3YSwLLKgukx9K/9ZeMPbwALuKuCAiajnTIX9k=
 github.com/mdwhatcott/testing v1.2.0/go.mod h1:DKbNObO+bditG0r27w3ZZmgcwOZiy6Yh6kFUKwvAGeI=
