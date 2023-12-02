@@ -1,6 +1,6 @@
 module github.com/mdwhatcott/advent-of-code/go/starter
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/mdwhatcott/advent-of-code-inputs v1.1.0
