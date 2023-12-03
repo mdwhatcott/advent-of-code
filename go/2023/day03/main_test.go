@@ -7,10 +7,9 @@ import (
 	"unicode"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
+	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/go-set/v2/set"
-	_ "github.com/mdwhatcott/go-set/v2/set"
 	"github.com/mdwhatcott/must/jsonmust"
-	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/testing/should"
 )
 
@@ -47,69 +46,86 @@ func (this *Suite) TestPart1A() {
 func (this *Suite) TestPart1() {
 	this.So(this.Part1(inputLines), should.Equal, 521601)
 }
-func (this *Suite) SkipTestPart2A() {
-	this.So(this.Part2(sampleLines), should.Equal, -1)
+func (this *Suite) TestPart2A() {
+	this.So(this.Part2(sampleLines), should.Equal, 467835)
 }
-func (this *Suite) SkipTestPart2() {
-	this.So(this.Part2(inputLines), should.Equal, -1)
+func (this *Suite) TestPart2() {
+	this.So(this.Part2(inputLines), should.Equal, 80694070)
 }
 func (this *Suite) Part1(lines []string) (result int) {
-	symbols := set.Of[Point]()
-	var numbers []Number
+	_, parts := this.ParseSymbolsAndParts(lines)
+	for _, part := range parts {
+		result += part.Value
+	}
+	return result
+}
+
+func (this *Suite) ParseSymbolsAndParts(lines []string) (map[Point]rune, []PartNumber) {
+	symbols := make(map[Point]rune)
+	var numbers []PartNumber
 	for y, line := range lines {
 		line = strings.ReplaceAll(line, ".", " ")
-		number := Number{}
+		number := PartNumber{}
 		for x, char := range line {
-			if char == ' ' && len(number.Points) > 0 {
-				numbers = append(numbers, number)
-				number = Number{}
-				continue
-			}
 			point := NewPoint(x, y)
 			if char != ' ' && !unicode.IsDigit(char) {
-				symbols.Add(point)
-				if len(number.Points) > 0 {
-					numbers = append(numbers, number)
-					number = Number{}
-				}
-				continue
+				symbols[point] = char
 			}
 			if unicode.IsDigit(char) {
 				digit := int(char - '0')
 				number.Value *= 10
 				number.Value += digit
 				number.Points = append(number.Points, point)
+				continue
+			}
+			if len(number.Points) > 0 {
+				numbers = append(numbers, number)
+				number = PartNumber{}
+				continue
 			}
 		}
 		if len(number.Points) > 0 {
 			numbers = append(numbers, number)
-			number = Number{}
+			number = PartNumber{}
 		}
 	}
-	parts := set.Of[string]()
+	partSet := set.Of[string]()
 	for _, number := range numbers {
 		for _, point := range number.Points {
 			for _, neighbor := range point.Neighbors8() {
-				if symbols.Contains(neighbor) {
-					parts.Add(string(jsonmust.Marshal(number)))
+				if _, contains := symbols[neighbor]; contains {
+					partSet.Add(string(jsonmust.Marshal(number)))
 				}
 			}
 		}
 	}
-	for part := range parts {
-		var p Number
-		jsonmust.Unmarshal([]byte(part), &p)
-		result += p.Value
+	return symbols, funcy.Map(Unmarshal[PartNumber], partSet.Slice())
+}
+func (this *Suite) Part2(lines []string) (result int) { // so slow
+	symbols, parts := this.ParseSymbolsAndParts(lines)
+	for at, symbol := range symbols {
+		if symbol == '*' {
+			var matches []PartNumber
+			for _, part := range parts {
+				if part.AdjacentTo(at) {
+					matches = append(matches, part)
+				}
+			}
+			if len(matches) == 2 {
+				result += matches[0].Value * matches[1].Value
+			}
+		}
 	}
 	return result
 }
-func (this *Suite) Part2(lines []string) any {
-	return -1
-}
 
-type Number struct {
+type PartNumber struct {
 	Value  int
 	Points []Point
+}
+
+func (this PartNumber) AdjacentTo(p Point) bool {
+	return set.Of(funcy.MapCat(Point.Neighbors8, this.Points)...).Contains(p)
 }
 
 type Point struct {
@@ -127,37 +143,32 @@ func (this Point) Offset(x, y int) Point {
 func (this Point) String() string {
 	return fmt.Sprintf("(%v, %v)", this.X, this.Y)
 }
-func (this Point) Neighbors4() (neighbors []Point) {
-	for _, offset := range Neighbors4() {
-		neighbors = append(neighbors, this.Offset(offset.dx, offset.dy))
-	}
-	return neighbors
-}
 func (this Point) Neighbors8() (neighbors []Point) {
 	for _, offset := range Neighbors8() {
 		neighbors = append(neighbors, this.Offset(offset.dx, offset.dy))
 	}
 	return neighbors
 }
-func Neighbors4() []Direction {
+func Neighbors8() []Direction {
 	return []Direction{
 		NewDirection(1, 0),
 		NewDirection(-1, 0),
 		NewDirection(0, 1),
 		NewDirection(0, -1),
-	}
-}
-func Neighbors8() []Direction {
-	return append(Neighbors4(),
 		NewDirection(1, 1),
 		NewDirection(-1, 1),
 		NewDirection(1, -1),
 		NewDirection(-1, -1),
-	)
+	}
 }
 
 type Direction struct{ dx, dy int }
 
 func NewDirection(dx, dy int) Direction {
 	return Direction{dx: dx, dy: dy}
+}
+
+func Unmarshal[T any](data string) (result T) {
+	jsonmust.Unmarshal([]byte(data), &result)
+	return result
 }
