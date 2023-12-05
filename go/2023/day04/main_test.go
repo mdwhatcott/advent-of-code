@@ -28,57 +28,36 @@ func TestSuite(t *testing.T) {
 	should.Run(&Suite{T: should.New(t)}, should.Options.UnitTests())
 }
 
-type Suite struct {
-	*should.T
-}
+type Suite struct{ *should.T }
 
-func (this *Suite) Setup() {
+func (this *Suite) TestSampleData() {
+	part1, part2 := this.Solve(sampleLines)
+	this.So(part1, should.Equal, 13)
+	this.So(part2, should.Equal, 30)
 }
-
-func (this *Suite) TestPart1A() {
-	this.So(this.Part1(sampleLines), should.Equal, 13)
+func (this *Suite) TestRealData() {
+	part1, part2 := this.Solve(inputLines)
+	this.So(part1, should.Equal, 26426)
+	this.So(part2, should.Equal, 6227972)
 }
-func (this *Suite) TestPart1() {
-	this.So(this.Part1(inputLines), should.Equal, 26426)
-}
-func (this *Suite) TestPart2A() {
-	this.So(this.Part2(sampleLines), should.Equal, 30)
-}
-func (this *Suite) TestPart2() {
-	this.So(this.Part2(inputLines), should.Equal, 6227972)
-}
-func (this *Suite) Part1(lines []string) (result int) {
-	return funcy.Sum(funcy.Map(this.Score, lines))
-}
-func (this *Suite) Score(line string) (result int) {
-	line = line[9:]
-	before, after, _ := strings.Cut(line, "|")
-	winning := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(before))...)
-	numbers := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(after))...)
-	winners := numbers.Intersection(winning)
-	if len(winners) < 2 {
-		return len(winners)
-	}
-	return int(math.Pow(2, float64(len(winners)-1)))
-}
-
-func (this *Suite) Part2(lines []string) (result int) {
-	cards := make(map[int]int)
+func (this *Suite) Solve(lines []string) (part1, part2 int) {
+	counts := make(map[int]int)
 	for l, line := range lines {
-		line = line[9:]
-		before, after, _ := strings.Cut(line, "|")
-		winning := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(before))...)
-		numbers := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(after))...)
-		copies := numbers.Intersection(winning).Len()
-		result++
+		winners, inHand, _ := strings.Cut(line[9:], "|")
+		copies := numberSet(inHand).Intersection(numberSet(winners)).Len()
+		part1 += int(math.Pow(2, float64(copies-1)))
+		part2++
 		card := l + 1
-		cards[card]++
-		count := cards[card]
+		counts[card]++
+		count := counts[card]
 		for x := 1; x <= copies; x++ {
-			cards[card+x] += count
-			result += count
+			counts[card+x] += count
+			part2 += count
 		}
-		delete(cards, card)
+		delete(counts, card)
 	}
-	return result
+	return part1, part2
+}
+func numberSet(raw string) set.Set[int] {
+	return set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(raw))...)
 }
