@@ -73,13 +73,12 @@ func (this *Suite) Part2(lines []string) (result int) {
 		result++
 		card := l + 1
 		cards[card]++
-		for cards[card] > 0 {
-			for x := 1; x <= copies; x++ {
-				cards[card+x]++
-				result++
-			}
-			cards[card]--
+		count := cards[card]
+		for x := 1; x <= copies; x++ {
+			cards[card+x] += count
+			result += count
 		}
+		delete(cards, card)
 	}
 	return result
 }
