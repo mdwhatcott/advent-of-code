@@ -4,18 +4,13 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
 	"github.com/mdwhatcott/funcy"
-	_ "github.com/mdwhatcott/funcy"
-	"github.com/mdwhatcott/go-set/v2/set"
-	_ "github.com/mdwhatcott/go-set/v2/set"
-	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/must/strconvmust"
 	"github.com/mdwhatcott/testing/should"
 )
-
-const TODO = -1
 
 var (
 	inputLines  = inputs.Read(2023, 5).Lines()
@@ -56,47 +51,61 @@ humidity-to-location map:
 )
 
 func TestSuite(t *testing.T) {
-	should.Run(&Suite{T: should.New(t)}, should.Options.UnitTests())
+	should.Run(&Suite{T: should.New(t)}, should.Options.IntegrationTests())
 }
 
 type Suite struct {
 	*should.T
+	now time.Time
 }
 
+func (this *Suite) Setup() {
+	this.now = time.Now()
+}
 func (this *Suite) TestPart1A() {
-	this.So(this.Solve(sampleInput, this.Part1SeedParser), should.Equal, 35)
+	this.So(this.Solve(sampleInput, this.Part1SeedStreamer), should.Equal, 35)
 }
 func (this *Suite) TestPart1Full() {
-	this.So(this.Solve(inputLines, this.Part1SeedParser), should.Equal, 261668924)
+	this.So(this.Solve(inputLines, this.Part1SeedStreamer), should.Equal, 261668924)
 }
-func (this *Suite) SkipTestPart2A() {
-	this.So(this.Solve(sampleInput, this.Part2SeedParser), should.Equal, 46)
+func (this *Suite) TestPart2A() {
+	this.So(this.Solve(sampleInput, this.Part2SeedStreamer), should.Equal, 46)
 }
-func (this *Suite) SkipTestPart2Full() {
-	this.So(this.Solve(inputLines, this.Part2SeedParser), should.Equal, TODO)
+func (this *Suite) LongTestPart2Full() {
+	this.So(this.Solve(inputLines, this.Part2SeedStreamer), should.Equal, 24261545)
 }
-func (this *Suite) Part1SeedParser(raw string) []int {
-	return funcy.Map(strconvmust.Atoi, strings.Fields(raw))
+func (this *Suite) Part1SeedStreamer(raw string) chan int {
+	result := make(chan int)
+	go funcy.Load(result, funcy.Map(strconvmust.Atoi, strings.Fields(raw)))
+	return result
 }
-func (this *Suite) Part2SeedParser(raw string) (results []int) {
+func (this *Suite) Part2SeedStreamer(raw string) chan int {
+	result := make(chan int)
 	numbers := funcy.Map(strconvmust.Atoi, strings.Fields(raw))
-	for x := 0; x < len(numbers); x += 2 {
-		start, count := numbers[x], numbers[x+1]
-		for y := start; y < start+count; y++ {
-			results = append(results, y)
+	go func() {
+		sent := 0
+		for x := 0; x < len(numbers); x += 2 {
+			start, count := numbers[x], numbers[x+1]
+			this.Printf("seed range %d/%d starting at %d w/ count %d", x, len(numbers), start, count)
+			for y := start; y < start+count; y++ {
+				result <- y
+				sent++
+			}
 		}
-	}
-	return results
+		close(result)
+		this.Println("seeds:", sent, time.Since(this.now))
+	}()
+	return result
 }
-func (this *Suite) Solve(input []string, seedParser func(string) []int) (result int) {
+func (this *Suite) Solve(input []string, seedStreamer func(string) chan int) (result int) {
 	maps := make(map[string]func(int) int)
-	seeds := set.Of[int]()
+	var seeds string
 	title := "seed"
 	var steps []string
 	var ranges []int
 	for _, line := range append(input, "") {
-		if strings.HasPrefix(line, "seeds: ") && seeds.Len() == 0 {
-			seeds.Add(seedParser(strings.TrimPrefix(line, "seeds: "))...)
+		if strings.HasPrefix(line, "seeds: ") {
+			seeds = strings.TrimPrefix(line, "seeds: ")
 		} else if line == "" && len(ranges) > 0 {
 			maps[title] = rangeConverter(ranges)
 		} else if strings.HasSuffix(line, " map:") {
@@ -110,18 +119,27 @@ func (this *Suite) Solve(input []string, seedParser func(string) []int) (result 
 		}
 	}
 
-	var locations []int
-	for seed := range seeds {
+	minLocation := 0xFFFFFFFF
+	progress := 0
+	for seed := range seedStreamer(seeds) {
 		for _, step := range steps {
+			progress++
+			if progress%100_000_000 == 0 {
+				this.Println("progress:", progress, time.Since(this.now))
+			}
 			converter := maps[step]
 			if converter == nil {
 				break
 			}
 			seed = converter(seed)
 		}
-		locations = append(locations, seed)
+		if seed < minLocation {
+			minLocation = seed
+			this.Println("new min:", seed, time.Since(this.now))
+		}
 	}
-	return funcy.Min(locations)
+	this.Println("absolute min:", minLocation)
+	return minLocation
 }
 
 func rangeConverter(numbers []int) func(int) int {
