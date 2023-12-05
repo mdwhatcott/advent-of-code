@@ -49,38 +49,11 @@ func (this *Suite) TestPart2A() {
 	this.So(this.Part2(sampleLines), should.Equal, 30)
 }
 func (this *Suite) TestPart2() {
-	this.So(this.Part2(inputLines), should.Equal, TODO)
+	this.So(this.Part2(inputLines), should.Equal, 6227972)
 }
 func (this *Suite) Part1(lines []string) (result int) {
 	return funcy.Sum(funcy.Map(this.Score, lines))
 }
-func (this *Suite) Part2(lines []string) (result int) {
-	cards := []int{-1}
-	var queue []int
-	for l, line := range lines {
-		line = line[9:]
-		before, after, _ := strings.Cut(line, "|")
-		winning := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(before))...)
-		numbers := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(after))...)
-		copies := numbers.Intersection(winning)
-		cards = append(cards, copies.Len())
-		queue = append(queue, l+1)
-		this.Println("load:", l+1)
-	}
-	for len(queue) > 0 {
-		result++
-		p := queue[0]
-		queue = queue[1:]
-		this.Println("pop:", p, "queue:", queue, "result:", result)
-		for x := 1; x <= cards[p]; x++ {
-			next := p + x
-			this.Println("load:", next)
-			queue = append(queue, next)
-		}
-	}
-	return result
-}
-
 func (this *Suite) Score(line string) (result int) {
 	line = line[9:]
 	before, after, _ := strings.Cut(line, "|")
@@ -91,4 +64,26 @@ func (this *Suite) Score(line string) (result int) {
 		return len(winners)
 	}
 	return int(math.Pow(2, float64(len(winners)-1)))
+}
+
+func (this *Suite) Part2(lines []string) (result int) {
+	cards := make(map[int]int)
+	for l, line := range lines {
+		line = line[9:]
+		before, after, _ := strings.Cut(line, "|")
+		winning := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(before))...)
+		numbers := set.Of[int](funcy.Map(strconvmust.Atoi, strings.Fields(after))...)
+		copies := numbers.Intersection(winning).Len()
+		result++
+		card := l + 1
+		cards[card]++
+		for cards[card] > 0 {
+			for x := 1; x <= copies; x++ {
+				cards[card+x]++
+				result++
+			}
+			cards[card]--
+		}
+	}
+	return result
 }
