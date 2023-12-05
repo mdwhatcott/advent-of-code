@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
+	_ "github.com/mdwhatcott/funcy"
 	_ "github.com/mdwhatcott/go-set/v2/set"
 	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/testing/should"
