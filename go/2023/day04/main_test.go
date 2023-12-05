@@ -8,13 +8,9 @@ import (
 	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
 	"github.com/mdwhatcott/funcy"
 	"github.com/mdwhatcott/go-set/v2/set"
-	_ "github.com/mdwhatcott/go-set/v2/set"
-	_ "github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/must/strconvmust"
 	"github.com/mdwhatcott/testing/should"
 )
-
-const TODO = -1
 
 var (
 	inputLines  = inputs.Read(2023, 4).Lines()
