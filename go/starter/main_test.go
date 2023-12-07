@@ -34,13 +34,13 @@ func (this *Suite) Setup() {
 func (this *Suite) TestPart1A() {
 	this.So(this.Part1(sampleLines), should.Equal, TODO)
 }
-func (this *Suite) TestPart1() {
+func (this *Suite) TestPart1Full() {
 	this.So(this.Part1(inputLines), should.Equal, TODO)
 }
 func (this *Suite) TestPart2A() {
 	this.So(this.Part2(sampleLines), should.Equal, TODO)
 }
-func (this *Suite) TestPart2() {
+func (this *Suite) TestPart2Full() {
 	this.So(this.Part2(inputLines), should.Equal, TODO)
 }
 func (this *Suite) Part1(lines []string) any {
