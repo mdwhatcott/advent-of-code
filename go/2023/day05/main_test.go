@@ -1,20 +1,3 @@
-/*
-This implementation, which solves both parts is interesting because
-part 1 is solved much more slowly than part 2, which is not how things
-usually work on the advent of code. This is a good example of how
-sometimes making a really fast thing a bit slower can help make a
-really slow thing much faster.
-
-- Part 1 is now much slower (from 0s to 34s)...but
-- Part 2 is now much faster (from 15m to 3s)!
-- That's a net speed improvement of 14m. (I'll take it!)
-
-I had wondered doing a backwards lookup was the way to speed up part 2
-but I couldn't quite visualize it. This implementation was inspired by
-my former mentor's lovely Clojure solution:
-
-https://github.com/slagyr/advent-of-code/blob/master/src/aoc/2023/day5.clj
-*/
 package day05
 
 import (
@@ -86,9 +69,8 @@ func (this *Suite) TestPart2Full() {
 	this.So(this.SolveBackwards(inputLines), should.Equal, 24261545)
 }
 func (this *Suite) SolveForwards(input []string) (result int) {
-	seeds := this.parseSeeds(input[0])
 	converters := this.parseConverters(input[2:], false)
-	for s, seed := range seeds {
+	for s, seed := range this.parseSeeds(input[0]) {
 		location := this.convertAll(seed, converters...)
 		if s == 0 || location < result {
 			result = location
@@ -97,8 +79,7 @@ func (this *Suite) SolveForwards(input []string) (result int) {
 	return result
 }
 func (this *Suite) SolveBackwards(input []string) (result int) {
-	seedRangePairs := this.parseSeeds(input[0])
-	isSeed := this.seedChecker(seedRangePairs...)
+	isSeed := this.seedChecker(this.parseSeeds(input[0])...)
 	converters := this.parseConverters(input[2:], true)
 	for location := 0; ; location++ {
 		candidate := this.convertAll(location, converters...)
