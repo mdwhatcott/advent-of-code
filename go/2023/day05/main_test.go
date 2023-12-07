@@ -63,73 +63,83 @@ humidity-to-location map:
 60 56 37
 56 93 4
 `, "\n")
-
-	part1sampleSeedRangePairs = rewriteSeedsAsRanges(part2sampleSeedRangePairs)
-	part1actualSeedRangePairs = rewriteSeedsAsRanges(part2actualSeedRangePairs)
-	part2sampleSeedRangePairs = funcy.Map(strconvmust.Atoi, strings.Fields(sampleInput[0][len("seeds:"):]))
-	part2actualSeedRangePairs = funcy.Map(strconvmust.Atoi, strings.Fields(inputLines[0][len("seeds:"):]))
 )
-
-// rewriteSeedsAsRanges turns a line like `seeds: 79 14 55 13` into []int{79, 1, 14, 1, 55, 1, 13, 1}
-// Basically, it makes single seeds look like length-1 ranges, compatible with part 2-style handling.
-func rewriteSeedsAsRanges(numbers []int) (result []int) {
-	for _, number := range numbers {
-		result = append(result, number, 1)
-	}
-	return result
-}
 
 func TestSuite(t *testing.T) {
 	should.Run(&Suite{T: should.New(t)}, should.Options.IntegrationTests())
 }
 
-type Suite struct{ *should.T }
+type Suite struct {
+	*should.T
+}
 
 func (this *Suite) TestPart1A() {
-	this.So(this.Solve(sampleInput, part1sampleSeedRangePairs), should.Equal, 35)
+	this.So(this.SolveForwards(sampleInput), should.Equal, 35)
 }
 func (this *Suite) TestPart1Full() {
-	this.So(this.Solve(inputLines, part1actualSeedRangePairs), should.Equal, 261668924)
+	this.So(this.SolveForwards(inputLines), should.Equal, 261668924)
 }
 func (this *Suite) TestPart2A() {
-	this.So(this.Solve(sampleInput, part2sampleSeedRangePairs), should.Equal, 46)
+	this.So(this.SolveBackwards(sampleInput), should.Equal, 46)
 }
 func (this *Suite) TestPart2Full() {
-	this.So(this.Solve(inputLines, part2actualSeedRangePairs), should.Equal, 24261545)
+	this.So(this.SolveBackwards(inputLines), should.Equal, 24261545)
 }
-func (this *Suite) Solve(input []string, seedRangePairs []int) (result int) {
-	isSeed := seedChecker(seedRangePairs...)
-	converters := parseConverters(input[2:])
+func (this *Suite) SolveForwards(input []string) (result int) {
+	seeds := this.parseSeeds(input[0])
+	converters := this.parseConverters(input[2:], false)
+	for s, seed := range seeds {
+		location := this.convertAll(seed, converters...)
+		if s == 0 || location < result {
+			result = location
+		}
+	}
+	return result
+}
+func (this *Suite) SolveBackwards(input []string) (result int) {
+	seedRangePairs := this.parseSeeds(input[0])
+	isSeed := this.seedChecker(seedRangePairs...)
+	converters := this.parseConverters(input[2:], true)
 	for location := 0; ; location++ {
-		candidate := convertAll(location, converters...)
+		candidate := this.convertAll(location, converters...)
 		if isSeed(candidate) {
 			return location
 		}
 	}
 }
-func convertAll(location int, converters ...func(int) int) int {
+func (this *Suite) convertAll(location int, converters ...func(int) int) int {
 	for _, converter := range converters {
 		location = converter(location)
 	}
 	return location
 }
-func parseConverters(lines []string) (results []func(int) int) {
+func (this *Suite) parseConverters(lines []string, backwards bool) (results []func(int) int) {
+	if backwards {
+		lines = funcy.Reverse(lines)
+	}
 	var numbers []int
-	for x := len(lines) - 1; x >= 0; x-- {
-		line := lines[x]
-		if line == "" {
+	for _, line := range append(lines, "") {
+		if strings.Contains(line, "map:") {
 			continue
 		}
-		if strings.Contains(line, "map:") {
-			results = append(results, rangeConverter(numbers))
+		if line == "" && len(numbers) > 0 {
+			results = append(results, this.rangeConverter(numbers))
 			numbers = nil
 			continue
 		}
-		numbers = append(numbers, funcy.Map(strconvmust.Atoi, strings.Fields(line))...)
+		if line == "" {
+			continue
+		}
+		parsed := funcy.Map(strconvmust.Atoi, strings.Fields(line))
+		if backwards {
+			numbers = append(numbers, parsed[1], parsed[0], parsed[2])
+		} else {
+			numbers = append(numbers, parsed...)
+		}
 	}
 	return results
 }
-func seedChecker(rangePairs ...int) func(int) bool {
+func (this *Suite) seedChecker(rangePairs ...int) func(int) bool {
 	return func(seed int) bool {
 		for x := 0; x < len(rangePairs); x += 2 {
 			lower, count := rangePairs[x], rangePairs[x+1]
@@ -140,14 +150,17 @@ func seedChecker(rangePairs ...int) func(int) bool {
 		return false
 	}
 }
-func rangeConverter(numbers []int) func(int) int {
+func (this *Suite) rangeConverter(numbers []int) func(int) int {
 	return func(i int) int {
 		for x := 0; x < len(numbers); x += 3 {
-			source, dest, length := numbers[x], numbers[x+1], numbers[x+2]
+			dest, source, length := numbers[x], numbers[x+1], numbers[x+2]
 			if source <= i && i < source+length {
 				return dest + (i - source)
 			}
 		}
 		return i
 	}
+}
+func (this *Suite) parseSeeds(line string) []int {
+	return funcy.Map(strconvmust.Atoi, strings.Fields(line[len("seeds:"):]))
 }
