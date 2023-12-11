@@ -24,12 +24,11 @@
   \4 4 \5 5 \6 6
   \7 7 \8 8 \9 9})
 
-(defn make-word-graph [words2digits]
-  (loop [result part1-graph pairs (seq words2digits)]
-    (if (empty? pairs)
-    result
-    (let [pair (first pairs) keys (first pair) num (second pair)]
-      (recur (assoc-in result keys num) (rest pairs))))))
+(defn insert-word [graph [letters number]]
+  (assoc-in graph letters number))
+
+(defn make-word-graph [words2digits] 
+  (reduce insert-word part1-graph words2digits))
 
 (def part2-graph
   (make-word-graph {
