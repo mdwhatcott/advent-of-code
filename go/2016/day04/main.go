@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mdwhatcott/advent-of-code-go-lib/util"
+	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
 )
 
 func main() {
 	sum := 0
-	for _, line := range util.InputLines() {
+	for _, line := range inputs.Read(2016, 4).Lines() {
 		room := ParseEncryptedRoom(line)
 		if room.Valid {
 			sum += room.SectorID
