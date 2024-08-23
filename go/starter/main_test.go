@@ -2,9 +2,10 @@ package starter
 
 import (
 	"fmt"
+	"slices"
 	"testing"
 
-	"github.com/mdwhatcott/advent-of-code-inputs/inputs"
+	"github.com/mdwhatcott/advent-of-code-inputs/v2/inputs"
 	_ "github.com/mdwhatcott/funcy"
 	_ "github.com/mdwhatcott/go-set/v2/set"
 	_ "github.com/mdwhatcott/must/must"
@@ -14,7 +15,7 @@ import (
 const TODO = -1
 
 var (
-	inputLines  = inputs.Read(TODO, TODO).Lines()
+	inputLines  = slices.Collect(inputs.Read(TODO, TODO).Lines())
 	sampleLines = []string{
 		fmt.Sprint(TODO),
 	}
