@@ -3,7 +3,7 @@
             [aoc.data :as data]))
 
 ; regex matching
-; reading 'staggered' records (a guard's shift is spead across multiple lines)
+; reading 'staggered' records (a guard's shift is spread across multiple lines)
 ; merge-with concat
 ; frequencies
 ; sort-by :map-key
