@@ -1,2 +1,4 @@
+github.com/mdw-go/funcy v1.13.0 h1:HHlf+JO/1GvbH6DLtt+QPanf9jHv4nlX9aRE0fteqkE=
+github.com/mdw-go/funcy v1.13.0/go.mod h1:pEMFKhuAq1u6bbXZtw3xskHru4YfabK/Rv9U0UgwAos=
 github.com/mdw-go/testing/v2 v2.0.1 h1:zhkGhkoTswcNE4n6py6tH9WeaErCfrFMBSJHcaZFkd8=
 github.com/mdw-go/testing/v2 v2.0.1/go.mod h1:5fm8B/ncNxEyKICkVoHt/ujcKREH6Y6Wg1QIkL+5vAE=

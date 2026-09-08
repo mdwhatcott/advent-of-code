@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdw-go/funcy/ranger/op"
 	"github.com/mdw-go/testing/v2/better"
 	"github.com/mdw-go/testing/v2/should"
 	"github.com/mdw-go/testing/v2/suite"
@@ -29,7 +30,6 @@ func (this *Suite) TestPart1Sample() {
 func (this *Suite) TestPart1() {
 	this.So(this.maxArea(this.gatherPoints("input.txt")), should.Equal, 4729332959)
 }
-func (this *Suite) gatherPoints(filename string) (coords []Point) {
 func (this *Suite) gatherPoints(filename string) (results []Point) {
 	file, err := os.Open(filename)
 	this.So(err, better.BeNil)
@@ -66,12 +66,5 @@ type Point struct {
 }
 
 func RectangleArea(p1, p2 Point) int {
-	return (abs(p1.X-p2.X) + 1) * (abs(p1.Y-p2.Y) + 1)
-}
-
-func abs(n int) int {
-	if n < 0 {
-		return -n
-	}
-	return n
+	return (op.Abs(p1.X-p2.X) + 1) * (op.Abs(p1.Y-p2.Y) + 1)
 }
